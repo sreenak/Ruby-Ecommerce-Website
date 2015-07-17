@@ -1,0 +1,26 @@
+img {
+  max-width: 100%;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.form-control, .form-control:focus {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  -o-box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+}
+
+.input-group-btn .btn {
+  border: 1px solid $input-border;
+}
+
+.navbar-default {
+  background: #ffffff;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid $brand-primary;
+  font-family: $font-family-serif;
+}

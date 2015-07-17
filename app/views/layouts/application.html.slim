@@ -1,0 +1,129 @@
+doctype html
+html lang="en-us"
+  head
+    meta charset="utf-8" /
+    title = yield(:title).presence || 'Untitled'
+    = canonical_tag
+    meta content="#{(yield :meta_description) || 'Default Description'}" name="description"
+    meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
+    meta content="yes" name="apple-mobile-web-app-capable" /
+    link href="/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57" /
+    link href="/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60" /
+    link href="/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72" /
+    link href="/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" /
+    link href="/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114" /
+    link href="/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" /
+    link href="/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144" /
+    link href="/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" /
+    link href="/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" /
+    link href="/favicons/android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png" /
+    link href="/favicons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" /
+    link href="/favicons/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" /
+    link href="/favicons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" /
+    link href="/manifest.json" rel="manifest" /
+    meta content="#ffffff" name="msapplication-TileColor" /
+    meta content="/ms-icon-144x144.png" name="msapplication-TileImage" /
+    meta content="#ffffff" name="theme-color" /
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
+    = stylesheet_link_tag 'application'
+    = csrf_meta_tags
+  body
+    header#page-header
+      nav.navbar.top-bar
+        .container
+          .navbar-header
+            button.navbar-toggle.collapsed data-toggle="collapse" data-target="#top-bar" aria-expanded="false"
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+              a.navbar-brand Kaapad
+          #top-bar.collapse.navbar-collapse
+            form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
+              .input-group
+                .input-append
+                  input#search.form-control autocomplete="off" name="search" placeholder="Search Products" type="text" /
+                  .input-group-btn
+                    button.btn.btn-default.home_searchbar_btn type="submit"
+                      span.fa.fa-search
+
+            form.navbar-form.navbar-left action="/currencies/switch"
+              select.form-control name="currency" onchange="this.form.submit()"
+                option value="USD" Dollar $
+                option selected="" value="INR" Rupees ₹
+
+            .cart-details.pull-right
+              a href="/cart"
+                i.ion-android-cart.icon
+                  |&nbsp;
+                span.cart-contents
+                  strong Cart:
+                  |&nbsp;0 Items - ₹0
+
+            ul.navbar-nav.nav.navbar-right
+              - if user_signed_in?
+                li= link_to "Welcome #{current_user.name}!", account_path
+                li= link_to 'Logout', destroy_user_session_path, :method => :delete
+              - else
+                li= link_to 'Login', new_user_session_path
+                li= link_to 'Register', new_user_registration_path
+      .container.text-center.logo
+        a href="/" = image_tag 'logo.png'
+      .container
+        nav.navbar.main-menu.navbar-default
+          .navbar-header
+            button.navbar-toggle.collapsed data-toggle="collapse" data-target="#main-menu" aria-expanded="false"
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #main-menu.collapse.navbar-collapse
+            ul.navbar-nav.nav
+              li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
+              li class="#{deep_active_class(page_path('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
+              li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+
+    .container.content-area
+      = flash_messages
+      = yield
+
+    .footer.page-footer
+      .container
+        .row
+          .col-md-5.footer-about
+            h4 ABOUT KAAPAD
+            p
+              | Kaapad is an online portal where women are their own fashion designers. Users are allowed to design their
+              | own saree, salwar kameez and lehengas by choosing a material, color and size. Users can view a graphical
+              | representation of the outfit they are making while they make selections. The outfit designing experience is
+              | playful and fun. Customers need to submit their measurements along with their choice of customization and
+              | designs and should expect the customized attire to reach their doorstep within few weeks. “Chosen by you,
+              | tailored by us” is what defines us.
+          .col-md-offset-1.col-md-3.col-sm-6
+            ul.list-unstyled.footer-nav
+              li
+                a href="#{ page_path('about-us') }" title="About Kaapad"  About Us
+              li
+                a href="#{ page_path('terms-conditions') }" title="Terms and Conditions"  Terms &amp; Conditions
+              li
+                a href="#{ page_path('faqs') }" title="FAQ"  FAQs
+              li
+                a href="#{ page_path('disclaimers') }" title="Disclaimer"  Disclaimers
+              li
+                a href="#{ page_path('privacy-policy') }" title="Privacy Policy"  Privacy Policy
+          .col-md-3.col-sm-6
+            .footer-contact
+              h5.contact-heading CONTACT
+              p.contact-address Warehouse &amp; Offices
+              p.contact-address-desc
+                | 12345 Street name, California, USA
+                br
+                | 0123 456 789 0123 456 788
+              .follow-us
+                h5 FOLLOW US ON SOCIAL
+                i.first.icon.ion-social-facebook
+                i.icon.ion-social-twitter
+                i.icon.ion-social-google
+                i.icon.ion-social-youtube
+
+    = javascript_include_tag 'application'

@@ -1,0 +1,38 @@
+<% content_for :heading do %>Listing Discount Coupons
+<% end %>
+<% content_for :title do %>Discount Coupons
+<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading"><%= link_to 'Add Discount Coupon', new_admin_discount_coupon_path, class: 'btn btn-success btn-sm' %></div>
+  <div class="panel-body">
+    <table class="table table-responsive table-striped">
+      <thead>
+      <tr>
+        <th>Code</th>
+        <th>Amount</th>
+        <th>Maximum Usages</th>
+        <th>Minimum Order</th>
+        <th colspan="3">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @discount_coupons.each do |discount_coupon| %>
+          <tr>
+            <td><%= discount_coupon.code %></td>
+            <td>
+              <% if discount_coupon.applies_as == 'Percent' %>
+                  <%= number_to_percentage discount_coupon.amount %>
+              <% else %>
+                  <%= humanized_money_with_symbol discount_coupon.amount %>
+              <% end %>
+            </td>
+            <td><%= discount_coupon.maximum_usages %></td>
+            <td><%= humanized_money_with_symbol discount_coupon.minimum_order_price %></td>
+            <td><%= link_to 'Edit', edit_admin_discount_coupon_path(discount_coupon) %></td>
+            <td><%= link_to 'Destroy', admin_discount_coupon_path(discount_coupon), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

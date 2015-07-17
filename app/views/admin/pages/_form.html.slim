@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @page] do |p|
+  .form-actions
+    = p.input :title
+    hr.dotted
+    = p.input :body, as: :ckeditor
+    hr.dotted
+    = p.button :submit

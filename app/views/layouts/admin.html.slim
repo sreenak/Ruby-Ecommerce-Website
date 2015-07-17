@@ -1,0 +1,72 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    title
+      | Admin | #{ yield(:title) || 'Untitled' }
+    meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"
+    = stylesheet_link_tag :admin
+    = csrf_meta_tags
+  body.skin-blue.sidebar-mini
+    .wrapper
+      header.main-header
+        a.logo href="#"
+          span.logo-mini
+            b K
+            | A
+          span.logo-lg
+            b Kaapad
+            | Admin
+        nav.navbar.navbar-static-top role="navigation"
+          a.sidebar-toggle href="#" data-toggle="offcanvas" role="button"
+            span.sr-only Toggle navigation
+          .navbar-custom-menu
+            ul.nav.navbar-nav
+              li= link_to 'Logout', :destroy_user_session, method: :delete
+      aside.main-sidebar
+        section.sidebar
+          .user-panel
+            .pull-left.image
+              img.img-circle src="#{ image_path('avatar.png') }" alt="User Image"
+            .pull-left.info
+              p= current_user.name
+              a href="#"
+                i.fa.fa-circle.text-success Online
+          ul.sidebar-menu
+            li.header Sections
+            li class="#{active_class admin_root_url}"
+              a href="#{ admin_root_path }"
+                i.fa.fa-dashboard
+                span Dashboard
+            li class="#{deep_active_class admin_users_url}"
+              a href="#{admin_users_url}"
+                i.fa.fa-users
+                span Users
+            li class="#{deep_active_class admin_pages_url}"
+              a href="#{admin_pages_url}"
+                i.fa.fa-edit
+                span Pages
+      .content-wrapper
+        section.content-header
+          h1
+            = yield :title
+            small= yield :page_description
+          = render_crumbs format: :html_list, microdata: true, ul_class: 'breadcrumb'
+        section.content
+          = flash_messages
+          .box.box-default
+            - if content_for? :panel_heading
+              .box-header.with-border
+                .box-title= yield :panel_heading
+            .box-body= yield
+      footer.main-footer
+        .pull-right.hidden-xs
+          |Developed by&nbsp;
+          a target="_blank" href="http://langoor.com" Langoor
+        strong
+          | Copyright © 2015&nbsp;
+          a href="http://langoor.com" target="_blank" Langoor
+          | .
+        |  All rights reserved.
+    = javascript_include_tag :admin

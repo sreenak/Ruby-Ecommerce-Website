@@ -1,0 +1,22 @@
+$brand-primary: #000;
+$brand-success: #000;
+$link-color: lighten($brand-primary, 10%);
+$btn-default-bg: #fff;
+
+$font-family-serif: 'Roboto Slab', Georgia, "Times New Roman", Times, serif;
+$font-family-sans-serif: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-family: $font-family-serif;
+
+$border-radius-base: 0;
+$border-radius-large: 0;
+$border-radius-small: 0;
+
+$input-border: #ededed;
+$input-border-focus: #999;
+
+$navbar-default-link-color: $brand-primary;
+$navbar-default-color: $brand-primary;
+$navbar-default-link-active-bg: $brand-primary;
+$navbar-default-link-active-color: #fff;
+
+$font-size-small: 13px;

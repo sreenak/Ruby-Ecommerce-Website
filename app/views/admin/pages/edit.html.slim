@@ -1,0 +1,7 @@
+- content_for :title do
+  | Editing Page
+- content_for :heading do
+  | Editing Page -
+  em= @page.title
+
+= render 'form'

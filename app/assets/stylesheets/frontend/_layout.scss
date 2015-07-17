@@ -1,0 +1,81 @@
+#page-header {
+  border-top: 5px solid $brand-primary;
+  .navbar-collapse {
+    padding: 0;
+  }
+}
+
+.top-bar {
+  .navbar-collapse {
+    border-bottom: 1px solid $input-border;
+  }
+  .navbar-form:first-child {
+    padding-left: 0;
+  }
+  .cart-details {
+    padding-top: 4px;
+    margin-left: $grid-gutter-width;
+    i {
+      font-size: $font-size-base * 2;
+      vertical-align: middle;
+    }
+  }
+  .form-control:focus {
+    border-color: $input-border;
+  }
+}
+
+.logo {
+  margin-bottom: $line-height-computed;
+}
+
+.main-menu .navbar-nav {
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  li {
+    float: none;
+    display: inline-block;
+    &.active a {
+      background: none;
+      color: $navbar-default-color;
+    }
+    &.active a:hover, a:hover {
+      background: $gray-lighter;
+      color: $gray-dark;
+    }
+  }
+}
+
+.page-title {
+  margin-bottom: $line-height-computed * 2;
+}
+
+.page-footer {
+  border-top: 3px solid $brand-primary;
+  font-size: $font-size-small;
+  font-family: $font-family-serif;
+  font-weight: 300;
+  padding-top: $line-height-computed;
+}
+
+.footer-nav, .footer-contact {
+  margin-top: $line-height-computed * 1.5;
+}
+
+.footer-nav li {
+  padding: $line-height-computed/4 0;
+}
+
+.follow-us i {
+  font-size: $font-size-large;
+  border: 2px solid $brand-primary;
+  width: 40px;
+  padding: 0 4px;
+  display: inline-block;
+  text-align: center;
+  margin: 0 $grid-gutter-width/4;
+  &.first {
+    margin-left: 0;
+  }
+}

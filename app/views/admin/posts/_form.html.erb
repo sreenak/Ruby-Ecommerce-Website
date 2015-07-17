@@ -1,0 +1,18 @@
+<%= simple_form_for [:admin, @post], wrapper: :horizontal_small_form do |p| %>
+
+
+    <div class="form-inputs row">
+      <div class="col-md-4">
+        <%= p.input :title %>
+      </div>
+      <div class="col-md-4">
+        <%= p.input :featured, as: :boolean %>
+      </div>
+      <div class="col-md-4">
+        <%= p.input :image %>
+      </div>
+    </div>
+    <%= p.input :body, as: :ckeditor, wrapper: :vertical_form %>
+    <%= p.button :submit %>
+
+<% end %>
