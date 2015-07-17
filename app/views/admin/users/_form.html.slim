@@ -5,8 +5,12 @@
     .col-sm-6
       = f.input :name
       = f.input :email
+      = f.input :image
+      = image_tag @user.image_url(:thumbnail) if @user.image?
+      = f.hidden_field :image_cache
+    .col-sm-6
       = f.input :password
       = f.input :password_confirmation
-    .col-sm-6
       = f.association :roles, collection: Role.all, as: :check_boxes
-      = f.button :submit
+
+  = f.button :submit

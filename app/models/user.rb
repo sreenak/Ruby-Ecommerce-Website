@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   after_create :assign_role
 
+  mount_uploader :image, ImageUploader
+
   def self.create_from_omniauth(params)
     attributes = {
         email: params['info']['email'],

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717063551) do
+ActiveRecord::Schema.define(version: 20150717181833) do
 
   create_table "auth_identities", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -181,6 +181,32 @@ ActiveRecord::Schema.define(version: 20150717063551) do
 
   add_index "parts", ["part_group_id"], name: "index_parts_on_part_group_id", using: :btree
 
+  create_table "posts", force: :cascade do |t|
+    t.string   "title",      limit: 255,   default: "",    null: false
+    t.string   "slug",       limit: 255,   default: "",    null: false
+    t.string   "image",      limit: 255,   default: "",    null: false
+    t.text     "body",       limit: 65535
+    t.boolean  "featured",   limit: 1,     default: false, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name",         limit: 255,   default: "",    null: false
+    t.string   "slug",         limit: 255,   default: "",    null: false
+    t.string   "sku",          limit: 255,   default: "",    null: false
+    t.integer  "price_paisas", limit: 4,     default: 0,     null: false
+    t.string   "currency",     limit: 255,   default: "INR", null: false
+    t.string   "image",        limit: 255,   default: "",    null: false
+    t.boolean  "featured",     limit: 1,     default: false, null: false
+    t.integer  "dress_id",     limit: 4
+    t.text     "description",  limit: 65535
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "products", ["dress_id"], name: "index_products_on_dress_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string "name", limit: 255
   end
@@ -227,4 +253,5 @@ ActiveRecord::Schema.define(version: 20150717063551) do
   add_foreign_key "fabric_colors", "fabrics"
   add_foreign_key "part_groups", "dresses"
   add_foreign_key "parts", "part_groups"
+  add_foreign_key "products", "dresses"
 end

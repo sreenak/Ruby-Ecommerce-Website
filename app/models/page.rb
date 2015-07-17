@@ -3,7 +3,7 @@ class Page < ActiveRecord::Base
   include Authority::Abilities
   self.authorizer_name = 'AdminAuthorizer'
 
-  friendly_id :title, :use => [:slugged, :history]
+  friendly_id :title
 
   def should_generate_new_friendly_id?
     slug.blank? or title_changed?

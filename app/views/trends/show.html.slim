@@ -1,0 +1,13 @@
+- content_for :title do
+  = @trend.title
+
+article.trend
+  header.text-center
+    h1= @trend.title
+    p.meta
+      = time_ago_in_words @trend.created_at
+      | &nbsp; ago
+
+  .content.col-md-6.col-md-offset-3
+    .trend-image.text-center= image_tag @trend.image_url(:big)
+    == @trend.body

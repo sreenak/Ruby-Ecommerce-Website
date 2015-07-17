@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'pages/show'
+
+  get 'pages_controller/show'
+
   resource :account, only: [:show, :edit, :update] do
     member do
       get :orders, to: 'accounts#orders'
@@ -14,10 +18,12 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :pages, only: :show
+  resources :trends, only: [:show, :index]
 
   namespace :admin do
     root to: 'dashboard#show'
     resources :pages
+    resources :posts
     resources :users
   end
 

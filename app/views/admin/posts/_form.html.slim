@@ -1,0 +1,11 @@
+= simple_form_for [:admin, @post], wrapper: :horizontal_small_form do |p|
+  .form-inputs.row
+    .col-md-6
+      = p.input :title
+      = p.input :featured
+    .col-md-6
+      = image_tag @post.image_url(:thumbnail) if @post.image?
+      = p.input :image
+      = p.hidden_field :image_cache
+  = p.input :body, as: :ckeditor, wrapper: :vertical_form
+  = p.button :submit

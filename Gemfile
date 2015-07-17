@@ -10,6 +10,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'sqlite3', group: [:test]
 gem 'mysql2'
 gem 'friendly_id'
+gem 'faker'
 
 # Assets and resources
 gem 'sass-rails', '~> 5.0'
@@ -58,3 +59,7 @@ gem 'authority'
 gem 'canonical-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
+
+# Cart
+gem 'money-rails'
+gem 'eu_central_bank'

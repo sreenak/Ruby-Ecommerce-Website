@@ -1,0 +1,30 @@
+- content_for :title do
+  |Trends
+
+h4.floral-text.text-uppercase.text-center.page-title
+  span Featured
+
+.featured-trends.row
+  - @featured_trends.each do |t|
+    .col-md-4
+      .trend-preview.hover-container
+        a href="#{trend_path(t)}"
+        = image_tag t.image_url(:big)
+        .hover-content
+          h2= t.title
+          p= t.created_at
+
+h4.floral-text.text-uppercase.text-center.page-title
+  span News &amp; Style
+
+.regular-trends.row
+  - @regular_trends.each do |t|
+    .col-md-3
+      .trend-preview
+        a href="#{trend_path(t)}"
+          = image_tag t.image_url(:big)
+          h2= t.title
+          p= truncate(strip_tags(t.body), length: 140)
+          p= t.created_at
+
+= paginate @regular_trends

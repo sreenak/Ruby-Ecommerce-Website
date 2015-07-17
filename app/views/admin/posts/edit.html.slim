@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Post
+- content_for :heading do
+  | Editing Post
+  em
+    = @Post.title
+
+= render 'form'

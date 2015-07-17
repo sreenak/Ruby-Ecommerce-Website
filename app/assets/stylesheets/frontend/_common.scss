@@ -1,0 +1,23 @@
+.floral-text {
+  span:before, span:after {
+    position: relative;
+    top: 7px;
+  }
+  span:before {
+    content: image-url('floral-left.jpg');
+  }
+  span:after {
+    content: image-url('floral-right.jpg');
+  }
+}
+
+.hover-container {
+  .hover-content {
+    display: none;
+  }
+  &:hover {
+    .hover-content {
+      display: block;
+    }
+  }
+}

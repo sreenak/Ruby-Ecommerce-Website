@@ -1,0 +1,8 @@
+- content_for :title do
+  = @page.title
+
+article.page
+  h4.floral-text.text-uppercase.text-center.page-title
+    span= @page.title
+
+  .content.col-md-10.col-md-offset-1== @page.body

@@ -1,1 +1,70 @@
-h1 Welcome
+- content_for :title do
+  | Welcome
+
+.hero-section
+  = image_tag 'big-banner.jpg'
+  .content.text-center
+    h1.title.text-uppercase
+      | Your clothes should
+      br
+      | reflect your style
+    p.subtitle
+      | Customize your own Indian wear down
+      br
+      | to the smallest details.
+    a.text-uppercase
+      span.btn.btn-lg Start Designing
+
+.icon-blocks-container.text-center.row
+  .icon-block.col-md-4
+    .icon= image_tag 'how-it-works.png'
+    h4.text-uppercase How it works
+    p.small Our Customisation Process
+  .icon-block.col-md-4
+    .icon= image_tag 'worldwide-shipping.png'
+    h4.text-uppercase Worldwide Shipping
+    p.small On Orders Above $150
+  .icon-block.col-md-4
+    .icon= image_tag 'free-returns.png'
+    h4.text-uppercase Free returns
+    p.small 90 day return policy
+
+#promos.carousel.slide data-ride="carousel"
+  ol.carousel-indicators
+    li.active data-slide-to="0" data-target="#promos" 
+    li data-slide-to="1" data-target="#promos" 
+  .carousel-inner role="listbox" 
+    .item.active
+      a href=""
+        = image_tag 'collection-banner.jpg'
+    .item
+      a href=""
+        = image_tag 'discount-banner.jpg'
+  a.left.carousel-control data-slide="prev" href="#promos" role="button" 
+    span.glyphicon.glyphicon-chevron-left aria-hidden="true" 
+    span.sr-only Previous
+  a.right.carousel-control data-slide="next" href="#promos" role="button" 
+    span.glyphicon.glyphicon-chevron-right aria-hidden="true" 
+    span.sr-only Next
+
+h4.floral-text
+  span Trends
+
+.row
+  .col-md-7.latest-trends
+    .row
+      - @trends.each do |t|
+        .col-sm-6.trend-teaser
+          .row
+            .col-sm-6= image_tag t.image_url(:medium)
+            .col-sm-6
+              h4= t.title
+  .col-md-5
+    .pull-right.news-letter
+      h4 NEWS LETTER
+      p Please Subscribe to our newsletter for more information
+      form#mc-embedded-subscribe-form.validate.has-validation-callback action="//langoor.us10.list-manage.com/subscribe/post?u=69b9be0741cb48e6377aa4119&amp;id=ebf8af59c2" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"
+        input#mce-EMAIL.required.email data-validation="email" data-validation-error-msg-container="#email-error-dialog" name="EMAIL" type="email" value=""
+        br
+        input.btn.btn-success type="submit" value=("Subscribe →")
+        p#email-error-dialog

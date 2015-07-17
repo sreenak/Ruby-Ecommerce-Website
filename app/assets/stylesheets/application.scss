@@ -3,5 +3,8 @@
 @import 'bootstrap';
 @import 'font-awesome';
 @import 'ionicons';
-@import "frontend/overrides";
-@import "frontend/layout";
+@import 'frontend/common';
+@import 'frontend/overrides';
+@import 'frontend/layout';
+@import 'frontend/home';
+@import 'frontend/trends';
