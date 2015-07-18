@@ -1,0 +1,44 @@
+class GiftCard < ActiveRecord::Base
+  STATUSES = ['In Cart', 'Active', 'Used']
+  DELIVERABLE_TO_OPTIONS = %w(Me Recipient)
+  CURRENCIES = %w(INR USD)
+  AMOUNTS = {100 => 10000, 500 => 50000, 1000 => 100000, 10000 => 1000000} # Display price => Cents
+  belongs_to :user
+  has_one :shipping_address, as: :addressable
+  has_many :usages, class_name: 'GiftCardUsage'
+  enum status: STATUSES
+  enum deliver_to: DELIVERABLE_TO_OPTIONS
+
+  accepts_nested_attributes_for :shipping_address, reject_if: :shipping_not_required?
+
+  before_create :generate_code
+  validates_presence_of :status, :amount_paisas, :ordered_by, :ordered_for, :amount_currency
+
+  monetize :amount_paisas, with_model_currency: :amount_currency
+
+  default_scope -> { order(created_at: :desc)}
+
+  def generate_code
+    require 'securerandom'
+    self.code = 'KGC' + SecureRandom.hex(5).upcase
+  end
+
+  def used_amount
+    usages.reduce(Money.new(0)) { |sum, u| sum + u.amount }
+  end
+
+  def valid_card?
+    if used_amount.exchange_to('INR') >= amount.exchange_to('INR')
+      update status: 'Used'
+    end
+    status == 'Active'
+  end
+
+  def available_amount
+    amount - used_amount
+  end
+
+  def shipping_not_required?
+    deliver_to == 'Me'
+  end
+end

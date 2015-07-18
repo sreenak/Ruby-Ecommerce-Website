@@ -20,6 +20,22 @@ Rails.application.routes.draw do
   resources :customise, only: [:show, :index]
   resources :shop, only: [:show, :index]
 
+  post 'cart/add-product', to: 'cart#add_product'
+  post 'likes/create'
+  get 'cart', to: 'cart#show'
+  post 'cart/add-dress', to: 'cart#add_dress'
+  patch 'cart/update'
+  patch 'cart/discount', to: 'cart#apply_discount'
+  patch 'cart/gift', to: 'cart#apply_gift_card'
+  delete 'cart/delete'
+
+  get 'checkout/user'
+  patch 'checkout/process_user', path: 'checkout/process-user'
+  get 'checkout/addresses'
+  patch 'checkout/pay'
+  get 'checkout/ipn'
+  match 'checkout/thank_you', via: [:get, :post], path: 'checkout/thank-you'
+
   namespace :admin do
     root to: 'dashboard#show'
     resources :pages

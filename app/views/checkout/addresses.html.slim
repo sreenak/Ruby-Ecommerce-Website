@@ -1,0 +1,31 @@
+- content_for :title do
+  | Checkout - Addresses 
+h1.page-title
+  | Checkout - Addresses
+= simple_form_for @order, url: checkout_pay_path do |f|
+  .row
+    .col-md-6
+      h3
+        | Billing Details
+      = f.simple_fields_for :billing_address do |b|
+        = b.input :name, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Name"}
+        = b.input :address_1, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Address "}
+        = b.input :address_2
+        = b.input :city, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct City"}
+        = b.input :country, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Country"}
+        = b.input :postal_code
+      .checkbox
+        label
+          input#copy-billing[type="checkbox"]
+          |  Same as Billing Address
+    .col-md-6
+      h3
+        | Shipping Details
+      = f.simple_fields_for :shipping_address do |s|
+        = s.input :name, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Name"}
+        = s.input :address_1, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Address "}
+        = s.input :address_2
+        = s.input :city, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct City"}
+        = s.input :country, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Country"}
+        = s.input :postal_code
+      = f.submit 'Confirm Order', class: 'btn btn-primary pull-right'

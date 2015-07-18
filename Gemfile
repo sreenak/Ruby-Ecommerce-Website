@@ -52,6 +52,7 @@ gem 'slim-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
 gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'country_select'
 
 # Authentication & authorization
 gem 'devise'

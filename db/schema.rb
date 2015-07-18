@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718102549) do
+ActiveRecord::Schema.define(version: 20150718141430) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "type",             limit: 255, default: "", null: false
+    t.integer  "addressable_id",   limit: 4
+    t.string   "addressable_type", limit: 255
+    t.string   "name",             limit: 255, default: "", null: false
+    t.string   "address_1",        limit: 255, default: "", null: false
+    t.string   "address_2",        limit: 255
+    t.string   "country",          limit: 255, default: "", null: false
+    t.string   "state",            limit: 255
+    t.string   "city",             limit: 255, default: "", null: false
+    t.string   "postal_code",      limit: 255
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
 
   create_table "auth_identities", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -151,6 +168,57 @@ ActiveRecord::Schema.define(version: 20150718102549) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "gift_card_usages", force: :cascade do |t|
+    t.integer  "gift_card_id",  limit: 4
+    t.integer  "amount_paisas", limit: 4,   default: 0,  null: false
+    t.string   "currency",      limit: 255, default: "", null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "gift_card_usages", ["gift_card_id"], name: "index_gift_card_usages_on_gift_card_id", using: :btree
+
+  create_table "gift_cards", force: :cascade do |t|
+    t.string   "code",             limit: 255,   default: "",    null: false
+    t.integer  "status",           limit: 2
+    t.string   "orderd_by",        limit: 255,   default: "",    null: false
+    t.string   "ordered_for",      limit: 255,   default: "",    null: false
+    t.text     "message",          limit: 65535
+    t.integer  "amount_paisas",    limit: 4,     default: 0,     null: false
+    t.integer  "remaining_paisas", limit: 4,     default: 0,     null: false
+    t.string   "currency",         limit: 255,   default: "INR", null: false
+    t.string   "deliver_to",       limit: 255,   default: "",    null: false
+    t.string   "card_type",        limit: 255,   default: "",    null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.string   "title",              limit: 255, default: "",    null: false
+    t.integer  "order_id",           limit: 4
+    t.integer  "line_itemable_id",   limit: 4
+    t.string   "line_itemable_type", limit: 255
+    t.integer  "quantity",           limit: 4,   default: 0,     null: false
+    t.integer  "amount_paisas",      limit: 4,   default: 0,     null: false
+    t.string   "currency",           limit: 255, default: "INR", null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "line_items", ["line_itemable_type", "line_itemable_id"], name: "index_line_items_on_line_itemable_type_and_line_itemable_id", using: :btree
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.integer  "status",       limit: 2,   default: 0,     null: false
+    t.integer  "total_paisas", limit: 4,   default: 0,     null: false
+    t.string   "currency",     limit: 255, default: "INR", null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "pages", force: :cascade do |t|
     t.string   "title",      limit: 255,   null: false
     t.string   "slug",       limit: 255,   null: false
@@ -181,6 +249,17 @@ ActiveRecord::Schema.define(version: 20150718102549) do
   end
 
   add_index "parts_groups", ["dress_id"], name: "index_parts_groups_on_dress_id", using: :btree
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "order_id",      limit: 4
+    t.string   "method",        limit: 255
+    t.integer  "amount_paisas", limit: 4
+    t.string   "currency",      limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "payments", ["order_id"], name: "index_payments_on_order_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",      limit: 255,   default: "",    null: false
@@ -261,8 +340,12 @@ ActiveRecord::Schema.define(version: 20150718102549) do
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"
   add_foreign_key "fabric_colors", "fabrics"
+  add_foreign_key "gift_card_usages", "gift_cards"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "orders", "users"
   add_foreign_key "parts", "parts_groups"
   add_foreign_key "parts_groups", "dresses"
+  add_foreign_key "payments", "orders"
   add_foreign_key "product_images", "products"
   add_foreign_key "products", "dresses"
 end

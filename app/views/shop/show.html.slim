@@ -12,7 +12,8 @@
 
   .col-md-7.product-details
     h2.page-title= @product.name
-    form
+    = form_tag cart_add_product_path
+      = hidden_field_tag :product_id, @product.id
       .add-to-cart-block.row
         .col-sm-6.col-md-4
           .form-group

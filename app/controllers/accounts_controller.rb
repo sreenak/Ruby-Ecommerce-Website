@@ -21,6 +21,7 @@ class AccountsController < ApplicationController
   end
 
   def orders
+    @orders = @user.orders
   end
 
   def likes

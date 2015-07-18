@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :auth_identities, dependent: :destroy
   has_and_belongs_to_many :roles
+  has_one :billing_address, as: :addressable
+  has_one :shipping_address, as: :addressable
+  has_many :orders
 
   enum gender: GENDERS
 
