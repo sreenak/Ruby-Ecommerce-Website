@@ -1,15 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'pages/show'
-
-  get 'pages_controller/show'
-
   resource :account, only: [:show, :edit, :update] do
     member do
-      get :orders, to: 'accounts#orders'
+      get 'orders', to: 'accounts#orders'
       get 'orders/:order_id/shipping', to: 'accounts#shipping'
-      get :likes, to: 'accounts#likes'
-      get :customisations, to: 'accounts#customisations'
+      get 'likes', to: 'accounts#likes'
+      get 'customisations', to: 'accounts#customisations'
     end
   end
 
@@ -19,12 +15,19 @@ Rails.application.routes.draw do
 
   resources :pages, only: :show
   resources :trends, only: [:show, :index]
+  resources :customise, only: [:show, :index]
+  resources :dresses, only: [:show, :index]
 
   namespace :admin do
     root to: 'dashboard#show'
     resources :pages
     resources :posts
+    resources :fabrics
     resources :users
+    resources :brocades
+    resources :embellishments
+    resources :products
+    resources :dresses
   end
 
   root to: 'home#show'

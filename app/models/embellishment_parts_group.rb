@@ -1,0 +1,2 @@
+class EmbellishmentPartsGroup < PartsGroup
+end

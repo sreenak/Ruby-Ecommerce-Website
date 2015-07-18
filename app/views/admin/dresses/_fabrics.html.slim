@@ -1,0 +1,31 @@
+.panel.panel-default
+  .panel-heading Fabric Group Details
+  .panel-body
+    .row
+      .col-md-6= f.input :name
+      .col-md-6= f.input :svg_group_id
+
+    = f.association :fabric_colors
+
+    = f.simple_fields_for :parts do |p|
+      .panel.panel-default
+        .panel-heading Part Details
+        .panel-body
+          .row
+            .col-md-6= p.input :name
+            .col-md-6= p.input :svg_path_id
+
+          = p.simple_fields_for :brocade_parts do |b|
+            .panel.panel-default
+              .panel-heading Brocade Details
+              .panel-body
+                .row
+                  .col-md-6= b.association :brocade
+                  .col-md-6= b.input :image
+                = b.link_to_remove 'Remove Brocade', class: 'btn btn-danger pull-right'
+
+          = p.link_to_add 'Add Brocade', :brocade_parts, class: 'btn btn-success'
+          = p.link_to_remove 'Remove Part', class: 'btn btn-danger pull-right'
+
+    = f.link_to_add 'Add Part', :parts, class: 'btn btn-success'
+    = f.link_to_remove 'Remove Fabric Group', class: 'btn btn-danger pull-right'

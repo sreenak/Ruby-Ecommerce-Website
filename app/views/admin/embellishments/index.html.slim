@@ -1,0 +1,21 @@
+- content_for :heading do
+  | Listing Embellishments
+- content_for :title do
+  | Embellishments
+- content_for :panel_heading do
+  = link_to 'Add Embellishment', new_admin_embellishment_path, class: 'btn btn-success btn-sm'
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th Image
+      th Title
+      th[colspan="2"] Action
+  tbody
+    - @embellishments.each do |embellishment|
+      tr
+        td= image_tag embellishment.image_url(:thumbnail)
+        td= embellishment.name
+        td= link_to 'Edit', edit_admin_embellishment_path(embellishment)
+        td= link_to 'Destroy', admin_embellishment_path(embellishment), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @embellishments

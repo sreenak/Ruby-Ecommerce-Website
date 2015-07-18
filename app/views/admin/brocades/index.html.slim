@@ -1,0 +1,21 @@
+- content_for :heading do
+  | Listing Brocades
+- content_for :title do
+  | Brocades
+- content_for :panel_heading do
+  = link_to 'Add Brocade', new_admin_brocade_path, class: 'btn btn-success btn-sm'
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th Image
+      th Title
+      th[colspan="2"] Action
+  tbody
+    - @brocades.each do |brocade|
+      tr
+        td= image_tag brocade.swatch_url(:thumbnail)
+        td= brocade.name
+        td= link_to 'Edit', edit_admin_brocade_path(brocade)
+        td= link_to 'Destroy', admin_brocade_path(brocade), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @brocades

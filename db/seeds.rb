@@ -29,3 +29,7 @@ unless Post.count > 0
     Post.create title: Faker::Lorem.sentence, body: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join("\n\n")), remote_image_url: 'http://lorempixel.com/600/800/people/', featured: true
   end
 end
+
+# Categories
+
+%w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create}

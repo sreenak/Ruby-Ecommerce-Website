@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Brocade
+- content_for :heading do
+  | Editing Brocade
+  em
+    = @brocade.name
+
+= render 'form'

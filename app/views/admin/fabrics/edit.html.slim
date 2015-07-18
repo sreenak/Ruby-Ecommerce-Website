@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Fabric
+- content_for :heading do
+  | Editing Fabric
+  em
+    = @fabric.name
+
+= render 'form'

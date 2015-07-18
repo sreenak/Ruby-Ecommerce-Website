@@ -1,0 +1,18 @@
+= simple_nested_form_for [:admin, @fabric], wrapper: :horizontal_small_form do |f|
+  = f.input :name
+  = f.simple_fields_for :fabric_colors do |c|
+    .panel.panel-default
+      .panel-heading Fabric Color Details
+      .panel-body
+        .row
+          .col-md-6= c.input :name
+          .col-md-6
+            = c.input :swatch, wrapper: :horizontal_file_input, hint: 'This should be a repeatable pattern which can be an overlay on dress parts'
+            = image_tag c.object.swatch_url(:icon) if c.object.swatch?
+            = c.hidden_field :swatch_cache
+        hr.dotted
+        .clearfix
+          = f.link_to_remove 'Remove Color', class: 'btn btn-danger pull-right'
+  = f.link_to_add 'Add Color Option', :fabric_colors, class: 'btn btn-success'
+  hr
+  = f.button :submit

@@ -8,8 +8,8 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
       t.string :image
       t.string :mobile
-      t.string :date_of_birth
-      t.string :gender
+      t.date :date_of_birth
+      t.integer :gender, limit: 2
 
       t.string :encrypted_password, null: false, default: ''
 

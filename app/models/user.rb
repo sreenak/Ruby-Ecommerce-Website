@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   include Authority::Abilities
   include Authority::UserAbilities
+
+  GENDERS = %w(Male Female Other)
+
   self.authorizer_name = 'AdminAuthorizer'
 
   # Include default devise modules. Others available are:
@@ -9,6 +12,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :auth_identities, dependent: :destroy
   has_and_belongs_to_many :roles
+
+  enum gender: GENDERS
 
   validates_presence_of :name, :email
   validates :tos, acceptance: {accept: '1'}, on: :create

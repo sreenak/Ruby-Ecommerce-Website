@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @brocade], wrapper: :horizontal_small_form do |p|
+  .form-inputs.row
+    .col-md-6
+      = p.input :name
+      = image_tag @brocade.swatch_url(:thumbnail) if @brocade.swatch?
+      = p.input :swatch
+      = p.hidden_field :swatch_cache
+    .col-md-6
+      = p.button :submit

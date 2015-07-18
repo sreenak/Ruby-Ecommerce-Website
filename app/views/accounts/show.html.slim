@@ -1,2 +1,30 @@
-h1 Accounts#show
-p Find me in app/views/accounts/show.html.slim
+- content_for :title do
+  = @user.name
+
+.row
+  .col-md-4.col-lg-3= render 'sidebar'
+  .col-md-8.col-lg-9
+    h1.page-title Welcome, #{@user.name}!
+    .overview-details.row
+      .col-sm-8
+        h4 PRIMARY INFORMATION
+        table.table.table-striped
+          tbody
+            tr
+              th Name
+              td= @user.name
+            tr
+              th Gender
+              td= @user.gender
+            tr
+              th Date of birth
+              td= @user.date_of_birth
+            tr
+              th Mobile
+              td= @user.mobile
+            tr
+              th Email
+              td= @user.email
+      .col-sm-4.text-center
+        = image_tag(@user.image_url(:medium), class: 'img-thumbnail') if @user.image?
+    a.btn.btn-default.blak-border href="#{edit_account_path}" EDIT PROFILE

@@ -24,3 +24,30 @@ a:hover {
   border-bottom: 2px solid $brand-primary;
   font-family: $font-family-serif;
 }
+
+.nav-stacked {
+  li {
+    border-bottom: 1px dashed $brand-primary;
+    &:hover, &.active {
+      border-bottom: 1px solid $brand-primary;
+    }
+    a {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    a:hover {
+      background: #ffffff;
+    }
+    i {
+      font-size: $font-size-large;
+      margin-right: $grid-gutter-width/2;
+      vertical-align: middle;
+    }
+  }
+}
+
+.btn {
+  font-family: $font-family-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}

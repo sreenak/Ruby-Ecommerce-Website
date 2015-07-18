@@ -1,0 +1,21 @@
+- content_for :heading do
+  | Listing Dresses
+- content_for :title do
+  | Dresses
+- content_for :panel_heading do
+  = link_to 'Add Dress', new_admin_dress_path, class: 'btn btn-success btn-sm'
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th Image
+      th Name
+      th[colspan="2"] Action
+  tbody
+    - @dresses.each do |dress|
+      tr
+        td= image_tag dress.sketch_url(:thumbnail)
+        td= dress.name
+        td= link_to 'Edit', edit_admin_dress_path(dress)
+        td= link_to 'Destroy', admin_dress_path(dress), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @dresses

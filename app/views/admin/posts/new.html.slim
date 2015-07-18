@@ -1,9 +1,6 @@
-- content_for :heading do
-  | New Post
 - content_for :title do
   | New Post
-.panel.panel-default
-  .panel-heading
-    | Create New Post
-  .panel-body
-    = render 'form'
+- content_for :heading do
+  | New Post
+
+= render 'form'

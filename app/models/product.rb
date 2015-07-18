@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :image, :price, :sku
   mount_uploader :image, ImageUploader
 
-  monetize :price_paisas
+  monetize :price_paisas, with_model_currency: :currency
 
   friendly_id :name
 

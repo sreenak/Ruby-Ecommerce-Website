@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717181833) do
+ActiveRecord::Schema.define(version: 20150718065348) do
 
   create_table "auth_identities", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20150717181833) do
     t.string   "angle_270",         limit: 255
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
+    t.string   "sketch",            limit: 255, default: "",    null: false
   end
 
   add_index "dresses", ["category_id"], name: "index_dresses_on_category_id", using: :btree
@@ -160,17 +161,6 @@ ActiveRecord::Schema.define(version: 20150717181833) do
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
-  create_table "part_groups", force: :cascade do |t|
-    t.string   "name",         limit: 255, default: "", null: false
-    t.integer  "dress_id",     limit: 4
-    t.string   "type",         limit: 255, default: "", null: false
-    t.string   "svg_group_id", limit: 255, default: "", null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-  end
-
-  add_index "part_groups", ["dress_id"], name: "index_part_groups_on_dress_id", using: :btree
-
   create_table "parts", force: :cascade do |t|
     t.string   "name",          limit: 255, default: "", null: false
     t.integer  "part_group_id", limit: 4
@@ -180,6 +170,17 @@ ActiveRecord::Schema.define(version: 20150717181833) do
   end
 
   add_index "parts", ["part_group_id"], name: "index_parts_on_part_group_id", using: :btree
+
+  create_table "parts_groups", force: :cascade do |t|
+    t.string   "name",         limit: 255, default: "", null: false
+    t.integer  "dress_id",     limit: 4
+    t.string   "type",         limit: 255, default: "", null: false
+    t.string   "svg_group_id", limit: 255, default: "", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "parts_groups", ["dress_id"], name: "index_parts_groups_on_dress_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",      limit: 255,   default: "",    null: false
@@ -251,7 +252,7 @@ ActiveRecord::Schema.define(version: 20150717181833) do
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"
   add_foreign_key "fabric_colors", "fabrics"
-  add_foreign_key "part_groups", "dresses"
-  add_foreign_key "parts", "part_groups"
+  add_foreign_key "parts", "parts_groups", column: "part_group_id"
+  add_foreign_key "parts_groups", "dresses"
   add_foreign_key "products", "dresses"
 end

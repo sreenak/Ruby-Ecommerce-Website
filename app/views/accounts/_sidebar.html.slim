@@ -1,0 +1,24 @@
+ul.nav.nav-stacked
+  li class="#{active_class(account_url)}"
+    a href="#{account_url}"
+      i.icon.ion-ios-list-outline
+      |Overview
+  li class="#{deep_active_class(edit_account_url)}"
+    a href="#{edit_account_url}"
+      i.icon.ion-ios-person-outline
+      |Edit Profile
+  li class="#{deep_active_class(orders_account_url)}"
+    a href="#{orders_account_url}"
+      i.icon.ion-ios-briefcase-outline
+      |Orders
+  li class="#{deep_active_class(likes_account_url)}"
+    a href="#{likes_account_url}"
+      i.icon.ion-ios-heart-outline
+      |Likes
+  li class="#{deep_active_class(customisations_account_url)}"
+    a href="#{customisations_account_url}"
+      i.icon.ion-ios-color-wand-outline
+      |Customisations
+
+.gift-banner
+  = image_tag 'gift.jpg'

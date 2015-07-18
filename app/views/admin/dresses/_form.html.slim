@@ -1,0 +1,41 @@
+= simple_nested_form_for [:admin, @dress], wrapper: :horizontal_small_form do |f|
+  .form-inputs.row
+    .col-md-6
+      = f.input :name
+      = f.association :category
+      = f.input :sku
+      = f.input :base_price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
+        span.input-group-addon
+          i.fa.fa-inr
+        = f.input_field :base_price, class: "form-control"
+    .col-md-6
+      = f.input :sketch, wrapper: :horizontal_file_input
+      = f.hidden_field :sketch_cache
+      = image_tag @dress.sketch_url(:thumbnail) if @dress.sketch?
+
+      = f.input :angle_0, wrapper: :horizontal_file_input
+      = f.hidden_field :angle_0_cache
+      = image_tag @dress.angle_0_url(:thumbnail) if @dress.angle_0?
+
+      = f.input :angle_90, wrapper: :horizontal_file_input
+      = f.hidden_field :angle_90_cache
+      = image_tag @dress.angle_90_url(:thumbnail) if @dress.angle_90?
+
+      = f.input :angle_180, wrapper: :horizontal_file_input
+      = f.hidden_field :angle_180_cache
+      = image_tag @dress.angle_180_url(:thumbnail) if @dress.angle_180?
+
+      = f.input :angle_270, wrapper: :horizontal_file_input
+      = f.hidden_field :angle_270_cache
+      = image_tag @dress.angle_270_url(:thumbnail) if @dress.angle_270?
+
+  = f.simple_fields_for :fabric_parts_groups do |fp|
+    = render 'fabrics', f: fp
+  = f.link_to_add 'Add Fabric Group', :fabric_parts_groups, class: 'btn btn-success'
+  hr
+  = f.simple_fields_for :embellishment_parts_groups do |e|
+    = render 'embellishments', f: e
+  = f.link_to_add 'Add Embellishment Group', :embellishment_parts_groups, class: 'btn btn-success'
+  hr
+  .form-actions
+    = f.button :submit

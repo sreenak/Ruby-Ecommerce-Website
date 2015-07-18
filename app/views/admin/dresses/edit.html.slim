@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Dress
+- content_for :heading do
+  | Editing Dress
+  em
+    = @dress.name
+
+= render 'form'
