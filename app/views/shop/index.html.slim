@@ -1,0 +1,28 @@
+- content_for :title do
+  |Shop
+
+h1.page-title.text-center.text-uppercase Shop
+
+.products
+  - @products.each_slice(4) do |row|
+    .row
+      - row.each do |p|
+        .col-md-3.col-sm-6
+          .product-preview.hover-container
+            a href="#{shop_path(p)}"
+              = image_tag p.image_url(:medium)
+            .details
+              .action-row.top.clearfix.hover-content
+                .pull-left
+                  i.icon.ion-ios-heart
+                  |Add to favorite
+                .pull-right.text-right
+                  i.icon.ion-ios-cart
+                  |Add to cart
+              h4.price.text-center= humanized_money_with_symbol p.price
+              h4.text-center
+                = link_to p.name, shop_path(p)
+              .action-row.text-center.bottom.hover-content
+                i.icon.ion-wand
+                |Customise
+= paginate @products

@@ -8,4 +8,5 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require masonry.pkgd
+//= require smoothproducts
 //= require_tree ./frontend

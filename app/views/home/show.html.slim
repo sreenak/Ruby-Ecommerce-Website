@@ -55,10 +55,11 @@ h4.floral-text
     .row
       - @trends.each do |t|
         .col-sm-6.trend-teaser
-          .row
-            .col-sm-6= image_tag t.image_url(:medium)
-            .col-sm-6
-              h4= t.title
+          a href="#{trend_path(t)}"
+            .row
+              .col-sm-6= image_tag t.image_url(:medium)
+              .col-sm-6
+                h4= t.title
   .col-md-5
     .pull-right.news-letter
       h4 NEWS LETTER

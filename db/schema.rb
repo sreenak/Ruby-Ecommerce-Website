@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718065348) do
+ActiveRecord::Schema.define(version: 20150718102549) do
 
   create_table "auth_identities", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -125,12 +125,12 @@ ActiveRecord::Schema.define(version: 20150718065348) do
 
   add_index "fabric_colors", ["fabric_id"], name: "index_fabric_colors_on_fabric_id", using: :btree
 
-  create_table "fabric_colors_part_groups", id: false, force: :cascade do |t|
+  create_table "fabric_colors_parts_groups", id: false, force: :cascade do |t|
     t.integer "part_group_id",   limit: 4, null: false
     t.integer "fabric_color_id", limit: 4, null: false
   end
 
-  add_index "fabric_colors_part_groups", ["part_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
+  add_index "fabric_colors_parts_groups", ["part_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
 
   create_table "fabrics", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -162,14 +162,14 @@ ActiveRecord::Schema.define(version: 20150718065348) do
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "parts", force: :cascade do |t|
-    t.string   "name",          limit: 255, default: "", null: false
-    t.integer  "part_group_id", limit: 4
-    t.string   "svg_path_id",   limit: 255, default: "", null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "name",           limit: 255, default: "", null: false
+    t.integer  "parts_group_id", limit: 4
+    t.string   "svg_path_id",    limit: 255, default: "", null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["part_group_id"], name: "index_parts_on_part_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -191,6 +191,15 @@ ActiveRecord::Schema.define(version: 20150718065348) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
   end
+
+  create_table "product_images", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.string   "image",      limit: 255, default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",         limit: 255,   default: "",    null: false
@@ -226,8 +235,8 @@ ActiveRecord::Schema.define(version: 20150718065348) do
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
-    t.string   "date_of_birth",          limit: 255
-    t.string   "gender",                 limit: 255
+    t.date     "date_of_birth"
+    t.integer  "gender",                 limit: 1
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -252,7 +261,8 @@ ActiveRecord::Schema.define(version: 20150718065348) do
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"
   add_foreign_key "fabric_colors", "fabrics"
-  add_foreign_key "parts", "parts_groups", column: "part_group_id"
+  add_foreign_key "parts", "parts_groups"
   add_foreign_key "parts_groups", "dresses"
+  add_foreign_key "product_images", "products"
   add_foreign_key "products", "dresses"
 end

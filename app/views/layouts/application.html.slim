@@ -26,7 +26,7 @@ html lang="en-us"
     meta content="#ffffff" name="theme-color" /
     meta charset="utf-8" /
     meta content="IE=edge" http-equiv="X-UA-Compatible" /
-    link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
+    /link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
     = csrf_meta_tags
   body
@@ -82,6 +82,7 @@ html lang="en-us"
               li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
               li class="#{deep_active_class(page_path('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+              li class="#{deep_active_class(shop_index_url)}" = link_to 'Shop', :shop_index
               li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
 
     .container.content-area

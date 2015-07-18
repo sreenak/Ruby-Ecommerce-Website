@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Product
+- content_for :heading do
+  | Editing Product
+  em
+    = @product.name
+
+= render 'form'

@@ -41,7 +41,7 @@ group :development, :test do
 end
 
 # File uploads
-gem 'carrierwave'
+gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 
 # Frontend UI

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root to: 'home#show'
+
   resource :account, only: [:show, :edit, :update] do
     member do
       get 'orders', to: 'accounts#orders'
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   resources :pages, only: :show
   resources :trends, only: [:show, :index]
   resources :customise, only: [:show, :index]
-  resources :dresses, only: [:show, :index]
+  resources :shop, only: [:show, :index]
 
   namespace :admin do
     root to: 'dashboard#show'
@@ -30,5 +32,4 @@ Rails.application.routes.draw do
     resources :dresses
   end
 
-  root to: 'home#show'
 end

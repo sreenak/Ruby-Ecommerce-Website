@@ -1,0 +1,42 @@
+- content_for :title
+  = @product.name
+
+.row.product
+  .col-md-5
+    .product-images.sp-wrap
+      a href="#{@product.image_url}"
+        = image_tag @product.image_url(:big)
+      - @product.product_images.each do |image|
+        a href="#{image.image_url}"
+          = image_tag image.image_url(:big)
+
+  .col-md-7.product-details
+    h2.page-title= @product.name
+    form
+      .add-to-cart-block.row
+        .col-sm-6.col-md-4
+          .form-group
+            label for="size" Size
+            select#size.form-control name="size"
+              option value="S" S
+              option value="M" M
+              option value="L" L
+              option value="XL" XL
+              option value="XXL" XXL
+          .form-group
+            label for="quantity" Quantity
+            input#quantity.form-control name="quantity" type="number" min="1" value="1"
+          .price
+            span= humanized_money_with_symbol @product.price
+      .actions.text-center
+        button.info-row.text-uppercase.active type="submit"
+          i.icon.ion-ios-cart
+          span Add to cart
+        .info-row.text-uppercase
+          i.icon.ion-ios-heart
+          span Add to favorite
+        .info-row.text-uppercase
+          i.icon.ion-edit
+          span Customise
+    .description
+      == @product.description

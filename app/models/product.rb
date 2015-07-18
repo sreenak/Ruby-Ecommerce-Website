@@ -2,6 +2,9 @@ class Product < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :dress
+  has_many :product_images
+
+  accepts_nested_attributes_for :product_images, allow_destroy: true
 
   validates_presence_of :name, :image, :price, :sku
   mount_uploader :image, ImageUploader
@@ -13,4 +16,6 @@ class Product < ActiveRecord::Base
   def should_generate_new_friendly_id?
     slug.blank? or name_changed?
   end
+
+  default_scope -> {order(created_at: :desc)}
 end

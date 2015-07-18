@@ -30,6 +30,42 @@ unless Post.count > 0
   end
 end
 
+# Dummy posts
+unless Product.count > 0
+  10.times do |i|
+    Product.create(
+        name: Faker::Lorem.sentence,
+        description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join("\n\n")),
+        remote_image_url: 'https://placeimg.com/600/800/any',
+        price: Faker::Number.decimal(4, 2),
+        sku: Faker::Lorem.words.join().upcase,
+        product_images_attributes: [
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'}
+        ]
+    )
+  end
+
+  6.times do |i|
+    Product.create(
+        name: Faker::Lorem.sentence,
+        description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join("\n\n")),
+        remote_image_url: 'https://placeimg.com/600/800/any',
+        price: Faker::Number.decimal(4, 2),
+        sku: Faker::Lorem.words(2).join().upcase,
+        featured: true,
+        product_images_attributes: [
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'}
+        ]
+    )
+  end
+end
+
 # Categories
 
-%w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create}
+%w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create }
