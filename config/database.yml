@@ -1,4 +1,4 @@
-development:
+default: &default
   adapter: mysql2
   encoding: utf8
   database: <%= ENV['DB_NAME'] %>
@@ -7,14 +7,11 @@ development:
   host: 127.0.0.1
   port: 3306
 
+development:
+  <<: *default
+
 staging:
-  adapter: mysql2
-  encoding: utf8
-  database: kaapad_qa
-  username: root
-  password: "|sF9t3Gd"
-  host: 127.0.0.1
-  port: 3306
+  <<: *default
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,3 +21,6 @@ test:
   pool: 5
   timeout: 5000
   database: db/test.sqlite3
+
+production:
+  <<: *default

@@ -23,7 +23,7 @@ set :deploy_to, '/var/www/kaapad_qa'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{.env vendor/currency_rates.xml}
+set :linked_files, %w{.env vendor/currency_rates.xml config/database.yml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{public/uploads public/ckeditor_assets}
