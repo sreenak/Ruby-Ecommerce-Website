@@ -19,6 +19,10 @@ ul.nav.nav-stacked
     a href="#{customisations_account_url}"
       i.icon.ion-ios-color-wand-outline
       |Customisations
+  li class="#{deep_active_class(gift_cards_url)}"
+    a href="#{gift_cards_url}"
+      i.icon.ion-bag
+      |Gift Cards
 
 .gift-banner
-  = image_tag 'gift.jpg'
+  = link_to image_tag('gift.jpg'), :new_gift_card

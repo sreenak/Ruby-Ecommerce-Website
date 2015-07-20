@@ -19,6 +19,7 @@ class GiftCard < ActiveRecord::Base
   validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
 
   monetize :amount_paisas, with_model_currency: :currency
+  monetize :remaining_paisas, with_model_currency: :currency
 
   default_scope -> { order(created_at: :desc)}
 

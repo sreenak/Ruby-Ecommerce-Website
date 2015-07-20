@@ -20,7 +20,7 @@ class Cart
     product = Dress.find id
     return false unless product.present?
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable_type: 'Dress', line_itemable_id: product.id, price: price.to_money(@currency), title: product.name, quantity: quantity)
+    line_item = @order.line_items.create(line_itemable_type: 'Dress', line_itemable_id: product.id, amount: price.to_money(@currency), title: product.name, quantity: quantity)
     calculate
     line_item
   end
@@ -95,7 +95,7 @@ class Cart
 
   def calculate_shipping
     if @order.shipping_address.present? && @order.shipping_quote.blank? && @order.shipping_address.country != 'IN'
-      @order.line_items.create(line_itemable_type: 'ShippingService', line_itemable_id: 1, price: 20.to_money('USD').exchange_to(@currency), quantity: 1, title: 'Shipping Outside India')
+      @order.line_items.create(line_itemable_type: 'ShippingService', line_itemable_id: 1, amount: 20.to_money('USD').exchange_to(@currency), quantity: 1, title: 'Shipping Outside India')
       calculate
     end
   end
@@ -145,14 +145,28 @@ class Cart
       if discount.applies_as == 'Percent'
         amount = discount.amount/100 * total
       else
-        amount = discount.amount > total ? total : discount.amount
+        amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
       end
       # Let's not keep 0 discounts
       if amount <= 0
         d.destroy
         next
       end
-      d.update price: -amount
+      d.update amount: -amount
+    end
+    # Then the gift card usages
+    @order.gift_card_usage_items.each do |gu|
+      gift = gu.line_itemable.gift_card
+      unless gift.present?
+        gu.destroy # Remove gift cards which are not present anymore
+        next
+      end
+      total = @order.product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
+      if gu.amount > @order.total # You can only use upto order limit
+        gift.update(remaining: gift.remaining + (gu.amount - @order.total)) # Transfer the balance back
+        gu.update(amount: @order.total)
+        gu.line_itemable.update(amount: @order.total)
+      end
     end
     @order.calculate_total
   end
