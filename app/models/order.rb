@@ -1,7 +1,6 @@
 class Order < ActiveRecord::Base
   STATUSES = ['In Cart', 'Paid', 'Completed', 'Cancelled', 'Returned']
 
-  # include ModelHelpers
   belongs_to :user
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
@@ -16,6 +15,8 @@ class Order < ActiveRecord::Base
   has_many :dresses, through: :line_items, source: :line_itemable, source_type: 'Dress'
   has_many :gift_cards, through: :line_items, source: :line_itemable, source_type: 'GiftCard'
   has_many :gift_card_usages, through: :line_items, source: :line_itemable, source_type: 'GiftCardUsage'
+  has_one :shipment
+
   monetize :total_paisas, with_model_currency: :total_currency
 
   enum status: STATUSES

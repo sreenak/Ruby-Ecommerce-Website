@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-
   root to: 'home#show'
 
   resource :account, only: [:show, :edit, :update] do
     member do
-      get 'orders', to: 'accounts#orders'
-      get 'orders/:order_id/shipping', to: 'accounts#shipping'
-      get 'likes', to: 'accounts#likes'
+      resources :orders
       get 'customisations', to: 'accounts#customisations'
     end
   end
@@ -19,11 +16,10 @@ Rails.application.routes.draw do
   resources :trends, only: [:show, :index]
   resources :customise, only: [:show, :index]
   resources :shop, only: [:show, :index]
-  resources :likes
-  
+  resources :likes, only: [:index, :create, :destroy]
+  resources :customisations, only: [:index, :create, :destroy]
 
   post 'cart/add-product', to: 'cart#add_product'
-  post 'likes/create'
   get 'cart', to: 'cart#show'
   post 'cart/add-dress', to: 'cart#add_dress'
   patch 'cart/update'
@@ -49,5 +45,4 @@ Rails.application.routes.draw do
     resources :products
     resources :dresses
   end
-
 end

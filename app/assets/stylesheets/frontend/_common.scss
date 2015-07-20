@@ -47,3 +47,11 @@
     margin-bottom: $line-height-computed;
   }
 }
+
+.divided {
+  background: asset_data_url('black-dot.png') 0 50% repeat-x;
+  span {
+    background: white;
+    padding: 0 1em 0 0;
+  }
+}

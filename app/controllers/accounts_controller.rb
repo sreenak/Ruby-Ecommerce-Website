@@ -20,19 +20,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  def orders
-    @orders = @user.orders
-  end
-
-  def likes
-  end
-
-  def customisations
-  end
-
-  def shipping
-  end
-
   private
   def set_user
     @user = current_user
