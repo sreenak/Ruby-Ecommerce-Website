@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :likes
   has_many :liked_products, through: :likes, source: :product
+  has_many :gift_cards, through: :orders, source: :gift_cards
+
   enum gender: GENDERS
 
   accepts_nested_attributes_for :billing_address

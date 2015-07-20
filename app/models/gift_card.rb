@@ -3,18 +3,22 @@ class GiftCard < ActiveRecord::Base
   DELIVERABLE_TO_OPTIONS = %w(Me Recipient)
   CURRENCIES = %w(INR USD)
   AMOUNTS = {100 => 10000, 500 => 50000, 1000 => 100000, 10000 => 1000000} # Display price => Cents
+
+  before_create :set_remaining
+
   belongs_to :user
   has_one :shipping_address, as: :addressable
   has_many :usages, class_name: 'GiftCardUsage'
+
   enum status: STATUSES
   enum deliver_to: DELIVERABLE_TO_OPTIONS
 
   accepts_nested_attributes_for :shipping_address, reject_if: :shipping_not_required?
 
   before_create :generate_code
-  validates_presence_of :status, :amount_paisas, :ordered_by, :ordered_for, :amount_currency
+  validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
 
-  monetize :amount_paisas, with_model_currency: :amount_currency
+  monetize :amount_paisas, with_model_currency: :currency
 
   default_scope -> { order(created_at: :desc)}
 
@@ -39,6 +43,11 @@ class GiftCard < ActiveRecord::Base
   end
 
   def shipping_not_required?
-    deliver_to == 'Me'
+    deliver_to == 'Me' or deliver_to.blank?
+  end
+
+  private
+  def set_remaining
+    remaining = amount
   end
 end

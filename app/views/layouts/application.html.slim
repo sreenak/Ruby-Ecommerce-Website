@@ -50,8 +50,12 @@ html lang="en-us"
 
             form.navbar-form.navbar-left action="/currencies/switch"
               select.form-control name="currency" onchange="this.form.submit()"
-                option value="USD" Dollar $
-                option selected="" value="INR" Rupees ₹
+                |<option value="USD"
+                = ' selected' if @currency == 'USD'
+                | > Dollar $
+                | <option value="INR"
+                = ' selected' if @currency == 'INR'
+                | > Rupees ₹
 
             .cart-details.pull-right
               a href="#{cart_path}"
@@ -83,11 +87,11 @@ html lang="en-us"
               li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
               li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
-
-              /li class="#{deep_active_class(shop_index_url)}" = link_to 'Shop', :shop_index
+              li class="#{deep_active_class(shop_index_url)}" = link_to 'Shop', :shop_index
+              li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
               li class="#{deep_active_class(page_url('help'))}"= link_to 'Help', page_path('help')
 
-              li
+              /li
                 a href="#{shop_index_path}" 
                   | Shop
                   span.arrow ▼

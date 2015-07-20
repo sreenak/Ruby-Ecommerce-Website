@@ -1,0 +1,31 @@
+.gift-subtitle {
+  margin-bottom: $line-height-computed * 2;
+}
+
+.gift-tabs {
+  margin-bottom: $line-height-computed*2;
+}
+
+.gift-certificate.tab {
+  padding: $line-height-computed/3 $grid-gutter-width;
+  border: 1px solid $brand-primary;
+  cursor: pointer;
+  &.active {
+    background: $brand-primary;
+    color: white;
+  }
+  .tick-icon {
+    margin-right: 0.5em;
+  }
+  .icon {
+    margin-left: 0.5em;
+    vertical-align: middle;
+  }
+}
+
+#recipient-info, .deliver-type {
+  display: none;
+  &.active {
+    display: block;
+  }
+}

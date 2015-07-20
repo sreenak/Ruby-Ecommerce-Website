@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#show'
   get 'currencies/switch'
+  resources :gift_cards, only: [:index, :new, :create]
 
   resource :account, only: [:show, :edit, :update] do
     member do
@@ -45,5 +46,6 @@ Rails.application.routes.draw do
     resources :embellishments
     resources :products
     resources :dresses
+    resources :discount_coupons
   end
 end

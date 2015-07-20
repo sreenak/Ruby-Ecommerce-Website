@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720170858) do
+ActiveRecord::Schema.define(version: 20150720184412) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -87,13 +87,14 @@ ActiveRecord::Schema.define(version: 20150720170858) do
 
   create_table "discount_coupons", force: :cascade do |t|
     t.string   "code",                       limit: 255
-    t.decimal  "amount",                                 precision: 9, scale: 2, default: 0.0, null: false
-    t.integer  "applies_as",                 limit: 2,                           default: 0,   null: false
+    t.decimal  "amount",                                 precision: 9, scale: 2, default: 0.0,   null: false
+    t.integer  "applies_as",                 limit: 2,                           default: 0,     null: false
     t.integer  "maximum_usages",             limit: 4
-    t.integer  "minimum_order_price_paisas", limit: 4,                           default: 0,   null: false
-    t.integer  "status",                     limit: 2,                           default: 0,   null: false
-    t.datetime "created_at",                                                                   null: false
-    t.datetime "updated_at",                                                                   null: false
+    t.integer  "minimum_order_price_paisas", limit: 4,                           default: 0,     null: false
+    t.boolean  "status",                     limit: 1,                           default: false, null: false
+    t.datetime "created_at",                                                                     null: false
+    t.datetime "updated_at",                                                                     null: false
+    t.string   "currency",                   limit: 255,                         default: "INR", null: false
   end
 
   create_table "dresses", force: :cascade do |t|
@@ -181,7 +182,7 @@ ActiveRecord::Schema.define(version: 20150720170858) do
   create_table "gift_cards", force: :cascade do |t|
     t.string   "code",             limit: 255,   default: "",    null: false
     t.integer  "status",           limit: 2
-    t.string   "orderd_by",        limit: 255,   default: "",    null: false
+    t.string   "ordered_by",       limit: 255,   default: "",    null: false
     t.string   "ordered_for",      limit: 255,   default: "",    null: false
     t.text     "message",          limit: 65535
     t.integer  "amount_paisas",    limit: 4,     default: 0,     null: false

@@ -38,7 +38,7 @@ class Cart
   def add_gift_card(gift)
     @order.save # Save order before adding the gift card
     Rails.logger.info gift.amount.exchange_to('INR')
-    item = @order.line_items.create(line_itemable_type: 'GiftCard', line_itemable_id: gift.id, price: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
+    item = @order.line_items.create(line_itemable_type: 'GiftCard', line_itemable_id: gift.id, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
     calculate
     item
   end
@@ -51,10 +51,10 @@ class Cart
     if discount.applies_as == 'Percent'
       amount = discount.amount/100 * total
     else
-      amount = discount.amount > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
+      amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
     end
     return 'Discount not applicable!' if amount <= 0 || total < discount.minimum_order_price.to_money('INR').exchange_to(@currency)
-    item = @order.line_items.create(line_itemable_type: 'DiscountCoupon', line_itemable_id: discount.id, price: -(amount), quantity: 1, title: "Discount: #{discount.code}")
+    item = @order.line_items.create(line_itemable_type: 'DiscountCoupon', line_itemable_id: discount.id, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
     @order.calculate_total
     'Discount applied.'
   end
@@ -66,7 +66,8 @@ class Cart
     amount = available_amount > @order.total ? @order.total : available_amount
     return false if amount <= 0
     gift_usage = GiftCardUsage.create gift_card_id: gift.id, amount: amount
-    item = @order.line_items.create(line_itemable_type: 'GiftCardUsage', line_itemable_id: gift_usage.id, price: -amount, quantity: 1, title: "Gift Card: #{gift.code}")
+    item = @order.line_items.create(line_itemable_type: 'GiftCardUsage', line_itemable_id: gift_usage.id, amount: -amount, quantity: 1, title: "Gift Card: #{gift.code}")
+    gift.update(remaining: gift.remaining - amount)
     calculate
     item
   end
