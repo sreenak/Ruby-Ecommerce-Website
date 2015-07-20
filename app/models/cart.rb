@@ -101,8 +101,8 @@ class Cart
 
   def convert(to = 'USD')
     line_items.each do |item|
-      price = item.price.exchange_to(to)
-      item.update price: price
+      price = item.amount.exchange_to(to)
+      item.update amount: price
     end
     calculate
   end

@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   has_many :gift_card_usages, through: :line_items, source: :line_itemable, source_type: 'GiftCardUsage'
   has_one :shipment
 
-  monetize :total_paisas, with_model_currency: :total_currency
+  monetize :total_paisas, with_model_currency: :currency
 
   enum status: STATUSES
 

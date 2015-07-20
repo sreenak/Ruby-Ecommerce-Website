@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'home#show'
+  get 'currencies/switch'
 
   resource :account, only: [:show, :edit, :update] do
     member do
