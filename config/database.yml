@@ -1,4 +1,4 @@
-default: &default
+development:
   adapter: mysql2
   encoding: utf8
   database: <%= ENV['DB_NAME'] %>
@@ -6,9 +6,6 @@ default: &default
   password: <%= ENV['DB_PASSWORD'] %>
   host: 127.0.0.1
   port: 3306
-
-development:
-  <<: *default
 
 staging:
   adapter: mysql2
@@ -27,6 +24,3 @@ test:
   pool: 5
   timeout: 5000
   database: db/test.sqlite3
-
-production:
-  <<: *default
