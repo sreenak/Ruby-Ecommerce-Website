@@ -70,21 +70,36 @@ end
 
 %w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create }
 
-fabrics = {
-    georgette: %w(brown cobalt_blue cream dark_green dark_pink deep_pink deep_yellow faded_red fuschia light_brown light_cream light_pink light_yellow pale_green violet),
-    crepe: %w(brown cream dark_green dark_pink deep_pink faded_red fuschia light_blue light_brown light_cream light_pink light_yellow pale_green violet),
-    silk: %w(brown cobalt_blue cream dark_pink dark_green deep_pink deep_yellow faded_red fuschia light_blue light_brown light_cream light_pink pale_green red violet)
-}
+# fabrics = {
+#     georgette: %w(brown cobalt_blue cream dark_green dark_pink deep_pink deep_yellow faded_red fuschia light_brown light_cream light_pink light_yellow pale_green violet),
+#     crepe: %w(brown cream dark_green dark_pink deep_pink faded_red fuschia light_blue light_brown light_cream light_pink light_yellow pale_green violet),
+#     silk: %w(brown cobalt_blue cream dark_pink dark_green deep_pink deep_yellow faded_red fuschia light_blue light_brown light_cream light_pink pale_green red violet)
+#
+# }
 
-fabrics.each do |name, colors|
-  fabric = Fabric.where(name: name.to_s.humanize).first_or_create
-  puts 'Creating fabric: ' + name.to_s
-  puts "#{fabric.id} is the id"
-  colors.each do |color|
-    unless fabric.fabric_colors.any? { |c| c.name == color.humanize }
-      filepath = Rails.root.join('public', 'demo', 'pattern', name.to_s).to_s + "/#{color}_#{name.to_s}.png"
-      fabric.fabric_colors.create name: color.humanize, swatch: File.open(filepath)
-
+dir = Rails.root.join('seeds', 'fabrics')
+Dir.foreach(dir) do |item|
+  next if item == '.' or item == '..'
+  fabric = Fabric.where(name: item.humanize).first_or_create
+  puts 'Creating fabric: ' + item
+  if File.directory?(dir.to_s+'/'+item)
+    Dir.foreach(dir.to_s+'/'+item) do |color|
+      next if color == '.' or color == '..'
+      filepath = Rails.root.join('seeds', 'fabrics', item, color).to_s
+      fabric.fabric_colors.create name: color.gsub(".png", "").gsub("-", " ").humanize, swatch: File.open(filepath)
+      puts filepath
     end
   end
 end
+# fabrics.each do |name, colors|
+#   fabric = Fabric.where(name: name.to_s.humanize).first_or_create
+#   puts 'Creating fabric: ' + name.to_s
+#   puts "#{fabric.id} is the id"
+#   colors.each do |color|
+#     unless fabric.fabric_colors.any? { |c| c.name == color.humanize }
+#       filepath = Rails.root.join('public', 'demo', 'pattern', name.to_s).to_s + "/#{color}_#{name.to_s}.png"
+#       fabric.fabric_colors.create name: color.humanize, swatch: File.open(filepath)
+#
+#     end
+#   end
+# end

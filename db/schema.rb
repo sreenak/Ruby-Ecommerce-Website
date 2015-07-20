@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150720114632) do
 
-
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
     t.integer  "addressable_id",   limit: 4

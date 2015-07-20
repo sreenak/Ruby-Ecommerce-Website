@@ -14,11 +14,12 @@ h1.page-title.text-center.text-uppercase Shop
             .details
               .action-row.top.clearfix.hover-content
                 .pull-left
-                  i.icon.ion-ios-heart
-                  - if !current_or_null_user.liked? product 
-                      = link_to 'Add to favorite', likes_create_path(:id => product.id), class: 'fav_icon', :title => "Like", method: :post
+                  - if !current_or_null_user.liked? product
+                    i.icon.ion-ios-heart-outline
+                    = link_to 'Like', likes_create_path(:id => product.id), :title => "Like", method: :post
                   - else
-                      = link_to 'Add to favorite', like_path(:id => product.id), class: 'unfav_icon', :title => "Dislike", method: :delete
+                    i.icon.ion-ios-heart
+                    = link_to 'Unlike', like_path(:id => product.id), :title => "Dislike", method: :delete
 
                 .pull-right.text-right
                   i.icon.ion-ios-cart
