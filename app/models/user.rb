@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   has_many :liked_products, through: :likes, source: :product
   enum gender: GENDERS
 
+  accepts_nested_attributes_for :billing_address
+  accepts_nested_attributes_for :shipping_address
+
   validates_presence_of :name, :email
   validates :tos, acceptance: {accept: '1'}, on: :create
 
