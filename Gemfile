@@ -41,7 +41,7 @@ group :development, :test do
 end
 
 # File uploads
-gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 gem 'mini_magick'
 
 # Frontend UI
@@ -51,7 +51,7 @@ gem 'nested_form'
 gem 'slim-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor'
 gem 'country_select'
 
 # Authentication & authorization
