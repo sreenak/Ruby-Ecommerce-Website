@@ -21,8 +21,10 @@ json.fabric_groups @dress.fabric_parts_groups do |fabric_part_group|
     end
   end
   json.fabric_colors fabric_part_group.fabric_colors do |fabric_color|
+    json.fabric_id fabric_color.fabric.id
+    json.fabric_name fabric_color.fabric.name
     json.id fabric_color.id
-    json.name fabric_color.fabric.name
+    json.name fabric_color.name
     json.swatch fabric_color.swatch.url
   end
 end

@@ -64,14 +64,14 @@ class Admin::DressesController < AdminController
             [
                 :name, :svg_group_id, :id, :_destroy, fabric_color_ids: [],
                 parts_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id, :image, :image_cache]
+                    :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id,:id, :_destroy, :image, :image_cache]
                 ]
             ],
         embellishment_parts_groups_attributes:
             [
                 :name, :svg_group_id,:id, :_destroy,
                 parts_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :image, :image_cache]
+                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id,:id, :_destroy, :image, :image_cache]
                 ]
             ]
     )

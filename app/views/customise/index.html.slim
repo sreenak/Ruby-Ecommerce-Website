@@ -1,7 +1,11 @@
-.container
-  .floral-heading CHOOSE YOUR STYLE
-- @dresses.each do |d|
-  .col-lg-4.col-md-4.col-xs-12.text-center
-    a href="#{customise_path(d)}"
-      = image_tag d.sketch_url(:medium)
+- content_for :title do
+  |Choose Your Style
+
+h4.floral-text.text-uppercase.text-center.page-title
+  span CHOOSE YOUR STYLE
+.row.dresses
+  - @dresses.each do |d|
+    .col-md-4.text-center.dress-preview
+      a href="#{customise_path(d)}"
+        = image_tag d.sketch_url(:medium)
 

@@ -80,10 +80,11 @@ html lang="en-us"
           #main-menu.collapse.navbar-collapse
             ul.navbar-nav.nav
               li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
-              li class="#{deep_active_class(page_path('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
+              li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
+              li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
               li class="#{deep_active_class(shop_index_url)}" = link_to 'Shop', :shop_index
-              li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+              li class="#{deep_active_class(page_url('help'))}"= link_to 'Help', page_path('help')
 
     .container.content-area
       = flash_messages
