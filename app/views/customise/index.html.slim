@@ -1,2 +1,7 @@
-h1 Customise#index
-p Find me in app/views/customise/index.html.slim
+.container
+  .floral-heading CHOOSE YOUR STYLE
+- @dresses.each do |d|
+  .col-lg-4.col-md-4.col-xs-12.text-center
+    a href="#{customise_path(d)}"
+      = image_tag d.sketch_url(:medium)
+

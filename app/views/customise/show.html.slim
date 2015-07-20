@@ -1,2 +1,181 @@
-h1 Customise#show
-p Find me in app/views/customise/show.html.slim
+script
+  |  <ruby code="== "var dress_detail_url = '" + @dress_details_url + "'""></ruby> 
+.row.customisation
+  .col-md-4
+    .product-title
+      |  DESIGN STUDIO 
+      span.tour-start
+        |  ? 
+    br.chidden-md
+    .product-desc.tour-step.lg-tour-step-zero.md-tour-step-zero.xs-tour-step-zero
+      |  SELECT A PART OF THE GARMENT 
+      br.chidden-md
+      |  TO START CUSTOMIZING 
+    .product-price.hidden-xs.hidden-sm
+      span.currency
+
+      span.price
+
+    .tour-step.lg-tour-step-seven.hidden-xs.hidden-sm
+      input.btn.btn-primary.save[type="button" value="SAVE"]
+      input.btn.btn-success.add-cart[type="button" value="ADD TO CART" onclick="addcart(this)"]
+  .col-md-4.visible-sm.hidden-xs.customize-div
+    .product-price
+      span.currency
+
+      span.price
+
+    input.btn.btn-primary.save[type="button" value="SAVE"]
+    input.btn.btn-success.add-cart.tour-step.md-tour-step-seven[type="button" value="ADD TO CART" onclick="addcart(this)"]
+    .md-undo-red.tour-step.md-tour-step-two
+      a.undo[href="javasript:void(0)"]
+        = image_tag 'undo.jpg'
+      a.redo[href="javasript:void(0)"]
+        = image_tag 'redo.jpg'
+  #svg_mainwrapper.col-md-4.text-center.customize-center.tour-step.lg-tour-step-one.md-tour-step-one.xs-tour-step-one[style="height:623px"]
+    .m-undo-red.visible-xs.tour-step.xs-tour-step-two
+      a.undo[href="javasript:void(0)"]
+        = image_tag 'undo.jpg'
+      a.redo[href="javasript:void(0)"]
+        = image_tag 'redo.jpg'
+    #svg_wrapper
+
+    script[src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"]
+    script[type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"]
+    script[type="text/javascript"]
+      |  $.getJSON(dress_detail_url, function(data) { $('#svg_mainwrapper').css('height', '623px'); $('#svg_wrapper').css('height', '550px'); //loading the svg from the json var dress_details=data; var s = Snap("#svg_wrapper"); Snap.load(dress_details.angle_0, onSVGLoaded1); Snap.load(dress_details.angle_90, onSVGLoaded2); Snap.load(dress_details.angle_180, onSVGLoaded3); Snap.load(dress_details.angle_270, onSVGLoaded4); function onSVGLoaded1(data1) { s.append(data1); } function onSVGLoaded2(data2) { s.append(data2); } function onSVGLoaded3(data3) { s.append(data3); } function onSVGLoaded4(data4) { s.append(data4); } console.log('all are loaded'); }); 
+    .rotate.hidden-xs[style="margin-top: 0px !important;"]
+      a[href="javascript:void(0)"]
+        = image_tag 'rotate.jpg'
+    .m-product-price.product-price.visible-xs
+      span.currency
+
+      span.price
+
+    .undo-red.hidden-xs.hidden-sm.tour-step.lg-tour-step-two
+      a.undo[href="javasript:void(0)"]
+        = image_tag 'undo.jpg'
+      a.redo[href="javasript:void(0)"]
+        = image_tag 'redo.jpg'
+  .col-md-4.customisation-block.hidden-xs
+    .tabbable.customisation-tab
+      ul.nav.nav-tabs
+        li.active
+          a.customize-nav-tab[href="#material" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-material.png', class: 'open'
+            = image_tag 'customization-icons/pattern-material-hover.png', class: 'hover'
+        li.tour-step.lg-tour-step-four.md-tour-step-four
+          a.customize-nav-tab[href="#embellishment" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-embellishment.png', class: 'open'
+            = image_tag 'customization-icons/pattern-embellishment-hover.png', class: 'hover'
+        li
+          a.customize-nav-tab[href="#style" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-style.png', class: 'open'
+            = image_tag 'customization-icons/pattern-style-hover.png', class: 'hover'
+        li.tour-step.lg-tour-step-five.md-tour-step-five
+          a.customize-nav-tab[href="#sizing" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-sizing.png', class: 'open'
+            = image_tag 'customization-icons/pattern-sizing-hover.png', class: 'hover'
+        li.tour-step.lg-tour-step-six.md-tour-step-six
+          a.customize-nav-tab[href="#labels" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-customlabel.png', class: 'open'
+            = image_tag 'customization-icons/pattern-customlabel-hover.png', class: 'hover'
+        li
+          a.customize-nav-tab.disabled-tab[href="#pattern" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-pattern.png', class: 'open'
+            = image_tag 'customization-icons/pattern-pattern-hover.png', class: 'hover'
+        li
+          a.customize-nav-tab.disabled-tab[href="#color" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-color.png', class: 'open'
+            = image_tag 'customization-icons/pattern-color-hover.png', class: 'hover'
+      .tab-content.tour-step.lg-tour-step-three.md-tour-step-three
+        #up-arrow.pattern-arrows
+          span.available-patterns
+
+          i.fa.fa-angle-up.fa-lg
+        #material.tab-pane.clearfix.active
+
+        #embellishment.tab-pane.clearfix
+
+        #style.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  style list is coming soon
+        #sizing.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  sizing list is coming soon
+        #labels.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  labels list is coming soon
+        #down-arrow.pattern-arrows
+          i.fa.fa-angle-down.fa-lg
+  .col-md-4.m-customisation-block.visible-xs.mobile-no-padding
+    p.previous-customize-title.text-center.swipe-tittle
+      |  SWIPE RIGHT TO SEE MORE 
+    #owl-demo.owl-carousel.owl-demo.tour-step.xs-tour-step-three[style="left:16px"]
+      .item
+        h1
+          a.customize-nav-tab.customize-nav-tab-xs[href="material-xs" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-material.png', class: 'open'
+            = image_tag 'customization-icons/pattern-material-hover.png', class: 'hover'
+      .item.tour-step.xs-tour-step-four
+        h1
+          a.customize-nav-tab.customize-nav-tab-xs[href="embellishment-xs" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-embellishment.png', class: 'open'
+            = image_tag 'customization-icons/pattern-embellishment-hover.png', class: 'hover'
+      .item.tour-step.xs-tour-step-five
+        h1
+          a.customize-nav-tab.customize-nav-tab-xs[href="sizing-xs" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-sizing.png', class: 'open'
+            = image_tag 'customization-icons/pattern-sizing-hover.png', class: 'hover'
+      .item.tour-step.xs-tour-step-six
+        h1
+          a.customize-nav-tab.customize-nav-tab-xs[href="labels-xs" data-toggle="tab"]
+            = image_tag 'customization-icons/pattern-customlabel.png', class: 'open'
+            = image_tag 'customization-icons/pattern-customlabel-hover.png', class: 'hover'
+    #material-xs.none.content-box
+
+    #embellishment-xs.none.content-box
+      h5.text-center.patternHeader
+        |  Embellishment list is coming soon
+    #sizing-xs.none.content-box
+      h5.text-center.patternHeader
+        |  Sizing list is coming soon
+    #labels-xs.none.content-box
+      h5.text-center.patternHeader
+        |  Labels list is coming soon
+    .visible-xs.col-md-4.text-center.m-product-btn
+      input.btn.btn-success.add-cart.col-md-12.tour-step.xs-tour-step-seven[type="button" value="BUY NOW" onclick="addcart(this)"]
+    .visible-xs.col-md-4.text-center.m-product-btn
+      input.btn.btn-primary.save.col-md-12[type="button" value="SAVE"]
+    .clearfix
+  .clearfix
+  - if user_signed_in?
+    .row.no-margin
+      .col-md-12.prev-block
+        p.previous-customize-title.text-center.hidden-xs
+          |  PREVIOUSLY CUSTOMISED GARMETS 
+        p.previous-customize-title.customize-header.text-center.visible-xs
+          | CUSTOMISED VARIATION
+        a.btnPrevious.hidden-xs[href="javascript:void(0);"]
+          = image_tag 'left-arrow.png'
+        .prev-carousel
+          ul
+
+        a.btnPrevious.visible-xs[href="javascript:void(0);"]
+          = image_tag 'left-arrow.png'
+        a.btnNext[href="javascript:void(0);"]
+          = image_tag 'right-arrow.png'
+      .clearfix
+      .col-md-4.text-center.visible-xs.md-product-btn
+        input.btn.btn-primary.col-md-12[type="button" value="CUSTOMISE"]
+  input#dressId[type="hidden" name="id"]
+  input#dressParts[type="hidden" name="details"]
+  input#dressPrice[type="hidden" name="total_price"]
+  .savingJsonLoader
+    .loader
+      = image_tag 'Default/ajax-loader.gif'
+  style
+    |  .tabbable.customisation-tab > .tab-content > .tab-pane{ overflow-y:auto; } .fabric_name{ text-align: center; font-size: 15px; font-weight: bold; } .pattern_div{ width: 50px; height: 70px; margin-bottom: 5px; margin-right: 5px; cursor: pointer; float: left; display: inline-block; } .pattern_div img{ width: 100%; } .pattern_div p{ text-align: center; font-size: 9px; } #colors{ float: left; } #material img{ width: 100%; } .svg{ display: none; } .svg.active { display: block; } .board{ float: left; } svg{ position: absolute; width: 100%; left: -500px; top: -500px; } #material img{ cursor: pointer; } #frontview{ left: 0px; top: 0px; } .imageRotateHorizontal{ -moz-animation: spinHorizontal .8s linear; -o-animation: spinHorizontal .8s linear; -webkit-animation: spinHorizontal .8s linear; animation: spinHorizontal .8s linear; } @keyframes spinHorizontal { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(90deg); } } #embellishment img{ border: 1px solid black; margin-right: 5px; margin-bottom: 5px; cursor: pointer; } .group{ display: none; } 

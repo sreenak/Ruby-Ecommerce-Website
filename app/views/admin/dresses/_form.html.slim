@@ -16,19 +16,19 @@
 
       = f.input :angle_0, wrapper: :horizontal_file_input
       = f.hidden_field :angle_0_cache
-      = image_tag @dress.angle_0_url(:thumbnail) if @dress.angle_0?
+      = link_to @dress.angle_0_url if @dress.angle_0?
 
       = f.input :angle_90, wrapper: :horizontal_file_input
       = f.hidden_field :angle_90_cache
-      = image_tag @dress.angle_90_url(:thumbnail) if @dress.angle_90?
+      = link_to @dress.angle_90_url if @dress.angle_90?
 
       = f.input :angle_180, wrapper: :horizontal_file_input
       = f.hidden_field :angle_180_cache
-      = image_tag @dress.angle_180_url(:thumbnail) if @dress.angle_180?
+      = link_to @dress.angle_180_url if @dress.angle_180?
 
       = f.input :angle_270, wrapper: :horizontal_file_input
       = f.hidden_field :angle_270_cache
-      = image_tag @dress.angle_270_url(:thumbnail) if @dress.angle_270?
+      = link_to @dress.angle_270_url if @dress.angle_270?
 
   = f.simple_fields_for :fabric_parts_groups do |fp|
     = render 'fabrics', f: fp

@@ -1,0 +1,44 @@
+json.name @dress.name
+json.angle_0 @dress.angle_0.url
+json.angle_90 @dress.angle_90.url
+json.angle_180 @dress.angle_180.url
+json.angle_270 @dress.angle_270.url
+json.currency @cart.currency
+json.base_price @dress.base_price.exchange_to(@cart.currency).to_f
+json.fabric_groups @dress.fabric_parts_groups do |fabric_part_group|
+  json.id fabric_part_group.id
+  json.name fabric_part_group.name
+  json.type fabric_part_group.type
+  json.svg_group_id fabric_part_group.svg_group_id
+  json.parts fabric_part_group.parts do |part|
+    json.id part.id
+    json.name part.name
+    json.svg_path_id part.svg_path_id
+    json.brocade_parts part.brocade_parts do |brocade_part|
+      json.id brocade_part.brocade_id
+      json.name brocade_part.brocade.name
+      json.image brocade_part.image.url
+    end
+  end
+  json.fabric_colors fabric_part_group.fabric_colors do |fabric_color|
+    json.id fabric_color.id
+    json.name fabric_color.fabric.name
+    json.swatch fabric_color.swatch.url
+  end
+end
+json.embelishment_groups @dress.embellishment_parts_groups do |embellishment_part_group|
+  json.id embellishment_part_group.id
+  json.name embellishment_part_group.name
+  json.type embellishment_part_group.type
+  json.svg_group_id embellishment_part_group.svg_group_id
+  json.parts embellishment_part_group.parts do |part|
+    json.id part.id
+    json.name part.name
+    json.svg_path_id part.svg_path_id
+    json.embellishment_parts part.embellishment_parts do |embellishment_part|
+      json.id embellishment_part.embellishment_id
+      json.name embellishment_part.embellishment.name
+      json.image embellishment_part.image.url
+    end
+  end
+end
