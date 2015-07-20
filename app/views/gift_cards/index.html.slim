@@ -1,0 +1,15 @@
+.row
+  .col-lg-3.col-md-4= render 'accounts/sidebar'
+  #gift_cards.col-lg-9.col-md-8
+    table.table
+      thead
+        tr
+          th Code
+          th Used Amount
+          th Available Amount
+      tbody
+        - @gift_cards.each do |g|
+          tr
+            td= g.code
+            td= humanized_money_with_symbol g.used_amount.exchange_to(@cart.currency)
+            td= humanized_money_with_symbol g.available_amount.exchange_to(@cart.currency)

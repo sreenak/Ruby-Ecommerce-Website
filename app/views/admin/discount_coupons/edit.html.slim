@@ -1,0 +1,11 @@
+- content_for :title do
+  | Editing Discount Coupon
+- content_for :heading do
+  | Editing Discount Coupon
+.panel.panel-default
+  .panel-heading
+    | Editing Discount Coupon - 
+    em
+      = @discount_coupon.code
+  .panel-body
+    = render 'form'

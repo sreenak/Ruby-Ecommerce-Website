@@ -1,0 +1,14 @@
+= horizontal_simple_form_for [:admin, @discount_coupon], wrapper: :horizontal_small_form do |f|
+  .form-actions.row
+    .col-md-6
+      = f.input :code
+      = f.input :amount
+      = f.input :applies_as, collection: DiscountCoupon::APPLIES_AS, prompt: 'Select voucher type'
+      = f.input :status, label: 'Active', wrapper: :horizontal_radio_and_checkboxes
+    .col-md-6
+      = f.input :maximum_usages
+      = f.input :minimum_order_price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
+        span.input-group-addon
+          i.fa.fa-inr
+        = f.input_field :minimum_order_price, class: 'form-control'
+      = f.button :submit

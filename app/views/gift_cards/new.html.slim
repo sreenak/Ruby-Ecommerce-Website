@@ -1,0 +1,66 @@
+- content_for :title do
+  |  Gift 
+.container.container-gift
+  .col-sm-12
+    h1.gift-title.text-center.page-title GIFT CERTIFICATE
+    h3.gift-subtitle.text-center The perfect present for that special someone
+  #gift-card.col-sm-5
+    = image_tag 'gift-card.png',class:'img-responsive'
+  #gift-shippig-info.col-sm-7
+    .row.text-center.gift-tabs
+      .col-sm-6
+        .tab.gift-certificate.active[data-url='e-gift']
+          span.tick-icon &#10004
+          | E-GIFT CERTIFICATE
+          i.icon.ion-ios-information-outline
+      .col-sm-6
+        .tab.gift-certificate[data-url='normal-gift']
+          span.tick-icon &#10004
+          | GIFT CERTIFICATE
+          i.icon.ion-ios-information
+    = simple_form_for @gift, wrapper: :vertical_form do |f|
+      = render 'shared/form_errors', object: f.object
+      = f.input :card_type, as: :hidden
+      #e-gift.certificate-type.toggle
+        .row
+          .col-sm-4.col-xs-6
+            = f.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required'}
+          .col-sm-4.col-xs-6
+            = f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency'
+          .col-sm-4
+            .form-group.string.required.gift_card_ordered_for
+              label.string.required.control-label[for='gift_card_ordered_for']
+                abbr[title='required']
+                  | *
+                |  Quantity
+              input#gift_card_ordered_for.string.required.form-control[type='number' min='1' value='1' name='quantity' autocomplete='off' data-validation='number']
+        | ,
+        = f.input :ordered_for, label: "Recipient's Name", :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct Recipient Name'}
+        = f.input :ordered_by, label: 'Your Name', value: current_or_null_user.name ,  :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct  Name'}
+        .form-group.deliver-type
+          = f.input :deliver_to, collection: GiftCard::DELIVERABLE_TO_OPTIONS, as: :radio_buttons, checked: 'Me'
+          #recipient-info
+            = f.simple_fields_for :shipping_address do |a|
+              = a.input :name
+              = a.input :address_1
+              = a.input :address_2
+              = a.input :city
+              = a.input :country
+              = a.input :postal_code
+        = f.input :message
+        input.buynow.btn.btn-default[type='submit' value='BUY NOW']
+        .text-group
+          h4 USE ACROSS MULTIPLE ORDERS
+          p Our gift certificates can be used across multiple orders, according to the gift amount.
+        .text-group
+          h4 COMPLETE WITH CREDIT CARD
+          p Gift amount not enough to cover the cost of the order? Easly complete the purchase with your credit card.
+        .text-group
+          h4 SEND IT DIRECTLY TO THE ADDRESS
+          p Hard copy certificates can be sent straight to the address. Please allow 1-2 weeks for delivery of hard copy gift certificates - actual delivery time will vary according to your location and local postal services.
+        .text-group
+          h4 CORPORATE GIFT IDEAS
+          p
+            | We also offer corporate gift certificates for promotional incentives or rewards. To learn more
+            a[href='#']
+              b click here
