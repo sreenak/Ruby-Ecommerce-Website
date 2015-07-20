@@ -6,5 +6,5 @@ class Part < ActiveRecord::Base
   accepts_nested_attributes_for :brocade_parts, allow_destroy: true
   accepts_nested_attributes_for :embellishment_parts, allow_destroy: true
 
-  validates_presence_of :part_group, :name, :svg_path_id
+  validates_presence_of :name, :svg_path_id
 end

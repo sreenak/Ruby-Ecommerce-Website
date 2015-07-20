@@ -1,4 +1,5 @@
 = simple_nested_form_for [:admin, @dress], wrapper: :horizontal_small_form do |f|
+  = render 'shared/form_errors', object: f.object
   .form-inputs.row
     .col-md-6
       = f.input :name

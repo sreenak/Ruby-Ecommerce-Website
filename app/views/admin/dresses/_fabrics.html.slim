@@ -21,7 +21,10 @@
               .panel-body
                 .row
                   .col-md-6= b.association :brocade
-                  .col-md-6= b.input :image
+                  .col-md-6
+                    = b.input :image
+                    = b.hidden_field :image_cache
+                    = image_tag b.object.image_url if b.object.image?
                 = b.link_to_remove 'Remove Brocade', class: 'btn btn-danger pull-right'
 
           = p.link_to_add 'Add Brocade', :brocade_parts, class: 'btn btn-success'

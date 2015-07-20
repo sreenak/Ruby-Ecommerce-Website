@@ -60,18 +60,18 @@ class Admin::DressesController < AdminController
         :angle_90, :angle_90_cache, :remove_angle_90,
         :angle_180, :angle_180_cache, :remove_angle_180,
         :angle_270, :angle_270_cache, :remove_angle_270,
-        fabric_parts_groups:
+        fabric_parts_groups_attributes:
             [
-                :name, :svg_group_id, fabric_colors: [],
-                parts: [
-                    :name, :svg_path_id, brocade_parts: [:brocade_id, :image]
+                :name, :svg_group_id, :id, :_destroy, fabric_color_ids: [],
+                parts_attributes: [
+                    :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id, :image, :image_cache]
                 ]
             ],
-        embellishment_parts_groups:
+        embellishment_parts_groups_attributes:
             [
-                :name, :svg_group_id,
-                parts: [
-                    :name, :svg_path_id, embellishment_parts: [:embellishment_id, :image]
+                :name, :svg_group_id,:id, :_destroy,
+                parts_attributes: [
+                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :image, :image_cache]
                 ]
             ]
     )
