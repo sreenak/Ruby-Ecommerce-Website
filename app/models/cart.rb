@@ -8,7 +8,7 @@ class Cart
     elsif user_id.present?
       @order = Order.find_or_initialize_by user_id: user_id, status: 'In Cart'
     else
-      @order = Order.new total_currency: currency
+      @order = Order.new currency: currency
     end
     if @order.total.currency != currency
       convert currency

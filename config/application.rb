@@ -13,6 +13,7 @@ module Kaapad
     g.test_framework  false
     g.stylesheets     false
     g.javascripts     false
+    g.helper false
   end
     config.action_mailer.default_url_options = {host: 'kaapad.com'}
     # Settings in config/environments/* take precedence over those specified here.
