@@ -7,8 +7,8 @@ class LikesController < ApplicationController
 
   def create
     if user_signed_in?
-      Like.where(user_id: current_user.id, product_id: params[:id]).first_or_create
-      redirect_to :back, notice: 'You liked the product!'
+      @like = Like.where(user_id: current_user.id, product_id: params[:id]).first_or_create
+      redirect_to :back, notice: "You liked #{@like.product.name}"
     else
       redirect_to :back, alert: 'You need to be logged in to like product!'
     end
@@ -19,7 +19,7 @@ class LikesController < ApplicationController
     respond_to do |format|
       if @like.present?
         @like.destroy
-        format.html { redirect_to :back, notice: 'You unliked item.' }
+        format.html { redirect_to :back, notice: "You unliked #{@like.product.name}." }
       else
         format.html { redirect_to :back, notice: 'You have no liked item.' }
       end

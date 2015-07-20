@@ -28,14 +28,21 @@
             label for="quantity" Quantity
             input#quantity.form-control name="quantity" type="number" min="1" value="1"
           .price
-            span= humanized_money_with_symbol @product.price
+            span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
       .actions.text-center
         button.info-row.text-uppercase.active type="submit"
           i.icon.ion-ios-cart
           span Add to cart
-        .info-row.text-uppercase
-          i.icon.ion-ios-heart
-          span Add to favorite
+        - if !current_or_null_user.liked?(@product)
+          .info-row.text-uppercase
+            a href="#{likes_path(id: @product.id)}" data-method="post"
+              i.icon.ion-ios-heart
+              span Add to favorite
+        - else
+          .info-row.text-uppercase
+            a href="#{like_path(id: @product.id)}" data-method="delete"
+              i.icon.ion-ios-heart
+              span Remove from favorites
         .info-row.text-uppercase
           i.icon.ion-edit
           span Customise

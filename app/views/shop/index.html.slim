@@ -16,15 +16,15 @@ h1.page-title.text-center.text-uppercase Shop
                 .pull-left
                   - if !current_or_null_user.liked? product
                     i.icon.ion-ios-heart-outline
-                    = link_to 'Like', likes_create_path(:id => product.id), :title => "Like", method: :post
+                    = link_to 'Like', likes_path(:id => product.id), method: :post
                   - else
                     i.icon.ion-ios-heart
-                    = link_to 'Unlike', like_path(:id => product.id), :title => "Dislike", method: :delete
+                    = link_to 'Unlike', like_path(:id => product.id), method: :delete
 
                 .pull-right.text-right
                   i.icon.ion-ios-cart
-                  = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), :title => "add to cart", method: :post     
-              h4.price.text-center= humanized_money_with_symbol product.price
+                  = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
+              h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
               h4.text-center
                 = link_to product.name, shop_path(product)
               .action-row.text-center.bottom.hover-content
