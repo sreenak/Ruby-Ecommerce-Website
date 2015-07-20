@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150720114632) do
 
+
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
     t.integer  "addressable_id",   limit: 4
@@ -193,6 +194,16 @@ ActiveRecord::Schema.define(version: 20150720114632) do
     t.datetime "updated_at",                                     null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "product_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "likes", ["product_id"], name: "index_likes_on_product_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
   create_table "line_items", force: :cascade do |t|
     t.string   "title",              limit: 255, default: "",    null: false
     t.integer  "order_id",           limit: 4
@@ -341,6 +352,8 @@ ActiveRecord::Schema.define(version: 20150720114632) do
   add_foreign_key "embellishment_parts", "parts"
   add_foreign_key "fabric_colors", "fabrics"
   add_foreign_key "gift_card_usages", "gift_cards"
+  add_foreign_key "likes", "products", on_delete: :cascade
+  add_foreign_key "likes", "users", on_delete: :cascade
   add_foreign_key "line_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "parts", "parts_groups"

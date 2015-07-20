@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :trends, only: [:show, :index]
   resources :customise, only: [:show, :index]
   resources :shop, only: [:show, :index]
+  resources :likes
+  
 
   post 'cart/add-product', to: 'cart#add_product'
   post 'likes/create'

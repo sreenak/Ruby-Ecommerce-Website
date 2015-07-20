@@ -1,5 +1,6 @@
 class CustomiseController < ApplicationController
   def index
+    @category = Category.all
     @dresses = Dress.page params[:page]
   end
 

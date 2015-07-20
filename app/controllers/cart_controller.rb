@@ -18,7 +18,7 @@ class CartController < ApplicationController
   end
 
   def add_product
-    line_item = @cart.add_product params[:product_id], params[:quantity]
+    line_item = @cart.add_product params[:product_id]
     respond_to do |format|
       if line_item
         # line_item.create_customised_dress_order_item details: params[:details]

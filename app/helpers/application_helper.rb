@@ -7,6 +7,14 @@ module ApplicationHelper
   def active_class url
     current_page?(url) ? 'active' : ''
   end
+  
+  def current_or_null_user
+    if current_user == nil
+      User.new
+    else
+      current_user
+    end
+  end
 
   def deep_active_class url
     request.original_url.starts_with?(url) ? 'active' : ''

@@ -6,22 +6,26 @@ h1.page-title.text-center.text-uppercase Shop
 .products
   - @products.each_slice(4) do |row|
     .row
-      - row.each do |p|
+      - row.each do |product|
         .col-md-3.col-sm-6
           .product-preview.hover-container
-            a href="#{shop_path(p)}"
-              = image_tag p.image_url(:medium)
+            a href="#{shop_path(product)}"
+              = image_tag product.image_url(:medium)
             .details
               .action-row.top.clearfix.hover-content
                 .pull-left
                   i.icon.ion-ios-heart
-                  |Add to favorite
+                  - if !current_or_null_user.liked? product 
+                      = link_to 'Add to favorite', likes_create_path(:id => product.id), class: 'fav_icon', :title => "Like", method: :post
+                  - else
+                      = link_to 'Add to favorite', like_path(:id => product.id), class: 'unfav_icon', :title => "Dislike", method: :delete
+
                 .pull-right.text-right
                   i.icon.ion-ios-cart
-                  |Add to cart
-              h4.price.text-center= humanized_money_with_symbol p.price
+                  = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), :title => "add to cart", method: :post     
+              h4.price.text-center= humanized_money_with_symbol product.price
               h4.text-center
-                = link_to p.name, shop_path(p)
+                = link_to product.name, shop_path(product)
               .action-row.text-center.bottom.hover-content
                 i.icon.ion-wand
                 |Customise

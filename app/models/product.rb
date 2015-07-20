@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :dress
   has_many :product_images
-
+  has_many :likes
   accepts_nested_attributes_for :product_images, allow_destroy: true
 
   validates_presence_of :name, :image, :price, :sku

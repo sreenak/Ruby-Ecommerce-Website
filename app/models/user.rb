@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
   has_one :billing_address, as: :addressable
   has_one :shipping_address, as: :addressable
   has_many :orders
-
+  has_many :likes
+  has_many :liked_products, through: :likes, source: :product
   enum gender: GENDERS
 
   validates_presence_of :name, :email
@@ -54,6 +55,10 @@ class User < ActiveRecord::Base
     roles.exists? name: role
   end
 
+  def liked? product
+    liked_products.include? product
+  end
+
   private
 
   def set_provider
@@ -62,4 +67,5 @@ class User < ActiveRecord::Base
       self.uid = self.email
     end
   end
+
 end
