@@ -47,6 +47,37 @@
     span.glyphicon.glyphicon-chevron-right aria-hidden="true" 
     span.sr-only Next
 
+h4.floral-text.page-title.text-center
+  span Selected Styles
+
+.products
+  - @products.each_slice(3) do |row|
+    .row
+      - row.each do |product|
+        .col-md-4.col-sm-6
+          .product-preview.hover-container
+            a href="#{shop_path(product)}"
+              = image_tag product.image_url(:medium)
+            .details
+              .action-row.top.clearfix.hover-content
+                .pull-left
+                  - if !current_or_null_user.liked? product
+                    i.icon.ion-ios-heart-outline
+                    = link_to 'Like', likes_path(:id => product.id), method: :post
+                  - else
+                    i.icon.ion-ios-heart
+                    = link_to 'Unlike', like_path(:id => product.id), method: :delete
+
+                .pull-right.text-right
+                  i.icon.ion-ios-cart
+                  = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
+              h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+              h4.text-center
+                = link_to product.name, shop_path(product)
+              .action-row.text-center.bottom.hover-content
+                i.icon.ion-wand
+                |Customise
+hr
 h4.floral-text
   span Trends
 

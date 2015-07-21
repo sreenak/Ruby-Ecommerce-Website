@@ -18,4 +18,5 @@ class Product < ActiveRecord::Base
   end
 
   default_scope -> {order(created_at: :desc)}
+  scope :featured, -> {where(featured: true)}
 end
