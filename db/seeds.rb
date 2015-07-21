@@ -89,3 +89,4 @@ Dir.foreach(brocades_dir) do |item|
   filepath = Rails.root.join('seeds', 'brocade', item).to_s
   Brocade.create name: item.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath) if File.file? filepath
 end
+
