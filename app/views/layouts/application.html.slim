@@ -98,11 +98,6 @@ html lang="en-us"
                 ul.sub-menu
                  - @category.each do |cat|
                   li
-
-                    a href="#"  sarees
-                  li
-                    a href="#"  salwars
-
                     a href="#{shop_index_path}" 
                       =cat.name               
               li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
