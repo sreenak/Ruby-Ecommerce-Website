@@ -15,7 +15,7 @@ json.fabric_groups @dress.fabric_parts_groups do |fabric_part_group|
     json.name part.name
     json.svg_path_id part.svg_path_id
     json.brocade_parts part.brocade_parts do |brocade_part|
-      json.id brocade_part.brocade_id
+      json.brocade_id brocade_part.brocade.id
       json.name brocade_part.brocade.name
       json.image brocade_part.image.url
     end
