@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20150720184412) do
-
+ActiveRecord::Schema.define(version: 20150721113436) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -86,6 +84,18 @@ ActiveRecord::Schema.define(version: 20150720184412) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "colors", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "image",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "colors_products", id: false, force: :cascade do |t|
+    t.integer "product_id", limit: 4, null: false
+    t.integer "color_id",   limit: 4, null: false
+  end
 
   create_table "discount_coupons", force: :cascade do |t|
     t.string   "code",                       limit: 255
@@ -293,6 +303,17 @@ ActiveRecord::Schema.define(version: 20150720184412) do
 
   add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
 
+  create_table "product_sizes", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "product_sizes_products", id: false, force: :cascade do |t|
+    t.integer "product_id",      limit: 4, null: false
+    t.integer "product_size_id", limit: 4, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name",         limit: 255,   default: "",    null: false
     t.string   "slug",         limit: 255,   default: "",    null: false
@@ -305,8 +326,10 @@ ActiveRecord::Schema.define(version: 20150720184412) do
     t.text     "description",  limit: 65535
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "category_id",  limit: 4
   end
 
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["dress_id"], name: "index_products_on_dress_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
@@ -371,6 +394,7 @@ ActiveRecord::Schema.define(version: 20150720184412) do
   add_foreign_key "parts_groups", "dresses"
   add_foreign_key "payments", "orders"
   add_foreign_key "product_images", "products"
+  add_foreign_key "products", "categories"
   add_foreign_key "products", "dresses"
   add_foreign_key "shipments", "orders"
 end

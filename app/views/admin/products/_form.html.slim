@@ -10,6 +10,9 @@
     .col-md-6
       = f.input :featured
       = f.association :dress
+      = f.association :category
+      = f.association :colors, as: :check_boxes
+      = f.association :product_sizes, as: :check_boxes
       = f.input :image, wrapper: :horizontal_file_input
       = image_tag @product.image_url(:thumbnail) if @product.image?
       = f.hidden_field :image_cache
