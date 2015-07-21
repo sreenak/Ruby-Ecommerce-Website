@@ -1,7 +1,7 @@
 class Part < ActiveRecord::Base
-  belongs_to :parts_group
-  has_many :brocade_parts
-  has_many :embellishment_parts
+  belongs_to :parts_group, dependent: :destroy
+  has_many :brocade_parts, dependent: :destroy
+  has_many :embellishment_parts, dependent: :destroy
 
   accepts_nested_attributes_for :brocade_parts, allow_destroy: true
   accepts_nested_attributes_for :embellishment_parts, allow_destroy: true

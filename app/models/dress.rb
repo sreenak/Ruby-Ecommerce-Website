@@ -2,9 +2,9 @@ class Dress < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :category
-  has_many :parts_groups
-  has_many :embellishment_parts_groups
-  has_many :fabric_parts_groups
+  has_many :parts_groups, dependent: :destroy
+  has_many :embellishment_parts_groups, dependent: :destroy
+  has_many :fabric_parts_groups, dependent: :destroy
 
   accepts_nested_attributes_for :embellishment_parts_groups, allow_destroy: true
   accepts_nested_attributes_for :fabric_parts_groups, allow_destroy: true

@@ -2,7 +2,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :line_itemable, polymorphic: true
   belongs_to :shipping
-  has_one :shipping_address, through: :shipping
+  has_one :shipping_address, through: :shipping, dependent: :destroy
   has_one :customised_dress_order_item
   monetize :amount_paisas, with_model_currency: :currency
 

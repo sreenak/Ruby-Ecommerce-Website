@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   STATUSES = ['In Cart', 'Paid', 'Completed', 'Cancelled', 'Returned']
 
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
   has_many :line_items, dependent: :destroy
@@ -11,11 +11,11 @@ class Order < ActiveRecord::Base
   has_many :discount_items, -> { where line_itemable_type: 'DiscountCoupon' }, class_name: 'LineItem'
   has_one :shipping_quote, -> { where line_itemable_type: 'ShippingService' }, class_name: 'LineItem'
   has_many :gift_card_usage_items, -> { where line_itemable_type: 'GiftCardUsage' }, class_name: 'LineItem'
-  has_many :shippings
   has_many :dresses, through: :line_items, source: :line_itemable, source_type: 'Dress'
   has_many :gift_cards, through: :line_items, source: :line_itemable, source_type: 'GiftCard'
   has_many :gift_card_usages, through: :line_items, source: :line_itemable, source_type: 'GiftCardUsage'
-  has_one :shipment
+  has_one :shipment, dependent: :destroy
+  has_one :payment, dependent: :destroy
 
   monetize :total_paisas, with_model_currency: :currency
 
