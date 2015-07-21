@@ -5,7 +5,7 @@
       .col-md-6= f.input :name
       .col-md-6= f.input :svg_group_id
 
-    = f.association :fabric_colors
+    = f.association :fabric_colors, label_method: :label
 
     = f.simple_fields_for :parts do |p|
       .panel.panel-default
