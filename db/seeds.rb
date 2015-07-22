@@ -78,7 +78,7 @@ Dir.foreach(fabrics_dir) do |item|
     Dir.foreach(fabrics_dir.to_s+'/'+item) do |color|
       next if color == '.' or color == '..'
       filepath = Rails.root.join('seeds', 'fabrics', item, color).to_s
-      fabric.fabric_colors.create name: color.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath)
+      fabric.fabric_colors.where(name: color.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath)).first_or_create
     end
   end
 end
@@ -87,11 +87,11 @@ brocades_dir = Rails.root.join('seeds', 'brocade')
 Dir.foreach(brocades_dir) do |item|
   next if item == '.' or item == '..'
   filepath = Rails.root.join('seeds', 'brocade', item).to_s
-  Brocade.create name: item.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath) if File.file? filepath
+  Brocade.where(name: item.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath)).first_or_create if File.file? filepath
 end
 
-size_list = ['S','M','L','XL','XXL']
+size_list = ['S', 'M', 'L', 'XL', 'XXL']
 
 size_list.each do |size|
-  StandardSize.create name: size
+  StandardSize.where(name: size).first_or_create
 end
