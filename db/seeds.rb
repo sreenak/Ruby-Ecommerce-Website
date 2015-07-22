@@ -93,5 +93,5 @@ end
 size_list = ['S','M','L','XL','XXL']
 
 size_list.each do |size|
-  ProductSize.create name: size
+  StandardSize.create name: size
 end

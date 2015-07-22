@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
   has_many :product_images, dependent: :destroy
 
   has_and_belongs_to_many :colors
-  has_and_belongs_to_many :product_sizes
+  has_and_belongs_to_many :standard_sizes
   has_many :likes
   accepts_nested_attributes_for :product_images, allow_destroy: true
 

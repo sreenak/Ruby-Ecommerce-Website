@@ -18,11 +18,11 @@
         .col-sm-6.col-md-4
           .form-group
             label for="size" Size
-            = collection_select(:product, :id, ProductSize.all,
+            = collection_select(:product, :id, @product_sizes,
                   :id, :name, {:prompt => 'Select Size'})
           .form-group
             label for="Color" Color
-            = collection_select(:product, :id, Color.all,
+            = collection_select(:product, :id, @product_colors,
                   :id, :name, {:prompt => 'Select Color'})
           .form-group
             label for="quantity" Quantity

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721113436) do
+ActiveRecord::Schema.define(version: 20150722053054) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -303,17 +303,6 @@ ActiveRecord::Schema.define(version: 20150721113436) do
 
   add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
 
-  create_table "product_sizes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "product_sizes_products", id: false, force: :cascade do |t|
-    t.integer "product_id",      limit: 4, null: false
-    t.integer "product_size_id", limit: 4, null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string   "name",         limit: 255,   default: "",    null: false
     t.string   "slug",         limit: 255,   default: "",    null: false
@@ -331,6 +320,11 @@ ActiveRecord::Schema.define(version: 20150721113436) do
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["dress_id"], name: "index_products_on_dress_id", using: :btree
+
+  create_table "products_standard_sizes", id: false, force: :cascade do |t|
+    t.integer "product_id",       limit: 4, null: false
+    t.integer "standard_size_id", limit: 4, null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name", limit: 255
@@ -353,6 +347,12 @@ ActiveRecord::Schema.define(version: 20150721113436) do
   end
 
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
+
+  create_table "standard_sizes", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255, default: "", null: false
