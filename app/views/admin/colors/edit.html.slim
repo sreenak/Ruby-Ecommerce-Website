@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Product Color
+- content_for :heading do
+  | Editing Product Color
+  em
+    = @color.name
+
+= render 'form'

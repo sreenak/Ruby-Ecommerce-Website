@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @color], wrapper: :horizontal_small_form do |p|
+  .form-inputs.row
+    .col-md-6
+      = p.input :name
+      = image_tag @color.image_url(:thumbnail) if @color.image?
+      = p.input :image
+      = p.hidden_field :image_cache
+    .col-md-6
+      = p.button :submit

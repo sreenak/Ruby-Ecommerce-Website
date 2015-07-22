@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources :fabrics
     resources :users
     resources :brocades
+    resources :colors
     resources :embellishments
     resources :products
     resources :dresses

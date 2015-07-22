@@ -10,7 +10,6 @@ class CreateProducts < ActiveRecord::Migration
       t.boolean :featured, null: false, default: 0
       t.belongs_to :dress, index: true, foreign_key: true
       t.text :description
-
       t.timestamps null: false
     end
   end
