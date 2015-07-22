@@ -1,5 +1,5 @@
 script
-  |  <ruby code="== "var dress_detail_url = '" + @dress_details_url + "'""></ruby> 
+  == "var dress_detail_url = '" + @dress_details_url + "'"
 .row.customisation
   .col-md-4
     .product-title
@@ -40,10 +40,6 @@ script
         = image_tag 'redo.jpg'
     #svg_wrapper
 
-    script[src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"]
-    script[type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"]
-    script[type="text/javascript"]
-      |  $.getJSON(dress_detail_url, function(data) { $('#svg_mainwrapper').css('height', '623px'); $('#svg_wrapper').css('height', '550px'); //loading the svg from the json var dress_details=data; var s = Snap("#svg_wrapper"); Snap.load(dress_details.angle_0, onSVGLoaded1); Snap.load(dress_details.angle_90, onSVGLoaded2); Snap.load(dress_details.angle_180, onSVGLoaded3); Snap.load(dress_details.angle_270, onSVGLoaded4); function onSVGLoaded1(data1) { s.append(data1); } function onSVGLoaded2(data2) { s.append(data2); } function onSVGLoaded3(data3) { s.append(data3); } function onSVGLoaded4(data4) { s.append(data4); } console.log('all are loaded'); }); 
     .rotate.hidden-xs[style="margin-top: 0px !important;"]
       a[href="javascript:void(0)"]
         = image_tag 'rotate.jpg'
@@ -59,6 +55,29 @@ script
         = image_tag 'redo.jpg'
   .col-md-4.customisation-block.hidden-xs
     .tabbable.customisation-tab
+      .tab-content.tour-step.lg-tour-step-three.md-tour-step-three
+        #up-arrow.pattern-arrows
+          span.available-patterns
+
+          i.fa.fa-angle-up.fa-lg
+        #material.tab-pane.clearfix.active
+
+        #embellishment.tab-pane.clearfix
+
+        #style.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  style list is coming soon
+        #sizing.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  sizing list is coming soon
+        #labels.tab-pane.clearfix
+          div
+            h5.text-center.patternHeader
+              |  labels list is coming soon
+        #down-arrow.pattern-arrows
+          i.fa.fa-angle-down.fa-lg
       ul.nav.nav-tabs
         li.active
           a.customize-nav-tab[href="#material" data-toggle="tab"]
@@ -88,29 +107,6 @@ script
           a.customize-nav-tab.disabled-tab[href="#color" data-toggle="tab"]
             = image_tag 'customization-icons/pattern-color.png', class: 'open'
             = image_tag 'customization-icons/pattern-color-hover.png', class: 'hover'
-      .tab-content.tour-step.lg-tour-step-three.md-tour-step-three
-        #up-arrow.pattern-arrows
-          span.available-patterns
-
-          i.fa.fa-angle-up.fa-lg
-        #material.tab-pane.clearfix.active
-
-        #embellishment.tab-pane.clearfix
-
-        #style.tab-pane.clearfix
-          div
-            h5.text-center.patternHeader
-              |  style list is coming soon
-        #sizing.tab-pane.clearfix
-          div
-            h5.text-center.patternHeader
-              |  sizing list is coming soon
-        #labels.tab-pane.clearfix
-          div
-            h5.text-center.patternHeader
-              |  labels list is coming soon
-        #down-arrow.pattern-arrows
-          i.fa.fa-angle-down.fa-lg
   .col-md-4.m-customisation-block.visible-xs.mobile-no-padding
     p.previous-customize-title.text-center.swipe-tittle
       |  SWIPE RIGHT TO SEE MORE 
@@ -176,4 +172,4 @@ script
   input#dressPrice[type="hidden" name="total_price"]
   .savingJsonLoader
     .loader
-      = image_tag 'Default/ajax-loader.gif'
+      = image_tag 'default/ajax-loader.gif'
