@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722053054) do
+ActiveRecord::Schema.define(version: 20150722093607) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -156,11 +156,11 @@ ActiveRecord::Schema.define(version: 20150722053054) do
   add_index "fabric_colors", ["fabric_id"], name: "index_fabric_colors_on_fabric_id", using: :btree
 
   create_table "fabric_colors_parts_groups", id: false, force: :cascade do |t|
-    t.integer "fabric_parts_group_id", limit: 4, null: false
-    t.integer "fabric_color_id",       limit: 4, null: false
+    t.integer "parts_group_id",  limit: 4, null: false
+    t.integer "fabric_color_id", limit: 4, null: false
   end
 
-  add_index "fabric_colors_parts_groups", ["fabric_parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
+  add_index "fabric_colors_parts_groups", ["parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
 
   create_table "fabrics", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -303,6 +303,18 @@ ActiveRecord::Schema.define(version: 20150722053054) do
 
   add_index "product_images", ["product_id"], name: "index_product_images_on_product_id", using: :btree
 
+  create_table "product_line_item_options", force: :cascade do |t|
+    t.integer  "line_item_id",     limit: 4
+    t.integer  "standard_size_id", limit: 4
+    t.boolean  "is_gift",          limit: 1,   default: false, null: false
+    t.string   "message",          limit: 255
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+  end
+
+  add_index "product_line_item_options", ["line_item_id"], name: "index_product_line_item_options_on_line_item_id", using: :btree
+  add_index "product_line_item_options", ["standard_size_id"], name: "index_product_line_item_options_on_standard_size_id", using: :btree
+
   create_table "products", force: :cascade do |t|
     t.string   "name",         limit: 255,   default: "",    null: false
     t.string   "slug",         limit: 255,   default: "",    null: false
@@ -354,6 +366,17 @@ ActiveRecord::Schema.define(version: 20150722053054) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "styles", force: :cascade do |t|
+    t.integer  "styles_group_id", limit: 4
+    t.string   "name",            limit: 255
+    t.string   "image",           limit: 255
+    t.string   "svg_path_id",     limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "styles", ["styles_group_id"], name: "index_styles_on_styles_group_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255, default: "", null: false
     t.string   "email",                  limit: 255, default: "", null: false
@@ -394,6 +417,8 @@ ActiveRecord::Schema.define(version: 20150722053054) do
   add_foreign_key "parts_groups", "dresses"
   add_foreign_key "payments", "orders"
   add_foreign_key "product_images", "products"
+  add_foreign_key "product_line_item_options", "line_items"
+  add_foreign_key "product_line_item_options", "standard_sizes"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "dresses"
   add_foreign_key "shipments", "orders"

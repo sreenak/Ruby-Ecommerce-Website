@@ -5,9 +5,11 @@ class Dress < ActiveRecord::Base
   has_many :parts_groups, dependent: :destroy
   has_many :embellishment_parts_groups, dependent: :destroy
   has_many :fabric_parts_groups, dependent: :destroy
+  has_many :styles_groups, dependent: :destroy
 
   accepts_nested_attributes_for :embellishment_parts_groups, allow_destroy: true
   accepts_nested_attributes_for :fabric_parts_groups, allow_destroy: true
+  accepts_nested_attributes_for :styles_groups, allow_destroy: true
 
   validates_presence_of :name, :category, :sku, :base_price, :sketch
 

@@ -1,0 +1,18 @@
+.panel.panel-default
+  .panel-heading Style Group Details
+  .panel-body
+    .row
+      .col-md-6= f.input :name
+      .col-md-6= f.input :svg_group_id
+
+    = f.simple_fields_for :styles do |p|
+      .panel.panel-default
+        .panel-heading Part Details
+        .panel-body
+          .row
+            .col-md-6= p.input :name
+            .col-md-6= p.input :svg_path_id
+            .col-md-6= p.input :image
+
+    = f.link_to_add 'Add Style', :styles, class: 'btn btn-success'
+    = f.link_to_remove 'Remove Style Group', class: 'btn btn-danger pull-right'

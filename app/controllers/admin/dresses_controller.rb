@@ -67,6 +67,13 @@ class Admin::DressesController < AdminController
                     :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id,:id, :_destroy, :image, :image_cache]
                 ]
             ],
+        styles_groups_attributes:
+            [
+                :name, :svg_group_id, :id, :_destroy,
+                styles_attributes: [
+                    :id, :_destroy, :name, :svg_path_id, :image
+                ]
+            ],
         embellishment_parts_groups_attributes:
             [
                 :name, :svg_group_id,:id, :_destroy,

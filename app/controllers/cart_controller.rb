@@ -21,7 +21,7 @@ class CartController < ApplicationController
     line_item = @cart.add_product params[:product_id]
     respond_to do |format|
       if line_item
-        # line_item.create_customised_dress_order_item details: params[:details]
+        line_item.create_product_line_item_option params.permit(:standard_size_id, :is_gift, :message)
         session[:order_id] = @cart.id # Save order id to session since it's saved now - check Order.add_dress
       else
         format.html { redirect_to :back, alert: 'Something happened!' }
