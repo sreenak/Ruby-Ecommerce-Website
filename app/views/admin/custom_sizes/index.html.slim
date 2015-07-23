@@ -1,0 +1,23 @@
+- content_for :heading do
+  | Listing Custom Sizes
+- content_for :title do
+  | Custom Sizes
+- content_for :panel_heading do
+  = link_to 'Add Custom Size', new_admin_custom_size_path, class: 'btn btn-success btn-sm'
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th Name
+      th Size
+      th Unit
+      th[colspan="2"] Action
+  tbody
+    - @custom_sizes.each do |custom_size|
+      tr
+        td= custom_size.name
+        td= custom_size.size
+        td= custom_size.unit
+        td= link_to 'Edit', edit_admin_custom_size_path(custom_size)
+        td= link_to 'Destroy', admin_custom_size_path(custom_size), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @custom_sizes

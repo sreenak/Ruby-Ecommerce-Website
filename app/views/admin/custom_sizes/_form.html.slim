@@ -1,0 +1,8 @@
+= simple_form_for [:admin, @custom_size], wrapper: :horizontal_small_form do |p|
+  .form-inputs.row
+    .col-md-6
+      = p.input :name
+      = p.input :size
+      = p.input :unit
+    .col-md-6
+      = p.button :submit

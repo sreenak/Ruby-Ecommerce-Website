@@ -9,5 +9,7 @@
 //= require bootstrap-sprockets
 //= require masonry.pkgd
 //= require smoothproducts
+//= require snapsvg
+//= require underscore
 //= require jquery.form-validator.min
 //= require_tree ./frontend

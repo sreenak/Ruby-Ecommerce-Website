@@ -90,7 +90,7 @@ Dir.foreach(brocades_dir) do |item|
   Brocade.where(name: item.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath)).first_or_create if File.file? filepath
 end
 
-size_list = ['S', 'M', 'L', 'XL', 'XXL']
+size_list = %w(S M L XL XXL)
 
 size_list.each do |size|
   StandardSize.where(name: size).first_or_create
