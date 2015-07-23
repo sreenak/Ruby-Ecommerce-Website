@@ -2,7 +2,9 @@ doctype html
 html lang="en-us"
   head
     meta charset="utf-8" /
-    title = yield(:title).presence || 'Untitled'
+    title
+      = yield(:title).presence || 'Untitled'
+      |&nbsp;|&nbsp; Kaapad
     = canonical_tag
     meta content="#{(yield :meta_description) || 'Default Description'}" name="description"
     meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
@@ -29,6 +31,7 @@ html lang="en-us"
     link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
     = csrf_meta_tags
+    = yield :head
   body
     header#page-header
       nav.navbar.top-bar
@@ -147,3 +150,4 @@ html lang="en-us"
                 i.icon.ion-social-youtube
 
     = javascript_include_tag 'application'
+    = yield :foot
