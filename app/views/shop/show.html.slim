@@ -15,13 +15,17 @@
     = form_tag cart_add_product_path
       = hidden_field_tag :product_id, @product.id
       .add-to-cart-block.row
-        .col-sm-6.col-md-4
+        .col-md-6
           .form-group
-            label for="size" Size
-            = select_tag "standard_size_id", options_from_collection_for_select(@product_sizes, "id", "name")
-          .form-group
-            label for="quantity" Quantity
-            input#quantity.form-control name="quantity" type="number" min="1" value="1"
+            label.inline Size
+            - @product_sizes.each do |s|
+              label.radio-inline
+                = radio_button_tag :standard_size_id, s.id
+                = s.name
+          .form-inline
+            .form-group
+              label.inline for="quantity" Quantity
+              input#quantity.form-control name="quantity" type="number" min="1" value="1"
           .checkbox
             label for="gift"
               input#gift name="is_gift" type="checkbox" value="1"
@@ -30,7 +34,7 @@
             .send-gift-to.hidden
               label for="message" Message
               input#message.form-control name="message" type="text"
-            .price
+          h4.price
             span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
       .actions.text-center
         button.info-row.text-uppercase.active type="submit"
