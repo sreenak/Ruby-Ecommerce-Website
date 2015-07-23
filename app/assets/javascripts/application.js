@@ -12,4 +12,8 @@
 //= require snapsvg
 //= require underscore
 //= require jquery.form-validator.min
-//= require_tree ./frontend
+//= require frontend/account
+//= require frontend/checkout
+//= require frontend/gifts
+//= require frontend/products
+//= require frontend/trends
