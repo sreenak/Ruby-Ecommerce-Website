@@ -3,7 +3,9 @@ $(document).ready(function () {
 
     $('.gift-certificate.tab').click(function () {
         var target = $(this).attr('data-url');
+       
         $('.gift-certificate').removeClass('active');
+
         $(this).addClass('active');
         var $deliveryType = $('.deliver-type');
         $deliveryType.removeClass('active');

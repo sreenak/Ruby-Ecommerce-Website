@@ -28,8 +28,9 @@
               input#gift name="is_gift" type="checkbox" value="1"
               |Gift
           .form-group
-            label for="message" Message
-            input#message.form-control name="message" type="text"
+            .send-gift-to
+             label for="message" Message
+             input#message.form-control name="message" type="text" 
             .price
             span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
       .actions.text-center

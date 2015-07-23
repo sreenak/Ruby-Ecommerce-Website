@@ -49,6 +49,7 @@ html lang="en-us"
                       span.fa.fa-search
 
             form.navbar-form.navbar-left action="/currencies/switch"
+             .input-append
               select.form-control name="currency" onchange="this.form.submit()"
                 |<option value="USD"
                 = ' selected' if @currency == 'USD'
