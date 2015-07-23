@@ -348,6 +348,157 @@ $(window).load(function() {
             };
             img.src = imagesrc;
         });
+        //add to cart functionality starts here
+
+        var frontViewData;
+        var leftViewData;
+        var rightViewData;
+        var backViewData;
+
+
+        function toPng(callback) {
+
+            var frontViewsvg = document.getElementById("frontview");
+            var leftViewsvg = document.getElementById("leftview");
+            var rightViewsvg = document.getElementById("rightview");
+            var backViewsvg = document.getElementById("backview");
+
+            /*async.parallel([
+
+                function(cb) {
+                    frontViewsvg.toDataURL("image/png", {
+                        callback: function(data) {
+                            frontViewData = data;
+                            cb()
+                        }
+                    });
+                },
+                function(cb) {
+                    leftViewsvg.toDataURL("image/png", {
+                        callback: function(data) {
+                            leftViewData = data;
+                            cb()
+                        }
+                    });
+                },
+                function(cb) {
+                    rightViewsvg.toDataURL("image/png", {
+                        callback: function(data) {
+                            rightViewData = data;
+                            cb()
+                        }
+                    });
+                },
+                function(cb) {
+                    backViewsvg.toDataURL("image/png", {
+                        callback: function(data) {
+                            backViewData = data;
+                            cb()
+                        }
+                    });
+                }
+            ], callback)*/
+
+        }
+
+        $('.add-cart').click(function(event) {
+            addcart();
+        });
+
+        function addcart() {
+
+            $.ajax({
+                url: '/cart/add-dress',
+                type: 'POST',
+                data: {
+                    id: 1,
+                    total_price: 25000
+                },
+                dataType: 'json',
+                error: function() {
+                    alert('error');
+                },
+                success: function(result) {
+                    alert('successfully added to your cart');
+                    window.location.replace("/cart");
+
+                }
+            })
+        }
+
+        /*function svgtobase64formateconvert(viewdata) {
+            var svg = document.getElementById('graph'),
+                xml = new XMLSerializer().serializeToString(svg),
+                data = "data:image/svg+xml;base64," + btoa(xml),
+                img = new Image()
+                img.setAttribute('src', data);
+                
+        }*/
+
+
+        $(document).on('click', '.save', function(e) {
+            $('.group').css('display', 'none');
+            $(this).attr('disabled', 'disabled');
+            $(".savingJsonLoader").css('display', 'block')
+            $(".savingJsonLoader .loader").css({
+                'left': ($(window).width() / 2 - 64),
+                'top': ($(window).height() / 2 - 10)
+            })
+            var frontViewsvg = document.getElementById("frontview");
+            var leftViewsvg = document.getElementById("leftview");
+            var rightViewsvg = document.getElementById("rightview");
+            var backViewsvg = document.getElementById("backview");
+
+            /*var svg = document.getElementById('graph');
+            var xml = new XMLSerializer().serializeToString(svg);
+            var data = "data:image/svg+xml;base64," + btoa(xml);
+            var img = new Image();
+            var img.setAttribute('src', data);*/
+
+            console.log();
+            $.ajax({
+                url: '/customised_dresses',
+                type: 'POST',
+                data: {
+                    dress_id: 1,
+                    // details: JSON.stringify(value),
+                    angle_0_data_uri: frontViewData,
+                    angle_90_data_uri: leftViewData,
+                    angle_180_data_uri: backViewData,
+                    angle_270_data_uri: rightViewData,
+                    details: 'body'
+                },
+                error: function() {
+                    $(".savingJsonLoader").css('display', 'none');
+                    alert("Could not save design, are you logged in?");
+                },
+                success: function(result) {
+                    // alert(result);
+                    $(".savingJsonLoader").css('display', 'none');
+                    alert("Design Saved Successfully!");
+                    $(".save").removeAttr('disabled');
+                    // getJsonObj();
+                    /* $.getJSON('/customised_dresses.json?id=' + dress_details.id + '', function(data) {
+                                $.each(data, function(index, el) {
+                                    //console.log(index + ' and ' + el.angle_0.angle_0.url);
+                                    var template = "<li><img height='160px' src=" + el.angle_0.angle_0.url + "/></li>";
+                                    $('#prevCarousel ul').append(template);
+                                });
+
+                            });*/
+
+
+                }
+            })
+
+            /*toPng();
+            async.series([toPng,
+                function(cb) {
+
+                    
+                }
+            ])*/
+        });
 
     }); //get json end
 }); //onload end

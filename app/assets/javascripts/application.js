@@ -11,6 +11,7 @@
 //= require smoothproducts
 //= require snapsvg
 //= require underscore
+//= require async
 //= require jquery.form-validator.min
 //= require frontend/account
 //= require frontend/checkout
