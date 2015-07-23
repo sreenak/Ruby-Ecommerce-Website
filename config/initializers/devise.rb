@@ -13,12 +13,6 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'support@kaapad.com'
-  
-  Devise::SessionsController.layout 'auth'
-  Devise::RegistrationsController.layout 'auth'
-  Devise::ConfirmationsController.layout 'auth'
-  Devise::UnlocksController.layout 'auth'
-  Devise::PasswordsController.layout 'auth'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
