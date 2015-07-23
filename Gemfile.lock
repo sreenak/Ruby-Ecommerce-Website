@@ -301,8 +301,8 @@ DEPENDENCIES
   omniauth-facebook
   quiet_assets
   rails (= 4.2.1)
-  recaptcha
   ransack
+  recaptcha
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
