@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}, path: 'users', path_names: {sign_in: 'sign-in', sign_out: 'sign-out', confirmation: 'verification'}
 
   mount Ckeditor::Engine => '/ckeditor'
-
+  
+  resources :search
   resources :pages, only: :show
   resources :trends, only: [:show, :index]
   resources :customise, only: [:show, :index]
-  resources :shop, only: [:show, :index]
+  resources :shop, only: [:show, :index] 
   resources :likes, only: [:index, :create, :destroy]
   resources :customisations, only: [:index, :create, :destroy]
   resources :customised_dresses, except: [:new, :edit, :update]
@@ -47,7 +48,7 @@ Rails.application.routes.draw do
     resources :brocades
     resources :colors
     resources :embellishments
-    resources :products
+    resources :products 
     resources :dresses
     resources :discount_coupons
   end

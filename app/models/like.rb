@@ -1,4 +1,4 @@
 class Like < ActiveRecord::Base
-  belongs_to :user, dependent: :destroy
-  belongs_to :product, dependent: :destroy
+  belongs_to :user
+  belongs_to :product
 end

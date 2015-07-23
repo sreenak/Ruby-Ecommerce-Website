@@ -171,6 +171,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    polyamorous (1.2.0)
+      activerecord (>= 3.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -201,6 +203,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    ransack (1.6.6)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.2)
     rdoc (4.2.0)
       json (~> 1.4)
     recaptcha (0.4.0)
@@ -294,6 +302,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.1)
   recaptcha
+  ransack
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form

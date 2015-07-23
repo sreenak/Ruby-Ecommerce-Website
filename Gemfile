@@ -65,3 +65,6 @@ gem 'omniauth-facebook'
 # Cart
 gem 'money-rails'
 gem 'eu_central_bank'
+
+#search
+gem 'ransack'
