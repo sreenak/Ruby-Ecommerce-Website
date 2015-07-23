@@ -9,6 +9,8 @@ $(window).load(function() {
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
+
+
         function loadSvg1(data1) {
             s.append(data1);
             Snap.load(data.angle_90, loadSvg2);
@@ -47,29 +49,6 @@ $(window).load(function() {
                 indexposition = 0;
             }
         });
-
-        //loading all the images for cache purpose so that we can get width and height of images
-
-        /*  for (var i = 0; i < data.fabric_groups.length; i++) {
-            for (var j = 0; j < data.fabric_groups[i].fabric_colors.length; j++) {
-                var img = new Image();
-                img.onload = (function(nr) {
-                    return function() {
-                        var canvas = document.createElement("canvas");
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(img, 0, 0);
-                        var dataURL = canvas.toDataURL("image/png");
-                        console.log(dataURL);
-                        canvas = null;
-                        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-                    }
-                }(i));
-                img.src = data.fabric_groups[i].fabric_colors[j].swatch;
-            }
-        }
-    */
 
 
         //waiting to load all svg then these functions will work
@@ -180,10 +159,11 @@ $(window).load(function() {
 
 
         //clicking functionality on svg parts
+
         $(document).on('click', '.part', function() {
             pathClass = $(this).attr('data-part');
             clickedPath = $("." + pathClass);
-            // console.log(pathClass);
+            console.log('clicked part name   ' + pathClass);
             filterMaterial(pathClass);
         });
 
@@ -259,7 +239,7 @@ $(window).load(function() {
             var img_height = image.height();
             var imagesrc = $(this).find('img').attr('src');
             var thisId = $(this).find('img').attr('data-id');
-
+            console.log('width is ' + img_width + ' and height is ' + img_height);
             var gettingCategory = $(this).attr('data-category');
             var gettingOriginalId = $(this).attr('data-originalid');
 
@@ -284,33 +264,7 @@ $(window).load(function() {
                     alreadyPatternAppened.push(obj);
                 }
                 //searching clickable parts using fabric id or brocade id or embellishment id
-                /*if (gettingCategory == 'fabrics') {
-                    for (var i = 0; i < data.fabric_groups.length; i++) {
-                        for (var j = 0; j < data.fabric_groups[i].fabric_colors.length; j++) {
-                            if (gettingOriginalId == data.fabric_groups[i].fabric_colors[j].id) {
-                                for (var k = 0; k < data.fabric_groups[i].parts.length; k++) {
-                                    //console.log('parts are ' + data.fabric_groups[i].parts[k].name);
-                                    applicableParts.push(data.fabric_groups[i].parts[k].name);
-                                };
-                            }
 
-                        };
-                    };
-                }
-                if (gettingCategory == 'brocades') {
-                    for (var l = 0; l < data.fabric_groups.length; l++) {
-                        for (var m = 0; m < data.fabric_groups[l].parts.length; m++) {
-                            for (var n = 0; n < data.fabric_groups[l].parts[m].brocade_parts.length; n++) {
-                                if (gettingOriginalId == data.fabric_groups[l].parts[m].brocade_parts[n].brocade_id) {
-                                    //  console.log('parts ar ' + data.fabric_groups[l].parts[m].name);
-                                    applicableParts.push(data.fabric_groups[l].parts[m].name);
-                                }
-                            };
-
-                        };
-                    };
-                }*/
-                //console.log('pathClass --' + pathClass);
                 if (gettingCategory == 'fabrics') {
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
@@ -350,54 +304,6 @@ $(window).load(function() {
         });
         //add to cart functionality starts here
 
-
-
-
-        function toPng(callback) {
-
-            var frontViewsvg = document.getElementById("frontview");
-            var leftViewsvg = document.getElementById("leftview");
-            var rightViewsvg = document.getElementById("rightview");
-            var backViewsvg = document.getElementById("backview");
-
-            /*async.parallel([
-
-                function(cb) {
-                    frontViewsvg.toDataURL("image/png", {
-                        callback: function(data) {
-                            frontViewData = data;
-                            cb()
-                        }
-                    });
-                },
-                function(cb) {
-                    leftViewsvg.toDataURL("image/png", {
-                        callback: function(data) {
-                            leftViewData = data;
-                            cb()
-                        }
-                    });
-                },
-                function(cb) {
-                    rightViewsvg.toDataURL("image/png", {
-                        callback: function(data) {
-                            rightViewData = data;
-                            cb()
-                        }
-                    });
-                },
-                function(cb) {
-                    backViewsvg.toDataURL("image/png", {
-                        callback: function(data) {
-                            backViewData = data;
-                            cb()
-                        }
-                    });
-                }
-            ], callback)*/
-
-        }
-
         $('.add-cart').click(function(event) {
             addcart();
         });
@@ -408,8 +314,8 @@ $(window).load(function() {
                 url: '/cart/add-dress',
                 type: 'POST',
                 data: {
-                    id: 1,
-                    total_price: 25000
+                    id: data.id,
+                    total_price: data.base_price
                 },
                 dataType: 'json',
                 error: function() {
@@ -422,15 +328,6 @@ $(window).load(function() {
                 }
             })
         }
-
-        /*function svgtobase64formateconvert(viewdata) {
-            var svg = document.getElementById('graph'),
-                xml = new XMLSerializer().serializeToString(svg),
-                data = "data:image/svg+xml;base64," + btoa(xml),
-                img = new Image()
-                img.setAttribute('src', data);
-                
-        }*/
 
 
         $(document).on('click', '.save', function(e) {
@@ -462,21 +359,16 @@ $(window).load(function() {
             var xml4 = new XMLSerializer().serializeToString(svg4);
             var backViewData = "data:image/svg+xml;base64," + btoa(xml4);
 
-
-            console.log('frontViewData ---------' + frontViewData);
-            console.log('leftViewData ---------' + leftViewData);
-            console.log('rightViewData ---------' + rightViewData);
-            console.log('backViewData ---------' + backViewData);
             $.ajax({
                 url: '/customised_dresses',
                 type: 'POST',
                 data: {
                     dress_id: 1,
                     // details: JSON.stringify(value),
-                    angle_0_data_uri: frontViewData,
-                    angle_90_data_uri: leftViewData,
-                    angle_180_data_uri: backViewData,
-                    angle_270_data_uri: rightViewData,
+                    // angle_0_data_uri: frontViewData,
+                    // angle_90_data_uri: leftViewData,
+                    // angle_180_data_uri: backViewData,
+                    // angle_270_data_uri: rightViewData,
                     details: 'body'
                 },
                 error: function() {
@@ -489,26 +381,20 @@ $(window).load(function() {
                     alert("Design Saved Successfully!");
                     $(".save").removeAttr('disabled');
                     // getJsonObj();
-                    /* $.getJSON('/customised_dresses.json?id=' + dress_details.id + '', function(data) {
-                                $.each(data, function(index, el) {
-                                    //console.log(index + ' and ' + el.angle_0.angle_0.url);
-                                    var template = "<li><img height='160px' src=" + el.angle_0.angle_0.url + "/></li>";
-                                    $('#prevCarousel ul').append(template);
-                                });
+                    $.getJSON('/customised_dresses.json?id=' + dress_details.id + '', function(data) {
+                        $.each(data, function(index, el) {
+                            //console.log(index + ' and ' + el.angle_0.angle_0.url);
+                            var template = "<li><img height='160px' src=" + el.angle_0.angle_0.url + "/></li>";
+                            $('#prevCarousel ul').append(template);
+                        });
 
-                            });*/
+                    });
 
 
                 }
             })
 
-            /*toPng();
-            async.series([toPng,
-                function(cb) {
 
-                    
-                }
-            ])*/
         });
 
     }); //get json end
