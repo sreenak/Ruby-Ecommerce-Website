@@ -28,7 +28,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-faster-assets', '~> 1.0'
   gem 'quiet_assets'
-  gem 'capistrano-passenger'
 end
 
 group :development, :test do
