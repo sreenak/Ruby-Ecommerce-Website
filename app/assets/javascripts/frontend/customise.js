@@ -350,10 +350,7 @@ $(window).load(function() {
         });
         //add to cart functionality starts here
 
-        var frontViewData;
-        var leftViewData;
-        var rightViewData;
-        var backViewData;
+
 
 
         function toPng(callback) {
@@ -449,13 +446,27 @@ $(window).load(function() {
             var rightViewsvg = document.getElementById("rightview");
             var backViewsvg = document.getElementById("backview");
 
-            /*var svg = document.getElementById('graph');
-            var xml = new XMLSerializer().serializeToString(svg);
-            var data = "data:image/svg+xml;base64," + btoa(xml);
-            var img = new Image();
-            var img.setAttribute('src', data);*/
+            var svg1 = document.getElementById('frontview');
+            var xml1 = new XMLSerializer().serializeToString(svg1);
+            var frontViewData = "data:image/svg+xml;base64," + btoa(xml1);
 
-            console.log();
+            var svg2 = document.getElementById('leftview');
+            var xml2 = new XMLSerializer().serializeToString(svg2);
+            var leftViewData = "data:image/svg+xml;base64," + btoa(xml2);
+
+            var svg3 = document.getElementById('rightview');
+            var xml3 = new XMLSerializer().serializeToString(svg3);
+            var rightViewData = "data:image/svg+xml;base64," + btoa(xml3);
+
+            var svg4 = document.getElementById('backview');
+            var xml4 = new XMLSerializer().serializeToString(svg4);
+            var backViewData = "data:image/svg+xml;base64," + btoa(xml4);
+
+
+            console.log('frontViewData ---------' + frontViewData);
+            console.log('leftViewData ---------' + leftViewData);
+            console.log('rightViewData ---------' + rightViewData);
+            console.log('backViewData ---------' + backViewData);
             $.ajax({
                 url: '/customised_dresses',
                 type: 'POST',
