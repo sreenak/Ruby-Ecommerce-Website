@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722093607) do
+ActiveRecord::Schema.define(version: 20150723065006) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -96,6 +96,30 @@ ActiveRecord::Schema.define(version: 20150722093607) do
     t.integer "product_id", limit: 4, null: false
     t.integer "color_id",   limit: 4, null: false
   end
+
+  create_table "custom_sizes", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "size",       limit: 255
+    t.string   "unit",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "custom_sizes_dresses", id: false, force: :cascade do |t|
+    t.integer "dress_id",       limit: 4, null: false
+    t.integer "custom_size_id", limit: 4, null: false
+  end
+
+  create_table "customised_dresses", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "dress_id",   limit: 4
+    t.text     "details",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "customised_dresses", ["dress_id"], name: "index_customised_dresses_on_dress_id", using: :btree
+  add_index "customised_dresses", ["user_id"], name: "index_customised_dresses_on_user_id", using: :btree
 
   create_table "discount_coupons", force: :cascade do |t|
     t.string   "code",                       limit: 255
@@ -404,6 +428,8 @@ ActiveRecord::Schema.define(version: 20150722093607) do
   add_foreign_key "auth_identities", "users"
   add_foreign_key "brocade_parts", "brocades"
   add_foreign_key "brocade_parts", "parts"
+  add_foreign_key "customised_dresses", "dresses"
+  add_foreign_key "customised_dresses", "users"
   add_foreign_key "dresses", "categories"
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :pages
     resources :posts
     resources :fabrics
+    resources :custom_sizes
     resources :users
     resources :brocades
     resources :colors
