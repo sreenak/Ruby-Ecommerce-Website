@@ -4,6 +4,6 @@ $(window).load(function () {
 
 $(function () {
     $('#gift').click(function () {
-        $('.send-gift-to').toggleClass();
+        $('.send-gift-to').toggleClass('hidden');
     })
 });

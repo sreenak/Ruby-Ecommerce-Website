@@ -19,7 +19,6 @@
           .form-group
             label for="size" Size
             = select_tag "standard_size_id", options_from_collection_for_select(@product_sizes, "id", "name")
-
           .form-group
             label for="quantity" Quantity
             input#quantity.form-control name="quantity" type="number" min="1" value="1"
@@ -28,9 +27,9 @@
               input#gift name="is_gift" type="checkbox" value="1"
               |Gift
           .form-group
-            .send-gift-to
-             label for="message" Message
-             input#message.form-control name="message" type="text" 
+            .send-gift-to.hidden
+              label for="message" Message
+              input#message.form-control name="message" type="text"
             .price
             span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
       .actions.text-center
