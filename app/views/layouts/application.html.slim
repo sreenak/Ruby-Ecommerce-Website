@@ -43,10 +43,13 @@ html lang="en-us"
               span.icon-bar
               a.navbar-brand Kaapad
           #top-bar.collapse.navbar-collapse
-            = search_form_for @product_search || Product.ransack, url: search_index_path do |f|
-             = f.label :name 
-             = f.search_field :name
-          
+            form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
+              .input-group
+                .input-append
+                  input#search.form-control autocomplete="off" name="search" placeholder="Search Products" type="text" /
+                  .input-group-btn
+                    button.btn.btn-default.home_searchbar_btn type="submit"
+                      span.fa.fa-search
 
             form.navbar-form.navbar-left action="/currencies/switch"
              .input-append
