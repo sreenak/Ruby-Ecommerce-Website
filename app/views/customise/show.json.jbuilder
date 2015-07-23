@@ -1,3 +1,4 @@
+json.id @dress.id
 json.name @dress.name
 json.angle_0 @dress.angle_0.url
 json.angle_90 @dress.angle_90.url

@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :liked_products, through: :likes, source: :product
   has_many :gift_cards, through: :orders, source: :gift_cards
+  has_many :customised_dresses
 
   enum gender: GENDERS
 
