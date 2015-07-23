@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :shop, only: [:show, :index]
   resources :likes, only: [:index, :create, :destroy]
   resources :customisations, only: [:index, :create, :destroy]
+  resources :customised_dresses, except: [:new, :edit, :update]
 
   post 'cart/add-product', to: 'cart#add_product'
   get 'cart', to: 'cart#show'
