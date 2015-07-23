@@ -5,7 +5,7 @@ class CustomisedDressesController < ApplicationController
   def index
     @customised_dresses = current_or_null_user.customised_dresses.where dress_id: params[:id]
     respond_to do |format|
-      format.json { render json: @customised_dresses.to_json(:only => [:user_id, :dress_id, :details], methods: [:image]) }
+      format.json
     end
   end
 
