@@ -7,7 +7,7 @@
       .form-inputs
         = f.input :name, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Name"}
         = f.input :email, :input_html => {:"data-validation" => "email"}
-        = f.input :phone, :input_html => {:"data-validation" => "number, length", :"data-validation-optional" => "true", :"data-validation-length" => "8-16"}
+        = f.input :mobile, :input_html => {:"data-validation" => "number, length", :"data-validation-optional" => "true", :"data-validation-length" => "8-16"}
         = recaptcha_tags
         = f.input :tos, label: 'I agree to the terms of service', as: :boolean, :input_html => {:"data-validation" => "required"}
 
