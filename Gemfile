@@ -44,6 +44,7 @@ end
 # File uploads
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'carrierwave-data-uri'
 
 # Frontend UI
 gem 'crummy'

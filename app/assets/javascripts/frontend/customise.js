@@ -6,6 +6,9 @@ $(window).load(function() {
         var pathClass = ''; //it will get the clicked part using data-part attribute
         var clickedPath = ''; // converting clicked pathclass string to jquery object
 
+        var allDressParts = []; //it will usefull for validation when we click on save
+
+
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
@@ -30,7 +33,7 @@ $(window).load(function() {
             s.append(data4);
 
         }
-
+        loadSavedDresses(data);
         //svg rotation four parts functionality 
         var indexposition = 1;
         $('.rotate img').click(function() {
@@ -50,6 +53,8 @@ $(window).load(function() {
             }
         });
 
+        //to findout what all are the parts the dress has
+
 
         //waiting to load all svg then these functions will work
 
@@ -62,6 +67,14 @@ $(window).load(function() {
         var brocadeName = [];
         setTimeout(function() {
             var continueLoopCount = 0; //to display the patterns in serialwise 
+
+            for (var allparts = 0; allparts < data.fabric_groups.length; allparts++) {
+                for (var chekparts = 0; chekparts < data.fabric_groups[allparts].parts.length; chekparts++) {
+                    allDressParts.push(data.fabric_groups[allparts].parts[chekparts].name)
+                };
+
+            };
+            console.log(allDressParts);
             for (var i = 0; i < data.fabric_groups.length; i++) {
 
                 //to displau the fabric colors intially
@@ -163,7 +176,7 @@ $(window).load(function() {
         $(document).on('click', '.part', function() {
             pathClass = $(this).attr('data-part');
             clickedPath = $("." + pathClass);
-            console.log('clicked part name   ' + pathClass);
+            //   console.log('clicked part name   ' + pathClass);
             filterMaterial(pathClass);
         });
 
@@ -239,7 +252,7 @@ $(window).load(function() {
             var img_height = image.height();
             var imagesrc = $(this).find('img').attr('src');
             var thisId = $(this).find('img').attr('data-id');
-            console.log('width is ' + img_width + ' and height is ' + img_height);
+            // console.log('width is ' + img_width + ' and height is ' + img_height);
             var gettingCategory = $(this).attr('data-category');
             var gettingOriginalId = $(this).attr('data-originalid');
 
@@ -305,7 +318,31 @@ $(window).load(function() {
         //add to cart functionality starts here
 
         $('.add-cart').click(function(event) {
-            addcart();
+            var a = [];
+            var b = [];
+            $('#frontview .main_parts').find('path').each(function(index) {
+                if ($(this).attr('fill') == '#FFFFFF') {
+                    var thisclass = $(this).attr('class');
+                    a.push(thisclass);
+                }
+            });
+
+            for (var i = 0; i < a.length; i++) {
+                for (var j = 0; j < allDressParts.length; j++) {
+
+                    if (allDressParts[j] == a[i]) {
+                        b.push(a[i]);
+                    }
+                };
+            };
+            a = _.uniq(a); //a arry represent all the pathclass with attribute #FFFFF classes
+            b = _.uniq(b); //b array represents how many parts are empty inthe sence not applied any pattern
+            if (b.length == 0) {
+                addcart();
+            } else {
+                alert('Please complete the customisation of your dress');
+            }
+            //  
         });
 
         function addcart() {
@@ -338,64 +375,80 @@ $(window).load(function() {
                 'left': ($(window).width() / 2 - 64),
                 'top': ($(window).height() / 2 - 10)
             })
-            var frontViewsvg = document.getElementById("frontview");
-            var leftViewsvg = document.getElementById("leftview");
-            var rightViewsvg = document.getElementById("rightview");
-            var backViewsvg = document.getElementById("backview");
+            /* var frontViewsvg = document.getElementById("frontview");
 
             var svg1 = document.getElementById('frontview');
             var xml1 = new XMLSerializer().serializeToString(svg1);
-            var frontViewData = "data:image/svg+xml;base64," + btoa(xml1);
+            var frontViewData = "data:image/svg+xml;base64," + btoa(xml1);*/
 
-            var svg2 = document.getElementById('leftview');
-            var xml2 = new XMLSerializer().serializeToString(svg2);
-            var leftViewData = "data:image/svg+xml;base64," + btoa(xml2);
+            var svg = document.getElementById("frontview");
+            var svgData = new XMLSerializer().serializeToString(svg);
 
-            var svg3 = document.getElementById('rightview');
-            var xml3 = new XMLSerializer().serializeToString(svg3);
-            var rightViewData = "data:image/svg+xml;base64," + btoa(xml3);
+            var canvas = document.createElement("canvas");
+            var svgSize = svg.getBoundingClientRect();
+            canvas.width = svgSize.width;
+            canvas.height = svgSize.height;
+            var ctx = canvas.getContext("2d");
 
-            var svg4 = document.getElementById('backview');
-            var xml4 = new XMLSerializer().serializeToString(svg4);
-            var backViewData = "data:image/svg+xml;base64," + btoa(xml4);
+            var img = document.createElement("img");
 
-            $.ajax({
-                url: '/customised_dresses',
-                type: 'POST',
-                data: {
-                    dress_id: 1,
-                    // details: JSON.stringify(value),
-                    // angle_0_data_uri: frontViewData,
-                    // angle_90_data_uri: leftViewData,
-                    // angle_180_data_uri: backViewData,
-                    // angle_270_data_uri: rightViewData,
-                    details: 'body'
-                },
-                error: function() {
-                    $(".savingJsonLoader").css('display', 'none');
-                    alert("Could not save design, are you logged in?");
-                },
-                success: function(result) {
-                    // alert(result);
-                    $(".savingJsonLoader").css('display', 'none');
-                    alert("Design Saved Successfully!");
-                    $(".save").removeAttr('disabled');
-                    // getJsonObj();
-                    $.getJSON('/customised_dresses.json?id=' + dress_details.id + '', function(data) {
-                        $.each(data, function(index, el) {
-                            //console.log(index + ' and ' + el.angle_0.angle_0.url);
-                            var template = "<li><img height='160px' src=" + el.angle_0.angle_0.url + "/></li>";
-                            $('#prevCarousel ul').append(template);
-                        });
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
 
-                    });
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                var frontViewData = canvas.toDataURL("image/png");
+                // console.log(frontViewData);
+                $.ajax({
+                    url: '/customised_dresses.json',
+                    type: 'POST',
+                    data: {
+                        dress_id: 1,
+                        image_data_uri: frontViewData,
+                        details: 'body'
+                    },
+                    error: function() {
+                        $(".savingJsonLoader").css('display', 'none');
+                        alert("Could not save design, are you logged in?");
+                    },
+                    success: function(result) {
+                        // alert(result);
+                        $(".savingJsonLoader").css('display', 'none');
+                        alert("Design Saved Successfully!");
+                        $(".save").removeAttr('disabled');
+                        // getJsonObj();
+                        $('.prev-carousel ul').html('');
+                        /* $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
+                            $.each(data, function(index, el) {
+                                //console.log(index + ' and ' + el.angle_0.angle_0.url);
+                                var template = "<li><img height='200px' src=" + el.image + "/></li>";
+                                $('.prev-carousel ul').append(template);
+                                console.log('image paths ' + el.image);
+                            });
+
+                        });*/
+                        loadSavedDresses(data);
 
 
-                }
-            })
+                    }
+                })
+            };
+
+
 
 
         });
+        //loading previousely saved items while page loading
+        function loadSavedDresses(data) {
+            $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
+                $.each(data, function(index, el) {
+                    //console.log(index + ' and ' + el.angle_0.angle_0.url);
+                    var template = "<li><img height='200px' src=" + el.image + "/></li>";
+                    $('.prev-carousel ul').append(template);
+                    console.log('image paths ' + el.image);
+                });
+
+            });
+        }
 
     }); //get json end
 }); //onload end

@@ -173,3 +173,6 @@ script
   .savingJsonLoader
     .loader
       = image_tag 'default/ajax-loader.gif'
+
+- content_for :foot do
+  = javascript_include_tag 'frontend/customise'

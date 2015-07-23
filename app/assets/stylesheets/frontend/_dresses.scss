@@ -1166,10 +1166,10 @@ img {
 }
 
 .prev-carousel ul li {
-  position: absolute;
+  
   height: 175px;
   width: 150px;
-  float: left;
+  display:inline;
   margin-right: 1px;
   text-align: center;
   padding-top: 25px;
