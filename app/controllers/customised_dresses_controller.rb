@@ -5,7 +5,7 @@ class CustomisedDressesController < ApplicationController
   def index
     @customised_dresses = current_or_null_user.customised_dresses.where dress_id: params[:id]
     respond_to do |format|
-      format.json { render json: @customised_dresses.to_json(:only => [:user_id, :dress_id, :details], methods: [:angle_0,:angle_90,:angle_180,:angle_270]) }
+      format.json { render json: @customised_dresses.to_json(:only => [:user_id, :dress_id, :details], methods: [:image]) }
     end
   end
 
@@ -22,7 +22,6 @@ class CustomisedDressesController < ApplicationController
       end
     end
   end
-  
 
   # /GET customised_dresses/delete
   def destroy
@@ -33,8 +32,6 @@ class CustomisedDressesController < ApplicationController
 
   private
   def customised_dress_params
-    params.permit :dress_id, :angle_0_data_uri, :angle_90_data_uri,:angle_180_data_uri,:angle_270_data_uri, :details
+    params.permit :dress_id, :image_data_uri, :details
   end
-
-  
 end
