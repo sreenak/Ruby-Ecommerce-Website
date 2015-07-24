@@ -1,5 +1,0 @@
-= simple_form_for [:admin, @order, @shipping], wrapper: :vertical_form do |f|
-  .row
-    .col-md-6= f.input :tracking_id
-    .col-md-6= f.input :status, collection: Shipping::STATUSES
-  = f.submit 'Save', class: 'btn btn-primary'

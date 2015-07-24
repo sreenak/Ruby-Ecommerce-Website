@@ -3,7 +3,6 @@
 - content_for :title do
   | Orders
 - content_for :panel_heading do
-    = link_to 'Add Order', new_admin_order_path, class: 'btn btn-success btn-sm'
 
 table.table.table-responsive.table-striped
   thead
@@ -24,9 +23,17 @@ table.table.table-responsive.table-striped
         td
           = order.id
         td
-          = link_to 'Show', page_path(page)
+          = link_to order.user.name, admin_user_path(order.user.id)
         td
-          = link_to 'Edit', edit_admin_page_path(page)
+          = humanized_money_with_symbol order.total_paisas
         td
-          = link_to 'Destroy', admin_page_path(page), method: :delete, data: {confirm: 'Are you sure?'}
-= paginate @pages
+          = order.status
+        td
+          = link_to 'Shiping Status', admin_order_shipments_path(order)
+        td
+          = link_to 'Show', admin_order_path(order)
+        td
+          = link_to 'Edit', edit_admin_order_path(order)
+        td
+          = link_to 'Destroy', admin_order_path(order), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @orders

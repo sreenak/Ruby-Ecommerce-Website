@@ -4,7 +4,7 @@
   |  Listing Shippings
 .panel.panel-default
   .panel-heading
-    = link_to 'Add Shipping', new_admin_order_shipping_path(@order), class: 'btn btn-success btn-sm'
+    = link_to 'Add Shipping', new_admin_order_shipment_path(@order), class: 'btn btn-success btn-sm'
   .panel-body
     table.table.table-striped.no-margn
       thead
@@ -14,10 +14,10 @@
           th Status
           th colspan="2" Actions
       tbody
-        - @shippings.each do |s|
+        - @shipments.each do |s|
           tr
             td= s.id
-            td= s.tracking_id
+            td= s.tracking_url
             td= s.status
-            td= link_to 'Edit', edit_admin_order_shipping_path(s.order, s)
-            td= link_to 'Delete', admin_order_shipping_path(s.order, s), method: :delete, data: {confirm: 'Are you sure?'}
+            td= link_to 'Edit', edit_admin_order_shipment_path(s.order, s)
+            td= link_to 'Delete', admin_order_shipment_path(s.order, s), method: :delete, data: {confirm: 'Are you sure?'}

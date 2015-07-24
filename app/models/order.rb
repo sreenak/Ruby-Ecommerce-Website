@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   has_many :dresses, through: :line_items, source: :line_itemable, source_type: 'Dress'
   has_many :gift_cards, through: :line_items, source: :line_itemable, source_type: 'GiftCard'
   has_many :gift_card_usages, through: :line_items, source: :line_itemable, source_type: 'GiftCardUsage'
-  has_one :shipment, dependent: :destroy
+  has_many :shipments, dependent: :destroy
   has_one :payment, dependent: :destroy
 
   monetize :total_paisas, with_model_currency: :currency

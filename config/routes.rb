@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     resources :dresses
     resources :discount_coupons
     resources :orders do
-      resources :shippings
+      resources :shipments
     end
   end
 end

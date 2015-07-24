@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724055552) do
+ActiveRecord::Schema.define(version: 20150724093620) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -181,11 +181,11 @@ ActiveRecord::Schema.define(version: 20150724055552) do
   add_index "fabric_colors", ["fabric_id"], name: "index_fabric_colors_on_fabric_id", using: :btree
 
   create_table "fabric_colors_parts_groups", id: false, force: :cascade do |t|
-    t.integer "parts_group_id",  limit: 4, null: false
-    t.integer "fabric_color_id", limit: 4, null: false
+    t.integer "fabric_parts_group_id", limit: 4, null: false
+    t.integer "fabric_color_id",       limit: 4, null: false
   end
 
-  add_index "fabric_colors_parts_groups", ["parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
+  add_index "fabric_colors_parts_groups", ["fabric_parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
 
   create_table "fabrics", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 20150724055552) do
     t.string   "tracking_url", limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "status",       limit: 2
   end
 
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
