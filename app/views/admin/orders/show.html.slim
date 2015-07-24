@@ -1,0 +1,31 @@
+- content_for :heading do
+  | Orders
+- content_for :title do
+  | Orders
+- content_for :panel_heading do
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th
+        | Name
+      th
+        | Item Name
+      th
+        | Quantity
+      th
+        | Price
+  tbody
+    - @order.line_items.each do |item|
+      tr
+        td
+          = @order.user.name
+        td
+          = item.line_itemable_type
+        td
+          = item.quantity
+        td
+          = humanized_money_with_symbol item.price_paisas
+        td
+          = link_to 'Back', admin_orders_path
+

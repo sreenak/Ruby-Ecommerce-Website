@@ -1,0 +1,39 @@
+- content_for :heading do
+  | Listing orders
+- content_for :title do
+  | Orders
+- content_for :panel_heading do
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th
+        | ID
+      th
+        | Customer
+      th
+        | Total
+      th
+        | Status
+      th[colspan="3"]
+        | Action
+  tbody
+    - @orders.each do |order|
+      tr
+        td
+          = order.id
+        td
+          = link_to order.user.name, admin_user_path(order.user.id)
+        td
+          = humanized_money_with_symbol order.total_paisas
+        td
+          = order.status
+        td
+          = link_to 'Shiping Status', admin_order_shipments_path(order)
+        td
+          = link_to 'Show', admin_order_path(order)
+        td
+          = link_to 'Edit', edit_admin_order_path(order)
+        td
+          = link_to 'Destroy', admin_order_path(order), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @orders

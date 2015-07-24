@@ -51,5 +51,8 @@ Rails.application.routes.draw do
     resources :products 
     resources :dresses
     resources :discount_coupons
+    resources :orders do
+      resources :shipments
+    end
   end
 end

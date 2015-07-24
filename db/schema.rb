@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724094507) do
+ActiveRecord::Schema.define(version: 20150724130037) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -152,6 +152,11 @@ ActiveRecord::Schema.define(version: 20150724094507) do
   end
 
   add_index "dresses", ["category_id"], name: "index_dresses_on_category_id", using: :btree
+
+  create_table "dresses_standard_sizes", id: false, force: :cascade do |t|
+    t.integer "dress_id",         limit: 4, null: false
+    t.integer "standard_size_id", limit: 4, null: false
+  end
 
   create_table "embellishment_parts", force: :cascade do |t|
     t.integer  "embellishment_id", limit: 4
@@ -382,6 +387,7 @@ ActiveRecord::Schema.define(version: 20150724094507) do
     t.string   "tracking_url", limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "status",       limit: 2
   end
 
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree

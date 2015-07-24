@@ -1,0 +1,16 @@
+p
+  strong
+    | Name:
+  = @user.name
+p
+  strong
+    | Email:
+  = @user.email
+p
+  strong
+    | Image:
+  = image_tag @user.image_url(:thumbnail) if @user.image?
+p
+  strong
+    | Role:
+  = @user.roles.map(&:name).join(', ')
