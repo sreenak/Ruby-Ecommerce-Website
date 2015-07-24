@@ -4,7 +4,7 @@
       = f.input :code
       = f.input :amount
       = f.input :applies_as, collection: DiscountCoupon::APPLIES_AS, prompt: 'Select voucher type'
-      = f.input :status, label: 'Active', wrapper: :horizontal_radio_and_checkboxes
+      = f.input :active, wrapper: :horizontal_radio_and_checkboxes
     .col-md-6
       = f.input :maximum_usages
       = f.input :minimum_order_price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do

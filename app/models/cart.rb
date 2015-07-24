@@ -39,7 +39,6 @@ class Cart
   # Ordered by is existing user id, ordering for is the email id
   def add_gift_card(gift)
     @order.save # Save order before adding the gift card
-    Rails.logger.info gift.amount.exchange_to('INR')
     item = @order.line_items.create(line_itemable_type: 'GiftCard', line_itemable_id: gift.id, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
     calculate
     item
@@ -47,7 +46,7 @@ class Cart
 
   def apply_discount(code)
     discount = DiscountCoupon.find_by_code code
-    return 'Invalid coupon!' unless discount.present?
+    return 'Invalid coupon!' unless discount.present? and discount.valid_coupon?
     return 'Discount already applied!' if @order.discount_items.present?
     total = @order.product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
     if discount.applies_as == 'Percent'
@@ -56,7 +55,7 @@ class Cart
       amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
     end
     return 'Discount not applicable!' if amount <= 0 || total < discount.minimum_order_price.to_money('INR').exchange_to(@currency)
-    item = @order.line_items.create(line_itemable_type: 'DiscountCoupon', line_itemable_id: discount.id, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
+    item = @order.line_items.create(discount_coupon: discount, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
     @order.calculate_total
     'Discount applied.'
   end
