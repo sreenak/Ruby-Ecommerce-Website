@@ -6,7 +6,7 @@ class Dress < ActiveRecord::Base
   has_many :embellishment_parts_groups, dependent: :destroy
   has_many :fabric_parts_groups, dependent: :destroy
   has_many :styles_groups, dependent: :destroy
-  has_and_belongs_to_many :custom_sizes, dependent: :destroy
+  has_and_belongs_to_many :custom_sizes
 
   accepts_nested_attributes_for :embellishment_parts_groups, allow_destroy: true
   accepts_nested_attributes_for :fabric_parts_groups, allow_destroy: true

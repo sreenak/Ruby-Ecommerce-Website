@@ -1,6 +1,6 @@
 class PartsGroup < ActiveRecord::Base
   belongs_to :dress
-  has_many :parts
+  has_many :parts, dependent: :destroy
 
   accepts_nested_attributes_for :parts, allow_destroy: true
 

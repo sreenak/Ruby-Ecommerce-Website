@@ -1,5 +1,5 @@
 class Part < ActiveRecord::Base
-  belongs_to :parts_group, dependent: :destroy
+  belongs_to :parts_group
   has_many :brocade_parts, dependent: :destroy
   has_many :embellishment_parts, dependent: :destroy
 
