@@ -31,6 +31,7 @@
       = link_to @dress.angle_270_url if @dress.angle_270?
 
       = f.association :custom_sizes, as: :check_boxes
+      = f.association :standard_sizes, as: :check_boxes
 
   = f.simple_fields_for :fabric_parts_groups do |fp|
     = render 'fabrics', f: fp
