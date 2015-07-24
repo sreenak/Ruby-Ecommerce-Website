@@ -1,0 +1,23 @@
+- content_for :heading do
+  |  Listing Shipping
+- content_for :title do
+  |  Listing Shippings
+.panel.panel-default
+  .panel-heading
+    = link_to 'Add Shipping', new_admin_order_shipping_path(@order), class: 'btn btn-success btn-sm'
+  .panel-body
+    table.table.table-striped.no-margn
+      thead
+        tr
+          th #
+          th Tracking Id
+          th Status
+          th colspan="2" Actions
+      tbody
+        - @shippings.each do |s|
+          tr
+            td= s.id
+            td= s.tracking_id
+            td= s.status
+            td= link_to 'Edit', edit_admin_order_shipping_path(s.order, s)
+            td= link_to 'Delete', admin_order_shipping_path(s.order, s), method: :delete, data: {confirm: 'Are you sure?'}

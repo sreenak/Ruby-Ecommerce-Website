@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @order] do |p|
+  .form-actions
+    = p.input :status, collection: Order::STATUSES
+    hr.dotted
+    = p.button :submit

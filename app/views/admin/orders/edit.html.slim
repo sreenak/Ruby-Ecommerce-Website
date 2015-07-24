@@ -1,0 +1,7 @@
+- content_for :title do
+  | Editing Order
+- content_for :heading do
+  | Editing order -
+  em= @order.title
+
+= render 'form'

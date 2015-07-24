@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723075545) do
+ActiveRecord::Schema.define(version: 20150724055552) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -181,11 +181,11 @@ ActiveRecord::Schema.define(version: 20150723075545) do
   add_index "fabric_colors", ["fabric_id"], name: "index_fabric_colors_on_fabric_id", using: :btree
 
   create_table "fabric_colors_parts_groups", id: false, force: :cascade do |t|
-    t.integer "fabric_parts_group_id", limit: 4, null: false
-    t.integer "fabric_color_id",       limit: 4, null: false
+    t.integer "parts_group_id",  limit: 4, null: false
+    t.integer "fabric_color_id", limit: 4, null: false
   end
 
-  add_index "fabric_colors_parts_groups", ["fabric_parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
+  add_index "fabric_colors_parts_groups", ["parts_group_id", "fabric_color_id"], name: "part_groups_fabric_colors", using: :btree
 
   create_table "fabrics", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -385,6 +385,16 @@ ActiveRecord::Schema.define(version: 20150723075545) do
 
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
 
+  create_table "shippings", force: :cascade do |t|
+    t.integer  "order_id",    limit: 4
+    t.string   "tracking_id", limit: 255
+    t.integer  "status",      limit: 2,   default: 0, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "shippings", ["order_id"], name: "index_shippings_on_order_id", using: :btree
+
   create_table "standard_sizes", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -449,4 +459,5 @@ ActiveRecord::Schema.define(version: 20150723075545) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "dresses"
   add_foreign_key "shipments", "orders"
+  add_foreign_key "shippings", "orders", on_delete: :cascade
 end

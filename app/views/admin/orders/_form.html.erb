@@ -1,0 +1,11 @@
+<%= simple_form_for [:admin, @order], wrapper: :horizontal_small_form do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+    	<%= f.input :status, collection: Order::STATUSES %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>
