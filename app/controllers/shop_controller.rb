@@ -9,6 +9,6 @@ class ShopController < ApplicationController
     @product = Product.friendly.find params[:id]
     @product_images = @product.product_images.all
     @product_colors = @product.colors.all
-    @product_sizes = @product.standard_sizes.all
+    @standard_sizes = @product.standard_sizes.all
   end
 end

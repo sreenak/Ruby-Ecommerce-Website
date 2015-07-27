@@ -9,8 +9,8 @@
       h4.col-xs-4.text-right= humanized_money_with_symbol @order.total
     .row
       p.col-sm-8 Placed on #{@order.created_at.strftime '%A, %B %d, %Y'} / #{pluralize(@order.product_items.count, 'item')}
-      - if @order.shipment.present?
-        p.col-sm-4= link_to 'Track Shipping', @order.shipment.tracking_link, target: '_blank'
+      - if @order.shipments.present?
+        p.col-sm-4= link_to 'Track Shipping', @order.shipments.first.tracking_link, target: '_blank'
 
     - @order.product_items.each_with_index do |p, i|
       h4.divided

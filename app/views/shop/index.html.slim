@@ -1,50 +1,120 @@
+
+
+/ = search_form_for @product_search, url: shop_index_path do |f|
+/  = f.label :category_cont, "Category"
+/  - Category.all.each do |c|
+/    = f.check_box :category_id_in, {multiple: true}, c.id, nil
+/    = c.name
+/  br
+/  = f.label :price,"Price"
+/   = check_box_tag('product_search[price_in][]', "100-160" ) 
+/  br
+/  = sort_link @product_search, :price_paisas, "Price in acen & decn "
+ 
+
+
+/  br
+/  = f.label :price_paisas_gteq,"Price between"
+/  = f.search_field :price_paisas_gteq 
+/  = f.label :price_paisas_lteq, "and"
+/  = f.search_field :price_paisas_lteq
+
+/  br
+/  = f.label :size_cont, "Size Available"
+/  - StandardSize.all.each do |s|
+/    = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil
+/    = s.name
+/  br
+/  = f.label :color_cont, "Colors Available"
+/  - Color.all.each do |c|
+/    = f.check_box :colors_id_in, {multiple: true}, c.id, nil
+/    = c.name
+/  br
+/  = f.submit "Search"
+         
+         
+
+
 - content_for :title do
   |Shop
 
 h1.page-title.text-center.text-uppercase Shop
+
 .row
   .col-md-3
     = search_form_for @product_search, url: shop_index_path do |f|
-      .product-filter
-        h4
-          |Categories
+.col-md-9.col-md-offset-3
+  .product-filter-count
+    h4.pull-left SAREES 
+    span.filter-count.pull-left
+     | 10 Products
+    
+
+  .pull-right.sort-by-product
+    a href="javascript:void(0)"
+      span.sort_box Sort By:
+      |Price: Low - High
+    span.drop-down-arrow
+      i.fa.fa-angle-down
+    .sort-by-list.hidden
+      ul
+        li
+          a href="" 
+           |Price: Low - High
+
+        li
+          a href="" 
+           |Price: High - Low
+       
+
+= search_form_for @product_search, url: shop_index_path do |f|
+
+  .col-md-3
+    .product-filter
+      h4 
+        |Categories
+        span.clear-filters.pull-right
+          |Clear
+        = f.submit
+      ul.product-categories
+        - Category.all.each do |c|
+          li.checkbox.category-lists
+            label
+             = f.check_box :category_id_in, {multiple: true}, c.id, nil
+             = c.name
+
+      .product-box
+        h4 Price
+        .product-price-flt
+          input#price-rage.hidden type="slider" value="0;10000"
+
+      .product-box   
+        h4 
+          |Size 
+          span.clear-filters.pull-right
+            |Clear
+        ul.product-size
+          - StandardSize.all.each do |s|
+            li.checkbox.size-list
+              label
+               = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil
+               = s.name
+               
+      .product-box
+        h4 
+          |Color
+
           span.clear-filters.pull-right
             |Clear
         ul.product-categories
-          - Category.all.each do |c|
+          - Color.all.each do |c|
             li.checkbox.category-lists
               label
-                input type="checkbox" value=""
+                = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                 = c.name
+                
 
-        .product-box
-          h4 Price
-          .product-price-flt
-            input#price-rage.hidden type="slider" value="0;10000"
-
-        .product-box
-          h4
-            |Size
-            span.clear-filters.pull-right
-              |Clear
-          ul.product-size
-            - StandardSize.all.each do |s|
-              li.checkbox.size-list
-                label
-                  input type="checkbox" value=""
-                  = s.name
-        .product-box
-          h4
-            |Color
-            span.clear-filters.pull-right
-              |Clear
-          ul.product-color
-            - Color.all.each do |c|
-              li.checkbox.size-list
-                label
-                  input type="checkbox" value=""
-                  = c.name
-
+       
   .col-md-9
     .products
       - @products.each_slice(3) do |row|
