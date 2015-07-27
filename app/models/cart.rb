@@ -20,7 +20,7 @@ class Cart
     product = Dress.find id
     return false unless product.present?
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable_type: 'Dress', line_itemable_id: product.id, amount: price.to_money(@currency), title: product.name, quantity: quantity)
+    line_item = @order.line_items.create(line_itemable: product, amount: price.to_money(@currency), title: product.name, quantity: quantity)
     calculate
     line_item
   end
@@ -31,7 +31,7 @@ class Cart
     # color = Color.find id
     return false unless product.present?
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable_type: 'Product', line_itemable_id: product.id, amount: product.price.exchange_to(@currency), title: product.name, quantity: quantity)
+    line_item = @order.line_items.create(line_itemable: product, amount: product.price.exchange_to(@currency), title: product.name, quantity: quantity)
     calculate
     line_item
   end
@@ -39,7 +39,7 @@ class Cart
   # Ordered by is existing user id, ordering for is the email id
   def add_gift_card(gift)
     @order.save # Save order before adding the gift card
-    item = @order.line_items.create(line_itemable_type: 'GiftCard', line_itemable_id: gift.id, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
+    item = @order.line_items.create(line_itemable: 'GiftCard', line_itemable_id: gift.id, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
     calculate
     item
   end
@@ -55,7 +55,7 @@ class Cart
       amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
     end
     return 'Discount not applicable!' if amount <= 0 || total < discount.minimum_order_price.to_money('INR').exchange_to(@currency)
-    item = @order.line_items.create(discount_coupon: discount, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
+    item = @order.line_items.create(line_itemable: discount, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
     @order.calculate_total
     'Discount applied.'
   end
@@ -67,7 +67,7 @@ class Cart
     amount = available_amount > @order.total ? @order.total : available_amount
     return false if amount <= 0
     gift_usage = GiftCardUsage.create gift_card_id: gift.id, amount: amount
-    item = @order.line_items.create(line_itemable_type: 'GiftCardUsage', line_itemable_id: gift_usage.id, amount: -amount, quantity: 1, title: "Gift Card: #{gift.code}")
+    item = @order.line_items.create(line_itemable: gift_usage, amount: -amount, quantity: 1, title: "Gift Card: #{gift.code}")
     gift.update(remaining: gift.remaining - amount)
     calculate
     item
