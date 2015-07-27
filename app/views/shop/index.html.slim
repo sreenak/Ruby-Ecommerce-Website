@@ -14,7 +14,9 @@ h1.page-title.text-center.text-uppercase Shop
   .product-filter-count
     h4.pull-left SAREES 
     span.filter-count.pull-left
-     | 10 Products
+     - if @products
+        =@products.count 
+        |  results
     
 
   .pull-right.sort-by-product
@@ -42,7 +44,7 @@ h1.page-title.text-center.text-uppercase Shop
         |Categories
         span.clear-filters.pull-right
           |Clear
-        = f.submit
+        
       ul.product-categories
         - Category.all.each do |c|
           li.checkbox.category-lists
@@ -79,7 +81,7 @@ h1.page-title.text-center.text-uppercase Shop
               label
                 = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                 = c.name
-                
+          = f.submit      
 
        
   .col-md-9

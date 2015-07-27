@@ -43,7 +43,9 @@ html lang="en-us"
               span.icon-bar
               a.navbar-brand Kaapad
           #top-bar.collapse.navbar-collapse
-            
+            /= form_tag search_index_path, :method => 'get' do 
+             / = text_field_tag :q, params[:search] 
+              /= submit_tag "Search", :name => nil 
             form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
               .input-group
                 .input-append
