@@ -3,26 +3,28 @@
   .form-inputs.row
     .col-md-6
       = f.input :name
-      = f.input :sku
+      = f.input :sku, label: 'Product Code'
       = f.input :price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
         span.input-group-addon
           i.fa.fa-inr
         = f.input_field :price, class: "form-control"
+      = f.association :standard_sizes, as: :check_boxes
     .col-md-6
       = f.input :featured
       = f.association :dress
       = f.association :category
       = f.association :colors, as: :check_boxes
-      = f.association :standard_sizes, as: :check_boxes
-      = f.input :image, wrapper: :horizontal_file_input
-      = image_tag @product.image_url(:thumbnail) if @product.image?
-      = f.hidden_field :image_cache
   = f.input :description, as: :ckeditor, wrapper: :vertical_form
-  h4 Additional Images
+  h4 Product Images
   .additional-images
+    .fields
+      = f.input :image
+      p= image_tag @product.image_url(:thumbnail) if @product.image?
+      = f.hidden_field :image_cache
     = f.simple_fields_for :product_images do |i|
       = i.input :image
       p= image_tag i.object.image_url(:thumbnail) if i.object.image?
+      = i.hidden_field :image_cache
       = i.link_to_remove 'Remove', class: 'btn btn-danger'
   hr
   = f.link_to_add 'Add Image', :product_images, class: 'btn btn-primary', data: {target: '.additional-images'}
