@@ -24,7 +24,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :shipping_address
   accepts_nested_attributes_for :billing_address
 
-  scope :valid_orders, -> { where.not(status: 'In Cart') }
+  scope :valid_orders, -> { where.not(status: 'In Cart', user_id: nil) }
 
   def merge_orders user_id
     in_cart_orders = Order.where(user_id: user_id, status: 'In Cart')
