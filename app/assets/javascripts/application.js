@@ -11,6 +11,7 @@
 //= require smoothproducts
 //= require snapsvg
 //= require underscore
+//= require jquery.tinycarousel
 //= require async
 //= require jshashtable-2.1_src
 //= require jquery.numberformatter-1.2.3
@@ -23,5 +24,8 @@
 //= require frontend/checkout
 //= require frontend/gifts
 //= require frontend/products
+
 //= require frontend/trends
 
+
+//= require frontend/trends

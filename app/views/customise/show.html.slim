@@ -158,7 +158,13 @@ script
         a.btnPrevious.hidden-xs[href="javascript:void(0);"]
           = image_tag 'left-arrow.png'
         .prev-carousel
-          ul
+          #slider1
+            a.buttons.prev href="#" 
+               = image_tag 'left-arrow.png'
+            .viewport
+              ul.overview
+            a.buttons.next href="#"  
+               = image_tag 'right-arrow.png'
 
         a.btnPrevious.visible-xs[href="javascript:void(0);"]
           = image_tag 'left-arrow.png'

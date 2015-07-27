@@ -74,7 +74,7 @@ $(window).load(function() {
                 };
 
             };
-            console.log(allDressParts);
+            // console.log(allDressParts);
             for (var i = 0; i < data.fabric_groups.length; i++) {
 
                 //to displau the fabric colors intially
@@ -366,7 +366,7 @@ $(window).load(function() {
             })
         }
 
-
+        var savingObject = [];
         $(document).on('click', '.save', function(e) {
             $('.group').css('display', 'none');
             $(this).attr('disabled', 'disabled');
@@ -374,19 +374,41 @@ $(window).load(function() {
             $(".savingJsonLoader .loader").css({
                 'left': ($(window).width() / 2 - 64),
                 'top': ($(window).height() / 2 - 10)
-            })
-            /* var frontViewsvg = document.getElementById("frontview");
+            });
 
-            var svg1 = document.getElementById('frontview');
-            var xml1 = new XMLSerializer().serializeToString(svg1);
-            var frontViewData = "data:image/svg+xml;base64," + btoa(xml1);*/
+            //to findout what are the clicked parts and applied pattern based on that get base 64
+            $('#frontview .main_parts').find('path').each(function(index) {
+                var filledPattern = $(this).attr('fill');
+                filledPattern = filledPattern.replace('url(#', '');
+                filledPattern = filledPattern.replace(')', '');
+                //console.log(filledPattern);
 
+                if (filledPattern.indexOf('img') > -1) {
+                    filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
+                } else {
+                    filledPattern = '#FFFFFF';
+                }
+                var saveObj = {};
+                saveObj.partClass = $(this).attr('class');
+                // saveObj.wid = $('.defsclass svg #' + filledPattern + ' image').width();
+                // saveObj.hei = $('.defsclass svg #' + filledPattern + ' image').height();
+
+                // filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
+                saveObj.patternUrl = filledPattern;
+                savingObject.push(saveObj);
+
+            });
+
+
+
+            //$('.defsclass svg #img3 image').attr('xlink:href');  important
             var svg = document.getElementById("frontview");
             var svgData = new XMLSerializer().serializeToString(svg);
 
             var canvas = document.createElement("canvas");
             var svgSize = svg.getBoundingClientRect();
-            canvas.width = svgSize.width;
+            console.log('width ' + svgSize.width + ' and height is ' + svgSize.height);
+            canvas.width = svgSize.width - 110; //empty space is more after generating svg to png to reduce empty space -110 
             canvas.height = svgSize.height;
             var ctx = canvas.getContext("2d");
 
@@ -397,41 +419,78 @@ $(window).load(function() {
             img.onload = function() {
                 ctx.drawImage(img, 0, 0);
                 var frontViewData = canvas.toDataURL("image/png");
-                // console.log(frontViewData);
+
                 $.ajax({
                     url: '/customised_dresses.json',
                     type: 'POST',
                     data: {
-                        dress_id: 1,
+                        dress_id: data.id,
                         image_data_uri: frontViewData,
-                        details: 'body'
+                        details: JSON.stringify(savingObject)
                     },
                     error: function() {
                         $(".savingJsonLoader").css('display', 'none');
                         alert("Could not save design, are you logged in?");
                     },
                     success: function(result) {
-                        // alert(result);
                         $(".savingJsonLoader").css('display', 'none');
                         alert("Design Saved Successfully!");
                         $(".save").removeAttr('disabled');
-                        // getJsonObj();
-                        $('.prev-carousel ul').html('');
-                        /* $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
-                            $.each(data, function(index, el) {
-                                //console.log(index + ' and ' + el.angle_0.angle_0.url);
-                                var template = "<li><img height='200px' src=" + el.image + "/></li>";
-                                $('.prev-carousel ul').append(template);
-                                console.log('image paths ' + el.image);
-                            });
 
-                        });*/
+                        $('.prev-carousel ul').html('');
                         loadSavedDresses(data);
 
 
                     }
                 })
             };
+        });
+
+        $(document).on('click', '.overview li', function() {
+            //console.log($(this).attr('data-details'));
+            $('.savedImgClass').remove();
+            var retrievedImageDetails = $(this).attr('data-details');
+            var savedJson = $.parseJSON(retrievedImageDetails);
+            var applyPatterns = [];
+            var temp = ''
+            for (var i = 0; i < savedJson.length; i++) {
+                //here we have to create pattern based on the saved images clicked clicked 
+                // $('.defsclass').after("<svg><pattern id='savedimg" + i + "' patternUnits='userSpaceOnUse' width=" + savedJson[i].wid + " height=" + savedJson[i].hei + "><image xlink:href=" + savedJson[i].patternUrl + " x='0' y='0' width=" + savedJson[i].wid + " height=" + savedJson[i].hei + " /></pattern></svg>");
+                temp += "<svg class='savedImgClass'><pattern id='savedimgPattern" + i + "' patternUnits='userSpaceOnUse' width='50px' height='50px'><image xlink:href=" + savedJson[i].patternUrl + " x='0' y='0' width='50px' height='50px' /></pattern></svg>";
+                var finalObj = {};
+                finalObj.classNames = savedJson[i].partClass;
+                if (savedJson[i].patternUrl == '#FFFFFF') {
+                    finalObj.patternUrl = '#FFFFFF';
+                } else {
+                    finalObj.patternUrl = 'savedimgPattern' + i;
+                }
+
+                applyPatterns.push(finalObj);
+
+            };
+
+            $('.defsclass').append(temp);
+
+
+
+            $('#frontview .main_parts').find('path').each(function(index) {
+                var thisClass = $(this).attr('class');
+
+                $.each(applyPatterns, function(index1, val) {
+
+                    // console.log(val.patternUrl.length);
+                    if (thisClass == val.classNames) {
+
+                        if (val.patternUrl.length > 10) {
+                            console.log('pattern url length ' + val.patternUrl.length + ' and classname is' + thisClass)
+                            $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
+                        } else {
+                            $('.' + val.classNames).attr('fill', '#FFFFFF');
+                        }
+                    }
+                });
+
+            });
 
 
 
@@ -440,15 +499,26 @@ $(window).load(function() {
         //loading previousely saved items while page loading
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
+                $('.prev-carousel ul').html('');
                 $.each(data, function(index, el) {
                     //console.log(index + ' and ' + el.angle_0.angle_0.url);
-                    var template = "<li><img height='200px' src=" + el.image + "/></li>";
+
+                    var template = "<li data-details=" + el.details + "><img style='height:195px' src=" + el.image + "/></li>";
                     $('.prev-carousel ul').append(template);
-                    console.log('image paths ' + el.image);
+                    //  console.log('image paths ' + el.image);
+
+                    $('#slider1').tinycarousel({
+                        animationTime: 300
+                    });
+
                 });
 
             });
         }
+
+
+
+
 
     }); //get json end
 }); //onload end

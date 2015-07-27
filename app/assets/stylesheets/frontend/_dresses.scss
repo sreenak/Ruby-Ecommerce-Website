@@ -1141,7 +1141,7 @@ img {
 
 .prev-carousel {
   padding-top: 20px;
-  width: 95%;
+  width: 100%;
   overflow: hidden;
   height: 250px;
   position: relative;
@@ -1161,7 +1161,7 @@ img {
   
   height: 175px;
   width: 150px;
-  display:inline;
+  
   margin-right: 1px;
   text-align: center;
   padding-top: 25px;
@@ -1172,6 +1172,7 @@ img {
   top: 50%;
   left: 0px;
   z-index: 10;
+  display:none;
 }
 
 .btnNext {
@@ -1179,6 +1180,7 @@ img {
   top: 50%;
   right: 0;
   z-index: 10;
+  display:none;
 }
 
 .customisation-tab ul li.active a, .customisation-tab ul li a {
@@ -2258,3 +2260,70 @@ input#zipcode, .state-city > label:last-child {
   left:134px;
   z-index:1;
 }
+
+/* Tiny Carousel */
+#slider1 {
+    height: 200px;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    padding: 0 50px 10px;
+}
+
+#slider1 .viewport {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+#slider1 .buttons {
+    background: black;
+    border-radius: 35px;
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+#slider1 .next {
+    right: 0;
+    left: auto;
+    top: 40%;
+}
+
+#slider1 .buttons:hover {
+    color: #C01313;
+    background: #fff;
+}
+
+#slider1 .disable {
+    visibility: hidden;
+}
+
+#slider1 .overview {
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    width: 240px;
+    left: 0;
+    top: 0;
+}
+
+#slider1 .overview li {
+    float: left;
+    margin: 0 20px 0 0;
+    padding: 1px;
+    height: 200px;
+    border: 1px solid #dcdcdc;
+    width: 200px;
+    cursor:pointer;
+ }
