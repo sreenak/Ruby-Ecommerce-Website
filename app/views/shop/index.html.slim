@@ -1,138 +1,79 @@
-/ = search_form_for @product_search, url: shop_index_path do |f|
-/  = f.label :category_cont, "Category"
-/  - Category.all.each do |c|
-/    = f.check_box :category_id_in, {multiple: true}, c.id, nil
-/    = c.name
-/  br
-/  = f.label :price,"Price"
-/   = check_box_tag('product_search[price_in][]', "100-160" ) 
-/  br
-/  = sort_link @product_search, :price_paisas, "Price in acen & decn "
- 
-
-
-/  br
-/  = f.label :price_paisas_gteq,"Price between"
-/  = f.search_field :price_paisas_gteq 
-/  = f.label :price_paisas_lteq, "and"
-/  = f.search_field :price_paisas_lteq
-
-/  br
-/  = f.label :size_cont, "Size Available"
-/  - StandardSize.all.each do |s|
-/    = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil
-/    = s.name
-/  br
-/  = f.label :color_cont, "Colors Available"
-/  - Color.all.each do |c|
-/    = f.check_box :colors_id_in, {multiple: true}, c.id, nil
-/    = c.name
-/  br
-/  = f.submit "Search"
- 
-/  br
-
-
 - content_for :title do
   |Shop
 
 h1.page-title.text-center.text-uppercase Shop
-
-.col-md-9.col-md-offset-3
-  .product-filter-count
-    h4.pull-left SAREES 
-    span.filter-count.pull-left
-     | 10 Products
-
-
-  .pull-right.sort-by-product
-    a href="javascript:void(0)"
-      span.sort_box Sort By:
-      |Price: Low - High
-    span.drop-down-arrow
-      i.fa.fa-angle-down
-    .sort-by-list.hidden
-      ul
-        li
-          a href="" 
-           |Price: Low - High
-
-        li
-          a href="" 
-           |Price: High - Low
-       
-
-= search_form_for @product_search, url: shop_index_path do |f|
+.row
   .col-md-3
-    .product-filter
-      h4 
-        |Categories
-        span.clear-filters.pull-right
-          |Clear
-      ul.product-categories
-        - Category.all.each do |c|
-          li.checkbox.category-lists
-            label
-              input type="checkbox" value=""
-              = c.name
-
-      .product-box
-        h4 Price
-        .product-price-flt
-          input#price-rage.hidden type="slider" value="0;10000"
-
-      .product-box   
-        h4 
-          |Size 
+    = search_form_for @product_search, url: shop_index_path do |f|
+      .product-filter
+        h4
+          |Categories
           span.clear-filters.pull-right
             |Clear
-        ul.product-size
-          - StandardSize.all.each do |s|
-            li.checkbox.size-list
-              label
-                input type="checkbox" value=""
-                = s.name
-      .product-box
-        h4 
-          |Color
-          span.clear-filters.pull-right
-            |Clear
-        ul.product-color
-          - Color.all.each do |c|
-            li.checkbox.size-list
+        ul.product-categories
+          - Category.all.each do |c|
+            li.checkbox.category-lists
               label
                 input type="checkbox" value=""
                 = c.name
 
-.col-md-9
-  .products
-    - @products.each_slice(4) do |row|
-      .row
-        - row.each do |product|
-          .col-md-4.col-sm-6
-            .product-preview.hover-container
-              a href="#{shop_path(product)}"
-                = image_tag product.image_url(:medium)
-              .details
-                .action-row.top.clearfix.hover-content
-                  .pull-left
-                    - if !current_or_null_user.liked? product
-                      i.icon.ion-ios-heart-outline
-                      = link_to 'Like', likes_path(:id => product.id), method: :post
-                    - else
-                      i.icon.ion-ios-heart
-                      = link_to 'Unlike', like_path(:id => product.id), method: :delete
+        .product-box
+          h4 Price
+          .product-price-flt
+            input#price-rage.hidden type="slider" value="0;10000"
 
-                  .pull-right.text-right
-                    i.icon.ion-ios-cart
-                    = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
-                h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
-                h4.text-center
-                  = link_to product.name, shop_path(product)
-                .action-row.text-center.bottom.hover-content
-                  i.icon.ion-wand
-                  |Customise
-  = paginate @products
+        .product-box
+          h4
+            |Size
+            span.clear-filters.pull-right
+              |Clear
+          ul.product-size
+            - StandardSize.all.each do |s|
+              li.checkbox.size-list
+                label
+                  input type="checkbox" value=""
+                  = s.name
+        .product-box
+          h4
+            |Color
+            span.clear-filters.pull-right
+              |Clear
+          ul.product-color
+            - Color.all.each do |c|
+              li.checkbox.size-list
+                label
+                  input type="checkbox" value=""
+                  = c.name
+
+  .col-md-9
+    .products
+      - @products.each_slice(3) do |row|
+        .row
+          - row.each do |product|
+            .col-md-4.col-sm-6
+              .product-preview.hover-container
+                a href="#{shop_path(product)}"
+                  = image_tag product.image_url(:medium)
+                .details
+                  .action-row.top.clearfix.hover-content
+                    .pull-left
+                      - if !current_or_null_user.liked? product
+                        i.icon.ion-ios-heart-outline
+                        = link_to 'Like', likes_path(:id => product.id), method: :post
+                      - else
+                        i.icon.ion-ios-heart
+                        = link_to 'Unlike', like_path(:id => product.id), method: :delete
+
+                    .pull-right.text-right
+                      i.icon.ion-ios-cart
+                      = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
+                  h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+                  h4.text-center
+                    = link_to product.name, shop_path(product)
+                  .action-row.text-center.bottom.hover-content
+                    i.icon.ion-wand
+                    |Customise
+    = paginate @products
 
 
   
