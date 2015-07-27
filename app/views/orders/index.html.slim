@@ -21,3 +21,5 @@
             td= humanized_money_with_symbol o.total
             td= o.status
             th= link_to 'View', o
+
+    = paginate @orders

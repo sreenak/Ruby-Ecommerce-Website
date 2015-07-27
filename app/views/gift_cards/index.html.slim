@@ -13,3 +13,4 @@
             td= g.code
             td= humanized_money_with_symbol g.used_amount.exchange_to(@cart.currency)
             td= humanized_money_with_symbol g.available_amount.exchange_to(@cart.currency)
+    = paginate @gift_cards

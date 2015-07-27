@@ -2,7 +2,7 @@ class GiftCardsController < ApplicationController
   def index
     authenticate_user!
     @user = current_user
-    @gift_cards = @user.gift_cards
+    @gift_cards = @user.gift_cards.page params[:page]
   end
 
   def new
