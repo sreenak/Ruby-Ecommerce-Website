@@ -291,7 +291,7 @@ ActiveRecord::Schema.define(version: 20150724130037) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_parts_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(version: 20150724130037) do
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
     t.date     "date_of_birth"
-    t.integer  "gender",                 limit: 1
+    t.integer  "gender",                 limit: 2
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"

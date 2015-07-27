@@ -31,26 +31,89 @@
 /    = c.name
 /  br
 /  = f.submit "Search"
- 
+         
+         
 
 
 - content_for :title do
   |Shop
 
 h1.page-title.text-center.text-uppercase Shop
+
 .row
   .col-md-3
     = search_form_for @product_search, url: shop_index_path do |f|
       .product-filter
         h4
           |Categories
+
+
+.col-md-9.col-md-offset-3
+  .product-filter-count
+    h4.pull-left SAREES 
+    span.filter-count.pull-left
+     | 10 Products
+
+
+  .pull-right.sort-by-product
+    a href="javascript:void(0)"
+      span.sort_box Sort By:
+      |Price: Low - High
+    span.drop-down-arrow
+      i.fa.fa-angle-down
+    .sort-by-list.hidden
+      ul
+        li
+          a href="" 
+           |Price: Low - High
+
+        li
+          a href="" 
+           |Price: High - Low
+       
+
+= search_form_for @product_search, url: shop_index_path do |f|
+
+  .col-md-3
+    .product-filter
+      h4 
+        |Categories
+        span.clear-filters.pull-right
+          |Clear
+      ul.product-categories
+        - Category.all.each do |c|
+          li.checkbox.category-lists
+            label
+             = f.check_box :category_id_in, {multiple: true}, c.id, nil
+             = c.name
+      .product-box
+        h4 Price
+        .product-price-flt
+          input#price-rage.hidden type="slider" value="0;10000"
+
+      .product-box   
+        h4 
+          |Size 
+          span.clear-filters.pull-right
+            |Clear
+        ul.product-size
+          - StandardSize.all.each do |s|
+            li.checkbox.size-list
+              label
+               = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil
+               = s.name
+               
+      .product-box
+        h4 
+          |Color
+>>>>>>> modified shop search page
           span.clear-filters.pull-right
             |Clear
         ul.product-categories
           - Category.all.each do |c|
             li.checkbox.category-lists
               label
-                input type="checkbox" value=""
+                = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                 = c.name
 
         .product-box
