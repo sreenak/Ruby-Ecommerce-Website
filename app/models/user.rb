@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_one :billing_address, as: :addressable
   has_one :shipping_address, as: :addressable
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_many :likes
   has_many :liked_products, through: :likes, source: :product
   has_many :gift_cards, through: :orders, source: :gift_cards

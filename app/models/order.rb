@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   STATUSES = ['In Cart', 'Paid', 'Completed', 'Cancelled', 'Returned']
 
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
   has_many :line_items, dependent: :destroy

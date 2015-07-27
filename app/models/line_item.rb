@@ -7,8 +7,8 @@ class LineItem < ActiveRecord::Base
 
 
   belongs_to :shipping
-  has_one :shipping_address, through: :shipping, dependent: :destroy
-  has_one :customised_dress_order_item
+  # has_one :shipping_address, through: :shipping, dependent: :destroy
+  # has_one :customised_dress_order_item, dependent: :destroy
 
   monetize :amount_paisas, with_model_currency: :currency
 

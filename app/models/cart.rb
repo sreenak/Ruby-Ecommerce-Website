@@ -95,10 +95,11 @@ class Cart
   end
 
   def calculate_shipping
-    if @order.shipping_address.present? && @order.shipping_quote.blank? && @order.shipping_address.country != 'IN'
-      @order.line_items.create(line_itemable_type: 'ShippingService', line_itemable_id: 1, amount: 20.to_money('USD').exchange_to(@currency), quantity: 1, title: 'Shipping Outside India')
-      calculate
-    end
+    # if @order.shipping_address.present? && @order.shipping_quote.blank? && @order.shipping_address.country != 'IN'
+    #   shipping_service = ShippingService.first
+    #   @order.line_items.create(line_itemable: shipping_service, amount: 20.to_money('USD').exchange_to(@currency), quantity: 1, title: 'Shipping Outside India')
+    #   calculate
+    # end
   end
 
   def convert(to = 'USD')
