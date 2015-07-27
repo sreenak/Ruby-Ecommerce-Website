@@ -52,14 +52,14 @@ html lang="en-us"
                       span.fa.fa-search
 
             form.navbar-form.navbar-left action="/currencies/switch"
-             .input-append
-              select.form-control name="currency" onchange="this.form.submit()"
-                |<option value="USD"
-                = ' selected' if @currency == 'USD'
-                | > Dollar $
-                | <option value="INR"
-                = ' selected' if @currency == 'INR'
-                | > Rupees ₹
+              .input-append
+                select.form-control name="currency" onchange="this.form.submit()"
+                  |<option value="USD"
+                  = ' selected' if @currency == 'USD'
+                  | > Dollar $
+                  | <option value="INR"
+                  = ' selected' if @currency == 'INR'
+                  | > Rupees ₹
 
             .cart-details.pull-right
               a href="#{cart_path}"
@@ -91,19 +91,16 @@ html lang="en-us"
               li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
               li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
-              /li class="#{deep_active_class(shop_index_url)}" = link_to 'Shop', :shop_index
               li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
-              /li class="#{deep_active_class(page_url('help'))}"= link_to 'Help', page_path('help')
-
               li
                 a href="#{shop_index_path}" 
                   | Shop  
                   span.arrow ▼
                 ul.sub-menu
-                 - @category.each do |cat|
-                  li
-                    a href="#{shop_index_path}" 
-                      =cat.name               
+                  - @category.each do |cat|
+                    li
+                      a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+
               li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
 
 
