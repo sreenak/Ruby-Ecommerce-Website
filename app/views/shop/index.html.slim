@@ -1,3 +1,39 @@
+
+
+/ = search_form_for @product_search, url: shop_index_path do |f|
+/  = f.label :category_cont, "Category"
+/  - Category.all.each do |c|
+/    = f.check_box :category_id_in, {multiple: true}, c.id, nil
+/    = c.name
+/  br
+/  = f.label :price,"Price"
+/   = check_box_tag('product_search[price_in][]', "100-160" ) 
+/  br
+/  = sort_link @product_search, :price_paisas, "Price in acen & decn "
+ 
+
+
+/  br
+/  = f.label :price_paisas_gteq,"Price between"
+/  = f.search_field :price_paisas_gteq 
+/  = f.label :price_paisas_lteq, "and"
+/  = f.search_field :price_paisas_lteq
+
+/  br
+/  = f.label :size_cont, "Size Available"
+/  - StandardSize.all.each do |s|
+/    = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil
+/    = s.name
+/  br
+/  = f.label :color_cont, "Colors Available"
+/  - Color.all.each do |c|
+/    = f.check_box :colors_id_in, {multiple: true}, c.id, nil
+/    = c.name
+/  br
+/  = f.submit "Search"
+ 
+
+
 - content_for :title do
   |Shop
 

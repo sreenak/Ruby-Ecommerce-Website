@@ -18,7 +18,7 @@
         .col-md-6
           .form-group
             label.inline Size
-            - @product_sizes.each do |s|
+            - @standard_sizes.each do |s|
               label.radio-inline
                 = radio_button_tag :standard_size_id, s.id
                 = s.name
