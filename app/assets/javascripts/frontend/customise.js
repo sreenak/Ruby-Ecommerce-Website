@@ -135,8 +135,6 @@ $(window).load(function() {
                     };
                 };
             }, 1000);
-
-
         }
         loadSavedDresses(data);
         //svg rotation four parts functionality 

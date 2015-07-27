@@ -60,7 +60,7 @@ class CheckoutController < ApplicationController
       if current_user.shipping_address.blank?
         current_user.create_shipping_address(@order.shipping_address.dup.attributes)
       end
-      @cart.calculate_shipping
+      # @cart.calculate_shipping
       require 'hdfc'
       gateway = Hdfc.new '9002033', 'password1', checkout_thank_you_url, checkout_thank_you_url
       gateway.prepare @order.total, @order.id
@@ -75,7 +75,6 @@ class CheckoutController < ApplicationController
   end
 
   def thank_you
-    logger.info @order
     @order.update status: 'Paid'
     @order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
     session.delete :order_id
