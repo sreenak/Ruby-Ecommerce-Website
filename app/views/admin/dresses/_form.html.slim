@@ -9,6 +9,7 @@
         span.input-group-addon
           i.fa.fa-inr
         = f.input_field :base_price, class: "form-control"
+      = f.association :standard_sizes, as: :check_boxes
     .col-md-6
       = f.input :sketch, wrapper: :horizontal_file_input
       = f.hidden_field :sketch_cache
@@ -31,7 +32,6 @@
       = link_to @dress.angle_270_url if @dress.angle_270?
 
       = f.association :custom_sizes, as: :check_boxes
-      = f.association :standard_sizes, as: :check_boxes
 
   = f.simple_fields_for :fabric_parts_groups do |fp|
     = render 'fabrics', f: fp

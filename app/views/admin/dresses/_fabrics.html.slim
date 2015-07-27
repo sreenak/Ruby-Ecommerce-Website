@@ -4,9 +4,19 @@
     .row
       .col-md-6= f.input :name
       .col-md-6= f.input :svg_group_id
+    = f.simple_fields_for :fabric_group_colors do |c|
+      .panel.panel-default
+        .panel-heading Fabric Group Colors Details
+        .panel-body
+          .row
+            .col-md-6= c.association :fabric_color, label_method: :label
+            .col-md-6= c.input :price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
+              span.input-group-addon
+                i.fa.fa-inr
+              = c.input_field :price, class: "form-control"
+          = c.link_to_remove 'Remove Color', class: 'btn btn-danger pull-right'
 
-    = f.association :fabric_colors, label_method: :label
-
+    = f.link_to_add 'Add Color', :fabric_group_colors, class: 'btn btn-success'
     = f.simple_fields_for :parts do |p|
       .panel.panel-default
         .panel-heading Part Details
@@ -25,6 +35,10 @@
                     = b.input :image
                     = b.hidden_field :image_cache
                     = image_tag b.object.image_url if b.object.image?
+                    = b.input :price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
+                      span.input-group-addon
+                        i.fa.fa-inr
+                      = b.input_field :price, class: "form-control"
                 = b.link_to_remove 'Remove Brocade', class: 'btn btn-danger pull-right'
 
           = p.link_to_add 'Add Brocade', :brocade_parts, class: 'btn btn-success'

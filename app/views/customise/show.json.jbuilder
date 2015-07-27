@@ -19,16 +19,18 @@ json.fabric_groups @dress.fabric_parts_groups do |fabric_part_group|
       json.brocade_id brocade_part.brocade.id
       json.name brocade_part.brocade.name
       json.image brocade_part.image.url
+      json.price brocade_part.price.exchange_to(@cart.currency).to_f
       json.size ::MiniMagick::Image.open(brocade_part.image.path)[:dimensions]
     end
   end
-  json.fabric_colors fabric_part_group.fabric_colors do |fabric_color|
-    json.fabric_id fabric_color.fabric.id
-    json.fabric_name fabric_color.fabric.name
-    json.id fabric_color.id
-    json.name fabric_color.name
-    json.swatch fabric_color.swatch.url
-    json.size ::MiniMagick::Image.open(fabric_color.swatch.path)[:dimensions]
+  json.fabric_colors fabric_part_group.fabric_group_colors do |fabric_group_color|
+    json.fabric_id fabric_group_color.fabric_color.fabric.id
+    json.fabric_name fabric_group_color.fabric_color.fabric.name
+    json.id fabric_group_color.fabric_color.id
+    json.name fabric_group_color.fabric_color.name
+    json.swatch fabric_group_color.fabric_color.swatch.url
+    json.price fabric_group_color.price.exchange_to(@cart.currency).to_f
+    json.size ::MiniMagick::Image.open(fabric_group_color.fabric_color.swatch.path)[:dimensions]
   end
 end
 json.embelishment_groups @dress.embellishment_parts_groups do |embellishment_part_group|
