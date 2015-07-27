@@ -43,17 +43,12 @@ h1.page-title.text-center.text-uppercase Shop
 .row
   .col-md-3
     = search_form_for @product_search, url: shop_index_path do |f|
-      .product-filter
-        h4
-          |Categories
-
-
 .col-md-9.col-md-offset-3
   .product-filter-count
     h4.pull-left SAREES 
     span.filter-count.pull-left
      | 10 Products
-
+    
 
   .pull-right.sort-by-product
     a href="javascript:void(0)"
@@ -80,12 +75,14 @@ h1.page-title.text-center.text-uppercase Shop
         |Categories
         span.clear-filters.pull-right
           |Clear
+        = f.submit
       ul.product-categories
         - Category.all.each do |c|
           li.checkbox.category-lists
             label
              = f.check_box :category_id_in, {multiple: true}, c.id, nil
              = c.name
+
       .product-box
         h4 Price
         .product-price-flt
@@ -106,45 +103,18 @@ h1.page-title.text-center.text-uppercase Shop
       .product-box
         h4 
           |Color
->>>>>>> modified shop search page
+
           span.clear-filters.pull-right
             |Clear
         ul.product-categories
-          - Category.all.each do |c|
+          - Color.all.each do |c|
             li.checkbox.category-lists
               label
                 = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                 = c.name
-          = f.submit      
+                
 
-        .product-box
-          h4 Price
-          .product-price-flt
-            input#price-rage.hidden type="slider" value="0;10000"
-
-        .product-box
-          h4
-            |Size
-            span.clear-filters.pull-right
-              |Clear
-          ul.product-size
-            - StandardSize.all.each do |s|
-              li.checkbox.size-list
-                label
-                  input type="checkbox" value=""
-                  = s.name
-        .product-box
-          h4
-            |Color
-            span.clear-filters.pull-right
-              |Clear
-          ul.product-color
-            - Color.all.each do |c|
-              li.checkbox.size-list
-                label
-                  input type="checkbox" value=""
-                  = c.name
-
+       
   .col-md-9
     .products
       - @products.each_slice(3) do |row|
