@@ -10,6 +10,8 @@ class ShopController < ApplicationController
     @product_images = @product.product_images.all
     @product_colors = @product.colors.all
     @standard_sizes = @product.standard_sizes.all
+    @review = Review.new
+    @reviews = Review.all
   end
 
   private

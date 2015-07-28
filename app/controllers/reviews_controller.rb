@@ -6,6 +6,7 @@ class ReviewsController <ApplicationController
   def create
     if user_signed_in?
       @review = @product.reviews.build(review_params)
+      @review.user_id = current_user.id
       if @review.save
         redirect_to :back, notice: "You reviewed #{@review.product.name}"
       else
@@ -18,6 +19,7 @@ class ReviewsController <ApplicationController
 
   def update
     if user_signed_in?
+      @review.user_id = current_user.id
       if  @review.update(review_params)
         redirect_to :back, notice: "Your review for #{@review.product.name} updated successfully"
       else
@@ -36,7 +38,7 @@ class ReviewsController <ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product
-    @product = Product.find params[:product_id]
+    @product = Product.find params[:shop_id]
   end
 
   def set_review
