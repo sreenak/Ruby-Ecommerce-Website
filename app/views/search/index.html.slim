@@ -1,57 +1,49 @@
+.col-md-9.product-search
+  .search-show
+    p.seach-result-count
+      | You searched for ‘
+      em
+        = @key
+      |’.&nbsp;
+      - if @products.present?
+        |Showing&nbsp;
+        = pluralize @products.count, ' result'
+  .products
+    - if @products
+      - if @products.empty?
+        h2 No products found.
+      - else
+        - @products.each_slice(3) do |row|
+          .row
+            - row.each do |product|
+              .col-md-4.col-sm-6
+                .product-preview.hover-container
+                  a href="#{shop_path(product)}"
+                    = image_tag product.image_url(:medium)
+                  .details
+                    .action-row.top.clearfix.hover-content
+                      .pull-left
+                        - if !current_or_null_user.liked? product
+                          i.icon.ion-ios-heart-outline
+                          = link_to 'Like', likes_path(:id => product.id), method: :post
+                        - else
+                          i.icon.ion-ios-heart
+                          = link_to 'Unlike', like_path(:id => product.id), method: :delete
 
-  .col-md-9.product-search
-    .search-show
-      p.seach-result-count
-        | You searched for ‘
-        span
-          =@key
-        | ’. Showing 
-        - if @products
-            =@products.count 
-        |    results
-    .products
-          - if (@products) 
-            - if (@products.empty?) 
-              <h2>No products found.</h2>
-            - else
-              - @products.each_slice(3) do |row|
-                .row
-                  - row.each do |product|
-                    .col-md-4.col-sm-6
-                      .product-preview.hover-container
-                        a href="#{shop_path(product)}"
-                          = image_tag product.image_url(:medium)
-                        .details
-                          .action-row.top.clearfix.hover-content
-                            .pull-left
-                              - if !current_or_null_user.liked? product
-                                i.icon.ion-ios-heart-outline
-                                = link_to 'Like', likes_path(:id => product.id), method: :post
-                              - else
-                                i.icon.ion-ios-heart
-                                = link_to 'Unlike', like_path(:id => product.id), method: :delete
+                      .pull-right.text-right
+                        i.icon.ion-ios-cart
+                        = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
+                    h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+                    h4.text-center
+                      = link_to product.name, shop_path(product)
+                    .action-row.text-center.bottom.hover-content
+                      i.icon.ion-wand
+                      |Customise
 
-                            .pull-right.text-right
-                              i.icon.ion-ios-cart
-                              = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
-                          h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
-                          h4.text-center
-                            = link_to product.name, shop_path(product)
-                          .action-row.text-center.bottom.hover-content
-                            i.icon.ion-wand
-                            |Customise
-          else
-            
-    .clearfix
-    .blog-result
-    - if (@trends) 
-      - if (!@trends.empty?) 
-          h4
-            | BLOG RESULTS
-      .blog-list
+  .blog-result
+    - if @trends.present?
+      h4 BLOG RESULTS
+    .blog-list
       - @trends.each do |t|
-        h4 
-          = t.title
-        p  
-          = t.body
-      
+        h4= t.title
+        p= truncate(strip_tags(t.body), length: 250)

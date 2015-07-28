@@ -24,8 +24,5 @@
 //= require frontend/checkout
 //= require frontend/gifts
 //= require frontend/products
-
 //= require frontend/trends
-
-
 //= require frontend/trends

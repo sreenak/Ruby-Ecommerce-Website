@@ -46,9 +46,9 @@ label.size {
   border-top: 1px solid $brand-primary;
   padding-top: 15px;
   ul, .product-price-flt {
-    padding-left: 15px;
     margin-bottom: 25px;
     list-style-type: none;
+    padding-left: 0;
   }
   a:focus {
     text-decoration: none
@@ -84,8 +84,8 @@ label.size {
   .product-box {
     border-top: 1px solid #ccc;
     padding-top: 15px;
-    ul {
-      padding-left: 0;
+    &:first-child {
+      border-top: none;
     }
   }
 }
@@ -97,8 +97,6 @@ label.size {
 }
 
 .sort-by-product {
-
-  //margin-bottom:15px;
   border: 1px solid #ccc;
   font-family: $font-family-serif;
   cursor: pointer;
