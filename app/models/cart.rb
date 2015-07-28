@@ -27,8 +27,6 @@ class Cart
 
   def add_product(id, quantity = 1)
     product = Product.find id
-    # size = ProductSize.find id
-    # color = Color.find id
     return false unless product.present?
     @order.save # Save self before adding the dress
     line_item = @order.line_items.create(line_itemable: product, amount: product.price.exchange_to(@currency), title: product.name, quantity: quantity)
