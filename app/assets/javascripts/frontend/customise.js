@@ -195,6 +195,7 @@ $(window).load(function() {
                         };
 
                         //to filter brocades according to the part
+                        console.log(data.fabric_groups[i].parts[j].brocade_parts.length);
                         for (var o = 0; o < data.fabric_groups[i].parts[j].brocade_parts.length; o++) {
                             // console.log('brocadeid ' + data.fabric_groups[i].parts[j].brocade_parts[o].brocade_id);
                             brocadePartId.push(data.fabric_groups[i].parts[j].brocade_parts[o].brocade_id);
@@ -222,6 +223,7 @@ $(window).load(function() {
                     };
                 };
             };
+
             for (var p = 0; p < brocadePartName.length; p++) {
                 $('#material').append('<div style="clear:both"></div>');
                 $('#material').append('<p class="fabric_name">' + brocadePartName[p] + '</p>');
