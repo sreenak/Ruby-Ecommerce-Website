@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   belongs_to :dress
 
   has_many :product_images, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   has_and_belongs_to_many :colors
   has_and_belongs_to_many :standard_sizes

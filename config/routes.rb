@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :pages, only: :show
   resources :trends, only: [:show, :index]
   resources :customise, only: [:show, :index]
-  resources :shop, only: [:show, :index] 
+  resources :shop, only: [:show, :index] do
+    resources :reviews, only: [:create, :update, :destroy]
+  end
   resources :likes, only: [:index, :create, :destroy]
   resources :customisations, only: [:index, :create, :destroy]
   resources :customised_dresses, except: [:new, :edit, :update]

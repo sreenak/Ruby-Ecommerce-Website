@@ -23,7 +23,6 @@ class Admin::PagesController < AdminController
   # POST /admin/pages
   def create
     @page = Page.new(page_params)
-
     if @page.save
       redirect_to admin_pages_path, notice: 'Page was successfully created.'
     else
