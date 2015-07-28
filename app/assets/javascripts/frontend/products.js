@@ -10,10 +10,12 @@ function getQueryParams(qs) {
 }
 $(window).load(function () {
     $('.sp-wrap').smoothproducts();
+    /*===============massege box toggle ===========*/
     $('#gift').click(function () {
         $('.send-gift-to').toggleClass('hidden');
     });
 
+/*=============== price slider =================*/
     var price = getQueryParams(document.location.search).price;
     $("#price-range").slider({from: 0, to: 10000, heterogeneity: ['10/1000'], step: 100, dimension: '₹&nbsp;'});
     if(price){
@@ -23,12 +25,16 @@ $(window).load(function () {
         $("#price-range").slider('value', from, to)
     }
 
+/*=============== sortby ============*/
     $(".sort-by-product").click(function () {
         $('.sort-by-list').toggleClass('hidden');
     });
 
-    $("#produc-desc-tabs").click(function(e){
-         e.preventDefault()
-        $(this).tab('show')
+/*============= Clear Filters ===========*/
+
+    $(".clear-filters").click(function(){
+        var clear_filter = $(this).parent().next('ul');
+        $(clear_filter).children('li').children('label').children('input').prop('checked', false)
     })
+
 });
