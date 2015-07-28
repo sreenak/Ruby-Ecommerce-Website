@@ -13,6 +13,7 @@ $(window).load(function () {
     $('#gift').click(function () {
         $('.send-gift-to').toggleClass('hidden');
     });
+
     var price = getQueryParams(document.location.search).price;
     $("#price-range").slider({from: 0, to: 10000, heterogeneity: ['10/1000'], step: 100, dimension: '₹&nbsp;'});
     if(price){
@@ -21,7 +22,13 @@ $(window).load(function () {
         var to = priceComponents[1];
         $("#price-range").slider('value', from, to)
     }
+
     $(".sort-by-product").click(function () {
         $('.sort-by-list').toggleClass('hidden');
     });
+
+    $("#produc-desc-tabs").click(function(e){
+         e.preventDefault()
+        $(this).tab('show')
+    })
 });

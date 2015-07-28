@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["parts_group_id"], name: "index_parts_on_parts_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -402,16 +402,6 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "shippings", force: :cascade do |t|
-    t.integer  "order_id",    limit: 4
-    t.string   "tracking_id", limit: 255
-    t.integer  "status",      limit: 2,   default: 0, null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-  end
-
-  add_index "shippings", ["order_id"], name: "index_shippings_on_order_id", using: :btree
-
   create_table "standard_sizes", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -435,7 +425,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
     t.date     "date_of_birth"
-    t.integer  "gender",                 limit: 2
+    t.integer  "gender",                 limit: 1
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -453,9 +443,6 @@ ActiveRecord::Schema.define(version: 20150728060651) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "auth_identities", "users"
-  add_foreign_key "brocade_parts", "brocades"
-  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dresses", "categories"
@@ -476,5 +463,4 @@ ActiveRecord::Schema.define(version: 20150728060651) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "dresses"
   add_foreign_key "shipments", "orders"
-  add_foreign_key "shippings", "orders", on_delete: :cascade
 end
