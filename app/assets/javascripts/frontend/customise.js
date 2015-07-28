@@ -16,6 +16,8 @@ $(window).load(function() {
         var brocadeId = [];
         var brocadeName = [];
 
+        var brocadesPatternsInserted = [];
+
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
@@ -80,12 +82,15 @@ $(window).load(function() {
                             var brocadecolorid = _.where(brocadeDetails, {
                                 id: data.fabric_groups[i].parts[k].brocade_parts[l].brocade_id
                             });
+                            // console.log(data.fabric_groups[i].parts[k].brocade_parts[l].brocade_id);
                             if (brocadecolorid == 0) {
                                 continueLoopCount++;
                                 var bro_obj = {};
                                 bro_obj.brocade_id = data.fabric_groups[i].parts[k].brocade_parts[l].brocade_id;
                                 bro_obj.name = data.fabric_groups[i].parts[k].brocade_parts[l].name;
+                                bro_obj.swatch = data.fabric_groups[i].parts[k].brocade_parts[l].swatch;
                                 bro_obj.image = data.fabric_groups[i].parts[k].brocade_parts[l].image;
+                                bro_obj.partname = data.fabric_groups[i].parts[k].name;
                                 bro_obj.pid = continueLoopCount;
                                 brocadeDetails.push(bro_obj);
                                 brocadeId.push(data.fabric_groups[i].parts[k].brocade_parts[l].brocade_id);
@@ -97,11 +102,13 @@ $(window).load(function() {
 
 
                 };
+                //  console.log(brocadeDetails);
 
                 fabricId = _.uniq(fabricId);
                 fabricNames = _.uniq(fabricNames);
 
                 brocadeId = _.uniq(brocadeId);
+                //  console.log(brocadeId);
                 brocadeName = _.uniq(brocadeName);
 
                 //displaying all fabrics intially without repeating
@@ -120,20 +127,30 @@ $(window).load(function() {
                 };
 
                 // displaying all brocades intially without repeating
-
+                //console.log(brocadeDetails);
+                var brocadeDetailsIds = [] // to filter only one swath from the different images url
                 for (var i = 0; i < brocadeName.length; i++) {
                     $('#material').append('<div style="clear:both"></div>');
                     $('#material').append('<p class="fabric_name">' + brocadeName[i] + '</p>');
                     for (var j = 0; j < brocadeDetails.length; j++) {
-                        var image = new Image();
-                        image.src = brocadeDetails[j].image;
-                        // console.log('image width ' + image.width + ' and height is ' + image.height);
-                        $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[j].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[j].brocade_id + '"><img  data-pid="img' + brocadeDetails[j].pid + '" data-id="' + brocadeDetails[j].pid + '" src="' + brocadeDetails[j].image + '" /><p>' + brocadeDetails[j].name + '</p></div>');
-                        //$('.defsclass').append("<svg><pattern id='img" + fabricsDetails[j].id + "' patternUnits='userSpaceOnUse' width=" + image.width + " height=" + image.height + "><image xlink:href=" + dress_details.fabrics[i].colors[j].swatch64 + " x='0' y='0' width=" + image.width + " height=" + image.height + " /></pattern></svg>");
 
-                        //$('.defsclass').append("<svg><pattern id='img" + brocadeDetails[j].pid + "' patternUnits='userSpaceOnUse' width='50px' height='50px'><image xlink:href=" + brocadeDetails[j].image + " x='0' y='0' width='50px' height='50px' /></pattern></svg>");
+                        var checkingBrocadeId = _.where(brocadeDetailsIds, {
+                            id: brocadeDetails[j].brocade_id
+                        });
+                        //  console.log(checkingBrocadeId);
+                        if (checkingBrocadeId == 0) {
+                            var obj = {};
+                            obj.id = brocadeDetails[j].brocade_id;
+                            brocadeDetailsIds.push(obj);
+                            $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[j].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[j].brocade_id + '"><img  data-pid="img' + brocadeDetails[j].pid + '" data-id="' + brocadeDetails[j].pid + '" src="' + brocadeDetails[j].swatch + '" /><p>' + brocadeDetails[j].name + '</p></div>');
+                        }
+
+
+                        // $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[j].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[j].brocade_id + '"><img  data-pid="img' + brocadeDetails[j].pid + '" data-id="' + brocadeDetails[j].pid + '" src="' + brocadeDetails[j].swatch + '" /><p>' + brocadeDetails[j].name + '</p></div>');
                     };
                 };
+
+
             }, 1000);
         }
         loadSavedDresses(data);
@@ -195,7 +212,7 @@ $(window).load(function() {
                         };
 
                         //to filter brocades according to the part
-                        console.log(data.fabric_groups[i].parts[j].brocade_parts.length);
+                        //  console.log(data.fabric_groups[i].parts[j].brocade_parts.length);
                         for (var o = 0; o < data.fabric_groups[i].parts[j].brocade_parts.length; o++) {
                             // console.log('brocadeid ' + data.fabric_groups[i].parts[j].brocade_parts[o].brocade_id);
                             brocadePartId.push(data.fabric_groups[i].parts[j].brocade_parts[o].brocade_id);
@@ -224,14 +241,23 @@ $(window).load(function() {
                 };
             };
 
+            var brocadeDetailsIds = [];
             for (var p = 0; p < brocadePartName.length; p++) {
                 $('#material').append('<div style="clear:both"></div>');
                 $('#material').append('<p class="fabric_name">' + brocadePartName[p] + '</p>');
                 for (var q = 0; q < brocadePartId.length; q++) {
                     for (var r = 0; r < brocadeDetails.length; r++) {
-                        if (brocadePartId[q] == brocadeDetails[r].brocade_id) {
-                            $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].image + '" /><p>' + brocadeDetails[r].name + '</p></div>');
+                        var checkingBrocadeId = _.where(brocadeDetailsIds, {
+                            id: brocadeDetails[r].brocade_id
+                        })
+
+                        if (checkingBrocadeId.length == 0) {
+                            var obj = {};
+                            obj.id = brocadeDetails[r].brocade_id;
+                            brocadeDetailsIds.push(obj);
+                            $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].swatch + '" /><p>' + brocadeDetails[r].name + '</p></div>');
                         }
+
                     };
                 };
             };
@@ -257,7 +283,6 @@ $(window).load(function() {
             var gettingOriginalId = $(this).attr('data-originalid');
 
             var img = new Image();
-
             img.onload = function() {
                 var canvas = document.createElement("canvas");
                 canvas.width = this.width;
@@ -270,15 +295,19 @@ $(window).load(function() {
                     id: thisId
                 }); //it will check the id which is already appened svg pattern to defsclass
 
-                if (patternIdLength == 0) { //if thisid pattern is not appened to defs class then it will append that pattern id 
-                    $('.defsclass').append("<svg><pattern id='img" + thisId + "' patternUnits='userSpaceOnUse' width=" + img_width + " height=" + img_height + "><image xlink:href=" + dataURL + " x='0' y='0' width=" + img_width + " height=" + img_height + " /></pattern></svg>");
-                    var obj = {};
-                    obj.id = thisId;
-                    alreadyPatternAppened.push(obj);
-                }
+
+
+
+
                 //searching clickable parts using fabric id or brocade id or embellishment id
 
                 if (gettingCategory == 'fabrics') {
+                    if (patternIdLength == 0) { //if thisid pattern is not appened to defs class then it will append that pattern id 
+                        $('.defsclass').append("<svg><pattern id='img" + thisId + "' patternUnits='userSpaceOnUse' width=" + img_width + " height=" + img_height + "><image xlink:href=" + dataURL + " x='0' y='0' width=" + img_width + " height=" + img_height + " /></pattern></svg>");
+                        var obj = {};
+                        obj.id = thisId;
+                        alreadyPatternAppened.push(obj);
+                    }
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
                             if (data.fabric_groups[i].parts[j].name == pathClass) {
@@ -290,32 +319,136 @@ $(window).load(function() {
 
                         };
                     };
+                    //it will apply the pattern to the partcular class
+                    for (var p = 0; p < applicableParts.length; p++) {
+                        $('.' + applicableParts[p]).attr('fill', 'url(#' + thisPattern + ')');
+                    };
                 }
                 if (gettingCategory == 'brocades') {
-                    for (var k = 0; k < data.fabric_groups.length; k++) {
+                    /*for (var k = 0; k < data.fabric_groups.length; k++) {
                         for (var l = 0; l < data.fabric_groups[k].parts.length; l++) {
 
                             if (data.fabric_groups[k].parts[l].svg_path_id == pathClass) {
                                 applicableParts.push(data.fabric_groups[k].parts[l].svg_path_id);
                             }
-                            /*for (var m = 0; m < data.fabric_groups[k].parts[l].brocade_parts.length; m++) {
-                                if(data.fabric_groups[k].parts[l].brocade_parts){
-
-                                }
-                            };*/
+                            
                         };
-                    };
+                    };*/
+                    applyBrocades(gettingOriginalId);
+
                 }
 
                 //console.log(applicableParts);
                 //applicableParts = _.uniq(applicableParts);
-                for (var p = 0; p < applicableParts.length; p++) {
-                    $('.' + applicableParts[p]).attr('fill', 'url(#' + thisPattern + ')');
-                }; //it will apply the pattern to the partcular class
+
             };
             img.src = imagesrc;
         });
-        //add to cart functionality starts here
+
+
+        var finalBrocadeDetails = [];
+        var brocadePatterns = [];
+        var finalBrocadesArray = [];
+
+        function applyBrocades(brocadeId) {
+            //  console.log(brocadeDetails);
+            var imagesArray = []; //contails all png source which has to convert from png to base64
+            finalBrocadeDetails = [];
+            brocadePatterns = []; //while using async to convert base 64 all base64 formate and src will be here to match with existing parts
+            for (var i = 0; i < brocadeDetails.length; i++) {
+                // console.log('brocade_id ' + brocadeDetails[i].brocade_id + ' brocadeId' + brocadeId);
+                if (brocadeDetails[i].brocade_id == brocadeId) {
+                    var broObj = {};
+                    broObj.brocade_id = brocadeDetails[i].brocade_id;
+                    broObj.image = brocadeDetails[i].image;
+                    broObj.name = brocadeDetails[i].name;
+                    broObj.partname = brocadeDetails[i].partname;
+                    imagesArray.push(brocadeDetails[i].image);
+                    finalBrocadeDetails.push(broObj);
+                }
+            };
+
+            var brocadeId_InDef = _.where(brocadesPatternsInserted, {
+                id: brocadeId
+            })
+
+            if (brocadeId_InDef.length == 0) {
+                async.eachSeries(imagesArray, function iterator(item, callback) {
+                    converting(item, brocadeId, callback);
+                }, function() {
+
+                    var obj = {};
+                    obj.id = brocadeId;
+                    brocadesPatternsInserted.push(obj);
+
+                    for (var i = 0; i < brocadePatterns.length; i++) {
+                        for (var j = 0; j < finalBrocadeDetails.length; j++) {
+                            if (brocadePatterns[i].imgsrc.indexOf(finalBrocadeDetails[j].image) > -1) {
+                                var obj1 = {};
+                                obj1.brocadeId = finalBrocadeDetails[j].brocade_id;
+                                obj1.partname = finalBrocadeDetails[j].partname;
+                                obj1.base64 = brocadePatterns[i].base64;
+                                obj1.width = brocadePatterns[i].width;
+                                obj1.height = brocadePatterns[i].height;
+                                finalBrocadesArray.push(obj1);
+
+                            }
+
+                        };
+                    };
+
+
+                    for (var k = 0; k < finalBrocadesArray.length; k++) {
+                        $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternUnits='userSpaceOnUse' width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + "><image xlink:href=" + finalBrocadesArray[k].base64 + " x='0' y='0' width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + " /></pattern></svg>");
+                        $('#frontview .main_parts').find('path').each(function(index) {
+                            if ($(this).attr('class') == finalBrocadesArray[k].partname) {
+                                $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
+                            }
+                        });
+                    };
+
+
+
+                });
+
+            } else {
+                for (var k = 0; k < finalBrocadesArray.length; k++) {
+                    $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternUnits='userSpaceOnUse' width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + "><image xlink:href=" + finalBrocadesArray[k].base64 + " x='0' y='0' width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + " /></pattern></svg>");
+                    $('#frontview .main_parts').find('path').each(function(index) {
+                        if ($(this).attr('class') == finalBrocadesArray[k].partname) {
+                            $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
+                        }
+                    });
+                };
+            }
+
+
+        }
+
+        function converting(item, brocadeId, callback) {
+            var img = new Image();
+            img.onload = function() {
+                var canvas = document.createElement("canvas");
+                canvas.width = this.width;
+                canvas.height = this.height;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0);
+                var dataURL = canvas.toDataURL("image/png");
+                dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+                var obj = {};
+                obj.imgsrc = img.src;
+                obj.width = img.width;
+                obj.height = img.height;
+                obj.base64 = dataURL;
+                brocadePatterns.push(obj);
+
+                callback();
+            }
+            img.src = item;
+
+        }
+        //after concerting 
 
         $('.add-cart').click(function(event) {
             var a = [];
@@ -440,7 +573,7 @@ $(window).load(function() {
                         $(".save").removeAttr('disabled');
 
                         $('.prev-carousel ul').html('');
-                        console.log('caling success');
+
                         loadSavedDresses(data);
 
 
@@ -481,7 +614,7 @@ $(window).load(function() {
                     if (thisClass == val.classNames) {
 
                         if (val.patternUrl.length > 10) {
-                            console.log('pattern url length ' + val.patternUrl.length + ' and classname is' + thisClass)
+                            // console.log('pattern url length ' + val.patternUrl.length + ' and classname is' + thisClass)
                             $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
                         } else {
                             $('.' + val.classNames).attr('fill', '#FFFFFF');
