@@ -54,6 +54,6 @@ class Admin::DiscountCouponsController < AdminController
 
   # Only allow a trusted parameter "white list" through.
   def discount_coupon_params
-    params[:discount_coupon].permit(:code, :amount, :applies_as, :maximum_usages, :minimum_order_price)
+    params[:discount_coupon].permit(:code, :amount, :applies_as, :maximum_usages, :minimum_order_price, :active)
   end
 end
