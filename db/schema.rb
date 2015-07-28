@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727112306) do
+ActiveRecord::Schema.define(version: 20150728060651) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(version: 20150727112306) do
 
   add_index "fabric_colors", ["fabric_id"], name: "index_fabric_colors_on_fabric_id", using: :btree
 
-  create_table "fabric_group_colors", id: false, force: :cascade do |t|
+  create_table "fabric_group_colors", force: :cascade do |t|
     t.integer "fabric_parts_group_id", limit: 4,                   null: false
     t.integer "fabric_color_id",       limit: 4,                   null: false
     t.integer "price_paisas",          limit: 4,   default: 0,     null: false
