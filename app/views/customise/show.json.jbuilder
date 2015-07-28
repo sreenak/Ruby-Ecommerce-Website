@@ -18,6 +18,7 @@ json.fabric_groups @dress.fabric_parts_groups do |fabric_part_group|
     json.brocade_parts part.brocade_parts do |brocade_part|
       json.brocade_id brocade_part.brocade.id
       json.name brocade_part.brocade.name
+      json.swatch brocade_part.brocade.swatch.url
       json.image brocade_part.image.url
       json.price brocade_part.price.exchange_to(@cart.currency).to_f
       json.size ::MiniMagick::Image.open(brocade_part.image.path)[:dimensions]
