@@ -37,9 +37,10 @@ class Cart
   end
 
   # Ordered by is existing user id, ordering for is the email id
+  
   def add_gift_card(gift)
     @order.save # Save order before adding the gift card
-    item = @order.line_items.create(line_itemable: 'GiftCard', line_itemable_id: gift.id, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
+    item = @order.line_items.create(line_itemable: gift, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
     calculate
     item
   end
