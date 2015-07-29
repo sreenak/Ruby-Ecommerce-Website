@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
         o.line_items.each do |l|
           l.update order_id: id
         end
-        o.destroy unless o.id == self.id
+        o.delete unless o.id == self.id
       end
       calculate_total
     end
