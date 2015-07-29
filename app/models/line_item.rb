@@ -24,6 +24,6 @@ class LineItem < ActiveRecord::Base
   end
 
   def decrement_usage
-    line_itemable.update(usage_count: line_itemable.usage_count - 1) if line_itemable_type == 'DiscountCoupon'
+    line_itemable.update(usage_count: line_itemable.usage_count - 1) if (line_itemable_type == 'DiscountCoupon' and line_itemable.present?)
   end
 end
