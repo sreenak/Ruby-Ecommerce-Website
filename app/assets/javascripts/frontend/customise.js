@@ -373,6 +373,7 @@ $(window).load(function() {
             })
 
             if (brocadeId_InDef.length == 0) {
+
                 async.eachSeries(imagesArray, function iterator(item, callback) {
                     converting(item, brocadeId, callback);
                 }, function() {
@@ -400,7 +401,7 @@ $(window).load(function() {
 
                     for (var k = 0; k < finalBrocadesArray.length; k++) {
                         $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
-                        $('#frontview .main_parts').find('path').each(function(index) {
+                        $('.main_parts').find('path').each(function(index) {
                             if ($(this).attr('class') == finalBrocadesArray[k].partname) {
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                             }
@@ -413,7 +414,7 @@ $(window).load(function() {
 
             } else {
                 for (var k = 0; k < finalBrocadesArray.length; k++) {
-                    $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
+                    // $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
 
                     $('#frontview .main_parts').find('path').each(function(index) {
                         if ($(this).attr('class') == finalBrocadesArray[k].partname) {
@@ -442,6 +443,7 @@ $(window).load(function() {
                 obj.width = img.width;
                 obj.height = img.height;
                 obj.base64 = dataURL;
+                // console.log('base 64 ' + dataURL);
                 brocadePatterns.push(obj);
 
                 callback();
