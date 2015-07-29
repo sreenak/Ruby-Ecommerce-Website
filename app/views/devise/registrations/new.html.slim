@@ -8,6 +8,7 @@
     = f.input :email
     = f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
     = f.input :password_confirmation
+    = recaptcha_tags
   .form-actions
     = f.button :submit, "Sign up"
 = render "devise/shared/links"
