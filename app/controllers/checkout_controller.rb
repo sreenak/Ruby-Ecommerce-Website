@@ -64,6 +64,7 @@ class CheckoutController < ApplicationController
       require 'hdfc'
       gateway = Hdfc.new '9002033', 'password1', checkout_thank_you_url, checkout_thank_you_url
       gateway.prepare @order.total, @order.id
+      logger.info @order.inspect
       redirect_to gateway.payment_page
     else
       flash[:alert] = 'Billing and shipping address fields are required!'

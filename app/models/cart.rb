@@ -5,6 +5,9 @@ class Cart
   def initialize(user_id = nil, order_id = nil, currency = 'INR')
     if order_id.present?
       @order = Order.find_or_initialize_by id: order_id, status: 'In Cart'
+      if user_id.present?
+        @order.update user_id: user_id
+      end
     elsif user_id.present?
       @order = Order.find_or_initialize_by user_id: user_id, status: 'In Cart'
     else
