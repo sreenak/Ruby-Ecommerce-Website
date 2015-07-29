@@ -12,13 +12,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :auth_identities, dependent: :destroy
   has_and_belongs_to_many :roles
-  has_one :billing_address, as: :addressable
-  has_one :shipping_address, as: :addressable
+  has_one :billing_address, as: :addressable, dependent: :destroy
+  has_one :shipping_address, as: :addressable, dependent: :destroy
   has_many :orders, dependent: :destroy
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :product
   has_many :gift_cards, through: :orders, source: :gift_cards
-  has_many :customised_dresses
+  has_many :customised_dresses, dependent: :destroy
 
   enum gender: GENDERS
 
