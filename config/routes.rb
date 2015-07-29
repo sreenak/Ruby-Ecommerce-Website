@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'dashboard#show'
     resources :pages
+    resources :reports, only: [:index]
     resources :posts
     resources :fabrics
     resources :custom_sizes

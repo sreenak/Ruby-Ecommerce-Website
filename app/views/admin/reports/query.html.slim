@@ -1,0 +1,16 @@
+
+/for displaying best product
+/SELECT p.*,count(p.id) as c FROM products as p INNER JOIN line_items as l on l.line_itemable_id=p.id INNER JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.line_itemable_type='Product' group by p.id order by c desc
+
+
+/for display worst product
+/SELECT p.*,count(p.id) as c FROM products as p INNER JOIN line_items as l on l.line_itemable_id=p.id INNER JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.line_itemable_type='Product' group by p.id order by c asc
+
+/for last week sale
+/SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+
+/for last week sale
+/SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+
+/for last week sale
+/SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
