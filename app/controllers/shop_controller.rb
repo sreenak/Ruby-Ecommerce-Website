@@ -1,7 +1,7 @@
 class ShopController < ApplicationController
   def index
     @product_search = Product.ransack(search_params)
-    @products = @product_search.result(distinct: true).page(params[:page]).per(8)
+    @products = @product_search.result(distinct: true).page(params[:page]).per(9)
     @product_search.build_sort if @product_search.sorts.empty?
   end
 
