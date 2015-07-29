@@ -60,56 +60,53 @@
       div#produc-desc-tabs
         /! Nav tabs
         ul.nav.nav-tabs role="tablist" 
-          li.active 
+          li.active
             a aria-controls="descpts" data-toggle="tab" href="#descpts" role="tab"
               |Description  
           li  
             a aria-controls="material" data-toggle="tab" href="#material" role="tab" 
-             |Materials
-          li 
+              |Materials
+          li
             a aria-controls="reviews" data-toggle="tab" href="#reviews" role="tab"
-             |Reviews
+              |Reviews
 
 
         /! Tab panes
         .tab-content.product-content-tabs
           #descpts.tab-pane.active role="tabpanel"  
-            p
-              |Accusantium totam vero rerum sint consequatur. Excepturi et repellat reiciendis voluptatem exercitationem ea voluptatem. Sed quis aliquam ut non doloremque quisquam. Ex dignissimos voluptas voluptas. Aspernatur voluptatem fuga maiores modi.\n\nQuod eveniet accusantium quo rerum exercitationem. Quam natus voluptate amet accusantium. Expedita voluptatem aut in nisi voluptas eius. Vel est nihil et quod suscipit.\n\nItaque explicabo alias sint. Rerum ut ex. Qui doloribus dolores quo. In optio ea nihil similique molestiae.
+            == @product.description
 
           #material.tab-pane role="tabpanel"  
-            p
-              |Accusantium totam vero rerum sint consequatur. Excepturi et repellat reiciendis voluptatem exercitationem ea voluptatem. Sed quis aliquam ut non doloremque quisquam. Ex dignissimos voluptas voluptas. Aspernatur voluptatem fuga maiores modi.\n\nQuod eveniet accusantium quo rerum exercitationem. Quam natus voluptate amet accusantium. Expedita voluptatem aut in nisi voluptas eius. Vel est nihil et quod suscipit.\n\nItaque explicabo alias sint. Rerum ut ex. Qui doloribus dolores quo. In optio ea nihil similique molestiae.
+            == @product.material
 
           #reviews.tab-pane role="tabpanel"
-              .review-wrap
-                h4 REVIEWS
-                .top-review-list
-                  - @reviews.each do |r|
-                    .media
-                      .media-left
-                        /a href="#"
-                        /  img.media-object alt="..." src="..."
-                      .media-body
-                        .comment-writer-info
-                          strong
-                            = r.name
-                            br
-                          span
-                            = time_ago_in_words r.created_at
-                          | &nbsp; ago
-                        p
-                            = r.message
+            .review-wrap
+              h4 REVIEWS
+              .top-review-list
+                - @reviews.each do |r|
+                  .media
+                    .media-left
+                    /a href="#"
+                    /  img.media-object alt="..." src="..."
+                    .media-body
+                      .comment-writer-info
+                        strong
+                          = r.name
+                          br
+                        span
+                          = time_ago_in_words r.created_at
+                        | &nbsp; ago
+                      p
+                        = r.message
 
 
-              .write-reviews
-                h4 ADD A REVIEW
-                = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
-                  .form-inputs.row
-                    .col-md-6
-                      = p.input :name
-                      = p.input :email
-                      = p.input :message
-                    .col-md-6
-                      = p.button :submit
-         
+            .write-reviews
+              h4 ADD A REVIEW
+              = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
+                .form-inputs.row
+                  .col-md-6
+                    = p.input :name
+                    = p.input :email
+                    = p.input :message
+                  .col-md-6
+                    = p.button :submit
