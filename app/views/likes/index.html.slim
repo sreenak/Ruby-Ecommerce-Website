@@ -3,7 +3,7 @@
 
 .row
   .col-md-4.col-lg-3= render 'accounts/sidebar'
-  .products.col-md-8.col-lg-9
+  .products.mylikes.col-md-8.col-lg-9
     h4.floral-text.text-uppercase.text-center.page-title
       span My Likes
     - @likes.each_slice(3) do |row|
@@ -17,15 +17,18 @@
                 .action-row.top.clearfix.hover-content
                   .pull-left
                     - if !current_or_null_user.liked? like.product
-                      i.icon.ion-ios-heart-outline
-                      = link_to 'Like', likes_create_path(:id => like.product.id), method: :post
+                      a href="#{likes_create_path(:id => like.product.id)}" data-method ="post" rel="nofollow"
+                        i.icon.ion-ios-heart-outline
+                        |Like
                     - else
-                      i.icon.ion-ios-heart
-                      = link_to 'Unlike', like_path(:id => like.product.id), method: :delete
+                      a href="#{like_path(:id => like.product.id)}" data-method ="delete" rel="nofollow"
+                        i.icon.ion-ios-heart
+                        |Unlike
 
                   .pull-right.text-right
-                    i.icon.ion-ios-cart
-                    = link_to 'Add to cart', cart_add_product_path(:product_id => like.product.id), method: :post
+                      a href="#{cart_add_product_path(:product_id => like.product.id)}" data-method="post" rel="nofollow"
+                        i.icon.ion-ios-cart
+                        |Add to cart
                 h4.price.text-center= humanized_money_with_symbol like.product.price.exchange_to(@cart.currency)
                 h4.text-center
                   = link_to like.product.name, shop_path(like.product)

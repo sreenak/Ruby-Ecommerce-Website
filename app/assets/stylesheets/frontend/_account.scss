@@ -5,7 +5,9 @@
 .overview-details table {
   margin-top: $line-height-computed;
 }
-
+.mylikes{
+       border-top: 0!important;
+}
 .user_gender {
   .radio {
     display: inline-block;
