@@ -83,49 +83,33 @@
 
           #reviews.tab-pane role="tabpanel"
               .review-wrap
-                h4 TOP 2 REVIEWS
+                h4 REVIEWS
                 .top-review-list
-                  .media
-                    .media-left
-                      a href="#" 
-                        img.media-object alt="..." src="..." 
-                    .media-body
-                      .comment-writer-info
-                        strong Tester1  
-                        |- 
-                        span July 28, 2015
-                      p
-                        | Qui doloribus dolores quo. In optio ea nihil similique molestiae.
-
-                  .media
-                    .media-left
-                      a href="#" 
-                        img.media-object alt="..." src="..." 
-                    .media-body
-                      .comment-writer-info
-                        strong Tester2  
-                        |- 
-                        span July 27, 2015
-                      p
-                        | Vel est nihil et quod suscipit.\n\nItaque explicabo alias sint.
-
-
+                  - @reviews.each do |r|
+                    .media
+                      .media-left
+                        /a href="#"
+                        /  img.media-object alt="..." src="..."
+                      .media-body
+                        .comment-writer-info
+                          strong
+                            = r.name
+                            br
+                          span
+                            = time_ago_in_words r.created_at
+                          | &nbsp; ago
+                        p
+                            = r.message
 
 
               .write-reviews
                 h4 ADD A REVIEW
-                .form-group
-                  label Name
-                  input.form-control type="text" name="wname" required="required"
-
-                .form-group
-                  label Email
-                  input.form-control type="email" name="wemail" required="required"
-
-                .form-group
-                  label Massege
-                  textarea.form-control  name="wemail" required="required"
-
-                .form-group
-                  input.btn.btn-primary type="submit" name="post-review" value='SUBMIT'
+                = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
+                  .form-inputs.row
+                    .col-md-6
+                      = p.input :name
+                      = p.input :email
+                      = p.input :message
+                    .col-md-6
+                      = p.button :submit
          

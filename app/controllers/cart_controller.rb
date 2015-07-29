@@ -18,7 +18,8 @@ class CartController < ApplicationController
   end
 
   def add_product
-    line_item = @cart.add_product params[:product_id]
+    quantity = params[:quantity] ? params[:quantity] : 1
+    line_item = @cart.add_product params[:product_id], quantity
     respond_to do |format|
       if line_item
         line_item.create_product_line_item_option params.permit(:standard_size_id, :is_gift, :message)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728060651) do
+ActiveRecord::Schema.define(version: 20150728100841) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_parts_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "category_id",  limit: 4
+    t.text     "material",     limit: 65535
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
@@ -372,6 +373,19 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.integer "product_id",       limit: 4, null: false
     t.integer "standard_size_id", limit: 4, null: false
   end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
+    t.string   "message",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "reviews", ["product_id"], name: "index_reviews_on_product_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string "name", limit: 255
@@ -425,7 +439,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
     t.date     "date_of_birth"
-    t.integer  "gender",                 limit: 1
+    t.integer  "gender",                 limit: 2
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -443,6 +457,9 @@ ActiveRecord::Schema.define(version: 20150728060651) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "auth_identities", "users"
+  add_foreign_key "brocade_parts", "brocades"
+  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dresses", "categories"
@@ -462,5 +479,7 @@ ActiveRecord::Schema.define(version: 20150728060651) do
   add_foreign_key "product_line_item_options", "standard_sizes"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "dresses"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
   add_foreign_key "shipments", "orders"
 end
