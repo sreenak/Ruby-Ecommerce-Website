@@ -44,6 +44,30 @@
       background: $gray-lighter;
       color: $gray-dark;
     }
+    &.open>a
+    {
+      background: $gray-lighter !important;
+      color: $gray-dark !important;
+    }
+    &.dropdown:hover
+    {
+        background: $gray-lighter;
+        .dropdown-menu
+        {
+           display:block;
+        }
+    }
+    .dropdown-menu
+    {
+      li
+      {
+        display:block;
+        a
+        {
+          //font-size:13px;
+        }
+      }
+    }
   }
 }
 
@@ -80,7 +104,7 @@
   }
 }
 
-ul.navdrop li {
+/*ul.navdrop li {
   background: #555; 
   display: block; 
   color: #fff;
@@ -98,4 +122,4 @@ ul.sub-menu{
 
 ul.navbar-nav li:hover ul.sub-menu{
 display: block;
-}
+}*/

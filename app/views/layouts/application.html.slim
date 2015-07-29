@@ -96,11 +96,11 @@ html lang="en-us"
               li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
               li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
-              li
-                a href="#{shop_index_path}" 
+              li.dropdown
+                a.dropdown-toggle href="#{shop_index_path}" 
                   | Shop  
-                  span.arrow ▼
-                ul.sub-menu
+                  span.caret 
+                ul.dropdown-menu
                   - @category.each do |cat|
                     li
                       a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
