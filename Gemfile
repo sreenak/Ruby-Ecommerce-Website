@@ -53,7 +53,7 @@ gem 'nested_form'
 gem 'slim-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
-gem 'ckeditor'
+gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'country_select'
 
 # Authentication & authorization
