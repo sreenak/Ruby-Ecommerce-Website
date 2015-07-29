@@ -4,3 +4,23 @@
     vertical-align: top;
   }
 }
+
+.admin-report{
+    .nav
+    {
+    	li
+    	{
+    		&.active a
+    		{
+    		  border-bottom-color:#ddd;
+    		}
+    	}
+    }
+	.tab-content
+	{
+		padding:15px;
+	    border-left: 1px solid #ddd !important;
+        border-right: 1px solid #ddd !important;
+        border-bottom: 1px solid #ddd !important;
+	}
+}

@@ -15,11 +15,12 @@ class Admin::ReportsController < AdminController
     sql5 = "SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 6 MONTH)"
     half_yearly_sale = ActiveRecord::Base.connection.execute(sql5)
 
-    sql6 = "SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 6 YEAR)"
+    sql6 = "SELECT l.* FROM products as p JOIN line_items as l on l.line_itemable_id=p.id JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.created_at > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)"
     yearly_sale = ActiveRecord::Base.connection.execute(sql6)
 
-    sql7 = "SELECT p.*,count(p.id) as c FROM products as p INNER JOIN line_items as l on l.line_itemable_id=p.id INNER JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.line_itemable_type='Product' group by p.id"
-    sale_for_each_product = ActiveRecord::Base.connection.execute(sql7)
+    sql7 = "SELECT p.*,count(p.id) as c FROM products as p INNER JOIN line_items as l on l.line_itemable_id=p.id INNER JOIN orders as o on o.id=l.order_id WHERE o.status=2 and l.line_itemable_type='Product' group by p.id order by c desc"
+    each_product_sale = ActiveRecord::Base.connection.execute(sql7)
+
 
   end
 end
