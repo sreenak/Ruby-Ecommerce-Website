@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/galetahub/ckeditor.git
+  remote: https://github.com/galetahub/ckeditor.git
   revision: eccdecd24bd2a0e4e9c32e919f53737e6e2911c2
   specs:
     ckeditor (4.1.2)
