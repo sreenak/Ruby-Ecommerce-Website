@@ -46,6 +46,7 @@ json.embelishment_groups @dress.embellishment_parts_groups do |embellishment_par
     json.embellishment_parts part.embellishment_parts do |embellishment_part|
       json.id embellishment_part.embellishment_id
       json.name embellishment_part.embellishment.name
+      json.name embellishment_part.embellishment.image.url
       json.image embellishment_part.image.url
       json.size ::MiniMagick::Image.open(embellishment_part.image.path)[:dimensions]
     end

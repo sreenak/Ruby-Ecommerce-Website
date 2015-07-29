@@ -17,8 +17,9 @@ $(window).load(function() {
         var brocadeName = [];
 
         var brocadesPatternsInserted = [];
-
+        var embDetails = [];
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
+        console.log(data.angle_0)
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
         function loadSvg1(data1) {
@@ -99,10 +100,25 @@ $(window).load(function() {
 
                         };
                     };
+                };
+                //to display embellishments initially
 
+                for (var n = 0; n < data.embelishment_groups.length; n++) {
+                    for (var o = 0; o < data.embelishment_groups[n].parts.length; o++) {
+                        for (var p = 0; p < data.embelishment_groups[n].parts[o].embellishment_parts.length; p++) {
+                            // console.log('names are ' + data.embelishment_groups[n].parts[o].embellishment_parts[p].name);
+
+                            var obj = {};
+                            obj.embid = data.embelishment_groups[n].parts[o].embellishment_parts[p].id; //this id is embellishment id
+                            obj.partname = data.embelishment_groups[n].parts[o].name;
+                            obj.plainImg = data.embelishment_groups[n].parts[o].embellishment_parts[p].name;
+                            obj.png = data.embelishment_groups[n].parts[o].embellishment_parts[p].image;
+                            embDetails.push(obj);
+
+                        };
+                    };
 
                 };
-                //  console.log(brocadeDetails);
 
                 fabricId = _.uniq(fabricId);
                 fabricNames = _.uniq(fabricNames);
@@ -150,9 +166,24 @@ $(window).load(function() {
                     };
                 };
 
+                var displayedemdids = [];
+
+                for (var w = 0; w < embDetails.length; w++) {
+                    var checkthisemdid = _.where(displayedemdids, {
+                        id: embDetails[w].embid
+                    });
+                    if (checkthisemdid.length == 0) {
+                        var obj = {};
+                        obj.id = embDetails[w].embid;
+                        displayedemdids.push(obj);
+                        $('#embellishment').append('<div class="pattern_div" id="divs' + embDetails[w].embid + '" data-category="embellishments" data-originalid="' + embDetails[w].embid + '"><img  data-pid="img' + embDetails[w].embid + '" data-id="' + embDetails[w].embid + '" src="' + embDetails[w].plainImg + '" /><p></p></div>');
+
+                    }
+                };
 
             }, 1000);
         }
+
         loadSavedDresses(data);
         //svg rotation four parts functionality 
         var indexposition = 1;
@@ -266,6 +297,8 @@ $(window).load(function() {
 
 
 
+
+
         }
         var alreadyPatternAppened = [];
 
@@ -338,12 +371,137 @@ $(window).load(function() {
 
                 }
 
-                //console.log(applicableParts);
-                //applicableParts = _.uniq(applicableParts);
+                if (gettingCategory == 'embellishments') {
+                    applyEmbellishment(gettingOriginalId);
+                    //console.log(embDetails);
+                }
+
+
 
             };
             img.src = imagesrc;
         });
+
+
+        var embAllDetails = [];
+        var inserted_Emb_Patternsare = [];
+
+        var embdetailswithbase64 = [];
+
+        var finalEmbDeatils = [];
+
+        function applyEmbellishment(embid) {
+            var embpngimgesArray = [];
+            finalEmbDeatils = [];
+            embdetailswithbase64 = [];
+            embAllDetails = [];
+            for (var i = 0; i < embDetails.length; i++) {
+
+                if (embDetails[i].embid == embid) {
+                    var embobj = {};
+                    embobj.embid = embDetails[i].embid;
+                    embobj.plainImg = embDetails[i].plainImg;
+                    embobj.png = embDetails[i].png;
+                    embobj.partname = embDetails[i].partname;
+                    embpngimgesArray.push(embobj.png);
+                    embAllDetails.push(embobj);
+                    //please push to partname
+                }
+            };
+            var embIdIn_Defs = _.where(inserted_Emb_Patternsare, {
+                id: embid
+            });
+            embpngimgesArray = _.uniq(embpngimgesArray);
+            // console.log(embpngimgesArray);
+            if (embIdIn_Defs.length == 0) {
+                async.eachSeries(embpngimgesArray, function iterator(item, callback) {
+                    convertingembImg_to_base64(item, embid, callback);
+                }, function() {
+                    var obj = {};
+                    obj.id = embid;
+                    inserted_Emb_Patternsare.push(obj);
+
+                    /*console.log('---embdetailswithbase64---');
+                    console.log(embdetailswithbase64);
+
+                    console.log('---embAllDetails---');
+                    console.log(embAllDetails);*/
+
+
+                    for (var i = 0; i < embdetailswithbase64.length; i++) {
+                        for (var j = 0; j < embAllDetails.length; j++) {
+                            //  console.log('imgsrc ' + embdetailswithbase64[i].imgsrc + '   ' + embAllDetails[j].png)
+                            if (embdetailswithbase64[i].imgsrc.indexOf(embAllDetails[j].png) > -1) {
+                                var f_obj = {};
+                                f_obj.embid = embAllDetails[j].embid;
+                                f_obj.partname = embAllDetails[j].partname;
+                                f_obj.width = embdetailswithbase64[i].width;
+                                f_obj.base64 = embdetailswithbase64[i].base64;
+                                f_obj.height = embdetailswithbase64[i].height;
+                                finalEmbDeatils.push(f_obj);
+                            }
+                        };
+                    };
+
+                    // console.log(finalEmbDeatils);
+                    console.log(finalEmbDeatils);
+                    for (var k = 0; k < finalEmbDeatils.length; k++) {
+                        // $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
+                        $('.defsclass').append("<svg><pattern x='0' y='0' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'  patternUnits='userSpaceOnUse' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + "><image xlink:href=" + finalEmbDeatils[k].base64 + " x='0' y='0' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + " /></pattern></svg>");
+                        $('.group').find('path').each(function(index) {
+                            // console.log('partname ' + finalEmbDeatils[k].partname + ' class name' + $(this).attr('class'));
+                            if ($(this).attr('class') == finalEmbDeatils[k].partname) {
+                                var gettingClass = finalEmbDeatils[k].partname;
+                                console.log('class name is ' + finalEmbDeatils[k].partname);
+                                gettingClass = gettingClass.replace('emb_', '');
+                                $('.' + gettingClass + '_group').show();
+
+                                $('.' + finalEmbDeatils[k].partname).attr('fill', 'url(#img_emb_' + finalEmbDeatils[k].embid + '_' + finalEmbDeatils[k].partname + ')');
+                                //  console.log('showing ' + gettingClass + '_group' + ' and classname is ' + finalEmbDeatils[k].partname);
+
+
+                            }
+                        });
+                    };
+
+                });
+            } else {
+                for (var k = 0; k < finalEmbDeatils.length; k++) {
+                    // $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
+                    $('.group').find('path').each(function(index) {
+
+                        if ($(this).attr('class') == finalEmbDeatils[k].partname) {
+                            $('.' + finalEmbDeatils[k].partname).attr('fill', 'url(#img_emb_' + finalEmbDeatils[k].embid + '_' + finalEmbDeatils[k].partname + ')');
+                        }
+                    });
+                };
+            }
+
+        }
+
+        function convertingembImg_to_base64(item, embid, callback) {
+            var img = new Image();
+            img.onload = function() {
+                var canvas = document.createElement("canvas");
+                canvas.width = this.width;
+                canvas.height = this.height;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0);
+                var dataURL = canvas.toDataURL("image/png");
+                dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+                var obj = {};
+                obj.imgsrc = img.src;
+                obj.width = img.width;
+                obj.height = img.height;
+                obj.base64 = dataURL;
+                // console.log('base 64 ' + dataURL);
+                embdetailswithbase64.push(obj);
+
+                callback();
+            }
+            img.src = item;
+        }
 
 
         var finalBrocadeDetails = [];
@@ -381,6 +539,7 @@ $(window).load(function() {
                     var obj = {};
                     obj.id = brocadeId;
                     brocadesPatternsInserted.push(obj);
+
 
                     for (var i = 0; i < brocadePatterns.length; i++) {
                         for (var j = 0; j < finalBrocadeDetails.length; j++) {
@@ -426,6 +585,8 @@ $(window).load(function() {
 
 
         }
+
+
 
         function converting(item, brocadeId, callback) {
             var img = new Image();
@@ -658,9 +819,7 @@ $(window).load(function() {
         });
         //undo redo functionality starts here ====================================
 
-        var historyObject = {};
-        historyObject.catchClick = [];
-        var complateObj = {};
+
 
         //getting what are the filled patterns accoring to the body parts
 
