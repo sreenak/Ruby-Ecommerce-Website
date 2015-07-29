@@ -1,6 +1,16 @@
 .row
   .col-lg-3.col-md-4= render 'accounts/sidebar'
   #gift_cards.col-lg-9.col-md-8
+
+  h4.floral-text.text-uppercase.text-center.page-title
+      span 
+       | My Giftcards
+  - if @gift_cards
+        - if @gift_cards.empty?
+         .gift_cardsempty.text-center
+           h4.text-center You have no items in your list
+           = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
+  - else 
     table.table
       thead
         tr

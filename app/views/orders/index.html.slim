@@ -4,22 +4,30 @@
 .row
   .col-md-4.col-lg-3= render 'accounts/sidebar'
   .col-md-8.col-lg-9
-    h1.page-title My Orders
-    table.table.table-striped
-      thead
-        tr
-          th #
-          th Placed On
-          th Total
-          th Status
-          th Details
-      tbody
-        - @orders.each do |o|
+    h4.floral-text.text-uppercase.text-center.page-title
+      span 
+       | My Orders
+    - if @orders
+      - if @orders.empty?
+       .ordersempty.text-center
+         h4.text-center You have no items in your list
+         = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
+    - else 
+      table.table.table-striped
+        thead
           tr
-            td= o.id
-            td= o.created_at
-            td= humanized_money_with_symbol o.total_paisas
-            td= o.status
-            th= link_to 'View', o
+            th #
+            th Placed On
+            th Total
+            th Status
+            th Details
+        tbody
+          - @orders.each do |o|
+            tr
+              td= o.id
+              td= o.created_at
+              td= humanized_money_with_symbol o.total_paisas
+              td= o.status
+              th= link_to 'View', o
 
-    = paginate @orders
+      = paginate @orders

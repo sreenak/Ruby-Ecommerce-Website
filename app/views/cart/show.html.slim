@@ -2,7 +2,9 @@
   | Cart 
 - if @cart.products.length == 0
   .alert.alert-warning
-    | Your cart is empty! 
+    .likeempty.text-center
+           h4.text-center Your cart is empty!
+           = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
 - else
   = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
   = form_tag cart_update_path, method: 'patch' do

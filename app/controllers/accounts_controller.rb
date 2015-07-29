@@ -20,12 +20,16 @@ class AccountsController < ApplicationController
     end
   end
 
+  def customisations
+    @customises = @user.customised_dresses.all
+  end
+
   private
   def set_user
     @user = current_user
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :gender, :date_of_birth, :image, :image_cache, :remove_image)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation,:mobile, :gender, :date_of_birth, :image, :image_cache, :remove_image)
   end
 end

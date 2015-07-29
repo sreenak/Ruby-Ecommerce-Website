@@ -6,33 +6,39 @@
   .products.mylikes.col-md-8.col-lg-9
     h4.floral-text.text-uppercase.text-center.page-title
       span My Likes
-    - @likes.each_slice(3) do |row|
-      .row
-        - row.each do |like|
-          .col-md-4.col-sm-6
-            .product-preview.hover-container
-              a href="#{shop_path(like.product)}"
-                = image_tag like.product.image_url(:medium)
-              .details
-                .action-row.top.clearfix.hover-content
-                  .pull-left
-                    - if !current_or_null_user.liked? like.product
-                      a href="#{likes_create_path(:id => like.product.id)}" data-method ="post" rel="nofollow"
-                        i.icon.ion-ios-heart-outline
-                        |Like
-                    - else
-                      a href="#{like_path(:id => like.product.id)}" data-method ="delete" rel="nofollow"
-                        i.icon.ion-ios-heart
-                        |Unlike
+    - if @likes
+        - if @likes.empty?
+         .likeempty.text-center
+           h4.text-center You have no items in your list
+           = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
+    - else 
+      - @likes.each_slice(3) do |row|
+        .row
+          - row.each do |like|
+            .col-md-4.col-sm-6
+              .product-preview.hover-container
+                a href="#{shop_path(like.product)}"
+                  = image_tag like.product.image_url(:medium)
+                .details
+                  .action-row.top.clearfix.hover-content
+                    .pull-left
+                      - if !current_or_null_user.liked? like.product
+                        a href="#{likes_create_path(:id => like.product.id)}" data-method ="post" rel="nofollow"
+                          i.icon.ion-ios-heart-outline
+                          |Like
+                      - else
+                        a href="#{like_path(:id => like.product.id)}" data-method ="delete" rel="nofollow"
+                          i.icon.ion-ios-heart
+                          |Unlike
 
-                  .pull-right.text-right
-                      a href="#{cart_add_product_path(:product_id => like.product.id)}" data-method="post" rel="nofollow"
-                        i.icon.ion-ios-cart
-                        |Add to cart
-                h4.price.text-center= humanized_money_with_symbol like.product.price.exchange_to(@cart.currency)
-                h4.text-center
-                  = link_to like.product.name, shop_path(like.product)
-                .action-row.text-center.bottom.hover-content
-                  i.icon.ion-wand
-                  |Customise
-    = paginate @likes
+                    .pull-right.text-right
+                        a href="#{cart_add_product_path(:product_id => like.product.id)}" data-method="post" rel="nofollow"
+                          i.icon.ion-ios-cart
+                          |Add to cart
+                  h4.price.text-center= humanized_money_with_symbol like.product.price.exchange_to(@cart.currency)
+                  h4.text-center
+                    = link_to like.product.name, shop_path(like.product)
+                  .action-row.text-center.bottom.hover-content
+                    i.icon.ion-wand
+                    |Customise
+      = paginate @likes
