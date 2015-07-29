@@ -75,9 +75,12 @@ class CheckoutController < ApplicationController
   end
 
   def thank_you
-    @order.update status: 'Paid'
+    @order.status = 'Paid'
+    @order.created_at = Time.now # This will behave as paid time from now on
+    @order.save
     @order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
     session.delete :order_id
+    @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
   end
 
   private
