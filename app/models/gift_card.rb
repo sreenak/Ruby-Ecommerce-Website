@@ -17,7 +17,7 @@ class GiftCard < ActiveRecord::Base
 
   before_create :generate_code
   validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates :email, presence: {allow_blank: true}, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
 
   monetize :amount_paisas, with_model_currency: :currency
   monetize :remaining_paisas, with_model_currency: :currency
@@ -46,6 +46,10 @@ class GiftCard < ActiveRecord::Base
 
   def shipping_not_required?
     deliver_to == 'Me' or deliver_to.blank?
+  end
+
+  def email_required?
+    card_type == 'E-GIFT CERTIFICATE'
   end
 
   private
