@@ -34,6 +34,7 @@ $(window).load(function() {
 
         function loadSvg3(data3) {
             s.append(data3);
+            $('#svg_wrapper').append('<div class="svg_base64loading"><p>Please wait ...</p></div>');
             Snap.load(data.angle_270, loadSvg4);
         }
 
@@ -420,7 +421,7 @@ $(window).load(function() {
                     var obj = {};
                     obj.id = embid;
                     inserted_Emb_Patternsare.push(obj);
-
+                    $('.svg_base64loading').hide();
                     /*console.log('---embdetailswithbase64---');
                     console.log(embdetailswithbase64);
 
@@ -482,6 +483,7 @@ $(window).load(function() {
         function convertingembImg_to_base64(item, embid, callback) {
             var img = new Image();
             img.onload = function() {
+                $('.svg_base64loading').show();
                 var canvas = document.createElement("canvas");
                 canvas.width = this.width;
                 canvas.height = this.height;
@@ -535,7 +537,7 @@ $(window).load(function() {
                 async.eachSeries(imagesArray, function iterator(item, callback) {
                     converting(item, brocadeId, callback);
                 }, function() {
-
+                    $('.svg_base64loading').hide();
                     var obj = {};
                     obj.id = brocadeId;
                     brocadesPatternsInserted.push(obj);
@@ -598,6 +600,7 @@ $(window).load(function() {
         function converting(item, brocadeId, callback) {
             var img = new Image();
             img.onload = function() {
+                $('.svg_base64loading').show();
                 var canvas = document.createElement("canvas");
                 canvas.width = this.width;
                 canvas.height = this.height;
