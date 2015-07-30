@@ -1,7 +1,6 @@
 class FabricColor < ActiveRecord::Base
   belongs_to :fabric
-  has_many :fabric_group_colors
-  has_and_belongs_to_many :parts_groups
+  has_many :fabric_group_colors, dependent: :destroy
   validates_presence_of :swatch
   mount_uploader :swatch, ImageUploader
 

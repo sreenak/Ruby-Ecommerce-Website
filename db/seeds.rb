@@ -172,13 +172,13 @@ end
 
 fabrics_dir = Rails.root.join('seeds', 'fabrics')
 Dir.foreach(fabrics_dir) do |item|
-  next if item == '.' or item == '..'
+  next if item.start_with? == '.'
   fabric = Fabric.where(name: item.humanize).first_or_create
   if File.directory?(fabrics_dir.to_s+'/'+item)
     Dir.foreach(fabrics_dir.to_s+'/'+item) do |color|
       next if color == '.' or color == '..'
       filepath = Rails.root.join('seeds', 'fabrics', item, color).to_s
-      fabric.fabric_colors.where(name: color.gsub('.png', '').gsub('-', ' ').humanize, swatch: File.open(filepath)).first_or_create
+      fabric.fabric_colors.where(name: color.gsub('.png', '').gsub('-', ' ').humanize).first_or_create(swatch: File.open(filepath))
     end
   end
 end
