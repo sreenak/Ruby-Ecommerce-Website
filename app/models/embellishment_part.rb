@@ -1,6 +1,6 @@
 class EmbellishmentPart < ActiveRecord::Base
-  belongs_to :embellishment, dependent: :destroy
-  belongs_to :part, dependent: :destroy
+  belongs_to :embellishment
+  belongs_to :part
 
   validates_presence_of :embellishment, :image
 
