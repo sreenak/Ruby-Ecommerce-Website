@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20150730090620) do
     t.string   "card_type",        limit: 255,   default: "",    null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.string   "email",            limit: 255
   end
 
   create_table "likes", force: :cascade do |t|
