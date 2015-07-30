@@ -3,12 +3,15 @@
 
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), wrapper: :vertical_form, html: {class: ''}) do |f|
   = f.error_notification
+  == render 'shared/form_errors', object: f.object
   .form-inputs
     = f.input :name
     = f.input :email
     = f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
     = f.input :password_confirmation
+    = f.input :mobile
     = recaptcha_tags
+    = f.input :tos, label: 'I agree to the terms of service', as: :boolean, :input_html => {:"data-validation" => "required"}
   .form-actions
     = f.button :submit, "Sign up"
 = render "devise/shared/links"

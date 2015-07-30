@@ -11,6 +11,7 @@
     .col-sm-6
       = f.input :password
       = f.input :password_confirmation
+      = f.input :mobile
       = f.association :roles, collection: Role.all, as: :check_boxes
 
   = f.button :submit
