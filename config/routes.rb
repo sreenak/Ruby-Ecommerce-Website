@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'shipments/show'
+
   root to: 'home#show'
   get 'currencies/switch'
   resources :gift_cards, only: [:index, :new, :create]
