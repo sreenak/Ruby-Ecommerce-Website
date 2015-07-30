@@ -86,19 +86,16 @@
                 - @reviews.each do |r|
                   .media
                     .media-left
-                    /a href="#"
-                    /  img.media-object alt="..." src="..."
+                      a href="#"
+                        = image_tag r.user.image_url :thumbnail, class: 'media-object'
                     .media-body
                       .comment-writer-info
                         strong
-                          = r.name
+                          = r.user.name
                           br
-                        span
-                          = time_ago_in_words r.created_at
+                        span= time_ago_in_words r.created_at
                         | &nbsp; ago
-                      p
-                        = r.message
-
+                      p== simple_format r.message
 
             - if user_signed_in?
               .write-reviews
