@@ -1,7 +1,7 @@
 
 .row
   .col-md-4.col-lg-3= render 'accounts/sidebar'
-  .products.mycusts.col-md-8.col-lg-9
+  .products.mylikes.col-md-8.col-lg-9
     h4.floral-text.text-uppercase.text-center.page-title
       span My Customised Dresses
     - if @customises
@@ -9,11 +9,10 @@
          .custempty.text-center
            h4.text-center You have no items in your list
            = link_to 'Customise Dress', :customise_index , class: 'btn btn-primary'
-    - else
-    - @customises.each_slice(3) do |row|
-        .row
-          - row.each do |cust|
-            .col-md-4.col-sm-6
-              .product-preview.hover-container
-                  = image_tag cust.image_url(:medium)                
-          = paginate @customises
+        - else
+          - @customises.each_slice(3) do |row|
+              .row
+                - row.each do |cust|
+                  .col-md-4.col-sm-6
+                      = image_tag cust.image_url(:medium)                
+                = paginate @customises

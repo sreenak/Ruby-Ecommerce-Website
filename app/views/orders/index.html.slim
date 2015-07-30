@@ -12,22 +12,22 @@
        .ordersempty.text-center
          h4.text-center You have no items in your list
          = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
-    - else 
-      table.table.table-striped
-        thead
-          tr
-            th #
-            th Placed On
-            th Total
-            th Status
-            th Details
-        tbody
-          - @orders.each do |o|
+      - else 
+        table.table.table-striped
+          thead
             tr
-              td= o.id
-              td= o.created_at
-              td= humanized_money_with_symbol o.total_paisas
-              td= o.status
-              th= link_to 'View', o
+              th #
+              th Placed On
+              th Total
+              th Status
+              th Details
+          tbody
+            - @orders.each do |o|
+              tr
+                td= o.id
+                td= o.created_at
+                td= humanized_money_with_symbol o.total_paisas
+                td= o.status
+                th= link_to 'View', o
 
-      = paginate @orders
+        = paginate @orders

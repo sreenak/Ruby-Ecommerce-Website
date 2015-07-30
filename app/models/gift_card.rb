@@ -16,7 +16,7 @@ class GiftCard < ActiveRecord::Base
   accepts_nested_attributes_for :shipping_address, reject_if: :shipping_not_required?
 
   before_create :generate_code
-  validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
+  validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency,:email
 
   monetize :amount_paisas, with_model_currency: :currency
   monetize :remaining_paisas, with_model_currency: :currency
