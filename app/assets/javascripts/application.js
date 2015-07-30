@@ -23,6 +23,6 @@
 //= require frontend/account
 //= require frontend/checkout
 //= require frontend/gifts
-//= require frontend/products
+//= require frontend/products.js.erb
 //= require frontend/trends
 //= require frontend/trends
