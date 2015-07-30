@@ -99,13 +99,16 @@
                       p
                         = r.message
 
-            .write-reviews
-              h4 ADD A REVIEW
-              = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
-                .form-inputs.row
-                  .col-md-6
-                    = p.input :name
-                    = p.input :email
-                    = p.input :message
-                  .col-md-6
-                    = p.button :submit
+
+            - if user_signed_in?
+              .write-reviews
+                h4 ADD A REVIEW
+                = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
+                  .form-inputs.row
+                    .col-md-6
+                      = p.input :message
+                    .col-md-6
+                      = p.button :submit
+            - else
+              |Login to Review this product
+
