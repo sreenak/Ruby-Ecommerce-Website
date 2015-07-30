@@ -19,7 +19,7 @@ $(window).load(function() {
         var brocadesPatternsInserted = [];
         var embDetails = [];
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
-        console.log(data.angle_0)
+        // console.log(data.angle_0)
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
         function loadSvg1(data1) {
@@ -562,6 +562,7 @@ $(window).load(function() {
                         $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
                         $('.main_parts').find('path').each(function(index) {
                             if ($(this).attr('class') == finalBrocadesArray[k].partname) {
+
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                             }
                         });
@@ -575,7 +576,7 @@ $(window).load(function() {
                 for (var k = 0; k < finalBrocadesArray.length; k++) {
                     // $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
 
-                    $('#frontview .main_parts').find('path').each(function(index) {
+                    $('.main_parts').find('path').each(function(index) {
                         if ($(this).attr('class') == finalBrocadesArray[k].partname) {
                             $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                         }
@@ -665,7 +666,7 @@ $(window).load(function() {
 
         var savingObject = [];
         $(document).on('click', '.save', function(e) {
-            $('.group').css('display', 'none');
+            // $('.group').css('display', 'none');
             $(this).attr('disabled', 'disabled');
             $(".savingJsonLoader").css('display', 'block')
             $(".savingJsonLoader .loader").css({
@@ -674,8 +675,10 @@ $(window).load(function() {
             });
 
             //to findout what are the clicked parts and applied pattern based on that get base 64
-            $('#frontview .main_parts').find('path').each(function(index) {
+            $('.main_parts,.group').find('path').each(function(index) {
                 var filledPattern = $(this).attr('fill');
+
+
                 filledPattern = filledPattern.replace('url(#', '');
                 filledPattern = filledPattern.replace(')', '');
                 //console.log(filledPattern);
@@ -685,10 +688,12 @@ $(window).load(function() {
                 if (filledPattern.indexOf('img') > -1) {
                     // console.log('filled pattern is ' + filledPattern);
                     var imagePatternUrl = filledPattern;
+
+                    // console.log(imagePatternUrl + ' --wid is ' + saveObj.wid + ' and height' + saveObj.hei);
                     filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
                     saveObj.wid = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('width');
                     saveObj.hei = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('height');
-                    //console.log('saveObj.wid is ' + saveObj.wid + ' and ' + saveObj.hei);
+
                 } else {
                     filledPattern = '#FFFFFF';
                     saveObj.wid = 0;
@@ -697,9 +702,10 @@ $(window).load(function() {
                 saveObj.patternUrl = filledPattern;
                 savingObject.push(saveObj);
 
+
             });
 
-
+            console.log(savingObject);
             //$('.defsclass svg #img3 image').attr('xlink:href');  important
             var svg = document.getElementById("frontview");
             var svgData = new XMLSerializer().serializeToString(svg);
