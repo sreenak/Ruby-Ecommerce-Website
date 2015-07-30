@@ -76,7 +76,7 @@ h1.page-title.text-center.text-uppercase Shop
             .col-md-4.col-sm-6
               .product-preview.hover-container
                 a href="#{shop_path(product)}"
-                  = image_tag product.image_url(:medium)
+                  = image_tag product.image_url(:preview)
                 .details
                   .action-row.top.clearfix.hover-content
                     .pull-left
@@ -90,9 +90,9 @@ h1.page-title.text-center.text-uppercase Shop
                           |Unlike
 
                     .pull-right.text-right
-                        a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
-                          i.icon.ion-ios-cart
-                          |Add to cart
+                      a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
+                        i.icon.ion-ios-cart
+                        |Add to cart
                   h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
                   h4.text-center
                     = link_to product.name, shop_path(product)
