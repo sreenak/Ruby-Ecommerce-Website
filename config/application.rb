@@ -16,6 +16,15 @@ module Kaapad
     g.helper false
   end
     config.action_mailer.default_url_options = {host: 'kaapad.com'}
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+        :authentication => :plain,
+        :address => 'smtp.mailgun.org',
+        :port => 587,
+        :domain => 'sandbox59a9cdde8648481388ec0274d26a0f3a.mailgun.org',
+        :user_name => 'postmaster@sandbox59a9cdde8648481388ec0274d26a0f3a.mailgun.org',
+        :password => 'e04039407cd8d1b3f9fbd91d27fcefa7'
+    }
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
