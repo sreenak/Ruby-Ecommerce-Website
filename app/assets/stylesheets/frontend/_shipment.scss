@@ -158,7 +158,7 @@ $mute: #DFE3E4;
 				      i
 				      {
 				       color:#fff;
-				       background:$brand-primary;;
+				       background:$brand-primary;
 				      }
 			      }
 			    i{
@@ -178,16 +178,20 @@ $mute: #DFE3E4;
 			}
 			.hover-product-traking
 			{
+			  position: absolute;
+              background-color: #fff;
+              width: 100%;
+
 			  >div
 			  { 
 			  	padding:0px;
 			  }
-		 .approving-status, .processing-status,.shipping-status, .delivery-status {
+		  .approving-status, .processing-status,.shipping-status, .delivery-status {
 		    border: 1px solid $brand-primary;;
 		    position: relative;
 		    float: left;
 		    padding: 15px;
-		    left: 43.5%;
+		    left: 42%;
 		    color:$brand-primary;
 		    font-weight:bold;
 		   
@@ -203,7 +207,24 @@ $mute: #DFE3E4;
 				   float:left;
 				   padding-left:15px;
 				 }
+
 		    }
+		    .processing-status
+		    {
+		     left:38.5%;
+		    }
+
+		    .shipping-status
+		    {
+		     left:35%;
+		    }
+
+		    .delivery-status 
+		    {
+		      left:32%;
+		    }
+
+
 
 		   
 		   }
@@ -213,4 +234,8 @@ $mute: #DFE3E4;
 
 
 
-
+i.hover
+{
+	color:#fff !important;
+	background:$brand-primary;
+}
