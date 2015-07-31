@@ -1116,7 +1116,7 @@ img {
 
 .product-price {
   font-family: 'Roboto', Arial, sans-serif;
-  font-size: 50px;
+  font-size: 25px;
   margin-bottom: 50px;
 }
 
@@ -2342,3 +2342,23 @@ input#zipcode, .state-city > label:last-child {
  .svg_base64loading p{
     padding-top:5px;
  }
+ .loading{
+   width:100px;
+   height:100px;
+   font-size:27px;
+   color:pink;
+   position:fixed;
+   z-index:1000;
+   display:none;
+ }
+ .loadingcustomizepage{
+    position: fixed;
+    width: 100%;
+    background-color: black;
+    height: 100%;
+    z-index: 12;
+    opacity: 0.6;
+    overflow: hidden;
+    display:none;
+ }
+

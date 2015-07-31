@@ -33,6 +33,10 @@ html lang="en-us"
     = csrf_meta_tags
     = yield :head
   body
+    .loadingcustomizepage
+    .loading
+      p Loading...
+
     header#page-header
       nav.navbar.top-bar
         .container

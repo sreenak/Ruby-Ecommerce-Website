@@ -3,6 +3,7 @@
   
 script
   == "var dress_detail_url = '" + @dress_details_url + "'"
+
 .row.customisation
   .col-md-4
     .product-title
@@ -16,6 +17,7 @@ script
       |  TO START CUSTOMIZING 
     .product-price.hidden-xs.hidden-sm
       span.currency
+      | Price :
 
       span.price
 
@@ -42,7 +44,7 @@ script
       a.redo[href="javasript:void(0)"]
         = image_tag 'redo.jpg'
     #svg_wrapper
-
+     
     .rotate.hidden-xs[style="margin-top: 0px !important;"]
       a[href="javascript:void(0)"]
         = image_tag 'rotate.jpg'
