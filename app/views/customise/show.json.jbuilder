@@ -47,6 +47,7 @@ json.embelishment_groups @dress.embellishment_parts_groups do |embellishment_par
       json.id embellishment_part.embellishment_id
       json.name embellishment_part.embellishment.name
       json.name embellishment_part.embellishment.image.url
+      json.price embellishment_part.price.exchange_to(@cart.currency).to_f
       json.image embellishment_part.image.url
       json.size ::MiniMagick::Image.open(embellishment_part.image.path)[:dimensions]
     end
