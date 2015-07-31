@@ -2327,3 +2327,18 @@ input#zipcode, .state-city > label:last-child {
     width: 200px;
     cursor:pointer;
  }
+ .svg_base64loading{
+   width: 123px;
+  height: 33px;
+  background-color: black;
+  position: absolute;
+  z-index: 100;
+  top: 250px;
+  left: 115px;
+  border-radius: 3px;
+  color: white;
+  display:none;
+ }
+ .svg_base64loading p{
+    padding-top:5px;
+ }

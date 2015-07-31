@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :billing_address
   accepts_nested_attributes_for :shipping_address
 
-  validates :mobile, :numericality => true, :length => {:minimum => 10, :maximum => 15}
+  # validates :mobile, :numericality => true, :length => {:minimum => 10, :maximum => 15}
   validates_presence_of :name, :email
   validates :tos, acceptance: {accept: '1'}, on: :create
 

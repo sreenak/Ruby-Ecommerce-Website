@@ -1,5 +1,6 @@
 class LineItem < ActiveRecord::Base
   has_one :product_line_item_option, dependent: :destroy
+  has_one :dress_line_item_option, dependent: :destroy
   belongs_to :order
   belongs_to :line_itemable, polymorphic: true
   belongs_to :shipping

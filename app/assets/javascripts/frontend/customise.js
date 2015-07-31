@@ -34,6 +34,7 @@ $(window).load(function() {
 
         function loadSvg3(data3) {
             s.append(data3);
+            $('#svg_wrapper').append('<div class="svg_base64loading"><p>Please wait ...</p></div>');
             Snap.load(data.angle_270, loadSvg4);
         }
 
@@ -420,7 +421,7 @@ $(window).load(function() {
                     var obj = {};
                     obj.id = embid;
                     inserted_Emb_Patternsare.push(obj);
-
+                    $('.svg_base64loading').hide();
                     /*console.log('---embdetailswithbase64---');
                     console.log(embdetailswithbase64);
 
@@ -482,6 +483,7 @@ $(window).load(function() {
         function convertingembImg_to_base64(item, embid, callback) {
             var img = new Image();
             img.onload = function() {
+                $('.svg_base64loading').show();
                 var canvas = document.createElement("canvas");
                 canvas.width = this.width;
                 canvas.height = this.height;
@@ -535,7 +537,7 @@ $(window).load(function() {
                 async.eachSeries(imagesArray, function iterator(item, callback) {
                     converting(item, brocadeId, callback);
                 }, function() {
-
+                    $('.svg_base64loading').hide();
                     var obj = {};
                     obj.id = brocadeId;
                     brocadesPatternsInserted.push(obj);
@@ -556,7 +558,7 @@ $(window).load(function() {
 
                         };
                     };
-                    console.log(finalBrocadesArray);
+
 
                     for (var k = 0; k < finalBrocadesArray.length; k++) {
                         $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
@@ -575,14 +577,18 @@ $(window).load(function() {
 
 
             } else {
+                //console.log(finalBrocadesArray);
                 for (var k = 0; k < finalBrocadesArray.length; k++) {
-                    // $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
+                    //$('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
 
-                    $('.main_parts').find('path').each(function(index) {
-                        if ($(this).attr('class') == finalBrocadesArray[k].partname) {
-                            $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
-                        }
-                    });
+                    if (finalBrocadesArray[k].brocadeId == brocadeId) {
+
+                        $('.main_parts').find('path').each(function(index) {
+                            if ($(this).attr('class') == finalBrocadesArray[k].partname) {
+                                $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
+                            }
+                        });
+                    }
                 };
             }
 
@@ -594,6 +600,7 @@ $(window).load(function() {
         function converting(item, brocadeId, callback) {
             var img = new Image();
             img.onload = function() {
+                $('.svg_base64loading').show();
                 var canvas = document.createElement("canvas");
                 canvas.width = this.width;
                 canvas.height = this.height;
