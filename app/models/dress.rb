@@ -3,9 +3,9 @@ class Dress < ActiveRecord::Base
 
   belongs_to :category
   has_many :parts_groups, dependent: :destroy
-  has_many :embellishment_parts_groups, dependent: :destroy
-  has_many :fabric_parts_groups, dependent: :destroy
-  has_many :styles_groups, dependent: :destroy
+  has_many :embellishment_parts_groups
+  has_many :fabric_parts_groups
+  has_many :styles_groups
   has_and_belongs_to_many :custom_sizes
   has_and_belongs_to_many :standard_sizes
 

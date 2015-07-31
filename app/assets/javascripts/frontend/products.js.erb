@@ -17,7 +17,7 @@ $(window).load(function () {
 
 /*=============== price slider =================*/
     var price = getQueryParams(document.location.search).price;
-    $("#price-range").slider({from: 0, to: 10000, heterogeneity: ['10/1000'], step: 100, dimension: '₹&nbsp;'});
+    $("#price-range").slider({from: 0, to: 10000, heterogeneity: ['10/1000'], step: 100, dimension: '&nbsp;'});
     if(price){
         var priceComponents = price.split(';');
         var from = priceComponents[0];

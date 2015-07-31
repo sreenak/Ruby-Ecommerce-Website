@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   end
 
   def customisations
-    @customises = @user.customised_dresses.all
+    @customises = @user.customised_dresses.all.page params[:page]
   end
 
   private

@@ -3,24 +3,24 @@
   #gift_cards.col-lg-9.col-md-8
 
     h4.floral-text.text-uppercase.text-center.page-title
-      span 
-       | My Giftcards
+      span
+        | My Giftcards
     - if @gift_cards
-          - if @gift_cards.empty?
-           .gift_cardsempty.text-center
-             h4.text-center You have no items in your list
-             = link_to 'Continue Shopping', :new_gift_card , class: 'btn btn-primary'
-          - else 
-            table.table
-              thead
-                tr
-                  th Code
-                  th Used Amount
-                  th Available Amount
-              tbody
-              - @gift_cards.each do |g|
-                tr
-                  td= g.code
-                  td= humanized_money_with_symbol g.used_amount.exchange_to(@cart.currency)
-                  td= humanized_money_with_symbol g.available_amount.exchange_to(@cart.currency)
-          = paginate @gift_cards
+      - if @gift_cards.empty?
+        .gift_cardsempty.text-center
+          h4.text-center You have no items in your list
+          = link_to 'Continue Shopping', :new_gift_card, class: 'btn btn-primary'
+      - else
+        table.table
+          thead
+            tr
+              th Code
+              th Used Amount
+              th Available Amount
+          tbody
+          - @gift_cards.each do |g|
+            tr
+              td= g.code
+              td= humanized_money_with_symbol g.used_amount.exchange_to(@cart.currency)
+              td= humanized_money_with_symbol g.available_amount.exchange_to(@cart.currency)
+      = paginate @gift_cards

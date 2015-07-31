@@ -4,7 +4,7 @@ class Admin::ShipmentsController < AdminController
 
   # GET /admin/shipments
   def index
-    @shipments = Shipment.all
+    @shipments = @order.shipments
   end
 
   # GET /admin/shipments/1

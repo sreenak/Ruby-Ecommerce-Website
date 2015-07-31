@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729141806) do
+ActiveRecord::Schema.define(version: 20150731061637) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -115,9 +115,9 @@ ActiveRecord::Schema.define(version: 20150729141806) do
   create_table "customised_dresses", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "dress_id",   limit: 4
-    t.text     "details",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "details",    limit: 4294967295
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "image",      limit: 255
   end
 
@@ -135,6 +135,15 @@ ActiveRecord::Schema.define(version: 20150729141806) do
     t.datetime "updated_at",                                                                     null: false
     t.string   "currency",                   limit: 255,                         default: "INR", null: false
     t.integer  "usage_count",                limit: 4,                           default: 0,     null: false
+  end
+
+  create_table "dress_line_item_options", force: :cascade do |t|
+    t.integer  "line_item_id",     limit: 4
+    t.integer  "dress_id",         limit: 4
+    t.integer  "extended_size_id", limit: 4
+    t.text     "details",          limit: 4294967295
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "dresses", force: :cascade do |t|
@@ -239,6 +248,7 @@ ActiveRecord::Schema.define(version: 20150729141806) do
     t.string   "card_type",        limit: 255,   default: "",    null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.string   "email",            limit: 255,                   null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -377,11 +387,10 @@ ActiveRecord::Schema.define(version: 20150729141806) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "product_id", limit: 4
     t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
     t.string   "message",    limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.boolean  "active",     limit: 1
   end
 
   add_index "reviews", ["product_id"], name: "index_reviews_on_product_id", using: :btree

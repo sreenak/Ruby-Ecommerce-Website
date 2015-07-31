@@ -7,47 +7,142 @@
   /! Nav tabs
   ul.nav.nav-tabs role="tablist" 
     li.active role="presentation" 
-      a aria-controls="tab1" data-toggle="tab" href="#tab1" role="tab"  tab1
+      a aria-controls="tab1" data-toggle="tab" href="#tab1" role="tab"  Best Sale
 
     li role="presentation" 
-      a aria-controls="tab2" data-toggle="tab" href="#tab2" role="tab"  tab2
+      a aria-controls="tab2" data-toggle="tab" href="#tab2" role="tab"  Worst Sale
 
     li role="presentation" 
-      a aria-controls="tab3" data-toggle="tab" href="#tab3" role="tab"  tab3
+      a aria-controls="tab3" data-toggle="tab" href="#tab3" role="tab"  Last Week Sale
 
     li role="presentation" 
-      a aria-controls="tab4" data-toggle="tab" href="#tab4" role="tab"  tab4
+      a aria-controls="tab4" data-toggle="tab" href="#tab4" role="tab"  last Month Sale
 
     li role="presentation" 
-      a aria-controls="tab5" data-toggle="tab" href="#tab5" role="tab"  tab5
+      a aria-controls="tab5" data-toggle="tab" href="#tab5" role="tab"  Half Yearly Sale
 
     li role="presentation" 
-      a aria-controls="tab6" data-toggle="tab" href="#tab6" role="tab"  tab6
+      a aria-controls="tab6" data-toggle="tab" href="#tab6" role="tab"  Yearly Sale
 
     li role="presentation" 
-      a aria-controls="tab7" data-toggle="tab" href="#tab7" role="tab"  tab7
+      a aria-controls="tab7" data-toggle="tab" href="#tab7" role="tab"  Each Product Sale
 
-    li role="presentation" 
-      a aria-controls="tab8" data-toggle="tab" href="#tab8" role="tab"  tab8
-
-    li role="presentation" 
-      a aria-controls="tab9" data-toggle="tab" href="#tab9" role="tab"  tab9
-
-    li role="presentation" 
-      a aria-controls="tab10" data-toggle="tab" href="#tab10" role="tab"  tab10
 
   /! Tab panes
   .tab-content
-    #tab1.tab-pane.active role="tabpanel"  tab1
-    #tab2.tab-pane role="tabpanel"  tab2
-    #tab3.tab-pane role="tabpanel"  tab3
-    #tab4.tab-pane role="tabpanel"  tab4
-    #tab5.tab-pane role="tabpanel"  tab5
-    #tab6.tab-pane role="tabpanel"  tab6
-    #tab7.tab-pane role="tabpanel"  tab7
-    #tab8.tab-pane role="tabpanel"  tab8
-    #tab9.tab-pane role="tabpanel"  tab9
-    #tab10.tab-pane role="tabpanel"  tab10
+    #tab1.tab-pane.active role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+
+
+    #tab2.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+    #tab3.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+    #tab4.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+    #tab5.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+    #tab6.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
+
+    #tab7.tab-pane role="tabpanel"
+      table.table.table-responsive.table-striped
+        thead
+          tr
+            th ID
+            th Image
+            th Name
+            th Price
+        tbody
+          - @best_sales.each do |sale|
+            tr
+              td= sale.id
+              td= image_tag sale.image_url(:thumbnail)
+              td= sale.name
+              td= humanized_money_with_symbol sale.price
 
 
 
