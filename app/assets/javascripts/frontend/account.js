@@ -15,4 +15,8 @@ $(document).ready(function () {
             $('#user_shipping_address_attributes_name, #user_shipping_address_attributes_address_1,#user_shipping_address_attributes_address_2, #user_shipping_address_attributes_country, #user_shipping_address_attributes_city, #user_shipping_address_attributes_state, #user_shipping_address_attributes_postal_code').val('')
         }
     })
+
+    
 });
+
+

@@ -25,4 +25,4 @@
 //= require frontend/gifts
 //= require frontend/products.js.erb
 //= require frontend/trends
-//= require frontend/trends
+//= require frontend/shipment

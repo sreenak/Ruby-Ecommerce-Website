@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :shop, only: [:show, :index] do
     resources :reviews, only: [:create, :update, :destroy]
   end
+  resources :shipments
   resources :likes, only: [:index, :create, :destroy]
   resources :customisations, only: [:index, :create, :destroy]
   resources :customised_dresses, except: [:new, :edit, :update]
