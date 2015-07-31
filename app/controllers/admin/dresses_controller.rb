@@ -83,7 +83,7 @@ class Admin::DressesController < AdminController
             [
                 :name, :svg_group_id, :id, :_destroy,
                 parts_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :id, :_destroy, :image, :image_cache]
+                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :id, :_destroy,:price, :image, :image_cache]
                 ]
             ]
     )

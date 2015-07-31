@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731061637) do
+ActiveRecord::Schema.define(version: 20150731104432) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -172,9 +172,11 @@ ActiveRecord::Schema.define(version: 20150731061637) do
   create_table "embellishment_parts", force: :cascade do |t|
     t.integer  "embellishment_id", limit: 4
     t.integer  "part_id",          limit: 4
-    t.string   "image",            limit: 255, default: "", null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "image",            limit: 255, default: "",    null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "price_paisas",     limit: 4,   default: 0,     null: false
+    t.string   "currency",         limit: 255, default: "INR", null: false
   end
 
   add_index "embellishment_parts", ["embellishment_id"], name: "index_embellishment_parts_on_embellishment_id", using: :btree
@@ -466,6 +468,9 @@ ActiveRecord::Schema.define(version: 20150731061637) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "auth_identities", "users"
+  add_foreign_key "brocade_parts", "brocades"
+  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dresses", "categories"
