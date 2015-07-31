@@ -903,7 +903,7 @@ $(window).load(function() {
     $('#dressname').on("input", function() {
         var dInput = this.value;
         $('.dress_name').text(dInput);
-        if (dInput.length > 1) {
+        if (dInput.length > 0) {
             $('.lable_card,.designinput').show();
         } else {
             $('.lable_card,.designinput').hide();
@@ -912,7 +912,7 @@ $(window).load(function() {
     $('#designername').on("input", function() {
         var dInput = this.value;
         $('.designbyname p').text(dInput);
-        if (dInput.length > 1) {
+        if (dInput.length > 0) {
             $('.designby,.designbyname').show();
         } else {
             $('.designby,.designbyname').hide();
