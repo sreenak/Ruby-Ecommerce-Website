@@ -61,6 +61,9 @@ class CheckoutController < ApplicationController
         current_user.create_shipping_address(@order.shipping_address.dup.attributes)
       end
       # @cart.calculate_shipping
+      if @order.total = 0
+        redirect_to checkout_thank_you_path
+      end
       require 'hdfc'
       gateway = Hdfc.new '9002033', 'password1', checkout_thank_you_url, checkout_thank_you_url
       gateway.prepare @order.total, @order.id

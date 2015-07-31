@@ -14,6 +14,7 @@
               span.input-group-addon
                 i.fa.fa-inr
               = c.input_field :price, class: "form-control"
+            .col-md-6= c.association :embellishments, hint: 'Which are not to be shown on front end'
           = c.link_to_remove 'Remove Color', class: 'btn btn-danger pull-right'
 
     = f.link_to_add 'Add Color', :fabric_group_colors, class: 'btn btn-success'
@@ -31,6 +32,7 @@
               .panel-body
                 .row
                   .col-md-6= b.association :brocade
+                  .col-md-6= b.association :embellishments, hint: 'Which are not to be shown on front end'
                   .col-md-6
                     = b.input :image
                     = b.hidden_field :image_cache
