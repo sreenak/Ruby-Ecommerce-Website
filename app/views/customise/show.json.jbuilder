@@ -52,3 +52,8 @@ json.embelishment_groups @dress.embellishment_parts_groups do |embellishment_par
     end
   end
 end
+
+json.sizes @dress.standard_sizes do |dress_size|
+  json.id dress_size.id
+  json.name dress_size.name
+end
