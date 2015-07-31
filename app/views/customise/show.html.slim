@@ -76,11 +76,25 @@ script
         #sizing.tab-pane.clearfix
           div
             h5.text-center.patternHeader
-              |  sizing list is coming soon
+              |  Available sizes are
         #labels.tab-pane.clearfix
           div
             h5.text-center.patternHeader
-              |  labels list is coming soon
+              |  
+            #custome_lables
+              p
+                | Dress Name :
+                input#dressname type="text" value="" /
+              p.designinput
+                | Designed by :
+                input#designername type="text" value="" /
+              .lable_card
+                .dress_name 
+                .designby
+                  p Designed by
+                .designbyname
+                  p 
+
         #down-arrow.pattern-arrows
           i.fa.fa-angle-down.fa-lg
       ul.nav.nav-tabs

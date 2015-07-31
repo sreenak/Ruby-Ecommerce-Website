@@ -2361,4 +2361,57 @@ input#zipcode, .state-city > label:last-child {
     overflow: hidden;
     display:none;
  }
+/*customise lables starts here*/
 
+    #custome_lables{
+      width: 275px;
+
+    }
+    #custome_lables input{
+      height: 26px;
+    }
+    .lable_card{
+        width: 100%;
+        background-color: white;
+        border: 1px solid black;
+        display:none;
+    }
+    .dress_name{
+        text-align: center;
+        background-color: black;
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+        height: 52px;
+        font-size:30px;
+        font-family: 'Pacifico', cursive;
+    }
+    .designby{
+        width: 50%;
+        float: left;
+        display:none;
+    }
+    .designby p{
+        padding-left: 11px;
+        font-family: it;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding-top: 5px;
+    }
+    .designbyname{
+        width: 50%;
+        float: right;
+        text-align: right;
+        display:none;
+    }
+    .designbyname p{
+          padding-right: 8px;
+          font-family: it;
+          font-size: 14px;
+          font-weight: bold;
+          padding-top: 5px;
+          text-transform: uppercase;
+    }
+    .designinput{
+        display:none;
+    }
