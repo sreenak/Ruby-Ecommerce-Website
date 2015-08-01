@@ -2,15 +2,13 @@ class Cart
   attr_accessor :order
   attr_accessor :currency
 
+  delegate :id, :line_items, :product_items, :discount_items, :gift_card_usage_items, :total, to: :order
+
   def initialize(user_id = nil, order_id = nil, currency = 'INR')
-    if order_id.present?
-      @order = Order.find_or_initialize_by id: order_id, status: 'In Cart'
-      if user_id.present?
-        @order.update user_id: user_id
-        @order.merge_orders user_id
-      end
-    elsif user_id.present?
+    if user_id.present?
       @order = Order.find_or_initialize_by user_id: user_id, status: 'In Cart'
+    elsif order_id.present?
+      @order = Order.where(id: order_id, status: 'In Cart').first_or_initialize(id: nil)
     else
       @order = Order.new currency: currency
     end
@@ -20,46 +18,25 @@ class Cart
     @currency = currency
   end
 
-  def add_dress(id, price = 0, quantity = 1)
-    product = Dress.find id
-    return false unless product.present?
+  def add_item(item, price, title, quantity = 1)
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable: product, amount: price.to_money(@currency), title: product.name, quantity: quantity)
+    line_item = @order.line_items.create(line_itemable: item, amount: price.to_money(@currency), title: title, quantity: quantity)
     calculate
     line_item
-  end
-
-  def add_product(id, quantity = 1)
-    product = Product.find id
-    return false unless product.present?
-    @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable: product, amount: product.price.exchange_to(@currency), title: product.name, quantity: quantity)
-    calculate
-    line_item
-  end
-
-  # Ordered by is existing user id, ordering for is the email id
-  
-  def add_gift_card(gift)
-    @order.save # Save order before adding the gift card
-    item = @order.line_items.create(line_itemable: gift, amount: gift.amount.exchange_to(@currency), quantity: 1, title: 'Gift Voucher')
-    calculate
-    item
   end
 
   def apply_discount(code)
     discount = DiscountCoupon.find_by_code code
     return 'Invalid coupon!' unless discount.present? and discount.valid_coupon?
     return 'Discount already applied!' if @order.discount_items.present?
-    total = @order.product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
+    total = product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
     if discount.applies_as == 'Percent'
       amount = discount.amount/100 * total
     else
       amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
     end
     return 'Discount not applicable!' if amount <= 0 || total < discount.minimum_order_price.to_money('INR').exchange_to(@currency)
-    item = @order.line_items.create(line_itemable: discount, amount: -(amount), quantity: 1, title: "Discount: #{discount.code}")
-    @order.calculate_total
+    add_item(discount, -(amount), "Discount: #{discount.code}")
     'Discount applied.'
   end
 
@@ -70,7 +47,7 @@ class Cart
     amount = available_amount > @order.total ? @order.total : available_amount
     return false if amount <= 0
     gift_usage = GiftCardUsage.create gift_card_id: gift.id, amount: amount
-    item = @order.line_items.create(line_itemable: gift_usage, amount: -amount, quantity: 1, title: "Gift Card: #{gift.code}")
+    item = add_item(gift_usage, -amount, "Gift Card: #{gift.code}")
     gift.update(remaining: gift.remaining - amount)
     calculate
     item
@@ -79,7 +56,7 @@ class Cart
   def update_quantity(items)
     items.each do |(item_id, quantity)|
       next if quantity.to_i < 1
-      item = @order.product_items.find item_id
+      item = product_items.find item_id
       next unless item.present?
       item.update quantity: quantity.to_i
     end
@@ -113,40 +90,16 @@ class Cart
     calculate
   end
 
-  def id
-    @order.id
-  end
-
-  def line_items
-    @order.line_items
-  end
-
-  def products
-    @order.product_items
-  end
-
-  def discounts
-    @order.discount_items
-  end
-
-  def gifts
-    @order.gift_card_usage_items
-  end
-
-  def total
-    @order.total
-  end
-
   private
   def calculate
     # First, let's calculate all the discounts
-    @order.discount_items.each do |d|
+    discount_items.each do |d|
       discount = d.line_itemable
       unless discount.present?
         d.destroy # Remove discounts which are not present anymore
         next
       end
-      total = @order.product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
+      total = product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
       if discount.applies_as == 'Percent'
         amount = discount.amount/100 * total
       else
@@ -160,13 +113,13 @@ class Cart
       d.update amount: -amount
     end
     # Then the gift card usages
-    @order.gift_card_usage_items.each do |gu|
+    gift_card_usage_items.each do |gu|
       gift = gu.line_itemable.gift_card
       unless gift.present?
         gu.destroy # Remove gift cards which are not present anymore
         next
       end
-      total = @order.product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
+      total = product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
       if gu.amount > @order.total # You can only use upto order limit
         gift.update(remaining: gift.remaining + (gu.amount - @order.total)) # Transfer the balance back
         gu.update(amount: @order.total)

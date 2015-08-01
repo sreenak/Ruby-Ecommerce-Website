@@ -26,19 +26,6 @@ class Order < ActiveRecord::Base
 
   scope :valid_orders, -> { where.not(status: 'In Cart', user_id: nil) }
 
-  def merge_orders user_id
-    in_cart_orders = Order.where(user_id: user_id, status: 'In Cart')
-    if in_cart_orders.size > 1
-      in_cart_orders.each do |o|
-        o.line_items.each do |l|
-          l.update order_id: id
-        end
-        o.delete unless o.id == self.id
-      end
-      calculate_total
-    end
-  end
-
   def calculate_total
     total_amount = line_items.reduce(0) { |amount, item| amount + item.subtotal }
     update(total: total_amount)

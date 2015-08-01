@@ -20,6 +20,7 @@ class LineItem < ActiveRecord::Base
   end
 
   private
+  # TODO: Move these to order/cart service if possible
   def increment_usage
     line_itemable.update(usage_count: line_itemable.usage_count + 1) if line_itemable_type == 'DiscountCoupon'
   end

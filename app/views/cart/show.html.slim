@@ -1,10 +1,10 @@
 - content_for :title do
   | Cart 
-- if @cart.products.length == 0
+- if @cart.product_items.length == 0
   .alert.alert-warning
     .likeempty.text-center
-           h4.text-center Your cart is empty!
-           = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
+      h4.text-center Your cart is empty!
+      = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
 - else
   = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
   = form_tag cart_update_path, method: 'patch' do
@@ -22,7 +22,7 @@
           th.product-subtotal.text-center
             | Total
       tbody
-        - @cart.products.each do |i|
+        - @cart.product_items.each do |i|
           tr.cart_item
             td.product-remove.text-center
               |  <a href="
@@ -46,7 +46,7 @@
             td.product-subtotal.text-center
               span.amount
                 = humanized_money_with_symbol i.subtotal
-        - @cart.discounts.each do |d|
+        - @cart.discount_items.each do |d|
           tr
             th.text-center
               |  <a href="
@@ -58,7 +58,7 @@
               span.amount
                 b
                   = humanized_money_with_symbol d.subtotal
-        - @cart.gifts.each do |g|
+        - @cart.gift_card_usage_items.each do |g|
           tr
             th.text-center
               |  <a href="

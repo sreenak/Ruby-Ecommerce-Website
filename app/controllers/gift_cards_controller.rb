@@ -14,7 +14,7 @@ class GiftCardsController < ApplicationController
     params[:quantity].to_i.times {
       @gift = GiftCard.new gift_card_params
       if @gift.save
-        @cart.add_gift_card @gift
+        @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
         session[:order_id] = @cart.id
       else
         flash[:error] = 'There are errors in form!'
