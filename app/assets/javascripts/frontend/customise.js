@@ -659,9 +659,12 @@ $(window).load(function() {
         //after concerting 
 
         $('.add-cart').click(function(event) {
+            var selectedsize;
             if ($('#sizing input[type=radio]:checked').size() < 1) {
                 alert('Please select any size');
                 return;
+            } else {
+                selectedsize = $('#sizing input[type=radio]:checked').val();
             }
             updateprice()
             var a = [];
@@ -684,20 +687,21 @@ $(window).load(function() {
             a = _.uniq(a); //a arry represent all the pathclass with attribute #FFFFF classes
             b = _.uniq(b); //b array represents how many parts are empty inthe sence not applied any pattern
             if (b.length == 0) {
-                addcart();
+                addcart(selectedsize);
             } else {
                 alert('Please complete the customisation of your dress');
             }
             //  
         });
 
-        function addcart() {
+        function addcart(selectedsize) {
 
             $.ajax({
                 url: '/cart/add-dress',
                 type: 'POST',
                 data: {
                     id: data.id,
+                    size: selectedsize,
                     total_price: totalprice
                 },
                 dataType: 'json',
@@ -884,7 +888,7 @@ $(window).load(function() {
 
             totalprice = basePrice + fabriccost + brocadeCost + embellishmentcost;
 
-
+            console.log('embellishmentcost ' + embellishmentcost)
             $('.price').html(totalprice + ' INR');
         }
         //undo redo functionality starts here ====================================
@@ -918,5 +922,5 @@ $(window).load(function() {
             $('.designby,.designbyname').hide();
         }
     });
-    designbyname
+
 }); //onload end
