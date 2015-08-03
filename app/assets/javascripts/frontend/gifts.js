@@ -14,14 +14,14 @@ $(document).ready(function () {
             $deliveryType.addClass('active');
             $('.gift_card_card_type input').attr('value', 'GIFT CERTIFICATE')
             $('#new_gift_card').get(0).reset();
-            $('.email').css('display','none');
+            $('.email').css('display','none').attr('name','');
         } else {
             $('.gift_card_card_type input').attr('value', 'E-GIFT CERTIFICATE');
             $('#recipient-info').removeClass('active');
             $('#gift_card_deliver_to_me').prop('checked', true);
             $('#gift_card_deliver_to_recipient').prop('checked', false);
             $('#new_gift_card').get(0).reset();
-            $('.email').css('display','block');
+            $('.email').css('display','block').attr('name','email');
         }
     });
 
@@ -51,6 +51,12 @@ $(document).ready(function () {
                 'data-validation': 'required',
                 'data-validation-error-msg': 'You have not given correct Country'
             });
+
+            // $('#gift_card_email').attr({
+            //     'data-validation': 'required',
+            //     'data-validation-error-msg': 'You have not given correct Email'
+            // });
+
 
             //  $('#gift_card_shipping_address_attributes_address_1').attr('data-validation','required')
 
