@@ -1,0 +1,3 @@
+class PGiftCard < GiftCard
+
+end

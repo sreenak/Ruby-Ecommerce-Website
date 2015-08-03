@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731104432) do
+ActiveRecord::Schema.define(version: 20150803063443) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -55,6 +55,11 @@ ActiveRecord::Schema.define(version: 20150731104432) do
 
   add_index "brocade_parts", ["brocade_id"], name: "index_brocade_parts_on_brocade_id", using: :btree
   add_index "brocade_parts", ["part_id"], name: "index_brocade_parts_on_part_id", using: :btree
+
+  create_table "brocade_parts_embellishments", id: false, force: :cascade do |t|
+    t.integer "brocade_part_id",  limit: 4, null: false
+    t.integer "embellishment_id", limit: 4, null: false
+  end
 
   create_table "brocades", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -187,6 +192,11 @@ ActiveRecord::Schema.define(version: 20150731104432) do
     t.string   "image",      limit: 255, default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+  end
+
+  create_table "embellishments_fabric_group_colors", id: false, force: :cascade do |t|
+    t.integer "fabric_group_color_id", limit: 4, null: false
+    t.integer "embellishment_id",      limit: 4, null: false
   end
 
   create_table "fabric_colors", force: :cascade do |t|

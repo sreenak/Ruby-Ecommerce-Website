@@ -66,7 +66,7 @@ class Admin::DressesController < AdminController
             [
                 :name, :svg_group_id, :id, :_destroy,
                 fabric_group_colors_attributes: [
-                    :fabric_color_id, :id, :_destroy, :price
+                    :fabric_color_id, :id, :_destroy, :price, embellishment_ids: [],
                 ],
                 parts_attributes: [
                     :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id, :id, :_destroy, :image, :image_cache, :price]
