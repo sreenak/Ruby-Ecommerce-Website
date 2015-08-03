@@ -14,14 +14,24 @@ $(document).ready(function () {
             $deliveryType.addClass('active');
             $('.gift_card_card_type input').attr('value', 'GIFT CERTIFICATE')
             $('#new_gift_card').get(0).reset();
+
             $('.email').css('display','none').attr('name','');
+
+            $('#e-gift').css('display','none')
+            $('#gift').css('display','block')
+
         } else {
             $('.gift_card_card_type input').attr('value', 'E-GIFT CERTIFICATE');
             $('#recipient-info').removeClass('active');
             $('#gift_card_deliver_to_me').prop('checked', true);
             $('#gift_card_deliver_to_recipient').prop('checked', false);
             $('#new_gift_card').get(0).reset();
+
             $('.email').css('display','block').attr('name','email');
+
+            $('#e-gift').css('display','block')
+            $('#gift').css('display','none')
+
         }
     });
 

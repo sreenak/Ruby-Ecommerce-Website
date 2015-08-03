@@ -484,9 +484,6 @@ ActiveRecord::Schema.define(version: 20150803074948) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "auth_identities", "users"
-  add_foreign_key "brocade_parts", "brocades"
-  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dress_line_item_options", "line_items"
