@@ -56,8 +56,9 @@ Rails.application.routes.draw do
     resources :embellishments
     resources :products 
     resources :dresses do
-      resource :fabrics
-      resource :embellishments
+      resources :fabric_parts_groups
+      resources :embellishments
+      resources :styles
     end
     resources :discount_coupons
     resources :orders do

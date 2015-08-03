@@ -9,9 +9,9 @@ class Dress < ActiveRecord::Base
   has_and_belongs_to_many :custom_sizes
   has_and_belongs_to_many :standard_sizes
 
-  accepts_nested_attributes_for :embellishment_parts_groups, allow_destroy: true
-  accepts_nested_attributes_for :fabric_parts_groups, allow_destroy: true
-  accepts_nested_attributes_for :styles_groups, allow_destroy: true
+  # accepts_nested_attributes_for :embellishment_parts_groups, allow_destroy: true
+  # accepts_nested_attributes_for :fabric_parts_groups, allow_destroy: true
+  # accepts_nested_attributes_for :styles_groups, allow_destroy: true
 
   validates_presence_of :name, :category, :sku, :base_price, :sketch
 

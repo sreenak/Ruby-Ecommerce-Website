@@ -33,17 +33,17 @@
 
       = f.association :custom_sizes, as: :check_boxes
 
-  = f.simple_fields_for :fabric_parts_groups do |fp|
-    = render 'fabrics', f: fp
-  = f.link_to_add 'Add Fabric Group', :fabric_parts_groups, class: 'btn btn-success'
-  hr
-  = f.simple_fields_for :styles_groups do |fp|
-    = render 'styles', f: fp
-  = f.link_to_add 'Add Style Group', :styles_groups, class: 'btn btn-success'
-  hr
-  = f.simple_fields_for :embellishment_parts_groups do |e|
-    = render 'embellishments', f: e
-  = f.link_to_add 'Add Embellishment Group', :embellishment_parts_groups, class: 'btn btn-success'
-  hr
+  /= f.simple_fields_for :fabric_parts_groups do |fp|
+  /  = render 'fabrics', f: fp
+  /= f.link_to_add 'Add Fabric Group', :fabric_parts_groups, class: 'btn btn-success'
+  /hr
+  /= f.simple_fields_for :styles_groups do |fp|
+  /  = render 'styles', f: fp
+  /= f.link_to_add 'Add Style Group', :styles_groups, class: 'btn btn-success'
+  /hr
+  /= f.simple_fields_for :embellishment_parts_groups do |e|
+  /  = render 'embellishments', f: e
+  /= f.link_to_add 'Add Embellishment Group', :embellishment_parts_groups, class: 'btn btn-success'
+  /hr
   .form-actions
     = f.button :submit
