@@ -23,9 +23,14 @@
   }
 }
 
-#recipient-info, .deliver-type {
+#recipient-info {
   display: none;
   &.active {
     display: block;
   }
+}
+
+#gift.certificate-type
+{
+  display:none;
 }
