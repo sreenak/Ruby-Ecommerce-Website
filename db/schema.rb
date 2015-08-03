@@ -56,11 +56,6 @@ ActiveRecord::Schema.define(version: 20150803074948) do
   add_index "brocade_parts", ["brocade_id"], name: "index_brocade_parts_on_brocade_id", using: :btree
   add_index "brocade_parts", ["part_id"], name: "index_brocade_parts_on_part_id", using: :btree
 
-  create_table "brocade_parts_embellishments", id: false, force: :cascade do |t|
-    t.integer "brocade_part_id",  limit: 4, null: false
-    t.integer "embellishment_id", limit: 4, null: false
-  end
-
   create_table "brocades", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
     t.string   "swatch",     limit: 255, default: "", null: false
@@ -200,11 +195,6 @@ ActiveRecord::Schema.define(version: 20150803074948) do
     t.datetime "updated_at",                          null: false
   end
 
-  create_table "embellishments_fabric_group_colors", id: false, force: :cascade do |t|
-    t.integer "fabric_group_color_id", limit: 4, null: false
-    t.integer "embellishment_id",      limit: 4, null: false
-  end
-
   create_table "fabric_colors", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
     t.integer  "fabric_id",  limit: 4
@@ -266,7 +256,7 @@ ActiveRecord::Schema.define(version: 20150803074948) do
     t.string   "card_type",        limit: 255,   default: "",    null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
-    t.string   "email",            limit: 255
+    t.string   "email",            limit: 255,   default: "0"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -484,6 +474,9 @@ ActiveRecord::Schema.define(version: 20150803074948) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "auth_identities", "users"
+  add_foreign_key "brocade_parts", "brocades"
+  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dress_line_item_options", "line_items"
