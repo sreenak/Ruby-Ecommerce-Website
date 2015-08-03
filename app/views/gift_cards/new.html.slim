@@ -18,7 +18,7 @@
           span.tick-icon &#10004
           | GIFT CERTIFICATE
           i.icon.ion-ios-information
-    = simple_form_for @e_gift, wrapper: :vertical_form do |f|
+    = simple_form_for @gift, wrapper: :vertical_form do |f|
       /= render 'shared/form_errors', object: f.object
       = f.input :card_type, as: :hidden
       #e-gift.certificate-type.toggle
@@ -43,7 +43,7 @@
         input.buynow.btn.btn-default[type='submit' value='BUY NOW']
         
     /---- Gift certificates ------    
-    = simple_form_for 'gift_cards#add', wrapper: :vertical_form do |p|
+    = simple_form_for @p_gift, wrapper: :vertical_form do |p|
       #gift.certificate-type
         .row
           .col-sm-4.col-xs-6
