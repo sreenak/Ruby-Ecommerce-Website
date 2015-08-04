@@ -62,30 +62,30 @@ class Admin::DressesController < AdminController
         :angle_270, :angle_270_cache, :remove_angle_270,
         custom_size_ids: [],
         standard_size_ids: [],
-        fabric_parts_groups_attributes:
-            [
-                :name, :svg_group_id, :id, :_destroy,
-                fabric_group_colors_attributes: [
-                    :fabric_color_id, :id, :_destroy, :price, embellishment_ids: [],
-                ],
-                parts_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id, :id, :_destroy, :image, :image_cache, :price]
-                ]
-            ],
-        styles_groups_attributes:
-            [
-                :name, :svg_group_id, :id, :_destroy,
-                styles_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, :image
-                ]
-            ],
-        embellishment_parts_groups_attributes:
-            [
-                :name, :svg_group_id, :id, :_destroy,
-                parts_attributes: [
-                    :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :id, :_destroy,:price, :image, :image_cache]
-                ]
-            ]
+        # fabric_parts_groups_attributes:
+        #     [
+        #         :name, :svg_group_id, :id, :_destroy,
+        #         fabric_group_colors_attributes: [
+        #             :fabric_color_id, :id, :_destroy, :price, embellishment_ids: [],
+        #         ],
+        #         parts_attributes: [
+        #             :id, :_destroy, :name, :svg_path_id, brocade_parts_attributes: [:brocade_id, :id, :_destroy, :image, :image_cache, :price]
+        #         ]
+        #     ],
+        # styles_groups_attributes:
+        #     [
+        #         :name, :svg_group_id, :id, :_destroy,
+        #         styles_attributes: [
+        #             :id, :_destroy, :name, :svg_path_id, :image
+        #         ]
+        #     ],
+        # embellishment_parts_groups_attributes:
+        #     [
+        #         :name, :svg_group_id, :id, :_destroy,
+        #         parts_attributes: [
+        #             :id, :_destroy, :name, :svg_path_id, embellishment_parts_attributes: [:embellishment_id, :id, :_destroy,:price, :image, :image_cache]
+        #         ]
+        #     ]
     )
   end
 end

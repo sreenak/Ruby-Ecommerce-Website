@@ -1,4 +1,6 @@
 class Admin::FabricPartsGroupsController < AdminController
+  add_crumb('Dresses') { |instance| instance.send :admin_dresses_path }
+  add_crumb('Dresses Fabric Part Group') { |instance| instance.send :admin_dress_fabric_parts_groups_path }
   before_action :set_dress
   before_action :set_parts_groups, only: [:show, :edit, :update, :destroy]
 

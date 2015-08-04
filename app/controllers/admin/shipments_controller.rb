@@ -1,4 +1,6 @@
 class Admin::ShipmentsController < AdminController
+  add_crumb('Order') { |instance| instance.send :admin_orders_path }
+  add_crumb('Order Shipments') { |instance| instance.send :admin_order_shipments_path }
   before_action :set_order
   before_action :set_shipment, only: [:show, :edit, :update, :destroy]
 
