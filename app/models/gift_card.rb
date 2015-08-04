@@ -9,6 +9,7 @@ class GiftCard < ActiveRecord::Base
   belongs_to :user
   has_one :shipping_address, as: :addressable
   has_many :usages, class_name: 'GiftCardUsage'
+  # belongs_to :gift_cardable, polymorphic: true
 
   enum status: STATUSES
   enum deliver_to: DELIVERABLE_TO_OPTIONS
@@ -48,9 +49,9 @@ class GiftCard < ActiveRecord::Base
     deliver_to == 'Me' or deliver_to.blank?
   end
 
-  def email_required?
-    card_type == 'E-GIFT CERTIFICATE'
-  end
+  # def email_required?
+  #   card_type == 'E-GIFT CERTIFICATE'
+  # end
 
   private
   def set_remaining

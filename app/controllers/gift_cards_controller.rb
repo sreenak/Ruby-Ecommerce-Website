@@ -8,7 +8,6 @@ class GiftCardsController < ApplicationController
   def new
     @gift = EGiftCard.new
     @p_gift = PGiftCard.new
-    @gift.build_shipping_address
     @p_gift.build_shipping_address
   end
 
@@ -19,6 +18,7 @@ class GiftCardsController < ApplicationController
         @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
         session[:order_id] = @cart.id
       else
+        @p_gift = PGiftCard.new
         flash[:error] = 'There are errors in form!'
         return render :new
       end
@@ -33,6 +33,7 @@ class GiftCardsController < ApplicationController
         @cart.add_item @p_gift, @p_gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
         session[:order_id] = @cart.id
       else
+        @gift = EGiftCard.new
         flash[:error] = 'There are errors in form!'
         return render :new
       end
@@ -42,9 +43,9 @@ class GiftCardsController < ApplicationController
 
   private
   def e_gift_card_params
-    params[:gift_card].permit(:card_type, :ordered_by, :email, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :city, :country, :postal_code])
+    params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :city, :country, :postal_code])
   end
   def p_gift_card_params
-    params[:gift_card].permit(:card_type, :ordered_by, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :city, :country, :postal_code])
+    params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :city, :country, :postal_code])
   end
 end

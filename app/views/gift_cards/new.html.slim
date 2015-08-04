@@ -18,9 +18,9 @@
           span.tick-icon &#10004
           | GIFT CERTIFICATE
           i.icon.ion-ios-information
-    = simple_form_for 'gift_cards#create', wrapper: :vertical_form do |f|
-      /= render 'shared/form_errors', object: f.object
-      = f.input :card_type, as: :hidden
+    = simple_form_for @gift, url: :gift_cards, wrapper: :vertical_form do |f|
+      = render 'shared/form_errors', object: f.object
+      /= f.input :type, as: :hidden, value: 'E-GIFT CERTIFICATE'
       #e-gift.certificate-type.toggle
         .row
           .col-sm-4.col-xs-6
@@ -43,10 +43,11 @@
         input.buynow.btn.btn-default[type='submit' value='BUY NOW']
         
     /---- Gift certificates ------    
-    = simple_form_for 'gift_cards#add', wrapper: :vertical_form do |p|
+    = simple_form_for @p_gift, url: :add_gift_cards , wrapper: :vertical_form do |p|
       #gift.certificate-type
         .row
           .col-sm-4.col-xs-6
+            /= p.input :type, as: :hidden, value: 'P-GIFT CERTIFICATE'
             = p.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required'}
           .col-sm-4.col-xs-6
             = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency'
