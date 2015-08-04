@@ -14,8 +14,9 @@
             .row
               .col-md-6= p.input :name
               .col-md-6= p.input :svg_path_id
-              .col-md-6= p.input :image
-                       = image_tag p.object.image_url if p.object.image?
+              .col-md-6
+                = p.input :image
+                = image_tag p.object.image_url if p.object.image?
 
       = f.link_to_add 'Add Style', :styles, class: 'btn btn-success'
       = f.link_to_remove 'Remove Style Group', class: 'btn btn-danger pull-right'
