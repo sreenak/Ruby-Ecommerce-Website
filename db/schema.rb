@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804104222) do
+ActiveRecord::Schema.define(version: 20150804122741) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -265,8 +265,8 @@ ActiveRecord::Schema.define(version: 20150804104222) do
     t.string   "deliver_to",       limit: 255,   default: "",    null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
-    t.string   "email",            limit: 255
     t.string   "type",             limit: 255
+    t.string   "email",            limit: 255
   end
 
   create_table "likes", force: :cascade do |t|

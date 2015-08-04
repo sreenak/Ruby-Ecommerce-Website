@@ -34,7 +34,7 @@ $(document).ready(function () {
     $('label .radio_buttons').click(function () {
         var $recipient = $('#recipient-info');
         $recipient.removeClass('active');
-        if ($(this).attr('id') == 'gift_card_deliver_to_recipient') {
+        if ($(this).attr('id') == 'p_gift_card_deliver_to_recipient') {
             $recipient.addClass('active');
             $('#gift_card_shipping_address_attributes_address_1').attr({
                 'data-validation': 'required',
