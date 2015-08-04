@@ -1,0 +1,20 @@
+- content_for :heading do
+  | Listing Embellishment Part Group
+- content_for :title do
+  |  Embellishment Part Group
+- content_for :panel_heading do
+  = link_to 'Add  Embellishment Part Group', new_admin_dress_embellishment_parts_group_path(@dress), class: 'btn btn-success btn-sm'
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th Name
+      th[colspan="2"] Action
+  tbody
+    - @embellishment_parts_groups.each do |embellishment_parts_group|
+      tr
+        td= embellishment_parts_group.name
+        td= link_to 'Edit', edit_admin_dress_embellishment_parts_group_path(embellishment_parts_group.dress, embellishment_parts_group)
+        td= link_to 'Destroy', admin_dress_embellishment_parts_group_path(embellishment_parts_group.dress, embellishment_parts_group), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @embellishment_parts_groups
+

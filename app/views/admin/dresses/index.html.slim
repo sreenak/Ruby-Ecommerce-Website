@@ -17,8 +17,8 @@ table.table.table-responsive.table-striped
         td= image_tag dress.sketch_url(:thumbnail)
         td= dress.name
         td= link_to 'Fabrics Groups', admin_dress_fabric_parts_groups_path(dress)
-        td= link_to 'Embellishments Groups', admin_dress_embellishments_path(dress)
-        td= link_to 'Styles Groups', admin_dress_styles_path(dress)
+        td= link_to 'Embellishments Groups', admin_dress_embellishment_parts_groups_path(dress)
+        td= link_to 'Styles Groups', admin_dress_styles_groups_path(dress)
         td= link_to 'Edit', edit_admin_dress_path(dress)
         td= link_to 'Destroy', admin_dress_path(dress), method: :delete, data: {confirm: 'Are you sure?'}
 = paginate @dresses

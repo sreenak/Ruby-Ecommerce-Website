@@ -1,0 +1,40 @@
+= simple_nested_form_for [:admin, @dress, @embellishment_parts_group], wrapper: :horizontal_small_form do |f|
+  = render 'shared/form_errors', object: f.object
+  .panel.panel-default
+    .panel-heading Embellishment Group Details
+    .panel-body
+      .row
+        .col-md-6= f.input :name
+        .col-md-6= f.input :svg_group_id
+
+      = f.simple_fields_for :parts do |p|
+        .panel.panel-default
+          .panel-heading Part Details
+          .panel-body
+            .row
+              .col-md-6= p.input :name
+              .col-md-6= p.input :svg_path_id
+
+            = p.simple_fields_for :embellishment_parts do |b|
+              .panel.panel-default
+                .panel-heading Embellishment Details
+                .panel-body
+                  .row
+                    .col-md-6= b.association :embellishment
+                    .col-md-6
+                      = b.input :image
+                      = b.hidden_field :image_cache
+                      = image_tag b.object.image_url if b.object.image?
+                    .col-md-6= b.input :price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
+                      span.input-group-addon
+                        i.fa.fa-inr
+                      = b.input_field :price, class: "form-control"
+                  = b.link_to_remove 'Remove Embellishment', class: 'btn btn-danger pull-right'
+
+            = p.link_to_add 'Add Embellishment', :embellishment_parts, class: 'btn btn-success'
+            = p.link_to_remove 'Remove Part', class: 'btn btn-danger pull-right'
+
+      = f.link_to_add 'Add Part', :parts, class: 'btn btn-success'
+      = f.link_to_remove 'Remove Embellishment Group', class: 'btn btn-danger pull-right'
+  .form-actions
+    = f.button :submit
