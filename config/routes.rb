@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#show'
   get 'currencies/switch'
   resources :gift_cards, only: [:index, :new, :create, :add]
+  post 'gift_cards/new', to: 'gift_cards#new'
 
   resource :account, only: [:show, :edit, :update] do
     member do

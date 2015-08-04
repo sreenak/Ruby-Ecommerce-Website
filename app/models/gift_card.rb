@@ -56,4 +56,6 @@ class GiftCard < ActiveRecord::Base
   def set_remaining
     remaining = amount
   end
+
+
 end
