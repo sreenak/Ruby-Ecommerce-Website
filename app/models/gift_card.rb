@@ -7,14 +7,14 @@ class GiftCard < ActiveRecord::Base
   before_create :set_remaining
 
   belongs_to :user
-  has_one :shipping_address, as: :addressable
+
   has_many :usages, class_name: 'GiftCardUsage'
   # belongs_to :gift_cardable, polymorphic: true
 
   enum status: STATUSES
   enum deliver_to: DELIVERABLE_TO_OPTIONS
 
-  accepts_nested_attributes_for :shipping_address, reject_if: :shipping_not_required?
+
 
   before_create :generate_code
   validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
@@ -45,9 +45,7 @@ class GiftCard < ActiveRecord::Base
     amount - used_amount
   end
 
-  def shipping_not_required?
-    deliver_to == 'Me' or deliver_to.blank?
-  end
+
 
   # def email_required?
   #   card_type == 'E-GIFT CERTIFICATE'
