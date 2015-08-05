@@ -38,7 +38,4 @@
                       h4.price.text-center= humanized_money_with_symbol like.product.price.exchange_to(@cart.currency)
                       h4.text-center
                         = link_to like.product.name, shop_path(like.product)
-                      .action-row.text-center.bottom.hover-content
-                        i.icon.ion-wand
-                        |Customise
           = paginate @likes

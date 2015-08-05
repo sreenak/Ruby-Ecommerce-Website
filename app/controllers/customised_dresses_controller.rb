@@ -24,11 +24,18 @@ class CustomisedDressesController < ApplicationController
   end
 
   # /GET customised_dresses/delete
+
   def destroy
-    @customised_dresses = CustomisedDress.destroy
-    format.html { redirect_to :back, notice: 'Customised dress has been successfully destroyed.' }
-    format.json { head :no_content }
-  end
+    @customised_dresses = CustomisedDress.where(user_id: current_user.id, dress_id: params[:id]).first
+    respond_to do |format|
+      if @customised_dresses.present?
+        @customised_dresses.destroy
+        format.html { redirect_to :back, notice: "Customised dress has been successfully destroyed" }
+      else
+        format.html { redirect_to :back, notice: 'You have no customised item.' }
+      end
+    end
+ end
 
   private
   def customised_dress_params

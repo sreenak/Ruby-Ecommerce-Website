@@ -142,21 +142,6 @@ ActiveRecord::Schema.define(version: 20150804122741) do
     t.integer  "usage_count",                limit: 4,                           default: 0,     null: false
   end
 
-  create_table "dress_line_item_options", force: :cascade do |t|
-    t.integer  "line_item_id",     limit: 4
-    t.integer  "standard_size_id", limit: 4
-    t.string   "details",          limit: 255
-    t.string   "angle_0",          limit: 255, default: "", null: false
-    t.string   "angle_90",         limit: 255
-    t.string   "angle_180",        limit: 255
-    t.string   "angle_270",        limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-  end
-
-  add_index "dress_line_item_options", ["line_item_id"], name: "index_dress_line_item_options_on_line_item_id", using: :btree
-  add_index "dress_line_item_options", ["standard_size_id"], name: "index_dress_line_item_options_on_standard_size_id", using: :btree
-
   create_table "dresses", force: :cascade do |t|
     t.string   "name",              limit: 255, default: "",    null: false
     t.string   "slug",              limit: 255, default: "",    null: false
@@ -489,8 +474,6 @@ ActiveRecord::Schema.define(version: 20150804122741) do
   add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
-  add_foreign_key "dress_line_item_options", "line_items"
-  add_foreign_key "dress_line_item_options", "standard_sizes"
   add_foreign_key "dresses", "categories"
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"
