@@ -18,7 +18,6 @@
 //= require jquery.dependClass-0.1.js
 //= require draggable-0.1.js
 //= require jquery.slider.js
-//= require jquery-1.8.3.min
 //= require jquery.elevatezoom.js
 //= require jquery.form-validator.min
 //= require frontend/account
