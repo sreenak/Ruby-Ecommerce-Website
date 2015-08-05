@@ -3,12 +3,13 @@
 
 .row.product
   .col-md-5
-    .product-images.sp-wrap
+    .product-images
       a href="#{@product.image_url}"
-        = image_tag @product.image_url(:big)
-      - @product.product_images.each do |image|
-        a href="#{image.image_url}"
-          = image_tag image.image_url(:big)
+        = image_tag @product.image_url(:preview), :id=>"zoom_03", 'data-zoom-image'=>@product.image_url(:big)
+      div#gallery_01
+        - @product.product_images.each do |image|
+          a href="#{image.image_url}" data-image=image.image_url(:preview) data-zoom-image=image.image_url(:big)
+            = image_tag image.image_url(:thumbnail)
 
   .col-md-7.product-details
     h2.page-title= @product.name
@@ -43,7 +44,7 @@
         - if !current_or_null_user.liked?(@product)
           .info-row.text-uppercase
             a href="#{likes_path(id: @product.id)}" data-method="post"
-              i.icon.ion-ios-heart
+              i.icon.ion-ios-heart-outline
               span Add to favorite
         - else
           .info-row.text-uppercase

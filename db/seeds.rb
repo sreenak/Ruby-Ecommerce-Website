@@ -97,9 +97,9 @@
 #   StandardSize.where(name: size).first_or_create
 # end
 
-unless ShippingService.count > 0
-  ShippingService.first_or_create name: 'Shipping Outside India'
-end
+# unless ShippingService.count > 0
+#   ShippingService.first_or_create name: 'Shipping Outside India'
+# end
 
 
 # users = [
@@ -130,58 +130,58 @@ end
 #   end
 # end
 
-# # Dummy posts
-# unless Product.count > 0
-#   10.times do |i|
-#     Product.create(
-#         name: Faker::Lorem.sentence,
-#         description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join('\n\n')),
-#         remote_image_url: 'https://placeimg.com/600/800/any',
-#         price: Faker::Number.decimal(4, 2),
-#         sku: Faker::Lorem.words.join().upcase,
-#         product_images_attributes: [
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'}
-#         ]
-#     )
-#   end
+# Dummy posts
+unless Product.count > 0
+  10.times do |i|
+    Product.create(
+        name: Faker::Lorem.sentence,
+        description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join('\n\n')),
+        remote_image_url: 'https://placeimg.com/600/800/any',
+        price: Faker::Number.decimal(4, 2),
+        sku: Faker::Lorem.words.join().upcase,
+        product_images_attributes: [
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'}
+        ]
+    )
+  end
 
-#   6.times do |i|
-#     Product.create(
-#         name: Faker::Lorem.sentence,
-#         description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join('\n\n')),
-#         remote_image_url: 'https://placeimg.com/600/800/any',
-#         price: Faker::Number.decimal(4, 2),
-#         sku: Faker::Lorem.words(2).join().upcase,
-#         featured: true,
-#         product_images_attributes: [
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'},
-#             {remote_image_url: 'https://placeimg.com/600/800/any'}
-#         ]
-#     )
-#   end
-# end
+  6.times do |i|
+    Product.create(
+        name: Faker::Lorem.sentence,
+        description: ActionController::Base.helpers.simple_format(Faker::Lorem.paragraphs.join('\n\n')),
+        remote_image_url: 'https://placeimg.com/600/800/any',
+        price: Faker::Number.decimal(4, 2),
+        sku: Faker::Lorem.words(2).join().upcase,
+        featured: true,
+        product_images_attributes: [
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'},
+            {remote_image_url: 'https://placeimg.com/600/800/any'}
+        ]
+    )
+  end
+end
 
 # # Categories
 
 # %w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create }
 
-fabrics_dir = Rails.root.join('seeds', 'fabrics')
-Dir.foreach(fabrics_dir) do |item|
-  next if item.start_with? == '.'
-  fabric = Fabric.where(name: item.humanize).first_or_create
-  if File.directory?(fabrics_dir.to_s+'/'+item)
-    Dir.foreach(fabrics_dir.to_s+'/'+item) do |color|
-      next if color == '.' or color == '..'
-      filepath = Rails.root.join('seeds', 'fabrics', item, color).to_s
-      fabric.fabric_colors.where(name: color.gsub('.png', '').gsub('-', ' ').humanize).first_or_create(swatch: File.open(filepath))
-    end
-  end
-end
+# fabrics_dir = Rails.root.join('seeds', 'fabrics')
+# Dir.foreach(fabrics_dir) do |item|
+#   next if item.start_with? == '.'
+#   fabric = Fabric.where(name: item.humanize).first_or_create
+#   if File.directory?(fabrics_dir.to_s+'/'+item)
+#     Dir.foreach(fabrics_dir.to_s+'/'+item) do |color|
+#       next if color == '.' or color == '..'
+#       filepath = Rails.root.join('seeds', 'fabrics', item, color).to_s
+#       fabric.fabric_colors.where(name: color.gsub('.png', '').gsub('-', ' ').humanize).first_or_create(swatch: File.open(filepath))
+#     end
+#   end
+# end
 
 # brocades_dir = Rails.root.join('seeds', 'brocade')
 # Dir.foreach(brocades_dir) do |item|

@@ -8,7 +8,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require masonry.pkgd
-//= require smoothproducts
 //= require snapsvg
 //= require underscore
 //= require jquery.tinycarousel
@@ -19,6 +18,8 @@
 //= require jquery.dependClass-0.1.js
 //= require draggable-0.1.js
 //= require jquery.slider.js
+//= require jquery-1.8.3.min
+//= require jquery.elevatezoom.js
 //= require jquery.form-validator.min
 //= require frontend/account
 //= require frontend/checkout
