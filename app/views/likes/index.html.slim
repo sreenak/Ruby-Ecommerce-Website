@@ -10,7 +10,7 @@
         - if @likes.empty?
          .likeempty.text-center
            h4.text-center You have no items in your list
-           = link_to 'Continue Shopping', :shop_index , class: 'btn btn-primary'
+           = link_to 'GO TO SHOP', :shop_index , class: 'btn btn-primary'
         - else 
           - @likes.each_slice(3) do |row|
             .row
