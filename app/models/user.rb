@@ -33,10 +33,6 @@ class User < ActiveRecord::Base
 
   after_create :assign_role
 
-  def after_database_authentication
-
-  end
-
   mount_uploader :image, ImageUploader
 
   def self.create_from_omniauth(params)
