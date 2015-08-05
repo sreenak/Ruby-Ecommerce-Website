@@ -34,17 +34,7 @@ class User < ActiveRecord::Base
   after_create :assign_role
 
   def after_database_authentication
-    in_cart_orders = orders.where(status: 'In Cart').order(created_at: :desc)
-    if in_cart_orders.size > 1
-      current_order = in_cart_orders.pop
-      in_cart_orders.each do |o|
-        o.line_items.each do |l|
-          l.update order_id: current_order.id
-        end
-        o.delete
-      end
-      calculate_total
-    end
+
   end
 
   mount_uploader :image, ImageUploader
