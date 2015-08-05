@@ -97,9 +97,7 @@ h1.page-title.text-center.text-uppercase Shop
                     h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
                     h4.text-center
                       = link_to product.name, shop_path(product)
-                    .action-row.text-center.bottom.hover-content
-                      i.icon.ion-wand
-                      |Customise
+
       = paginate @products
     - else
       p No products found matching your criteria. Please remove filters and try again.

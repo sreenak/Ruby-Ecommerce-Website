@@ -10,9 +10,9 @@ class CheckoutController < ApplicationController
     @user = User.find_by_email user_params[:email]
     if @user
       sign_in(:user, @user)
+      update_cart_on_login
       redirect_to checkout_addresses_path
     else
-      logger.info user_params.inspect
       @user = User.new user_params
       unless verify_recaptcha(message: nil)
         flash.delete :recaptcha_error

@@ -1,5 +1,6 @@
 - content_for :title do
   |My Customisations
+
 .row
   .col-md-4.col-lg-3= render 'accounts/sidebar'
   .products.mylikes.col-md-8.col-lg-9
@@ -14,6 +15,20 @@
         - @customises.each_slice(3) do |row|
           .row
             - row.each do |cust|
-              .col-md-4.col-sm-6
-                = image_tag cust.image_url(:medium)
+              .col-md-4.col-sm-6.text-center
+                .product-preview.hover-container
+                  = image_tag cust.image_url(:preview)
+                  .details
+                    .action-row.top.clearfix.hover-content
+                      a href="#{customised_dress_path(:id => cust.id)}" data-method ="delete" rel="nofollow"
+                        i.icon.ion-trash-b
+                        |Delete
+                        i.icon.ion-wand
+                      a href="#{customise_path(:id => cust.id)}"
+                        |Customise
       = paginate @customises
+
+        /
+        /a href="#{ customised_dress_path(:id => cust.id)}" data-method ="delete" rel="nofollow"
+        /  i.icon.ion-ios-heart
+        /  |Delete

@@ -2,7 +2,9 @@ doctype html
 html lang="en-us"
   head
     meta charset="utf-8" /
-    title = yield(:title).presence || 'Untitled'
+    title
+      = yield(:title).presence || 'Untitled'
+      |&nbsp;|&nbsp; Kaapad
     = canonical_tag
     meta content="#{(yield :meta_description) || 'Default Description'}" name="description"
     meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"
@@ -26,10 +28,16 @@ html lang="en-us"
     meta content="#ffffff" name="theme-color" /
     meta charset="utf-8" /
     meta content="IE=edge" http-equiv="X-UA-Compatible" /
-    link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
+    link href='http://fonts.googleapis.com/css?family=Pacifico,Lato:400,700,400italic,700italic|Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
     = csrf_meta_tags
+    = yield :head
+
   body
+    .loadingcustomizepage
+    .loading
+      p Loading...
+
     header#page-header
       nav.navbar.top-bar
         .container
@@ -40,26 +48,35 @@ html lang="en-us"
               span.icon-bar
               a.navbar-brand Kaapad
           #top-bar.collapse.navbar-collapse
+            /= form_tag search_index_path, :method => 'get' do
+              /= text_field_tag :q, nil
+              /= submit_tag "Search"
+
             form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
               .input-group
                 .input-append
-                  input#search.form-control autocomplete="off" name="search" placeholder="Search Products" type="text" /
+                  input#search.form-control autocomplete="off" name="q" placeholder="Search Products" type="text" /
                   .input-group-btn
                     button.btn.btn-default.home_searchbar_btn type="submit"
                       span.fa.fa-search
 
             form.navbar-form.navbar-left action="/currencies/switch"
-              select.form-control name="currency" onchange="this.form.submit()"
-                option value="USD" Dollar $
-                option selected="" value="INR" Rupees ₹
+              .input-append
+                select.form-control name="currency" onchange="this.form.submit()"
+                  |<option value="USD"
+                  = ' selected' if @currency == 'USD'
+                  | > Dollar $
+                  | <option value="INR"
+                  = ' selected' if @currency == 'INR'
+                  | > Rupees ₹
 
             .cart-details.pull-right
-              a href="/cart"
+              a href="#{cart_path}"
                 i.ion-android-cart.icon
                   |&nbsp;
                 span.cart-contents
                   strong Cart:
-                  |&nbsp;0 Items - ₹0
+                  |&nbsp;#{@cart.line_items.count} Items - #{humanized_money_with_symbol @cart.total}
 
             ul.navbar-nav.nav.navbar-right
               - if user_signed_in?
@@ -80,7 +97,19 @@ html lang="en-us"
           #main-menu.collapse.navbar-collapse
             ul.navbar-nav.nav
               li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
-              li class="#{deep_active_class(page_path('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
+              li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
+              li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
+              li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+              li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
+              li.dropdown
+                a.dropdown-toggle href="#{shop_index_path}"
+                  | Shop
+                  span.caret
+                ul.dropdown-menu
+                  - @category.each do |cat|
+                    li
+                      a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+
               li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
 
     .container.content-area
