@@ -28,7 +28,7 @@ class GiftCardsController < ApplicationController
 
   def add
     params[:quantity].to_i.times {
-      @p_gift = PGiftCard.new p_gift_card_params
+      @p_gift = PGiftCard.new(p_gift_card_params)
       if @p_gift.save
         @cart.add_item @p_gift, @p_gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
         session[:order_id] = @cart.id

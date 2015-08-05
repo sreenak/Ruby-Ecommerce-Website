@@ -57,20 +57,23 @@ h4.floral-text.page-title.text-center
         .col-md-4.col-sm-6
           .product-preview.hover-container
             a href="#{shop_path(product)}"
-              = image_tag product.image_url(:medium)
+              = image_tag product.image_url(:preview)
             .details
               .action-row.top.clearfix.hover-content
                 .pull-left
                   - if !current_or_null_user.liked? product
-                    i.icon.ion-ios-heart-outline
-                    = link_to 'Like', likes_path(:id => product.id), method: :post
+                    a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                      i.icon.ion-ios-heart-outline
+                      |Like
                   - else
-                    i.icon.ion-ios-heart
-                    = link_to 'Unlike', like_path(:id => product.id), method: :delete
+                    a href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
+                      i.icon.ion-ios-heart
+                      |Unlike
 
                 .pull-right.text-right
-                  i.icon.ion-ios-cart
-                  = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
+                  a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
+                    i.icon.ion-ios-cart
+                    |Add to cart
               h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
               h4.text-center
                 = link_to product.name, shop_path(product)
