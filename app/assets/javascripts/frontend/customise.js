@@ -17,7 +17,7 @@ $(window).load(function() {
 
         // svg wrapper
 
-
+        var allfabricgroupsDetails = []; //it containes all the fabric details with group names 
         var fabriccost = 0;
 
         var brocadeCost = 0;
@@ -45,6 +45,12 @@ $(window).load(function() {
         var brocadesPatternsInserted = [];
         var embDetails = [];
         var s = Snap("#svg_wrapper"); // svgs loading wrapper
+
+        var historyObj = {};
+
+        historyObj.eachclick = [];
+
+
         // console.log(data.angle_0)
         Snap.load(data.angle_0, loadSvg1);
         //loading first svg
@@ -85,9 +91,10 @@ $(window).load(function() {
                         var fabriccolorid = _.where(fabricsDetails, {
                             id: data.fabric_groups[i].fabric_colors[j].id
                         });
-
+                        var conntinuepidis;
                         if (fabriccolorid.length == 0) {
-                            continueLoopCount++;
+                            conntinuepidis = continueLoopCount++;
+                            continueLoopCount++
                             var image = new Image();
                             image.src = data.fabric_groups[i].fabric_colors[j].swatch;
                             var obj = {};
@@ -97,14 +104,31 @@ $(window).load(function() {
                             obj.name = data.fabric_groups[i].fabric_colors[j].name;
                             obj.swatch = data.fabric_groups[i].fabric_colors[j].swatch;
                             obj.price = data.fabric_groups[i].fabric_colors[j].price;
-                            obj.pid = continueLoopCount;
+                            obj.pid = data.fabric_groups[i].fabric_colors[j].id;
+                            obj.group = data.fabric_groups[i].name;
                             //obj.base64 = convertImgToBase64(data.fabric_groups[i].fabric_colors[j].swatch);
                             fabricsDetails.push(obj);
                             fabricId.push(data.fabric_groups[i].fabric_colors[j].id);
                             fabricNames.push(data.fabric_groups[i].fabric_colors[j].fabric_name);
                         }
 
+
+                        var obj1 = {};
+                        obj1.fabric_id = data.fabric_groups[i].fabric_colors[j].fabric_id;
+                        obj1.fabric_name = data.fabric_groups[i].fabric_colors[j].fabric_name;
+                        obj1.id = data.fabric_groups[i].fabric_colors[j].id;
+                        obj1.name = data.fabric_groups[i].fabric_colors[j].name;
+                        obj1.swatch = data.fabric_groups[i].fabric_colors[j].swatch;
+                        obj1.price = data.fabric_groups[i].fabric_colors[j].price;
+                        obj1.pid = data.fabric_groups[i].fabric_colors[j].id;
+                        obj1.group = data.fabric_groups[i].name;
+                        allfabricgroupsDetails.push(obj1);
+
+
+
                     };
+
+                    // console.log(allfabricgroupsDetails);
                     // to display the brocades initially
 
                     for (var k = 0; k < data.fabric_groups[i].parts.length; k++) {
@@ -173,7 +197,7 @@ $(window).load(function() {
                         var image = new Image();
                         image.src = fabricsDetails[j].swatch;
                         // console.log('image width ' + image.width + ' and height is ' + image.height);
-                        $('#material').append('<div class="pattern_div" data-price="' + fabricsDetails[j].price + '" id="divs' + fabricsDetails[j].pid + '" data-category="fabrics" data-originalid="' + fabricsDetails[j].id + '"><img  data-pid="img' + fabricsDetails[j].pid + '" data-id="' + fabricsDetails[j].pid + '" src="' + fabricsDetails[j].swatch + '" /><p>' + fabricsDetails[j].name + '</p></div>');
+                        $('#material').append('<div class="pattern_div" id="divs' + fabricsDetails[j].pid + '" data-category="fabrics" data-originalid="' + fabricsDetails[j].id + '"><img  data-pid="img' + fabricsDetails[j].pid + '" data-id="' + fabricsDetails[j].pid + '" src="' + fabricsDetails[j].swatch + '" /><p>' + fabricsDetails[j].name + '</p></div>');
                         //$('.defsclass').append("<svg><pattern id='img" + fabricsDetails[j].id + "' patternUnits='userSpaceOnUse' width=" + image.width + " height=" + image.height + "><image xlink:href=" + dress_details.fabrics[i].colors[j].swatch64 + " x='0' y='0' width=" + image.width + " height=" + image.height + " /></pattern></svg>");
 
                         // $('.defsclass').append("<svg><pattern id='img" + fabricsDetails[j].pid + "' patternUnits='userSpaceOnUse' width='50px' height='50px'><image xlink:href=" + fabricsDetails[j].swatch + " x='0' y='0' width='50px' height='50px' /></pattern></svg>");
@@ -196,7 +220,7 @@ $(window).load(function() {
                             var obj = {};
                             obj.id = brocadeDetails[j].brocade_id;
                             brocadeDetailsIds.push(obj);
-                            $('#material').append('<div class="pattern_div" data-price="' + brocadeDetails[j].price + '" id="divs' + brocadeDetails[j].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[j].brocade_id + '"><img  data-pid="img' + brocadeDetails[j].pid + '" data-id="' + brocadeDetails[j].pid + '" src="' + brocadeDetails[j].swatch + '" /><p>' + brocadeDetails[j].name + '</p></div>');
+                            $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[j].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[j].brocade_id + '"><img  data-pid="img' + brocadeDetails[j].pid + '" data-id="' + brocadeDetails[j].pid + '" src="' + brocadeDetails[j].swatch + '" /><p>' + brocadeDetails[j].name + '</p></div>');
                         }
 
 
@@ -214,7 +238,7 @@ $(window).load(function() {
                         var obj = {};
                         obj.id = embDetails[w].embid;
                         displayedemdids.push(obj);
-                        $('#embellishment').append('<div class="pattern_div" data-price="' + embDetails[w].price + '" id="divs' + embDetails[w].embid + '" data-category="embellishments" data-originalid="' + embDetails[w].embid + '"><img  data-pid="img' + embDetails[w].embid + '" data-id="' + embDetails[w].embid + '" src="' + embDetails[w].plainImg + '" /><p></p></div>');
+                        $('#embellishment').append('<div class="pattern_div" id="divs' + embDetails[w].embid + '" data-category="embellishments" data-originalid="' + embDetails[w].embid + '"><img  data-pid="img' + embDetails[w].embid + '" data-id="' + embDetails[w].embid + '" src="' + embDetails[w].plainImg + '" /><p></p></div>');
 
                     }
                 };
@@ -264,12 +288,15 @@ $(window).load(function() {
             var fabricPartName = [];
             var brocadePartId = [];
             var brocadePartName = [];
+
+            var groupofpart;
             for (var i = 0; i < data.fabric_groups.length; i++) {
                 for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
                     if (data.fabric_groups[i].parts[j].name == pathClass) {
                         for (var k = 0; k < data.fabric_groups[i].fabric_colors.length; k++) {
                             fabricPartId.push(data.fabric_groups[i].fabric_colors[k].id);
                             fabricPartName.push(data.fabric_groups[i].fabric_colors[k].fabric_name);
+                            groupofpart = data.fabric_groups[i].name;
                         };
 
                         //to filter brocades according to the part
@@ -284,22 +311,44 @@ $(window).load(function() {
                 };
             };
 
+            //  console.log(groupofpart);
+
             fabricPartId = _.uniq(fabricPartId);
             fabricPartName = _.uniq(fabricPartName);
             brocadePartId = _.uniq(brocadePartId);
             brocadePartName = _.uniq(brocadePartName);
 
             $('#material').html('');
-            for (var l = 0; l < fabricPartName.length; l++) {
+
+            //to find clicked class is belongs to which group
+
+
+            /*for (var l = 0; l < fabricPartName.length; l++) {
                 $('#material').append('<div style="clear:both"></div>');
                 $('#material').append('<p class="fabric_name">' + fabricPartName[l] + '</p>');
                 for (var m = 0; m < fabricPartId.length; m++) {
                     for (var n = 0; n < fabricsDetails.length; n++) {
                         if (fabricPartId[m] == fabricsDetails[n].id) {
-                            $('#material').append('<div class="pattern_div" data-price="' + fabricsDetails[m].price + '" id="divs' + fabricsDetails[m].pid + '" data-category="fabrics" data-originalid="' + fabricsDetails[m].id + '"><img  data-pid="img' + fabricsDetails[m].pid + '" data-id="' + fabricsDetails[m].pid + '" src="' + fabricsDetails[m].swatch + '" /><p>' + fabricsDetails[m].name + '</p></div>');
+                            $('#material').append('<div class="pattern_div" data-group="' + fabricsDetails[m].group + '"  data-price="' + fabricsDetails[m].price + '" id="divs' + fabricsDetails[m].pid + '" data-category="fabrics" data-originalid="' + fabricsDetails[m].id + '"><img  data-pid="img' + fabricsDetails[m].pid + '" data-id="' + fabricsDetails[m].pid + '" src="' + fabricsDetails[m].swatch + '" /><p>' + fabricsDetails[m].name + '</p></div>');
                         }
                     };
                 };
+            };*/
+
+
+            for (var l = 0; l < fabricPartName.length; l++) {
+                $('#material').append('<div style="clear:both"></div>');
+                $('#material').append('<p class="fabric_name">' + fabricPartName[l] + '</p>');
+                for (var m = 0; m < fabricPartId.length; m++) {
+                    for (var n = 0; n < allfabricgroupsDetails.length; n++) {
+                        if (groupofpart == allfabricgroupsDetails[n].group && fabricPartId[m] == allfabricgroupsDetails[n].id) {
+                            //  console.log('swatches are --'+allfabricgroupsDetails[n].swatch);
+                            $('#material').append('<div class="pattern_div" data-group="' + allfabricgroupsDetails[n].group + '" id="divs' + allfabricgroupsDetails[n].pid + '" data-category="fabrics" data-originalid="' + allfabricgroupsDetails[n].id + '"><img  data-pid="img' + allfabricgroupsDetails[n].pid + '" data-id="' + allfabricgroupsDetails[n].pid + '" src="' + allfabricgroupsDetails[n].swatch + '" /><p>' + allfabricgroupsDetails[n].name + '</p></div>');
+                        }
+                    };
+
+                };
+
             };
 
             var brocadeDetailsIds = [];
@@ -316,7 +365,7 @@ $(window).load(function() {
                             var obj = {};
                             obj.id = brocadeDetails[r].brocade_id;
                             brocadeDetailsIds.push(obj);
-                            $('#material').append('<div class="pattern_div" data-price="' + brocadeDetails[r].price + '" id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].swatch + '" /><p>' + brocadeDetails[r].name + '</p></div>');
+                            $('#material').append('<div class="pattern_div" id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].swatch + '" /><p>' + brocadeDetails[r].name + '</p></div>');
                         }
 
                     };
@@ -339,8 +388,24 @@ $(window).load(function() {
             var gettingCategory = $(this).attr('data-category');
             var gettingOriginalId = $(this).attr('data-originalid');
 
-            var gettingCost = $(this).attr('data-price');
-            gettingCost = parseInt(gettingCost);
+            var gettinggroup = $(this).attr('data-group');
+
+            var gettingCost;
+
+            // gettingCost = parseInt(gettingCost);
+            for (var a = 0; a < data.fabric_groups.length; a++) {
+                if (data.fabric_groups[a].name == gettinggroup) {
+                    for (var b = 0; b < data.fabric_groups[a].fabric_colors.length; b++) {
+                        if (data.fabric_groups[a].fabric_colors[b].id == gettingOriginalId) {
+                            //  console.log('price is ' + data.fabric_groups[a].fabric_colors[b].price);
+                            gettingCost = data.fabric_groups[a].fabric_colors[b].price;
+                        }
+                    };
+                }
+
+            };
+
+
             var img = new Image();
             img.onload = function() {
 
@@ -356,65 +421,213 @@ $(window).load(function() {
                 }); //it will check the id which is already appened svg pattern to defsclass
 
 
-
-
-
                 //searching clickable parts using fabric id or brocade id or embellishment id
-
-                if (gettingCategory == 'fabrics') {
+                if (gettinggroup == 'highlight fabric') {
+                    brocadeCost = gettingCost;
+                }
+                if (gettingCategory == 'fabrics' && gettinggroup == 'main fabric') {
                     fabriccost = gettingCost;
-
+                }
+                if (gettingCategory == 'fabrics') {
                     if (patternIdLength == 0) { //if thisid pattern is not appened to defs class then it will append that pattern id 
                         $('.defsclass').append("<svg><pattern id='img" + thisId + "' patternUnits='userSpaceOnUse' width=" + img_width + " height=" + img_height + "><image xlink:href=" + dataURL + " x='0' y='0' width=" + img_width + " height=" + img_height + " /></pattern></svg>");
                         var obj = {};
                         obj.id = thisId;
                         alreadyPatternAppened.push(obj);
                     }
+                    //this for loop is used to apply directly to main fabric parts, but not based on id 
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
                             if (data.fabric_groups[i].parts[j].name == pathClass) {
                                 for (var q = 0; q < data.fabric_groups[i].parts.length; q++) {
                                     applicableParts.push(data.fabric_groups[i].parts[q].name);
+                                    // console.log('apllicable parts are ' + data.fabric_groups[i].parts[q].name);
                                 };
                             }
 
                         };
                     };
+
+                    //this will be useful to check the applicable patterns based on id
+                    /*for (var i = 0; i < data.fabric_groups.length; i++) {
+                        for (var j = 0; j < data.fabric_groups[i].fabric_colors.length; j++) {
+                            if (gettingOriginalId == data.fabric_groups[i].fabric_colors[j].id) {
+                                for (var k = 0; k < data.fabric_groups[i].parts.length; k++) {
+                                    console.log('part names are ' + data.fabric_groups[i].parts[k].name);
+                                    applicableParts.push(data.fabric_groups[i].parts[k].name);
+                                };
+                            }
+                        };
+                    };*/
+
+
+
                     //it will apply the pattern to the partcular class
                     for (var p = 0; p < applicableParts.length; p++) {
                         $('.' + applicableParts[p]).attr('fill', 'url(#' + thisPattern + ')');
                     };
+                    updateUndoredo();
+
+
                 }
                 if (gettingCategory == 'brocades') {
                     applyBrocades(gettingOriginalId);
                 }
                 if (gettingCategory == 'embellishments') {
                     applyEmbellishment(gettingOriginalId);
-                    //console.log(embDetails);
                 }
                 updateprice();
-
-
-
             };
             img.src = imagesrc;
         });
 
+        function updateUndoredo() {
+            var totallength = historyObj.eachclick.length;
+            var currentIndex = historyObj.presentindex;
+            if (totallength > currentIndex + 1) {
+                historyObj.eachclick.splice(currentIndex + 1);
+            }
+
+            var eachclickDetails = [];
+            updateprice();
+            $('.main_parts,.group').find('path').each(function(index) {
+                var object = {};
+                object.partname = $(this).attr('class');
+                object.pattern = $(this).attr('fill');
+
+                if (object.pattern.indexOf('url') > -1) {
+                    object.pattern = object.pattern.replace('url(#', '');
+                    object.pattern = object.pattern.replace(')', '');
+                }
+                object.price = totalprice;
+                eachclickDetails.push(object);
+            });
+            if (historyObj.eachclick.length > 0) {
+                var gettinglength = historyObj.eachclick.length;
+                var getlastIndex = historyObj.eachclick.length - 1;
+
+                var historystring = JSON.stringify(historyObj.eachclick[getlastIndex]) || JSON.stringify(historyObj.eachclick[currentIndex]);
+                var presentstring = JSON.stringify(eachclickDetails);
+                if (historystring === presentstring) {
+                    alert('This pattern is already applied');
+                    return;
+                } else {
+                    historyObj.eachclick.push(eachclickDetails);
+                    historyObj.presentindex = historyObj.eachclick.length - 1;
+                }
+            }
+            if (historyObj.eachclick.length == 0) {
+                historyObj.eachclick.push(eachclickDetails);
+                historyObj.presentindex = historyObj.eachclick.length - 1;
+            }
+
+            //  console.log(JSON.stringify(historyObj));
+
+
+
+        }
+
+
+        $('.undo').click(function() {
+            $('.main_parts,.group').find('path').each(function(index) {
+                $(this).attr('fill', '#FFFFFF');
+
+            });
+
+            $('.group').hide();
+            var undoindex = historyObj.presentindex;
+            if (undoindex == 0 || undoindex < 0) {
+                console.log('undo came here ');
+
+                embellishmentcost = 0;
+                fabriccost = 0;
+                brocadeCost = 0;
+                totalprice = data.basePrice;
+                updateprice();
+
+                historyObj.presentindex = -1;
+                return;
+            }
+            undoindex = undoindex - 1;
+            historyObj.presentindex = undoindex;
+            for (var i = 0; i < historyObj.eachclick[undoindex].length; i++) {
+                var partname = historyObj.eachclick[undoindex][i].partname;
+                var pattern = historyObj.eachclick[undoindex][i].pattern;
+                var totalpriceis = historyObj.eachclick[undoindex][i].price;
+
+                totalpriceis = parseInt(totalpriceis);
+                undoredoprice(totalpriceis);
+
+                console.log('undo price is ' + historyObj.eachclick[undoindex][i].price);
+
+                var embClass = partname;
+                embClass = embClass.replace('emb_', '');
+
+                if (partname.indexOf('emb') > -1 && pattern == '#FFFFFF') {
+                    $('.' + embClass + '_group').hide();
+                }
+                if (partname.indexOf('emb') > -1 && pattern != '#FFFFFF') {
+                    $('.' + embClass + '_group').show();
+                }
+                if (pattern == '#FFFFFF') {
+                    $('.' + partname).attr('fill', '#FFFFFF');
+                } else {
+                    $('.' + partname).attr('fill', 'url(#' + pattern + ')');
+                }
+            }
+        });
+
+        $('.redo').click(function() {
+
+            //  console.log('total length is ' + historyObj.eachclick.length + ' and present index is ' + historyObj.presentindex);
+
+            if (historyObj.eachclick.length == historyObj.presentindex + 1) {
+                return;
+            }
+            $('.main_parts,.group').find('path').each(function(index) {
+                $(this).attr('fill', '#FFFFFF');
+            });
+            var redoindex = historyObj.presentindex;
+            redoindex = redoindex + 1;
+            if (redoindex == historyObj.eachclick.length) {
+                return;
+            }
+            historyObj.presentindex = redoindex;
+            for (var i = 0; i < historyObj.eachclick[redoindex].length; i++) {
+                var partname = historyObj.eachclick[redoindex][i].partname;
+                var pattern = historyObj.eachclick[redoindex][i].pattern;
+
+                var totalpriceis = historyObj.eachclick[redoindex][i].price;
+
+                totalpriceis = parseInt(totalpriceis);
+                undoredoprice(totalpriceis);
+
+                if (partname.indexOf('emb') > -1 && pattern != '#FFFFFF') {
+                    var embClass = partname;
+                    embClass = embClass.replace('emb_', '');
+                    $('.' + embClass + '_group').show();
+                }
+
+                if (pattern == '#FFFFFF') {
+                    $('.' + partname).attr('fill', '#FFFFFF');
+                } else {
+                    $('.' + partname).attr('fill', 'url(#' + pattern + ')');
+                }
+            }
+        });
 
         var embAllDetails = [];
         var inserted_Emb_Patternsare = [];
-
         var embdetailswithbase64 = [];
-
         var finalEmbDeatils = [];
+
+        var allEmbellishmentDetailsArray = [];
 
         function applyEmbellishment(embid) {
             var embpngimgesArray = [];
             finalEmbDeatils = [];
             embdetailswithbase64 = [];
             embAllDetails = [];
-
-            //  console.log(embDetails);
 
             for (var i = 0; i < embDetails.length; i++) {
 
@@ -427,7 +640,6 @@ $(window).load(function() {
                     embobj.price = embDetails[i].price;
                     embpngimgesArray.push(embobj.png);
                     embAllDetails.push(embobj);
-                    //please push to partname
                 }
             };
             var embIdIn_Defs = _.where(inserted_Emb_Patternsare, {
@@ -435,6 +647,7 @@ $(window).load(function() {
             });
             embpngimgesArray = _.uniq(embpngimgesArray);
             // console.log(embpngimgesArray);
+
             if (embIdIn_Defs.length == 0) {
                 async.eachSeries(embpngimgesArray, function iterator(item, callback) {
                     convertingembImg_to_base64(item, embid, callback);
@@ -443,9 +656,6 @@ $(window).load(function() {
                     obj.id = embid;
                     inserted_Emb_Patternsare.push(obj);
                     $('.svg_base64loading').hide();
-
-
-
                     for (var i = 0; i < embdetailswithbase64.length; i++) {
                         for (var j = 0; j < embAllDetails.length; j++) {
                             //  console.log('imgsrc ' + embdetailswithbase64[i].imgsrc + '   ' + embAllDetails[j].png)
@@ -458,12 +668,11 @@ $(window).load(function() {
                                 f_obj.base64 = embdetailswithbase64[i].base64;
                                 f_obj.height = embdetailswithbase64[i].height;
                                 finalEmbDeatils.push(f_obj);
+                                allEmbellishmentDetailsArray.push(f_obj);
                             }
                         };
                     };
 
-                    // console.log(finalEmbDeatils);
-                    //  console.log(finalEmbDeatils);
                     for (var k = 0; k < finalEmbDeatils.length; k++) {
                         // $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
                         $('.defsclass').append("<svg><pattern x='0' y='0' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'  patternUnits='userSpaceOnUse' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + "><image xlink:href=" + finalEmbDeatils[k].base64 + " x='0' y='0' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + " /></pattern></svg>");
@@ -479,31 +688,52 @@ $(window).load(function() {
 
                                 embellishmentcost = 0;
                                 embellishmentcost += finalEmbDeatils[k].price;
-
-
-
                             }
                         });
                     };
 
+                    setTimeout(function() {
+                        updateUndoredo();
+                    }, 1000);
+
                 });
+
             } else {
-                for (var k = 0; k < finalEmbDeatils.length; k++) {
+                console.log(allEmbellishmentDetailsArray);
+                var dill = _.where(allEmbellishmentDetailsArray, {
+                    embid: embid
+                });
+
+
+                for (var k = 0; k < allEmbellishmentDetailsArray.length; k++) {
+
                     // $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
                     $('.group').find('path').each(function(index) {
 
-                        if ($(this).attr('class') == finalEmbDeatils[k].partname) {
-                            $('.' + finalEmbDeatils[k].partname).attr('fill', 'url(#img_emb_' + finalEmbDeatils[k].embid + '_' + finalEmbDeatils[k].partname + ')');
+                        if ($(this).attr('class') == allEmbellishmentDetailsArray[k].partname && allEmbellishmentDetailsArray[k].embid == embid) {
+
+                            var gettingClass = allEmbellishmentDetailsArray[k].partname;
+                            //  console.log('class name is ' + finalEmbDeatils[k].partname);
+                            gettingClass = gettingClass.replace('emb_', '');
+
+                            $('.' + gettingClass + '_group').show();
+
+                            $('.' + allEmbellishmentDetailsArray[k].partname).attr('fill', 'url(#img_emb_' + allEmbellishmentDetailsArray[k].embid + '_' + allEmbellishmentDetailsArray[k].partname + ')');
 
                             embellishmentcost = 0;
-                            embellishmentcost += parseInt(finalEmbDeatils[k].price);
+                            embellishmentcost += parseInt(allEmbellishmentDetailsArray[k].price);
 
                         }
                     });
                 };
+                setTimeout(function() {
+                    updateUndoredo();
+                }, 1000);
             }
             updateprice();
-            // console.log(' embellisment cost ' + embellishmentcost);
+
+
+
 
         }
 
@@ -589,26 +819,30 @@ $(window).load(function() {
                         };
                     };
 
-
+                    brocadeCost = 0;
                     for (var k = 0; k < finalBrocadesArray.length; k++) {
                         $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
                         //$('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternUnits='userSpaceOnUse' x='0' y='0'  width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + " preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width=" + finalBrocadesArray[k].width + " height=" + finalBrocadesArray[k].height + " /></pattern></svg>");
                         $('.main_parts').find('path').each(function(index) {
                             if ($(this).attr('class') == finalBrocadesArray[k].partname) {
-                                brocadeCost = 0;
-                                brocadeCost = parseInt(finalBrocadesArray[k].price);
+
+                                brocadeCost += parseInt(finalBrocadesArray[k].price);
+                                console.log(brocadeCost);
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                             }
                         });
                     };
 
-
+                    setTimeout(function() {
+                        updateUndoredo();
+                    }, 1000);
 
                 });
 
 
             } else {
                 //console.log(finalBrocadesArray);
+                brocadeCost = 0;
                 for (var k = 0; k < finalBrocadesArray.length; k++) {
                     //$('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
 
@@ -616,14 +850,19 @@ $(window).load(function() {
 
                         $('.main_parts').find('path').each(function(index) {
                             if ($(this).attr('class') == finalBrocadesArray[k].partname) {
-                                brocadeCost = 0;
-                                brocadeCost = parseInt(finalBrocadesArray[k].price);
+
+                                brocadeCost += parseInt(finalBrocadesArray[k].price);
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                             }
                         });
                     }
                 };
+
+                setTimeout(function() {
+                    updateUndoredo();
+                }, 1000);
             }
+
 
             // console.log('brocade cost is ' + brocadeCost);
 
@@ -884,11 +1123,13 @@ $(window).load(function() {
             animationTime: 300
         });
 
+        function undoredoprice(undoredototalprice) {
+            totalprice = undoredototalprice;
+            $('.price').html(undoredototalprice + ' INR');
+        }
+
         function updateprice() {
-
             totalprice = basePrice + fabriccost + brocadeCost + embellishmentcost;
-
-            console.log('embellishmentcost ' + embellishmentcost)
             $('.price').html(totalprice + ' INR');
         }
         //undo redo functionality starts here ====================================
