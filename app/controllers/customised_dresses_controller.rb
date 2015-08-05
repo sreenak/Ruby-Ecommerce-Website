@@ -26,7 +26,7 @@ class CustomisedDressesController < ApplicationController
   # /GET customised_dresses/delete
 
   def destroy
-    @customised_dresses = CustomisedDress.where(user_id: current_user.id, dress_id: params[:id]).first
+    @customised_dresses = CustomisedDress.where(user_id: current_user.id, id: params[:id]).first
     respond_to do |format|
       if @customised_dresses.present?
         @customised_dresses.destroy
