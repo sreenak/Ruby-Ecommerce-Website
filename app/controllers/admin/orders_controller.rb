@@ -3,7 +3,7 @@ class Admin::OrdersController < AdminController
 
   # GET /admin/orders
   def index
-    @orders = Order.valid_orders.page params[:page]
+    @orders = Order.valid_orders.order(created_at: :desc).page params[:page]
   end
 
   # GET /admin/orders/1
