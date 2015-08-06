@@ -9,12 +9,12 @@ Bundler.require(*Rails.groups)
 module Kaapad
   class Application < Rails::Application
     config.generators do |g|
-    g.orm             :active_record
-    g.test_framework  false
-    g.stylesheets     false
-    g.javascripts     false
-    g.helper false
-  end
+      g.orm :active_record
+      g.test_framework false
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+    end
     config.action_mailer.default_url_options = {host: 'kaapad.com'}
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
