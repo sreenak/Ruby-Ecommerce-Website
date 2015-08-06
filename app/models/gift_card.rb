@@ -7,18 +7,12 @@ class GiftCard < ActiveRecord::Base
   before_create :set_remaining
 
   belongs_to :user
-
   has_many :usages, class_name: 'GiftCardUsage'
-  # belongs_to :gift_cardable, polymorphic: true
 
   enum status: STATUSES
-  enum deliver_to: DELIVERABLE_TO_OPTIONS
-
-
 
   before_create :generate_code
   validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
-
 
   monetize :amount_paisas, with_model_currency: :currency
   monetize :remaining_paisas, with_model_currency: :currency
@@ -45,16 +39,8 @@ class GiftCard < ActiveRecord::Base
     amount - used_amount
   end
 
-
-
-  # def email_required?
-  #   card_type == 'E-GIFT CERTIFICATE'
-  # end
-
   private
   def set_remaining
     remaining = amount
   end
-
-
 end

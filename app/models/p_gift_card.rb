@@ -4,7 +4,6 @@ class PGiftCard < GiftCard
 
   private
   def shipping_not_required?
-    self.deliver_to == 'Me' or self.deliver_to.blank?
+    self.deliver_to == 'Me'
   end
-
 end

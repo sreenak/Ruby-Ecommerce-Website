@@ -34,6 +34,7 @@ class GiftCardsController < ApplicationController
         session[:order_id] = @cart.id
       else
         @gift = EGiftCard.new
+        @p_gift.build_shipping_address if @p_gift.shipping_address.blank?
         flash[:error] = 'There are errors in form!'
         return render :new
       end
@@ -45,6 +46,7 @@ class GiftCardsController < ApplicationController
   def e_gift_card_params
     params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount_paisas, :currency)
   end
+
   def p_gift_card_params
     params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :id, :_destroy, :city, :country, :postal_code])
   end

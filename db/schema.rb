@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804122741) do
+ActiveRecord::Schema.define(version: 20150806060653) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -141,6 +141,21 @@ ActiveRecord::Schema.define(version: 20150804122741) do
     t.string   "currency",                   limit: 255,                         default: "INR", null: false
     t.integer  "usage_count",                limit: 4,                           default: 0,     null: false
   end
+
+  create_table "dress_line_item_options", force: :cascade do |t|
+    t.integer  "line_item_id",     limit: 4
+    t.integer  "standard_size_id", limit: 4
+    t.string   "details",          limit: 255
+    t.string   "angle_0",          limit: 255, default: "", null: false
+    t.string   "angle_90",         limit: 255
+    t.string   "angle_180",        limit: 255
+    t.string   "angle_270",        limit: 255
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  add_index "dress_line_item_options", ["line_item_id"], name: "index_dress_line_item_options_on_line_item_id", using: :btree
+  add_index "dress_line_item_options", ["standard_size_id"], name: "index_dress_line_item_options_on_standard_size_id", using: :btree
 
   create_table "dresses", force: :cascade do |t|
     t.string   "name",              limit: 255, default: "",    null: false
@@ -308,7 +323,7 @@ ActiveRecord::Schema.define(version: 20150804122741) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["parts_group_id"], name: "index_parts_on_parts_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -451,7 +466,7 @@ ActiveRecord::Schema.define(version: 20150804122741) do
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
     t.date     "date_of_birth"
-    t.integer  "gender",                 limit: 2
+    t.integer  "gender",                 limit: 1
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -474,6 +489,8 @@ ActiveRecord::Schema.define(version: 20150804122741) do
   add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
+  add_foreign_key "dress_line_item_options", "line_items"
+  add_foreign_key "dress_line_item_options", "standard_sizes"
   add_foreign_key "dresses", "categories"
   add_foreign_key "embellishment_parts", "embellishments"
   add_foreign_key "embellishment_parts", "parts"
