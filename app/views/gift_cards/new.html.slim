@@ -23,19 +23,19 @@
       #e-gift.certificate-type.toggle
         .row
           .col-sm-4.col-xs-6
-            = f.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required'}
+            = f.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
           .col-sm-4.col-xs-6
-            = f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency'
+            = f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
             .form-group.string.required.gift_card_ordered_for
               label.string.required.control-label[for='gift_card_ordered_for']
                 abbr[title='required']
                   | *
                 |  Quantity
-              input#gift_card_ordered_for.string.required.form-control[type='number' min='1' value='1' name='quantity' autocomplete='off' data-validation='number']
+              input#gift_card_ordered_for.string.required.form-control[type='number' min='1' value='1' name='quantity' autocomplete='off' data-validation='required' data-validation-error-msg= 'Please Enter Quantity']
         = f.input :ordered_by, label: 'Your Name', value: current_or_null_user.name ,  :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct  Name'}
         = f.input :ordered_for, label: "Recipient's Name", :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct Recipient Name'}
-        = f.input :email, label: "Recipient's Email"
+        = f.input :email, label: "Recipient's Email", :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct Recipient Email'}
          
         = f.input :message
         input.buynow.btn.btn-default[type='submit' value='BUY NOW']
@@ -47,16 +47,16 @@
         .row
           .col-sm-4.col-xs-6
             /= p.input :type, as: :hidden, value: 'P-GIFT CERTIFICATE'
-            = p.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required'}
+            = p.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Amount'}
           .col-sm-4.col-xs-6
-            = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency'
+            = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
             .form-group.string.required.gift_card_ordered_for
               label.string.required.control-label[for='gift_card_ordered_for']
                 abbr[title='required']
                   | *
                 |  Quantity
-              input#gift_card_ordered_for.string.required.form-control[type='number' min='1' value='1' name='quantity' autocomplete='off' data-validation='number']
+              input#gift_card_ordered_for.string.required.form-control[type='number' min='1' value='1' name='quantity' autocomplete='off' data-validation='required' data-validation-error-msg= 'Please Enter Quantity']
         = p.input :ordered_by, label: 'Your Name', value: current_or_null_user.name ,  :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct  Name'}
         = p.input :ordered_for, label: "Recipient's Name", :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct Recipient Name'}
        

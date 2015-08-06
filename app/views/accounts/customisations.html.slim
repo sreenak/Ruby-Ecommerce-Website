@@ -22,11 +22,11 @@
                     .action-row.top.clearfix.hover-content
                       a href="#{customised_dress_path(:id => cust.id)}" data-method ="delete" rel="nofollow"
                         i.icon.ion-trash-b
-                        |Delete
+                        |Delete &nbsp;&nbsp;&nbsp;
                         i.icon.ion-wand
                       a href="#{customise_path(:id => cust.dress.id)}"
                         |Customise
-      = paginate @customises
+    = paginate @customises
 
         /
         /a href="#{ customised_dress_path(:id => cust.id)}" data-method ="delete" rel="nofollow"
