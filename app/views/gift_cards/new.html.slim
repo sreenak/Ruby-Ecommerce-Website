@@ -19,7 +19,7 @@
           | GIFT CERTIFICATE
           i.icon.ion-ios-information
     = simple_form_for @gift, url: :gift_cards, wrapper: :vertical_form do |f|
-      = render 'shared/form_errors', object: f.object
+      /= render 'shared/form_errors', object: f.object
       #e-gift.certificate-type.toggle
         .row
           .col-sm-4.col-xs-6
@@ -42,7 +42,7 @@
         
     /---- Gift certificates ------    
     = simple_form_for @p_gift, url: :add_gift_cards , wrapper: :vertical_form do |p|
-      = render 'shared/form_errors', object: p.object
+      /= render 'shared/form_errors', object: p.object
       #gift.certificate-type
         .row
           .col-sm-4.col-xs-6

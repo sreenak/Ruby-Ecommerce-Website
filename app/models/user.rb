@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   include Authority::Abilities
   include Authority::UserAbilities
-
   GENDERS = %w(Male Female Other)
 
   self.authorizer_name = 'AdminAuthorizer'

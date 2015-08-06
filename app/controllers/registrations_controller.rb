@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
     if verify_recaptcha
       super
     else
-      build_resource(sign_up_params)
+      build_resource(sign_up_params).valid?
       clean_up_passwords(resource)
       flash.now[:alert] = 'Captcha failed!'
       flash.delete :recaptcha_error

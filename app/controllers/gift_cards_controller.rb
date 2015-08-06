@@ -19,6 +19,7 @@ class GiftCardsController < ApplicationController
         session[:order_id] = @cart.id
       else
         @p_gift = PGiftCard.new
+        @p_gift.build_shipping_address if @p_gift.shipping_address.blank?
         flash[:error] = 'There are errors in form!'
         return render :new
       end

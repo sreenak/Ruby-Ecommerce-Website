@@ -17,6 +17,7 @@ class CheckoutController < ApplicationController
       unless verify_recaptcha(message: nil)
         flash.delete :recaptcha_error
         flash[:alert] = 'Captcha verification failed!'
+        @user.valid?
         return render :user
       end
       require 'securerandom'

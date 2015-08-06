@@ -39,6 +39,7 @@
                     .action-row.text-center.bottom.hover-content
                       i.icon.ion-wand
                       |Customise
+  = paginate @products
 
   .blog-result
     - if @trends.present?
@@ -47,3 +48,4 @@
       - @trends.each do |t|
         h4= t.title
         p= truncate(strip_tags(t.body), length: 250)
+    = paginate @trends
