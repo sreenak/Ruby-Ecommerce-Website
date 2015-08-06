@@ -90,7 +90,6 @@ class Cart
     calculate
   end
 
-  private
   def calculate
     # First, let's calculate all the discounts
     discount_items.each do |d|
