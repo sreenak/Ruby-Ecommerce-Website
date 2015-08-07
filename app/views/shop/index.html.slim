@@ -66,8 +66,12 @@ h1.page-title.text-center.text-uppercase Shop
                 label
                   = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                   = c.name
-        = f.submit 'Filter', class: 'btn btn-default filterbutton'
-        <br>
+
+        /= f.submit 'Filter', class: 'btn btn-default filterbutton'
+        /<br>
+
+        /= f.submit 'Filter', class: 'btn btn-default'
+
 
   .col-md-9.imagewidth
     - if @products.count > 0

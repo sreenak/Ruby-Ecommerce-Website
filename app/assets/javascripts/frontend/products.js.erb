@@ -41,6 +41,11 @@ $(window).load(function () {
     $(".clear-filters").click(function(){
         var clear_filter = $(this).parent().next('ul');
         $(clear_filter).children('li').children('label').children('input').prop('checked', false)
-    })
+    });
+
+    $(".product-categories input[type=checkbox]").click(function(){
+//      alert(this.value);
+        this.form.submit();
+    });
 
 });
