@@ -54,7 +54,7 @@ h4.floral-text.page-title.text-center
   - @products.each_slice(3) do |row|
     .row
       - row.each do |product|
-        .col-md-4.col-sm-6
+        .col-md-4.col-sm-4
           .product-preview.hover-container
             a href="#{shop_path(product)}"
               = image_tag product.image_url(:preview)

@@ -83,3 +83,30 @@
   padding: $line-height-computed;
 }
 
+
+@media screen and (max-width : 480px){
+  
+}
+
+
+/* For iphone: */
+@media screen and (max-width : 320px){
+
+  
+} 
+
+
+/* For ipad: */
+@media screen and (min-width : 768px) and (max-width :992px){
+  .searchwidth{
+      width:30%;
+      float:left;
+  }
+  .imagewidth{
+      width:70%;
+      float:right
+  }
+} 
+.filterbutton{
+  margin-bottom:15px;
+}

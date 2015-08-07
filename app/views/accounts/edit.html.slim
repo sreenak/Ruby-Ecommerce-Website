@@ -2,8 +2,8 @@
   = @user.name
 
 .row
-  .col-md-4.col-lg-3= render 'sidebar'
-  .col-md-8.col-lg-9
+  .col-md-4.col-lg-3.searchwidth= render 'sidebar'
+  .col-md-8.col-lg-9.imagewidth
     = simple_form_for @user, url: account_path do |f|
       .row
         .col-sm-6

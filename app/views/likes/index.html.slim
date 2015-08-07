@@ -2,8 +2,8 @@
   |My Likes
 
 .row
-  .col-md-4.col-lg-3= render 'accounts/sidebar'
-  .products.mylikes.col-md-8.col-lg-9
+  .col-md-4.col-lg-3.searchwidth= render 'accounts/sidebar'
+  .products.mylikes.col-md-8.col-lg-9.imagewidth
     h4.floral-text.text-uppercase.text-center.page-title
       span My Likes
     - if @likes
@@ -15,7 +15,7 @@
           - @likes.each_slice(3) do |row|
             .row
               - row.each do |like|
-                .col-md-4.col-sm-6
+                .col-md-4.col-sm-4
                   .product-preview.hover-container
                     a href="#{shop_path(like.product)}"
                       = image_tag like.product.image_url(:medium)

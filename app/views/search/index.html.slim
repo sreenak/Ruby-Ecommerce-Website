@@ -16,7 +16,7 @@
         - @products.each_slice(3) do |row|
           .row
             - row.each do |product|
-              .col-md-4.col-sm-6
+              .col-md-4.col-sm-4
                 .product-preview.hover-container
                   a href="#{shop_path(product)}"
                     = image_tag product.image_url(:medium)
@@ -34,7 +34,7 @@
                         i.icon.ion-ios-cart
                         = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
                     h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
-                    h4.text-center
+                    h4.text-center.productheader
                       = link_to product.name, shop_path(product)
                     .action-row.text-center.bottom.hover-content
                       i.icon.ion-wand

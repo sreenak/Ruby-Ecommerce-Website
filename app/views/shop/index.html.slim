@@ -6,7 +6,7 @@
 
 h1.page-title.text-center.text-uppercase Shop
 .row
-  .col-md-3
+  .col-md-3.searchwidth
     = search_form_for @product_search, url: shop_index_path do |f|
       .product-filter
         .product-box
@@ -66,15 +66,16 @@ h1.page-title.text-center.text-uppercase Shop
                 label
                   = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                   = c.name
-        = f.submit 'Filter', class: 'btn btn-default'
+        = f.submit 'Filter', class: 'btn btn-default filterbutton'
+        <br>
 
-  .col-md-9
+  .col-md-9.imagewidth
     - if @products.count > 0
       .products
         - @products.each_slice(3) do |row|
           .row
             - row.each do |product|
-              .col-md-4.col-sm-6
+              .col-md-4.col-sm-4
                 .product-preview.hover-container
                   a href="#{shop_path(product)}"
                     = image_tag product.image_url(:preview)
