@@ -67,8 +67,8 @@ h1.page-title.text-center.text-uppercase Shop
                   = f.check_box :colors_id_in, {multiple: true}, c.id, nil
                   = c.name
 
-        /= f.submit 'Filter', class: 'btn btn-default filterbutton'
-        /<br>
+        = f.submit 'Filter', class: 'btn btn-default filterbutton'
+        <br>
 
         /= f.submit 'Filter', class: 'btn btn-default'
 
