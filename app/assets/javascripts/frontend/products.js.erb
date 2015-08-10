@@ -43,9 +43,16 @@ $(window).load(function () {
         $(clear_filter).children('li').children('label').children('input').prop('checked', false)
     });
 
-//    $(".product-categories input[type=checkbox]").click(function(){
+    $(".product-categories input[type=checkbox]").click(function(){
 //      alert(this.value);
+        this.form.submit();
+    });
+    $(".product-size input[type=checkbox]").click(function(){
+        this.form.submit();
+    });
+    $(".product-price-flt").click(function(){
 //        this.form.submit();
-//    });
+        $("#product_search").submit();
+    });
 
 });
