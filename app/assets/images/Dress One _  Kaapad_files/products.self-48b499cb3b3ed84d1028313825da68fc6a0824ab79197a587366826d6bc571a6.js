@@ -1,0 +1,46 @@
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+    return params;
+}
+$(window).load(function () {
+
+    $("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true, loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'});
+    //pass the images to Fancybox
+    $("#zoom_03").bind("click", function(e) { var ez = $('#zoom_03').data('elevateZoom');
+        $.fancybox(ez.getGalleryList()); return false; });
+
+//    $('.sp-wrap').smoothproducts();
+    /*===============massege box toggle ===========*/
+    $('#gift').click(function () {
+        $('.send-gift-to').toggleClass('hidden');
+    });
+
+/*=============== price slider =================*/
+    var price = getQueryParams(document.location.search).price;
+    $("#price-range").slider({from: 0, to: 100000, heterogeneity: ['10/1000'], step: 100, dimension: '&nbsp;'});
+    if(price){
+        var priceComponents = price.split(';');
+        var from = priceComponents[0];
+        var to = priceComponents[1];
+        $("#price-range").slider('value', from, to)
+    }
+
+/*=============== sortby ============*/
+    $(".sort-by-product").click(function () {
+        $('.sort-by-list').toggleClass('hidden');
+    });
+
+/*============= Clear Filters ===========*/
+
+    $(".clear-filters").click(function(){
+        var clear_filter = $(this).parent().next('ul');
+        $(clear_filter).children('li').children('label').children('input').prop('checked', false)
+    })
+
+});

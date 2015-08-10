@@ -126,6 +126,7 @@ $(window).load(function() {
 
 
 
+                    // console.log(allfabricgroupsDetails);
                     // to display the brocades initially
 
                     for (var k = 0; k < data.fabric_groups[i].parts.length; k++) {
@@ -154,6 +155,7 @@ $(window).load(function() {
                     };
                 };
 
+                console.log(brocadeDetails);
                 //to display embellishments initially
 
                 for (var n = 0; n < data.embelishment_groups.length; n++) {
@@ -208,11 +210,6 @@ $(window).load(function() {
                         // $('.defsclass').append("<svg><pattern id='img" + fabricsDetails[j].pid + "' patternUnits='userSpaceOnUse' width='50px' height='50px'><image xlink:href=" + fabricsDetails[j].swatch + " x='0' y='0' width='50px' height='50px' /></pattern></svg>");
                     };
                 };
-                console.log('-- all fabric group details--');
-                console.log(allfabricgroupsDetails);
-
-                console.log('-- all brocadeDetails --');
-                console.log(brocadeDetails);
 
                 // displaying all brocades intially without repeating
                 //console.log(brocadeDetails);
@@ -455,17 +452,28 @@ $(window).load(function() {
                     //this for loop is used to apply directly to main fabric parts, but not based on id 
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
-
-                            if ((data.fabric_groups[i].parts[j].name == pathClass) && (data.fabric_groups[i].name == gettinggroup)) {
-                                //  console.log('part names are ' + data.fabric_groups[i].parts[j].name);
+                            if (data.fabric_groups[i].parts[j].name == pathClass) {
                                 for (var q = 0; q < data.fabric_groups[i].parts.length; q++) {
                                     applicableParts.push(data.fabric_groups[i].parts[q].name);
-                                    console.log('apllicable parts are ' + data.fabric_groups[i].parts[q].name);
+                                    // console.log('apllicable parts are ' + data.fabric_groups[i].parts[q].name);
                                 };
                             }
 
                         };
                     };
+
+                    //this will be useful to check the applicable patterns based on id
+                    /*for (var i = 0; i < data.fabric_groups.length; i++) {
+                        for (var j = 0; j < data.fabric_groups[i].fabric_colors.length; j++) {
+                            if (gettingOriginalId == data.fabric_groups[i].fabric_colors[j].id) {
+                                for (var k = 0; k < data.fabric_groups[i].parts.length; k++) {
+                                    console.log('part names are ' + data.fabric_groups[i].parts[k].name);
+                                    applicableParts.push(data.fabric_groups[i].parts[k].name);
+                                };
+                            }
+                        };
+                    };*/
+
 
 
                     //it will apply the pattern to the partcular class
@@ -477,10 +485,10 @@ $(window).load(function() {
 
                 }
                 if (gettingCategory == 'brocades') {
-                    applyBrocades(gettingOriginalId, gettinggroup);
+                    applyBrocades(gettingOriginalId);
                 }
                 if (gettingCategory == 'embellishments') {
-                    applyEmbellishment(gettingOriginalId, gettinggroup);
+                    applyEmbellishment(gettingOriginalId);
                 }
                 updateprice();
                 $('.pattern_div').removeAttr('disabled');
@@ -584,6 +592,8 @@ $(window).load(function() {
 
         $('.redo').click(function() {
 
+            //  console.log('total length is ' + historyObj.eachclick.length + ' and present index is ' + historyObj.presentindex);
+
             if (historyObj.eachclick.length == historyObj.presentindex + 1) {
                 return;
             }
@@ -626,7 +636,7 @@ $(window).load(function() {
 
         var allEmbellishmentDetailsArray = [];
 
-        function applyEmbellishment(embid, gettinggroup) {
+        function applyEmbellishment(embid) {
             var embpngimgesArray = [];
             finalEmbDeatils = [];
             embdetailswithbase64 = [];
@@ -678,7 +688,12 @@ $(window).load(function() {
                     };
                     embellishmentcost = 0;
                     for (var k = 0; k < finalEmbDeatils.length; k++) {
-
+                        //$('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image preserveAspectRatio='xMidYMid slice' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
+                        //$('.defsclass').append("<svg><pattern x='0' y='0' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'  patternUnits='userSpaceOnUse' width='100%' height='100%'><image xlink:href=" + finalEmbDeatils[k].base64 + " x='0' y='0'></image></pattern></svg>");
+                        // $('.defsclass').append("<svg><pattern preserveAspectRatio='true'  patternContentUnits='objectBoundingBox' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' width='1' height='1'><image x='0' y='0' xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1'/></pattern></svg>");
+                        //$('.defsclass').append("<svg><pattern patternUnits='userSpaceOnUse' width='100' height='100' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'><image xlink:href=" + finalEmbDeatils[k].base64 + "  x='0' y='0' width='100' height='100'/></pattern></svg>");
+                        // $('.defsclass').append("<svg><pattern x='0' y='0' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'  patternUnits='userSpaceOnUse' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + "><image xlink:href=" + finalEmbDeatils[k].base64 + " x='0' y='0' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + "></image></pattern></svg>");
+                        // $('.defsclass').append("<svg><pattern  x='0' y='0' id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "'  patternUnits='userSpaceOnUse' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + "><image xlink:href=" + finalEmbDeatils[k].base64 + " x='0' y='0' width=" + finalEmbDeatils[k].width + " height=" + finalEmbDeatils[k].height + " /></pattern></svg>");
                         $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
 
                         $('.group').find('path').each(function(index) {
@@ -775,13 +790,13 @@ $(window).load(function() {
         var brocadePatterns = [];
         var finalBrocadesArray = [];
 
-        function applyBrocades(brocadeId, gettinggroup) {
+        function applyBrocades(brocadeId) {
             //  console.log(brocadeDetails);
             var imagesArray = []; //contails all png source which has to convert from png to base64
             finalBrocadeDetails = [];
             brocadePatterns = []; //while using async to convert base 64 all base64 formate and src will be here to match with existing parts
             for (var i = 0; i < brocadeDetails.length; i++) {
-
+                // console.log('brocade_id ' + brocadeDetails[i].brocade_id + ' brocadeId' + brocadeId);
                 if (brocadeDetails[i].brocade_id == brocadeId) {
                     var broObj = {};
                     broObj.brocade_id = brocadeDetails[i].brocade_id;
@@ -810,6 +825,8 @@ $(window).load(function() {
                     obj.id = brocadeId;
                     brocadesPatternsInserted.push(obj);
 
+                    console.log('brocade patterns ');
+                    console.log(brocadePatterns)
                     for (var i = 0; i < brocadePatterns.length; i++) {
                         for (var j = 0; j < finalBrocadeDetails.length; j++) {
                             console.log((brocadePatterns[i].imgsrc.indexOf(finalBrocadeDetails[j].image) > -1) && (brocadePatterns[i].brocadeId == brocadeId));
