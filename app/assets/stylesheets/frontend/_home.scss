@@ -1,3 +1,23 @@
+.navbar-links{
+margin:10px 10px 10px 5px;
+  background:black;
+  height:60px;
+  width:100%
+}
+.nav-align{
+  float:left;
+}
+.navbar-toggle .icon-bar {
+    background: white;
+    margin-top:5px;
+}
+.h-align{
+  float:left;
+}
+.fa-color{
+  color:white;
+  margin-top:14px;
+}
 .hero-section {
   position: relative;
   color: #ffffff;
@@ -90,11 +110,21 @@
 
 
 /* For iphone: */
-@media screen and (max-width : 320px){
-
-  
+@media screen and (max-width : 320px) and (max-width :400px){
+ .hero-section >img{
+    height:225px;
+ }
+  .input-group {
+  margin-left: 18px
 } 
-
+.carousel-indicators{
+  bottom:3px;
+}
+.choose-head
+{
+  font-size:15px;
+}
+}
 
 /* For ipad: */
 @media screen and (min-width : 768px) and (max-width :992px){
@@ -106,12 +136,17 @@
       width:70%;
       float:right
   }
+  .icon-block {
+     float: left
+}
   .save{
     margin-right:10px;
     margin-bottom:10px;
    }
 } 
-
+.hero-section >img{
+   
+ }
 
 
 .filterbutton{

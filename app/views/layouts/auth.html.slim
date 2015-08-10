@@ -46,12 +46,13 @@ html lang="en-us"
               span.icon-bar
               span.icon-bar
               span.icon-bar
+
               a.navbar-brand Kaapad
           #top-bar.collapse.navbar-collapse
             /= form_tag search_index_path, :method => 'get' do
               /= text_field_tag :q, nil
               /= submit_tag "Search"
-
+           
             form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
               .input-group
                 .input-append
