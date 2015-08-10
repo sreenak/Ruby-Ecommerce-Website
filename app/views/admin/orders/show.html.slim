@@ -15,6 +15,9 @@ table.table.table-responsive.table-striped
         | Quantity
       th
         | Price
+      th
+        | Details
+
   tbody
     - @order.line_items.each do |item|
       tr
@@ -26,6 +29,16 @@ table.table.table-responsive.table-striped
           = item.quantity
         td
           = humanized_money_with_symbol item.amount_paisas
+        td
+          - if item.line_itemable_type == 'Product' && item.product_line_item_option.present?
+            'Size :
+            = item.product_line_item_option.standard_size.name
+            br
+            'Is Gift :
+            = item.product_line_item_option.is_gift
+          - elsif item.line_itemable_type == 'Dress' && item.dress_line_item_option.present?
+            'Size :
+            = item.dress_line_item_option.standard_size.name
         td
           = link_to 'Back', admin_orders_path
 
