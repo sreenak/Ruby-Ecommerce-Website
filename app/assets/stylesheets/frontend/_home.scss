@@ -23,7 +23,7 @@ margin:10px 10px 10px 5px;
   color: #ffffff;
   .content {
     position: absolute;
-    top: 50%;
+    top: 20%;
     transform: translateY(-50%);
     left: 0;
     width: 100%;
@@ -103,9 +103,10 @@ margin:10px 10px 10px 5px;
   padding: $line-height-computed;
 }
 
-
-@media screen and (max-width : 480px){
-  
+@media screen and (min-width : 320px) and (max-width :768px){
+  .trend-preview {
+    margin-bottom: 15px;
+}
 }
 
 
@@ -124,6 +125,7 @@ margin:10px 10px 10px 5px;
 {
   font-size:15px;
 }
+
 }
 
 /* For ipad: */
@@ -144,11 +146,11 @@ margin:10px 10px 10px 5px;
     margin-bottom:10px;
    }
 } 
+
+
 .hero-section >img{
    
  }
-
-
 .filterbutton{
   margin-bottom:15px;
 }
