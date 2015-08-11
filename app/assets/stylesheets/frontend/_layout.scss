@@ -128,6 +128,9 @@ display: block;
 
 .visible-xs
 {
+.navbar{
+  margin-bottom:0px;
+}
    .navbar-collapse{
        padding-left:15px !important;
        padding-right:15px !important;
@@ -153,7 +156,113 @@ display: block;
 
         }
      }
+     .navbar-nav > li > a{
+     text-transform:uppercase;
+     }
      
+     $tl: 0.6s; // transition length
+      .search-box {
+        transition: width $tl, border-radius $tl, background $tl, box-shadow $tl;
+        width: 0px;
+        height: 0px;
+        padding:0px;
+        margin-top:9px;
+        //border-radius: 20px;border: none;
+        cursor: pointer;
+        background: black;
+        margin-top:0px;
+        & + label .search-icon {    color: white    }
+        &:hover {
+          color: white;
+          background: rgb(200, 200, 200);
+          box-shadow: 0 0 0 5px rgb(61, 71, 82);
+          & + label .search-icon {    color: white    }
+        }
+        &:focus {
+          transition: width $tl cubic-bezier(0,1.22,.66,1.39), border-radius $tl, background $tl;
+          border: none;outline: none;
+          box-shadow: none;
+          padding-left: 15px;
+          cursor: text;
+          width: 100px;
+          border-radius: auto;
+          background: rgb(235, 235, 235);
+          color: black;
+          & + label .search-icon {    color: black;    }
+        }
+        &:not(:focus) {    text-indent:-5000px;    } // for more-graceful falling back (:not browsers likely support indent)
+      }
+
+      #search-submit {
+        position: relative;left: -5000px;
+      }
+
+      .search-icon {
+        position: relative;
+        left: -30px;
+        color: white;
+        cursor: pointer;
+      }
     
+   .searchbar-wrap{
+      float:left;
+      width:150px;
+   }
+   .input-group{
+   margin-left:0px;
+   }
+   .home_searchbar_btn{
+     background-color:transparent;
+     border:0px;
+       i{
+         color:white;
+         font-size:24px;
+      }
+   }
+
+.price-conversion{
+width:100%;
+float:left;
+    padding-right: 15px;
+  .navbar-left{
+     float:right;
+     width:auto;
+    
+   }
+}
+
+ .sort-by-list {
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    width:auto;
+    right:0px;
+    margin-left: -8px;
+    border: 1px solid $input-border;
+    padding-left: 8px;
+    padding-right: 8px;
+    top: 62px;
+    box-shadow: 0px 3px 5px $brand-primary;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0px;
+      font-size: $font-size-small;
+
+      li {
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        a {
+          &:hover {
+            color: #ccc;
+          }
+        }
+      }
+
+    }
+
+  }
+
    
 }
