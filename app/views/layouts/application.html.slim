@@ -39,7 +39,45 @@ html lang="en-us"
       p Loading...
 
     header#page-header
-      nav.navbar.top-bar
+  
+      nav.navbar.navbar-inverse.visible-xs
+        .container-fluid
+          /! Brand and toggle get grouped for better mobile display
+          .navbar-header
+            button.navbar-toggle.collapsed.pull-left aria-expanded="false" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" 
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            /a.navbar-brand href="#"  Brand
+            .user-log.pull-right.text-center
+              a href="/users/sign-in" 
+                i.ion-android-contact.icon
+            .cart-details.pull-right.text-center
+              a href="/cart" 
+                i.ion-android-cart.icon &nbsp;
+          /! Collect the nav links, forms, and other content for toggling
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
+              li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
+              li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
+              li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+              li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
+              li.dropdown
+                a.dropdown-toggle href="#{shop_index_path}" 
+                  | Shop  
+                  span.caret 
+                ul.dropdown-menu
+                  - @category.each do |cat|
+                    li
+                      a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+
+              li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+          /! /.navbar-collapse
+        /! /.container-fluid
+
+      nav.navbar.top-bar.hidden-xs
         .container
           .navbar-header
             button.navbar-toggle.collapsed data-toggle="collapse" data-target="#top-bar" aria-expanded="false"
@@ -88,7 +126,7 @@ html lang="en-us"
       .container.text-center.logo
         a href="/" = image_tag 'logo.png'
       .container
-        nav.navbar.main-menu.navbar-default
+        nav.navbar.main-menu.navbar-default.hidden-xs
           .navbar-header
             button.navbar-toggle.collapsed data-toggle="collapse" data-target="#main-menu" aria-expanded="false"
               span.icon-bar

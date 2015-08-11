@@ -123,3 +123,37 @@ ul.sub-menu{
 ul.navbar-nav li:hover ul.sub-menu{
 display: block;
 }*/
+
+
+
+.visible-xs
+{
+   .navbar-collapse{
+       padding-left:15px !important;
+       padding-right:15px !important;
+   }
+   
+    .navbar-toggle
+     {
+       border:0px;
+     }
+     .navbar-toggle:hover,.navbar-toggle:focus
+     {
+      background-color:initial;
+     }
+
+     .cart-details, .user-log
+     {
+        padding:9px;
+        i
+        {
+           color:#fff;
+           font-size: 24px;
+           margin-right:0px;
+
+        }
+     }
+     
+    
+   
+}
