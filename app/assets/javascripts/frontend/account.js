@@ -1,4 +1,43 @@
 $(document).ready(function () {
+    $("#btnsearch").on('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        /* Check if field is already displayed, if not, displays it, else, submit */
+        if($('#search_container').hasClass('closed')){
+            $('#search_container').toggleClass('closed');
+            $('#hint').html('');
+            $('#search').animate({
+                left: '20px',
+            }, 200, function(){
+                
+                /* 
+                 * Bind event to hide field when clicking OUT 
+                 * use .one() instead of .on() to avoid stacking binding click events on document
+                 */
+                $(document).one('click', function(){
+                    $('#search_container').toggleClass('closed');
+                    $('#search').animate({
+                        left: '-200px',
+                    }, 200);
+                    
+                    $('#hint').html('');
+                });   
+            });
+        }
+        else {
+            var s =  $("#search").val();
+            window.location.href="/search?q="+s;
+                   }
+    });
+    
+    $('#search').on('click',function(e){
+        /* Needed to avoid closing field when clicking on it */
+        e.preventDefault();
+        e.stopPropagation();
+    });
+});
+
+$(document).ready(function () {
     var copyField = function (from, to) {
         $(to).val($(from).val())
     };
@@ -19,4 +58,12 @@ $(document).ready(function () {
     
 });
 
+$(".home_searchbar_btn").click(function(){
+    var ser= $(".search-box-input").val()
+    if(ser==""){
+        $(".search-box-input").css('border-color','red');
+        $("#msg").html('Please Enter Keyword');
+        return false;
+    }return true
+})
 

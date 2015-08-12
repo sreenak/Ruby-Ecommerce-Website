@@ -1,159 +1,174 @@
 .navbar-links{
 margin:10px 10px 10px 5px;
-  background:black;
-  height:60px;
-  width:100%
+background:black;
+height:60px;
+width:100%
 }
 .nav-align{
-  float:left;
+float:left;
 }
 .navbar-toggle .icon-bar {
-    background: white;
-    margin-top:5px;
+background: white;
+margin-top:5px;
 }
 .h-align{
-  float:left;
+float:left;
 }
 .fa-color{
-  color:white;
-  margin-top:14px;
+color:white;
+margin-top:14px;
 }
 .hero-section {
-  position: relative;
-  color: #ffffff;
-  .content {
-    position: absolute;
-    top: 20%;
-    transform: translateY(-50%);
-    left: 0;
-    width: 100%;
-  }
-  h1 {
-    font-size: $jumbotron-heading-font-size * 2/3;
-    margin-bottom: $line-height-computed;
-  }
-  p {
-    margin-bottom: $line-height-computed;
-    line-height: 1.8;
-  }
-  a {
-    border: 2px solid #ffffff;
-    display: inline-block;
-    padding: 5px;
-  }
-  .btn {
-    background: #ffffff;
-    font-family: $font-family-serif;
-    letter-spacing: 3px;
-    font-size: $font-size-base;
-    padding: $line-height-computed/2 $grid-gutter-width/2;
-  }
+position: relative;
+color: #ffffff;
+.content {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+left: 0;
+width: 100%;
+}
+h1 {
+font-size: $jumbotron-heading-font-size * 2/3;
+margin-bottom: $line-height-computed;
+}
+p {
+margin-bottom: $line-height-computed;
+line-height: 1.8;
+}
+a {
+border: 2px solid #ffffff;
+display: inline-block;
+padding: 5px;
+}
+.btn {
+background: #ffffff;
+font-family: $font-family-serif;
+letter-spacing: 3px;
+font-size: $font-size-base;
+padding: $line-height-computed/2 $grid-gutter-width/2;
+}
 }
 
 @media screen and (max-width: $screen-sm-max) {
-  .hero-section {
-    h1 {
-      font-size: $font-size-h1;
-    }
-  }
+.hero-section {
+h1 {
+font-size: $font-size-h1;
+}
+}
 }
 
 @media screen and (max-width: $screen-xs-max) {
-  .hero-section {
-    h1 {
-      font-size: $font-size-h4;
-      margin-bottom: $line-height-computed/2;
-    }
-    p {
-      margin-bottom: $line-height-computed/2;
-      line-height: inherit;
-    }
-  }
+.hero-section {
+h1 {
+font-size: $font-size-h4;
+margin-bottom: $line-height-computed/2;
+}
+p {
+margin-bottom: $line-height-computed/2;
+line-height: inherit;
+}
+}
 }
 
 .icon-blocks-container {
-  margin: $line-height-computed*2 0;
-  .icon-block {
-    .icon {
-      height: 100px;
-      img {
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
-  }
+margin: $line-height-computed*2 0;
+.icon-block {
+.icon {
+height: 100px;
+img {
+position: relative;
+top: 50%;
+transform: translateY(-50%);
+}
+}
+}
 }
 
 #promos {
-  margin-bottom: $line-height-computed;
-  .item img {
-    width: 100%;
-  }
+margin-bottom: $line-height-computed;
+.item img {
+width: 100%;
+}
 }
 
 .latest-trends {
-  margin-bottom: $line-height-computed * 2;
+margin-bottom: $line-height-computed * 2;
+text-align:center;
 }
 
 .news-letter {
-  background-color: #f5f5f5;
-  height: 190px;
-  text-align: center;
-  padding: $line-height-computed;
+background-color: #f5f5f5;
+height: 190px;
+text-align: center;
+padding: $line-height-computed;
 }
 
+
+
 @media screen and (min-width : 320px) and (max-width :768px){
-  .trend-preview {
-    margin-bottom: 15px;
+.trend-preview {
+margin-bottom: 15px;
+}
+.hero-section {
+top: 50%;
+}
+
+.product-preview {
+padding-bottom: 0px;
+}
+.gift-certificate.tab {
+margin-bottom: 15px;
 }
 }
 
 
 /* For iphone: */
 @media screen and (max-width : 320px) and (max-width :400px){
- .hero-section >img{
-    height:225px;
- }
-  .input-group {
-  margin-left: 18px
+.hero-section >img{
+height:225px;
+}
+.input-group {
+margin-left: 18px
 } 
 .carousel-indicators{
-  bottom:3px;
+bottom:3px;
 }
 .choose-head
 {
-  font-size:15px;
+font-size:15px;
 }
 .gift-certificate.tab {
-    margin-bottom: 15px;
+margin-bottom: 15px;
 }
 
 }
 
 /* For ipad: */
 @media screen and (min-width : 768px) and (max-width :992px){
-  .searchwidth{
-      width:30%;
-      float:left;
-  }
-  .imagewidth{
-      width:70%;
-      float:right
-  }
-  .icon-block {
-     float: left
+.searchwidth{
+width:30%;
+float:left;
 }
-  .save{
-    margin-right:10px;
-    margin-bottom:10px;
-   }
+.imagewidth{
+width:70%;
+float:right
+}
+.icon-block {
+float: left
+}
+.save{
+margin-right:10px;
+margin-bottom:10px;
+}
+
+
 } 
 
 
 .hero-section >img{
-   
- }
+
+}
 .filterbutton{
-  margin-bottom:15px;
+margin-bottom:15px;
 }

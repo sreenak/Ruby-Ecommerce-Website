@@ -51,23 +51,11 @@ html lang="en-us"
                 span.icon-bar
 
 
-              /.searchbar-wrap
-                /form.search-container action="/search" 
-                  /input#search-box.search-box name="q" type="text" /
-                  /label for="search-box" 
-                    /span.glyphicon.glyphicon-search.search-icon
-                  /input#search-submit type="submit" /
-
-              .searchbar-wrap
-                form.search-container action="/search"
-                  .input-group
-                    .input-append
-                      input#search.form-control.search-box autocomplete="off" name="q" placeholder="Search Products" type="text" /
-                      .input-group-btn
-                        button.btn.btn-default.home_searchbar_btn type="submit"
-                           i.ion-ios-search
-
-
+              
+              #search_container.closed
+                i.ion-ios-search#btnsearch
+                form#myform action="/search" 
+                  input#search.search_input.form-control.search-box-input placeholder="search" type="search" value="" name="q" 
 
               /a.navbar-brand href="#"  Brand
               .user-log.pull-right.text-center
@@ -77,6 +65,7 @@ html lang="en-us"
               .cart-details.pull-right.text-center
                 a href="/cart" 
                   i.ion-android-cart.icon &nbsp;
+
             /! Collect the nav links, forms, and other content for toggling
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
@@ -86,13 +75,13 @@ html lang="en-us"
                 li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
                 li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
                 li.dropdown
-                  a.dropdown-toggle href="#{shop_index_path}" 
+                  a.dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#{shop_index_path}" 
                     | Shop  
                     span.caret 
                   ul.dropdown-menu
                     - @category.each do |cat|
                       li
-                        a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+                        a.mob-drop href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name.capitalize
 
         
                 li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
@@ -133,10 +122,11 @@ html lang="en-us"
             form.navbar-form.navbar-left accept-charset="UTF-8" action="/search"
               .input-group
                 .input-append
-                  input#search.form-control autocomplete="off" name="q" placeholder="Search Products" type="text" /
+                  input#search.form-control.search-box-input autocomplete="off" name="q" placeholder="Search Products"
                   .input-group-btn
                     button.btn.btn-default.home_searchbar_btn type="submit"
                       span.fa.fa-search
+                  label#msg
 
             form.navbar-form.navbar-left action="/currencies/switch"
               .input-append
@@ -180,7 +170,7 @@ html lang="en-us"
               li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
               li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
               li.dropdown
-                a.dropdown-toggle href="#{shop_index_path}" 
+                a.dropdown-toggle  href="#{shop_index_path}"  
                   | Shop  
                   span.caret 
                 ul.dropdown-menu

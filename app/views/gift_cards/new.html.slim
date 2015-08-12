@@ -27,7 +27,7 @@
           .col-sm-4.col-xs-6
             = f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
-            .form-group.string.required.gift_card_ordered_for
+            .form-group.string.required.gift_card_ordered_for.pull-left
               label.string.required.control-label[for='gift_card_ordered_for']
                 abbr[title='required']
                   | *
