@@ -8,7 +8,14 @@ class CartController < ApplicationController
     respond_to do |format|
       if line_item
         # line_item.create_customised_dress_order_item details: params[:details]
-        line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0, :angle_90, :angle_180, :angle_360, :details)
+        line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0, :angle_90, :angle_180, :angle_270, :details)
+        # line_item.dress_line_item_option.standard_size_id=params[:standard_size_id]
+        # line_item.dress_line_item_option.angle_0=params[:standard_size_id]
+        # line_item.dress_line_item_option.angle_90=params[:standard_size_id]
+        # line_item.dress_line_item_option.angle_180=params[:standard_size_id]
+        # line_item.dress_line_item_option.angle_270=params[:standard_size_id]
+        # line_item.dress_line_item_option.details=params[:standard_size_id]
+        # line_item.dress_line_item_option.save
         session[:order_id] = @cart.id # Save order id to session since it's saved now
         format.html { redirect_to :cart, notice: 'Dress added to cart.' }
         format.json { head :no_content }

@@ -1127,13 +1127,13 @@ $(window).load(function() {
                 type: 'POST',
                 data: {
                     id: data.id,
-                    size: selectedsize,
+                    standard_size_id: selectedsize,
                     total_price: totalprice,
-                    selected_details: JSON.stringify(add_to_cart_Obj),
-                    frontviewbase64: frontviewbase64,
-                    rightviewbase64: rightviewbase64,
-                    backviewbase64: backviewbase64,
-                    leftviewbase64: leftviewbase64
+                    details: JSON.stringify(add_to_cart_Obj),
+                    angle_0: frontviewbase64,
+                    angle_90: rightviewbase64,
+                    angle_180: backviewbase64,
+                    angle_270: leftviewbase64
                 },
                 dataType: 'json',
                 error: function() {
