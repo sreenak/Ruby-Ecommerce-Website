@@ -8,7 +8,7 @@ class CartController < ApplicationController
     respond_to do |format|
       if line_item
         # line_item.create_customised_dress_order_item details: params[:details]
-        line_item.create_dress_line_item_option params.permit(:standard_size_id,:angle_0,:angle_90,:angle_180,:angle_360, :details)
+        line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0, :angle_90, :angle_180, :angle_360, :details)
         session[:order_id] = @cart.id # Save order id to session since it's saved now
         format.html { redirect_to :cart, notice: 'Dress added to cart.' }
         format.json { head :no_content }
@@ -20,20 +20,26 @@ class CartController < ApplicationController
   end
 
   def add_product
-    quantity = params[:quantity] ? params[:quantity] : 1
-    product = Product.find params[:product_id]
-    line_item = @cart.add_item product, product.price.to_f, product.name, quantity
-    respond_to do |format|
-      if line_item
-        line_item.create_product_line_item_option params.permit(:standard_size_id, :is_gift, :message)
-        session[:order_id] = @cart.id # Save order id to session since it's saved now
-        format.html { redirect_to :cart, notice: 'Product added to cart.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to :back, alert: 'Something happened!' }
-        format.json { render json: {error: 'Something happened!'} }
+    # if params[:standard_size_id].blank?
+    #   redirect_to :back, alert: 'Please select Size'
+    # else
+      quantity = params[:quantity] ? params[:quantity] : 1
+      product = Product.find params[:product_id]
+      line_item = @cart.add_item product, product.price.to_f, product.name, quantity
+      respond_to do |format|
+        if line_item
+          standard_size_id = params[:standard_size_id] ? params[:standard_size_id] : StandardSize.first.id
+          line_item.build_product_line_item_option params.permit(:is_gift, :message)
+          line_item.product_line_item_option.standard_size_id=standard_size_id
+          line_item.product_line_item_option.save
+          session[:order_id] = @cart.id # Save order id to session since it's saved now
+          format.html { redirect_to :cart, notice: 'Product added to cart.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to :back, alert: 'Something happened!' }
+          format.json { render json: {error: 'Something happened!'} }
+        end
       end
-    end
   end
 
   def apply_discount
