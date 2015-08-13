@@ -75,7 +75,7 @@ html lang="en-us"
                 li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
                 li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
                 li.dropdown
-                  a.dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#{shop_index_path}" 
+                  a href="#{shop_index_path}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  
                     | Shop  
                     span.caret 
                   ul.dropdown-menu
