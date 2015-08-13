@@ -21,50 +21,53 @@
           = f.hidden_field :image_cache
 
           = image_tag @user.image_url(:thumbnail), class: 'img-thumbnail' if @user.image?
-      hr
-      h5.text-uppercase Billing Address
-      = f.simple_fields_for :billing_address do |b|
-        .row
-          .col-md-12
-            = b.input :name, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Name'}
-          .col-md-12
-            = b.input :address_1, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Billing Address'}
-        .row
-          .col-md-12
-            = b.input :address_2
-        .row
-          .col-md-6
-            = b.input :city, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct City Name'}
-          .col-md-6
-            = b.input :state, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct State Name'}
-        .row
-          .col-md-6
-            = b.input :country, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Country Name'}
-          .col-md-6
-            = b.input :postal_code
-      hr
-      h5.text-uppercase Shipping Address
-      .checkbox
-        label
-          input#copy-billing-user[type="checkbox"] Same as Billing Address
-      = f.simple_fields_for :shipping_address do |s|
-        .row
-          .col-md-12
-            = s.input :name, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Name'}
-          .col-md-12
-            = s.input :address_1, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Shipping Address'}
-        .row
-          .col-md-12
-            = s.input :address_2
-        .row
-          .col-md-6
-            = s.input :city, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Shipping City'}
-          .col-md-6
-            = s.input :state, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct State'}
-        .row
-          .col-md-6
-            = s.input :country, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Country'}
-          .col-md-6
-            = s.input :postal_code
+
+      - if @user.billing_address.present?
+        hr
+        h5.text-uppercase Billing Address
+        = f.simple_fields_for :billing_address do |b|
+          .row
+            .col-md-12
+              = b.input :name, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Name'}
+            .col-md-12
+              = b.input :address_1, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Billing Address'}
+          .row
+            .col-md-12
+              = b.input :address_2
+          .row
+            .col-md-6
+              = b.input :city, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct City Name'}
+            .col-md-6
+              = b.input :state, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct State Name'}
+          .row
+            .col-md-6
+              = b.input :country, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Country Name'}
+            .col-md-6
+              = b.input :postal_code
+      - if @user.shipping_address.present?
+        hr
+        h5.text-uppercase Shipping Address
+        .checkbox
+          label
+            input#copy-billing-user[type="checkbox"] Same as Billing Address
+        = f.simple_fields_for :shipping_address do |s|
+          .row
+            .col-md-12
+              = s.input :name, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Name'}
+            .col-md-12
+              = s.input :address_1, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Shipping Address'}
+          .row
+            .col-md-12
+              = s.input :address_2
+          .row
+            .col-md-6
+              = s.input :city, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Shipping City'}
+            .col-md-6
+              = s.input :state, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct State'}
+          .row
+            .col-md-6
+              = s.input :country, :input_html => {:'data-validation' => 'required', :'data-validation-error-msg' => 'You have not given correct Country'}
+            .col-md-6
+              = s.input :postal_code
             
       = f.submit 'Update', class: 'btn btn-primary'

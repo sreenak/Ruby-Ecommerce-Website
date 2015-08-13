@@ -8,6 +8,6 @@ article.trend
       = time_ago_in_words @trend.created_at
       | &nbsp; ago
 
-  .content.col-md-6.col-md-offset-3
+  .content.col-md-6.col-md-offset-3.text-justify
     .trend-image.text-center= image_tag @trend.image_url(:big)
     == @trend.body
