@@ -1130,10 +1130,10 @@ $(window).load(function() {
                     standard_size_id: selectedsize,
                     total_price: totalprice,
                     details: JSON.stringify(add_to_cart_Obj),
-                    angle_0: frontviewbase64,
-                    angle_90: rightviewbase64,
-                    angle_180: backviewbase64,
-                    angle_270: leftviewbase64
+                    angle_0_data_uri: frontviewbase64,
+                    angle_90_data_uri: rightviewbase64,
+                    angle_180_data_uri: backviewbase64,
+                    angle_270_data_uri: leftviewbase64
                 },
                 dataType: 'json',
                 error: function() {

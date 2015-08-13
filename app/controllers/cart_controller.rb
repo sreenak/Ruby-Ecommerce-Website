@@ -8,7 +8,7 @@ class CartController < ApplicationController
     respond_to do |format|
       if line_item
         # line_item.create_customised_dress_order_item details: params[:details]
-        line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0, :angle_90, :angle_180, :angle_270, :details)
+        line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0_data_uri, :angle_90_data_uri, :angle_180_data_uri, :angle_270_data_uri, :details)
         # line_item.dress_line_item_option.standard_size_id=params[:standard_size_id]
         # line_item.dress_line_item_option.angle_0=params[:standard_size_id]
         # line_item.dress_line_item_option.angle_90=params[:standard_size_id]
