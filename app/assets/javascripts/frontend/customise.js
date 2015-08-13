@@ -19,7 +19,8 @@ $(window).load(function() {
         var brocadeCost = 0;
         var embellishmentcost = 0;
         var basePrice = data.base_price;
-        var totalprice = basePrice + fabriccost + brocadeCost + embellishmentcost;
+        // var totalprice = basePrice + fabriccost + brocadeCost + embellishmentcost;
+        var totalprice = 0;
         var data = data;
         var pathClass = ''; //it will get the clicked part using data-part attribute
         var clickedPath = ''; // converting clicked pathclass string to jquery object
@@ -36,14 +37,17 @@ $(window).load(function() {
         var historyObj = {};
         historyObj.eachclick = [];
         Snap.load(data.angle_0, loadSvg1);
+        var eachclickDetails = [];
+        var add_to_cart_Obj = [];
+        var savingObject = [];
+        var costingObj = [];
 
-        var add_to_cart_Obj = {};
-        add_to_cart_Obj.details = [];
 
 
         var present_Id_ofClickedElem;
         var present_Group_ClickedElem;
 
+        updateprice();
         //loading first svg
         function loadSvg1(data1) {
             s.append(data1);
@@ -150,14 +154,10 @@ $(window).load(function() {
                         };
                     };
                 };
-
                 //to display embellishments initially
-
                 for (var n = 0; n < data.embelishment_groups.length; n++) {
                     for (var o = 0; o < data.embelishment_groups[n].parts.length; o++) {
                         for (var p = 0; p < data.embelishment_groups[n].parts[o].embellishment_parts.length; p++) {
-
-
                             var obj = {};
                             obj.embid = data.embelishment_groups[n].parts[o].embellishment_parts[p].id; //this id is embellishment id
                             obj.partname = data.embelishment_groups[n].parts[o].name;
@@ -165,6 +165,7 @@ $(window).load(function() {
                             obj.price = data.embelishment_groups[n].parts[o].embellishment_parts[p].price;
                             obj.png = data.embelishment_groups[n].parts[o].embellishment_parts[p].image;
                             obj.displayname = data.embelishment_groups[n].name;
+                            obj.group = data.embelishment_groups[n].name;
                             embDetails.push(obj);
 
                         };
@@ -233,7 +234,7 @@ $(window).load(function() {
                         var obj = {};
                         obj.id = embDetails[w].embid;
                         displayedemdids.push(obj);
-                        $('#embellishment').append('<div class="pattern_div" id="divs' + embDetails[w].embid + '" data-category="embellishments" data-originalid="' + embDetails[w].embid + '"><img  data-pid="img' + embDetails[w].embid + '" data-id="' + embDetails[w].embid + '" src="' + embDetails[w].plainImg + '" /><p>' + embDetails[w].displayname + '</p></div>');
+                        $('#embellishment').append('<div class="pattern_div" data-group="' + embDetails[w].group + '" id="divs' + embDetails[w].group.embid + '" data-category="embellishments" data-originalid="' + embDetails[w].embid + '"><img  data-pid="img' + embDetails[w].embid + '" data-id="' + embDetails[w].embid + '" src="' + embDetails[w].plainImg + '" /><p>' + embDetails[w].displayname + '</p></div>');
 
                     }
                 };
@@ -350,8 +351,8 @@ $(window).load(function() {
                             var obj = {};
                             obj.id = brocadeDetails[r].brocade_id;
                             brocadeDetailsIds.push(obj);
-
-                            $('#material').append('<div class="pattern_div" data-group=' + brocadeDetails[r].group + ' id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].swatch + '" /><p>' + brocadeDetails[r].name + '</p></div>');
+                            //  console.log('brocades are ' + brocadeDetails[r].group);
+                            $('#material').append('<div class="pattern_div" data-group="' + brocadeDetails[r].group + '"  id="divs' + brocadeDetails[r].pid + '" data-category="brocades" data-originalid="' + brocadeDetails[r].brocade_id + '" ><img  data-pid="img' + brocadeDetails[r].pid + '" data-id="' + brocadeDetails[r].pid + '" src="' + brocadeDetails[r].swatch + '" /><p>' + brocadeDetails[r].name + '</p></div>');
                         }
 
                     };
@@ -389,7 +390,6 @@ $(window).load(function() {
                 if (data.fabric_groups[a].name == gettinggroup) {
                     for (var b = 0; b < data.fabric_groups[a].fabric_colors.length; b++) {
                         if (data.fabric_groups[a].fabric_colors[b].id == gettingOriginalId) {
-
                             gettingCost = data.fabric_groups[a].fabric_colors[b].price;
                         }
                     };
@@ -416,12 +416,12 @@ $(window).load(function() {
                 //searching clickable parts using fabric id or brocade id or embellishment id
                 if (gettinggroup == 'highlight fabric') {
                     brocadeCost = gettingCost;
-
                 }
                 if (gettingCategory == 'fabrics' && gettinggroup == 'main fabric') {
                     fabriccost = gettingCost;
-
                 }
+
+
                 if (gettingCategory == 'fabrics') {
                     if (patternIdLength == 0) { //if thisid pattern is not appened to defs class then it will append that pattern id 
                         $('.defsclass').append("<svg><pattern id='img" + thisId + "' patternUnits='userSpaceOnUse' width=" + img_width + " height=" + img_height + "><image xlink:href=" + dataURL + " x='0' y='0' width=" + img_width + " height=" + img_height + " /></pattern></svg>");
@@ -433,10 +433,10 @@ $(window).load(function() {
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
                             if ((data.fabric_groups[i].parts[j].name == pathClass) && (data.fabric_groups[i].name == gettinggroup)) {
-                                // console.log(data.fabric_groups[i].id);
+                                var clickedtype = 'fabric';
+                                updateGroupDetails(clickedtype, gettinggroup, gettingOriginalId);
                                 for (var q = 0; q < data.fabric_groups[i].parts.length; q++) {
                                     applicableParts.push(data.fabric_groups[i].parts[q].name);
-
                                 };
                             }
 
@@ -446,16 +446,16 @@ $(window).load(function() {
                     for (var p = 0; p < applicableParts.length; p++) {
                         $('.' + applicableParts[p]).attr('fill', 'url(#' + thisPattern + ')');
                     };
+                    caluculating_price(gettinggroup, gettingOriginalId, gettingCategory);
                     updateUndoredo();
-
 
                 }
                 if (gettingCategory == 'brocades') {
-                    applyBrocades(gettingOriginalId, gettinggroup);
+                    applyBrocades(gettingOriginalId, gettinggroup, gettingCategory);
 
                 }
                 if (gettingCategory == 'embellishments') {
-                    applyEmbellishment(gettingOriginalId, gettinggroup);
+                    applyEmbellishment(gettingOriginalId, gettinggroup, gettingCategory);
                 }
                 updateprice();
                 $('.pattern_div').css({
@@ -466,6 +466,89 @@ $(window).load(function() {
             img.src = imagesrc;
         });
 
+        function caluculating_price(parentgroup, clicked_id, category) {
+            var pricing_object = {};
+            pricing_object.parent_group = parentgroup;
+            pricing_object.clicked_id = clicked_id;
+            var currentPrice = 0;
+            //  console.log('category ==  ' + category);
+            if (category == 'fabrics') {
+                for (var i = 0; i < allfabricgroupsDetails.length; i++) {
+                    if ((allfabricgroupsDetails[i].group == parentgroup) && (allfabricgroupsDetails[i].id == clicked_id)) {
+                        currentPrice = allfabricgroupsDetails[i].price;
+                    }
+                };
+            }
+
+            if (category == 'brocades') {
+                for (var j = 0; j < brocadeDetails.length; j++) {
+                    if ((brocadeDetails[j].group == parentgroup) && (brocadeDetails[j].brocade_id == clicked_id)) {
+                        currentPrice += brocadeDetails[j].price;
+                        // console.log('price is ' + currentPrice);
+                    }
+                };
+            }
+            if (category == 'embellishments') {
+                for (var k = 0; k < embDetails.length; k++) {
+                    if ((embDetails[k].group == parentgroup) && (embDetails[k].embid == clicked_id)) {
+                        currentPrice += embDetails[k].price;
+                    }
+                };
+            }
+
+            pricing_object.price = currentPrice;
+            //find current index for update the value
+            var checking_Group_inArray = _.where(costingObj, {
+                parent_group: parentgroup
+            });
+
+            if (checking_Group_inArray.length == 0) {
+                costingObj.push(pricing_object);
+                // console.log(costingObj);
+            } else {
+                //getting presetn index to update the price 
+                var currentIndex;
+                for (var j = 0; j < costingObj.length; j++) {
+                    if (costingObj[j].parent_group == parentgroup) {
+                        currentIndex = j;
+                    }
+                };
+                //  console.log('index is ' + currentIndex);
+                costingObj.splice(currentIndex, 1);
+                costingObj.push(pricing_object);
+                // console.log(costingObj);
+            }
+        }
+
+
+
+        function updateGroupDetails(clickedtype, gettinggroup, appliedid) {
+            var obj = {};
+            obj.group = gettinggroup;
+            obj.clickedtype = clickedtype;
+            obj.id = appliedid;
+            var checking_group = _.where(add_to_cart_Obj, {
+                group: gettinggroup
+            });
+            //  console.log(checking_group);
+            if (checking_group.length == 0) {
+                add_to_cart_Obj.push(obj);
+            } else {
+                var checkingindex;
+                for (var i = 0; i < add_to_cart_Obj.length; i++) {
+                    if (add_to_cart_Obj[i].group == gettinggroup) {
+                        checkingindex = i;
+                    }
+                };
+                //  console.log('checkingindex is ' + checkingindex);
+                add_to_cart_Obj.splice(checkingindex, 1);
+                add_to_cart_Obj.push(obj);
+            }
+            var details = JSON.stringify(add_to_cart_Obj);
+            //  console.log(details);
+
+        }
+
         function updateUndoredo() {
             var totallength = historyObj.eachclick.length;
             var currentIndex = historyObj.presentindex;
@@ -473,7 +556,7 @@ $(window).load(function() {
                 historyObj.eachclick.splice(currentIndex + 1);
             }
 
-            var eachclickDetails = [];
+            eachclickDetails = [];
             updateprice();
             $('.main_parts,.group').find('path').each(function(index) {
                 var object = {};
@@ -508,18 +591,13 @@ $(window).load(function() {
         $('.undo').click(function() {
             $('.main_parts,.group').find('path').each(function(index) {
                 $(this).attr('fill', '#FFFFFF');
-
             });
-
             $('.group').hide();
             var undoindex = historyObj.presentindex;
             if (undoindex == 0 || undoindex < 0) {
-                embellishmentcost = 0;
-                fabriccost = 0;
-                brocadeCost = 0;
-                totalprice = data.basePrice;
-                updateprice();
-
+                // totalprice = data.basePrice;
+                totalprice = 0;
+                $('.price').html(data.base_price + ' INR');
                 historyObj.presentindex = -1;
                 return;
             }
@@ -553,9 +631,6 @@ $(window).load(function() {
         });
 
         $('.redo').click(function() {
-
-
-
             if (historyObj.eachclick.length == historyObj.presentindex + 1) {
                 return;
             }
@@ -598,7 +673,7 @@ $(window).load(function() {
 
         var allEmbellishmentDetailsArray = [];
 
-        function applyEmbellishment(embid, gettinggroup) {
+        function applyEmbellishment(embid, gettinggroup, gettingCategory) {
             var embpngimgesArray = [];
             finalEmbDeatils = [];
             embdetailswithbase64 = [];
@@ -652,6 +727,8 @@ $(window).load(function() {
                         };
                     };
                     embellishmentcost = 0;
+                    var group;
+                    var gid;
                     for (var k = 0; k < finalEmbDeatils.length; k++) {
                         $('.defsclass').append("<svg><pattern id='img_emb_" + finalEmbDeatils[k].embid + "_" + finalEmbDeatils[k].partname + "' patternUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + finalEmbDeatils[k].base64 + " width='1' height='1' /></pattern></svg>");
 
@@ -662,7 +739,9 @@ $(window).load(function() {
 
                                 gettingClass = gettingClass.replace('emb_', '');
                                 $('.' + gettingClass + '_group').show();
-
+                                // console.log('emb-- groupname is ' + gettinggroup + ' and emb id is ' + finalEmbDeatils[k].embid)
+                                group = gettinggroup;
+                                gid = finalEmbDeatils[k].embid;
                                 $('.' + finalEmbDeatils[k].partname).attr('fill', 'url(#img_emb_' + finalEmbDeatils[k].embid + '_' + finalEmbDeatils[k].partname + ')');
 
 
@@ -671,8 +750,9 @@ $(window).load(function() {
                             }
                         });
                     };
-
-
+                    var clickedtype = 'embellishment';
+                    updateGroupDetails(clickedtype, group, gid);
+                    caluculating_price(gettinggroup, embid, gettingCategory);
                     setTimeout(function() {
                         updateUndoredo();
                     }, 1000);
@@ -686,6 +766,8 @@ $(window).load(function() {
                 });
 
                 embellishmentcost = 0;
+                var embGroupname;
+                var embappliedid;
                 for (var k = 0; k < allEmbellishmentDetailsArray.length; k++) {
                     $('.group').find('path').each(function(index) {
 
@@ -694,7 +776,8 @@ $(window).load(function() {
                             var gettingClass = allEmbellishmentDetailsArray[k].partname;
 
                             gettingClass = gettingClass.replace('emb_', '');
-
+                            embGroupname = gettinggroup;
+                            embappliedid = embid;
                             $('.' + gettingClass + '_group').show();
 
                             $('.' + allEmbellishmentDetailsArray[k].partname).attr('fill', 'url(#img_emb_' + allEmbellishmentDetailsArray[k].embid + '_' + allEmbellishmentDetailsArray[k].partname + ')');
@@ -704,6 +787,9 @@ $(window).load(function() {
                         }
                     });
                 };
+                var clickedtype = 'embellishment';
+                updateGroupDetails(clickedtype, embGroupname, embappliedid);
+                caluculating_price(gettinggroup, embid, gettingCategory);
                 setTimeout(function() {
                     updateUndoredo();
                 }, 1000);
@@ -749,7 +835,7 @@ $(window).load(function() {
         var brocadePatterns = [];
         var finalBrocadesArray = [];
 
-        function applyBrocades(brocadeId, gettinggroup) {
+        function applyBrocades(brocadeId, gettinggroup, gettingCategory) {
 
             var imagesArray = []; //contails all png source which has to convert from png to base64
             finalBrocadeDetails = [];
@@ -807,16 +893,24 @@ $(window).load(function() {
                     };
 
                     brocadeCost = 0;
+
+                    var brocadeGroup;
+                    var appliedbrocadeid;
                     for (var k = 0; k < finalBrocadesArray.length; k++) {
                         $('.defsclass').append("<svg><pattern id='img_brocade_" + finalBrocadesArray[k].brocadeId + "_" + finalBrocadesArray[k].partname + "' patternContentUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + finalBrocadesArray[k].base64 + " width='1' height='1' /></pattern></svg>");
                         $('.main_parts').find('path').each(function(index) {
                             if (($(this).attr('class') == finalBrocadesArray[k].partname) && (finalBrocadesArray[k].brocadeId == brocadeId)) {
-
+                                //  console.log('brocade-- groupname ' + gettinggroup + ' and group id is ' + finalBrocadesArray[k].brocadeId);
+                                brocadeGroup = gettinggroup;
+                                appliedbrocadeid = finalBrocadesArray[k].brocadeId
                                 brocadeCost += parseInt(finalBrocadesArray[k].price);
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
                             }
                         });
                     };
+                    var clickedtype = 'brocade';
+                    updateGroupDetails(clickedtype, brocadeGroup, appliedbrocadeid);
+                    caluculating_price(gettinggroup, brocadeId, gettingCategory);
                     setTimeout(function() {
                         updateUndoredo();
                     }, 1000);
@@ -827,11 +921,16 @@ $(window).load(function() {
             } else {
 
                 brocadeCost = 0;
+                var bgroup;
+                var bid;
                 for (var k = 0; k < finalBrocadesArray.length; k++) {
                     if (finalBrocadesArray[k].brocadeId == brocadeId) {
 
                         $('.main_parts').find('path').each(function(index) {
                             if ($(this).attr('class') == finalBrocadesArray[k].partname) {
+                                //  console.log('brocade-- groupname ' + gettinggroup + ' and group id is ' + finalBrocadesArray[k].brocadeId);
+                                bgroup = gettinggroup;
+                                bid = finalBrocadesArray[k].brocadeId;
 
                                 brocadeCost += parseInt(finalBrocadesArray[k].price);
                                 $('.' + finalBrocadesArray[k].partname).attr('fill', 'url(#img_brocade_' + finalBrocadesArray[k].brocadeId + '_' + finalBrocadesArray[k].partname + ')');
@@ -839,17 +938,105 @@ $(window).load(function() {
                         });
                     }
                 };
-
+                var clickedtype = 'brocade';
+                updateGroupDetails(clickedtype, bgroup, bid);
+                caluculating_price(gettinggroup, brocadeId, gettingCategory);
                 setTimeout(function() {
                     updateUndoredo();
                 }, 1000);
             }
-
-
-
-
         }
 
+        var allViewsDetails = [];
+
+        function convertingAllViews_tobase64(selectedsize) {
+            var viewsArray = ['frontview', 'rightview', 'backview', 'leftview'];
+            allViewsDetails = [];
+            $('.main_parts,.group').find('path').each(function(index) {
+                var filledPattern = $(this).attr('fill');
+                filledPattern = filledPattern.replace('url(#', '');
+                filledPattern = filledPattern.replace(')', '');
+                var saveObj = {};
+                saveObj.partClass = $(this).attr('class');
+                if (filledPattern.indexOf('img') > -1) {
+                    var imagePatternUrl = filledPattern;
+                    filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
+                    saveObj.wid = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('width');
+                    saveObj.hei = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('height');
+                } else {
+                    filledPattern = '#FFFFFF';
+                    saveObj.wid = 50;
+                    saveObj.hei = 50;
+                }
+                saveObj.patternUrl = filledPattern;
+                savingObject.push(saveObj);
+            });
+            async.eachSeries(viewsArray, function iterator(item, callback) {
+                hiding_Unused_embellishment_Groups(savingObject);
+                convertingAllViews(item, callback);
+            }, function done() {
+                $('.group').show();
+                hiding_Unused_embellishment_Groups(savingObject);
+                savingObject = [];
+                //  console.log(allViewsDetails);
+                addcart(selectedsize);
+
+            });
+        }
+
+        function add_to_cart_svgbase64(svgid) {
+            var presentbase64 = '';
+            for (var i = 0; i < allViewsDetails.length; i++) {
+                if (allViewsDetails[i].svg_dress_id == svgid) {
+                    presentbase64 = allViewsDetails[i].svg_dress_base64;
+                }
+            };
+            return presentbase64;
+        }
+
+        function convertingAllViews(item, callback) {
+            $('.main_parts,.group').find('path').each(function(index) {
+                var filledPattern = $(this).attr('fill');
+                filledPattern = filledPattern.replace('url(#', '');
+                filledPattern = filledPattern.replace(')', '');
+                var saveObj = {};
+                saveObj.partClass = $(this).attr('class');
+                if (filledPattern.indexOf('img') > -1) {
+                    var imagePatternUrl = filledPattern;
+                    filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
+                    saveObj.wid = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('width');
+                    saveObj.hei = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('height');
+
+                } else {
+                    filledPattern = '#FFFFFF';
+                    saveObj.wid = 50;
+                    saveObj.hei = 50;
+                }
+                saveObj.patternUrl = filledPattern;
+                savingObject.push(saveObj);
+            });
+
+
+            var svg = document.getElementById(item);
+            var svgData = new XMLSerializer().serializeToString(svg);
+            var canvas = document.createElement("canvas");
+            var svgSize = svg.getBoundingClientRect();
+            canvas.width = svgSize.width - 110; //empty space is more after generating svg to png to reduce empty space -110 
+            canvas.height = svgSize.height;
+            var ctx = canvas.getContext("2d");
+            var img = document.createElement("img");
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                var imagedata = canvas.toDataURL("image/png");
+                var obj = {};
+                obj.svg_dress_id = item;
+                obj.svg_dress_base64 = imagedata;
+                allViewsDetails.push(obj);
+                callback();
+            };
+
+        }
 
 
         function converting(item, brocadeId, callback) {
@@ -874,9 +1061,7 @@ $(window).load(function() {
                 obj.height = img.height;
                 obj.base64 = dataURL;
                 obj.brocadeId = brocadeId;
-
                 brocadePatterns.push(obj);
-
                 callback();
             }
             img.src = item;
@@ -904,7 +1089,6 @@ $(window).load(function() {
 
             for (var i = 0; i < a.length; i++) {
                 for (var j = 0; j < allDressParts.length; j++) {
-
                     if (allDressParts[j] == a[i]) {
                         b.push(a[i]);
                     }
@@ -913,22 +1097,43 @@ $(window).load(function() {
             a = _.uniq(a); //a arry represent all the pathclass with attribute #FFFFF classes
             b = _.uniq(b); //b array represents how many parts are empty inthe sence not applied any pattern
             if (b.length == 0) {
-                addcart(selectedsize);
+                convertingAllViews_tobase64(selectedsize);
+
             } else {
                 alert('Please complete the customisation of your dress');
+                return;
             }
-            //  
+
         });
 
-        function addcart(selectedsize) {
 
+        function addcart(selectedsize) {
+            var frontviewbase64 = add_to_cart_svgbase64('frontview');
+            var rightviewbase64 = add_to_cart_svgbase64('rightview');
+            var backviewbase64 = add_to_cart_svgbase64('backview');
+            var leftviewbase64 = add_to_cart_svgbase64('leftview');
+
+            // var selectedDressDetails = JSON.stringify(add_to_cart_Obj);
+            console.log('f =' + frontviewbase64);
+            console.log('r =' + rightviewbase64);
+            console.log('b =' + backviewbase64);
+            console.log('l =' + leftviewbase64);
+
+            console.log(JSON.stringify(add_to_cart_Obj));
+            console.log('sel size ' + selectedsize);
+            console.log('price is ' + totalprice);
             $.ajax({
                 url: '/cart/add-dress',
                 type: 'POST',
                 data: {
                     id: data.id,
                     size: selectedsize,
-                    total_price: totalprice
+                    total_price: totalprice,
+                    selected_details: JSON.stringify(add_to_cart_Obj),
+                    frontviewbase64: frontviewbase64,
+                    rightviewbase64: rightviewbase64,
+                    backviewbase64: backviewbase64,
+                    leftviewbase64: leftviewbase64
                 },
                 dataType: 'json',
                 error: function() {
@@ -942,7 +1147,7 @@ $(window).load(function() {
             })
         }
 
-        var savingObject = [];
+
         $(document).on('click', '.save', function(e) {
             savingObject = [];
 
@@ -997,9 +1202,6 @@ $(window).load(function() {
             img.onload = function() {
                 ctx.drawImage(img, 0, 0);
                 var frontViewData = canvas.toDataURL("image/png");
-
-
-
                 $.ajax({
                     url: '/customised_dresses.json',
                     type: 'POST',
@@ -1014,15 +1216,14 @@ $(window).load(function() {
                     },
                     success: function(result) {
                         $('.group').show();
-                        hiding_Unused_embellishment_Groups(savingObject)
-                        $(".savingJsonLoader").css('display', 'none');
+                        hiding_Unused_embellishment_Groups(savingObject);
                         alert("Design Saved Successfully!");
                         $(".save").removeAttr('disabled');
                         $('.prev-carousel ul').html('');
 
-                        loadSavedDresses(data);
-
-
+                        loadSavedDresses(data, function() {
+                            $(".savingJsonLoader").css('display', 'none');
+                        });
                     }
                 })
             };
@@ -1065,7 +1266,6 @@ $(window).load(function() {
                 var thisClass = $(this).attr('class');
                 $.each(applyPatterns, function(index1, val) {
                     if (thisClass == val.classNames) {
-
                         if (val.patternUrl.length > 10) {
                             $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
                         } else {
@@ -1078,18 +1278,31 @@ $(window).load(function() {
 
             $('.group').show();
             hiding_Unused_embellishment_Groups(savedJson);
+            eachclickDetails = [];
+            $('.main_parts,.group').find('path').each(function(index) {
+                var object = {};
+                object.partname = $(this).attr('class');
+                object.pattern = $(this).attr('fill');
+
+                if (object.pattern.indexOf('url') > -1) {
+                    object.pattern = object.pattern.replace('url(#', '');
+                    object.pattern = object.pattern.replace(')', '');
+                }
+                object.price = totalprice;
+                eachclickDetails.push(object);
+            });
+            $('.price').html(undoredototalprice + ' INR');
+            historyObj.presentindex = 0;
+            updateUndoredo();
+
         });
         //loading previousely saved items while page loading
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
                 $('.prev-carousel ul').html('');
-
-
                 $.each(data, function(index, el) {
                     $('#slider1').tinycarousel();
                     var slider = $("#slider1").data("plugin_tinycarousel");
-
-
                     var template = "<li data-details=" + el.details + "><img style='height:195px' src='" + el.image + "'/></li>";
                     $('.prev-carousel ul').append(template);
                     slider.update();
@@ -1108,7 +1321,15 @@ $(window).load(function() {
         }
 
         function updateprice() {
-            totalprice = basePrice + fabriccost + brocadeCost + embellishmentcost;
+
+            var price = 0;
+            if (costingObj.length > 0) {
+                for (var i = 0; i < costingObj.length; i++) {
+                    price += parseInt(costingObj[i].price);
+                };
+            }
+            totalprice = data.base_price + price;
+
             $('.price').html(totalprice + ' INR');
         }
         //undo redo functionality starts here ====================================
