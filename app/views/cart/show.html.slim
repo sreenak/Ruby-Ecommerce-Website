@@ -6,8 +6,9 @@
       h4.text-center Your cart is empty!
       = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
 - else
-  = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
+  = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
   = form_tag cart_update_path, method: 'patch' do
+  .scrollWrapper
     table.shop_table.cart.table.table-bordered
       thead
         tr

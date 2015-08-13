@@ -104,7 +104,11 @@ text-align: center;
 padding: $line-height-computed;
 }
 
-
+@media screen and (min-width : 320px) and (max-width :767px){
+#coupon_code{
+  margin-bottom:8px;
+}
+}
 
 @media screen and (min-width : 320px) and (max-width :768px){
 .trend-preview {
@@ -121,8 +125,10 @@ padding-bottom: 0px;
 margin-bottom: 15px;
 }
 .scrollWrapper{
+margin-bottom: 15px;
   overflow:scroll;
 }
+
 }
 
 
@@ -143,6 +149,13 @@ font-size:15px;
 }
 .gift-certificate.tab {
 margin-bottom: 15px;
+}
+.scrollWrapper{
+margin-bottom: 15px;
+  overflow:scroll;
+}
+#coupon_code{
+  margin-bottom:8px;
 }
 
 }
@@ -166,6 +179,7 @@ margin-bottom:10px;
 }
 
 .scrollWrapper{
+margin-bottom: 15px;
   overflow:scroll;
 }
 } 
@@ -176,4 +190,7 @@ margin-bottom:10px;
 }
 .filterbutton{
 margin-bottom:15px;
+}
+#coupon_code{
+  margin-right:5px;
 }
