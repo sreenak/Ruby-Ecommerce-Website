@@ -30,9 +30,9 @@ class CustomisedDressesController < ApplicationController
     respond_to do |format|
       if @customised_dresses.present?
         @customised_dresses.destroy
-        format.html { redirect_to :back, notice: "Customised dress has been successfully destroyed" }
+        format.html { redirect_to :customisations_account, notice: "Customised dress has been successfully destroyed" }
       else
-        format.html { redirect_to :back, notice: 'You have no customised item.' }
+        format.html { redirect_to :customisations_account, notice: 'You have no customised item.' }
       end
     end
  end
