@@ -42,8 +42,6 @@ $(window).load(function() {
         var savingObject = [];
         var costingObj = [];
 
-
-
         var present_Id_ofClickedElem;
         var present_Group_ClickedElem;
 
@@ -1220,10 +1218,8 @@ $(window).load(function() {
                         alert("Design Saved Successfully!");
                         $(".save").removeAttr('disabled');
                         $('.prev-carousel ul').html('');
-
-                        loadSavedDresses(data, function() {
-                            $(".savingJsonLoader").css('display', 'none');
-                        });
+                        $(".savingJsonLoader").css('display', 'none');
+                        loadSavedDresses(data);
                     }
                 })
             };
@@ -1300,20 +1296,26 @@ $(window).load(function() {
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
                 $('.prev-carousel ul').html('');
+
+
                 $.each(data, function(index, el) {
-                    $('#slider1').tinycarousel();
-                    var slider = $("#slider1").data("plugin_tinycarousel");
                     var template = "<li data-details=" + el.details + "><img style='height:195px' src='" + el.image + "'/></li>";
                     $('.prev-carousel ul').append(template);
-                    slider.update();
 
                 });
+                setTimeout(function() {
+                    $('#slider1').tinycarousel({
+                        animationTime: 300
+                    });
+                    $('#slider1').tinycarousel();
+                    // var slider = $("#slider1").data("plugin_tinycarousel");
+                    // slider.update();
+                }, 1000);
+
 
             });
         }
-        $('#slider1').tinycarousel({
-            animationTime: 300
-        });
+
 
         function undoredoprice(undoredototalprice) {
             totalprice = undoredototalprice;
@@ -1328,6 +1330,7 @@ $(window).load(function() {
                     price += parseInt(costingObj[i].price);
                 };
             }
+
             totalprice = data.base_price + price;
 
             $('.price').html(totalprice + ' INR');
