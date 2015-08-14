@@ -16,6 +16,14 @@ module ApplicationHelper
     end
   end
 
+  def user_avatar user
+    if user.image.present?
+      image_tag user.image_url :thumbnail
+    else
+      image_tag 'default.png'
+    end
+  end
+
   def deep_active_class url
     request.original_url.starts_with?(url) ? 'active' : ''
   end
@@ -37,5 +45,7 @@ module ApplicationHelper
   def horizontal_simple_form_for(path, options = {}, &block)
     options = options.deep_merge(html: {class: 'form-horizontal'}, wrapper: :horizontal_small_form)
     simple_nested_form_for(path, options, &block)
-  end
+                                        end
+
+
 end

@@ -59,11 +59,21 @@ $(document).ready(function () {
 });
 
 $(".home_searchbar_btn").click(function(){
-    var ser= $(".search-box-input").val()
-    if(ser==""){
+    var search= $(".search-box-input").val()
+    if(search==""){
         $(".search-box-input").css('border-color','red');
         $("#msg").html('Please Enter Keyword');
         return false;
     }return true
+})
+
+$(".review-button").click(function(){
+    var msg = $("#review_message").val();
+    if(msg == ""){
+        $("#review_message").css('border-color','red');
+        $("#rev-msg").html('Please Enter Message');
+        $(".review-box").css('text-align','center');
+        return false;
+    }return true;
 })
 

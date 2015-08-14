@@ -86,7 +86,7 @@
                   .media
                     .media-left
                       a href="#"
-                        = image_tag r.user.image_url :thumbnail, class: 'media-object'
+                        = user_avatar r.user
                     .media-body
                       .comment-writer-info
                         strong
@@ -102,10 +102,12 @@
                 h4 ADD A REVIEW
                 = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
                   .form-inputs.row
+                    .col-md-6.review-box
+                      = p.input :message, class: 'review-message'
+                      label#rev-msg
                     .col-md-6
-                      = p.input :message
-                    .col-md-6
-                      = p.button :submit
+                      = p.button :submit,"SUBMIT REVIEW", class: 'review-button'
+
             - else
               |Login to Review this product
 

@@ -4780,9 +4780,13 @@ a.thumbnail.active {
 .media > .pull-right {
   padding-left: 10px;
 }
+.media-left{
+padding-top:20px;
+}
 .media-left,
 .media > .pull-left {
   padding-right: 10px;
+
 }
 .media-left,
 .media-right,
