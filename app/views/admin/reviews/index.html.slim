@@ -1,0 +1,25 @@
+- content_for :heading do
+  | Listing Reviews
+- content_for :title do
+  | Reviews
+- content_for :panel_heading do
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th User Name
+      th Product Name
+      th Created At
+      th Updated At
+      th[colspan="3"] Action
+  tbody
+    - @reviews.each do |review|
+      tr
+        td= link_to review.user.name, admin_user_path(review.user.id)
+        td= review.product.name
+        td= review.created_at
+        td= review.updated_at
+        td= link_to 'Show', admin_review_path(review)
+        td= link_to 'Edit', edit_admin_review_path(review)
+        td= link_to 'Destroy', admin_review_path(review), method: :delete, data: {confirm: 'Are you sure?'}
+= paginate @reviews

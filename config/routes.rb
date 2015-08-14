@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :pages
     resources :reports, only: [:index]
     resources :posts
+    resources :reviews
     resources :fabrics
     resources :custom_sizes
     resources :users

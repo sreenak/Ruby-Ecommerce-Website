@@ -1,0 +1,6 @@
+= simple_form_for [:admin, @review], wrapper: :horizontal_small_form do |p|
+  .form-inputs.row
+    .col-md-6
+      = p.input :message
+      = p.input :active
+  = p.button :submit

@@ -1,0 +1,8 @@
+- content_for :title do
+  | Editing Review
+- content_for :heading do
+  | Editing Review
+  em
+    = @review.product.name
+
+= render 'form'

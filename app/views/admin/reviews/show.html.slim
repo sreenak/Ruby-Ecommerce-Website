@@ -1,0 +1,36 @@
+- content_for :heading do
+  | Orders
+- content_for :title do
+  | Orders
+- content_for :panel_heading do
+
+table.table.table-responsive.table-striped
+  thead
+    tr
+      th
+        | User Name
+      th
+        | Item Name
+      th
+        | Message
+      th
+        | Created At
+      th
+        | Updated At
+
+  tbody
+      tr
+        td
+          = link_to @review.user.name, admin_user_path(@review.user.id)
+        td
+          = @review.product.name
+        td
+          = @review.message
+        td
+          = @review.created_at
+        td
+          = @review.updated_at
+        td
+        td
+          = link_to 'Back', admin_reviews_path
+

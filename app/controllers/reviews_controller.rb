@@ -10,7 +10,7 @@ class ReviewsController <ApplicationController
       if @review.save
         redirect_to :back, notice: "You reviewed #{@review.product.name}"
       else
-        redirect_to :back, alert: 'Some Error!'
+        redirect_to :back, alert: 'Message is required!'
       end
     else
       redirect_to :back, alert: 'You need to be logged in to review product!'
