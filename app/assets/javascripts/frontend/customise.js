@@ -551,11 +551,14 @@ $(window).load(function() {
             var totallength = historyObj.eachclick.length;
             var currentIndex = historyObj.presentindex;
             if (totallength > currentIndex + 1) {
+                updateprice();
                 historyObj.eachclick.splice(currentIndex + 1);
             }
 
             eachclickDetails = [];
             updateprice();
+            /* console.log('--costingObj--');
+            console.log(costingObj);*/
             $('.main_parts,.group').find('path').each(function(index) {
                 var object = {};
                 object.partname = $(this).attr('class');
@@ -566,8 +569,11 @@ $(window).load(function() {
                     object.pattern = object.pattern.replace(')', '');
                 }
                 object.price = totalprice;
+                object.undoredoprice = JSON.stringify(costingObj);
                 eachclickDetails.push(object);
             });
+            /*console.log('each click details');
+            console.log(eachclickDetails);*/
             if (historyObj.eachclick.length > 0) {
                 var gettinglength = historyObj.eachclick.length;
                 var getlastIndex = historyObj.eachclick.length - 1;
@@ -585,6 +591,9 @@ $(window).load(function() {
                 historyObj.eachclick.push(eachclickDetails);
                 historyObj.presentindex = historyObj.eachclick.length - 1;
             }
+
+            /* console.log('history object');
+            console.log(historyObj.eachclick);*/
         }
         $('.undo').click(function() {
             $('.main_parts,.group').find('path').each(function(index) {
@@ -594,6 +603,7 @@ $(window).load(function() {
             var undoindex = historyObj.presentindex;
             if (undoindex == 0 || undoindex < 0) {
                 // totalprice = data.basePrice;
+                costingObj = [];
                 totalprice = 0;
                 $('.price').html(data.base_price + ' INR');
                 historyObj.presentindex = -1;
@@ -601,15 +611,17 @@ $(window).load(function() {
             }
             undoindex = undoindex - 1;
             historyObj.presentindex = undoindex;
+            /*console.log('before is ');
+            console.log(costingObj);*/
             for (var i = 0; i < historyObj.eachclick[undoindex].length; i++) {
+
                 var partname = historyObj.eachclick[undoindex][i].partname;
                 var pattern = historyObj.eachclick[undoindex][i].pattern;
                 var totalpriceis = historyObj.eachclick[undoindex][i].price;
-
+                costingObj = $.parseJSON(historyObj.eachclick[undoindex][i].undoredoprice);
+                //   console.log(costingObj);
                 totalpriceis = parseInt(totalpriceis);
                 undoredoprice(totalpriceis);
-
-
 
                 var embClass = partname;
                 embClass = embClass.replace('emb_', '');
@@ -626,6 +638,8 @@ $(window).load(function() {
                     $('.' + partname).attr('fill', 'url(#' + pattern + ')');
                 }
             }
+            /*console.log('after is ');
+            console.log(costingObj);*/
         });
 
         $('.redo').click(function() {
@@ -644,7 +658,7 @@ $(window).load(function() {
             for (var i = 0; i < historyObj.eachclick[redoindex].length; i++) {
                 var partname = historyObj.eachclick[redoindex][i].partname;
                 var pattern = historyObj.eachclick[redoindex][i].pattern;
-
+                costingObj = $.parseJSON(historyObj.eachclick[redoindex][i].undoredoprice);
                 var totalpriceis = historyObj.eachclick[redoindex][i].price;
 
                 totalpriceis = parseInt(totalpriceis);
@@ -1325,11 +1339,11 @@ $(window).load(function() {
         function updateprice() {
 
             var price = 0;
-            if (costingObj.length > 0) {
-                for (var i = 0; i < costingObj.length; i++) {
-                    price += parseInt(costingObj[i].price);
-                };
-            }
+
+            for (var i = 0; i < costingObj.length; i++) {
+                price += parseInt(costingObj[i].price);
+            };
+
 
             totalprice = data.base_price + price;
 
