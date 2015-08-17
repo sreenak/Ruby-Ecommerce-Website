@@ -1,5 +1,6 @@
 class Admin::OrdersController < AdminController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  add_crumb('Orders') { |instance| instance.send :admin_orders_path }
 
   # GET /admin/orders
   def index

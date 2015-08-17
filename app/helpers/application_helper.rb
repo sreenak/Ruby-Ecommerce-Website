@@ -7,7 +7,7 @@ module ApplicationHelper
   def active_class url
     current_page?(url) ? 'active' : ''
   end
-  
+
   def current_or_null_user
     if current_user == nil
       User.new
@@ -45,7 +45,28 @@ module ApplicationHelper
   def horizontal_simple_form_for(path, options = {}, &block)
     options = options.deep_merge(html: {class: 'form-horizontal'}, wrapper: :horizontal_small_form)
     simple_nested_form_for(path, options, &block)
-                                        end
+  end
 
+  def dress_customisation_details(line_item)
+    if line_item.dress_line_item_option.present?
+      groups = JSON.parse(line_item.dress_line_item_option.details).map do |g|
+        Rails.logger.info 'Group: ' + g.inspect
+        case g['clickedtype']
+          when 'fabric'
+            value = FabricColor.find(g['id']).label
+          when 'brocade'
+            value = Brocade.find(g['id']).name
+          else
+            value = nil
+        end
+        {
+            name: g['group'],
+            value: value
+        }
+      end
+    else
+      []
+    end
+  end
 
 end

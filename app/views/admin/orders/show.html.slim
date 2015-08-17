@@ -31,14 +31,22 @@ table.table.table-responsive.table-striped
           = humanized_money_with_symbol item.amount_paisas
         td
           - if item.line_itemable_type == 'Product' && item.product_line_item_option.present?
-            'Size :
-            = item.product_line_item_option.standard_size.name
-            br
-            'Is Gift :
-            = item.product_line_item_option.is_gift
+            p
+              strong Size:
+              = item.product_line_item_option.standard_size.name
+            p
+              strong Is Gift:
+              = item.product_line_item_option.is_gift
           - elsif item.line_itemable_type == 'Dress' && item.dress_line_item_option.present?
-            'Size :
-            = item.dress_line_item_option.standard_size.name
-        td
-          = link_to 'Back', admin_orders_path
-
+            p
+              strong Size:
+              = item.dress_line_item_option.standard_size.name
+            h5 Details:
+            ul.list-group
+              - dress_customisation_details(item).each do |group|
+                li.list-group-item-info.list-group-item
+                  strong
+                    = group[:name]
+                  - if group[:value].present?
+                    |:&nbsp;
+                    span= group[:value]
