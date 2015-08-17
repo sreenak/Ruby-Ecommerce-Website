@@ -99,7 +99,7 @@
 
             - if user_signed_in?
               .write-reviews
-                h4 ADD A REVIEW
+                h4 WRITE A REVIEW
                 = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
                   .form-inputs.row
                     .col-md-6.review-box
