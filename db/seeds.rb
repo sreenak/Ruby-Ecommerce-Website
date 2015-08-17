@@ -113,7 +113,7 @@
 # # Attach admin role to first user
 # User.first.assign_role :admin
 
- pages = ['About Us', 'How it works', 'Help', 'Faqs',' Terms & Conditions', 'Disclaimers', 'Privacy Policy']
+ pages = ['About Us', 'How it works', 'Help', 'Faqs',' Terms & Conditions', 'Disclaimers', 'Privacy Policy','Returns & Alterations']
 
 pages.each do |title|
   Page.where(title: title).first_or_create body: 'TODO: Write Content'

@@ -66,14 +66,25 @@ $(".home_searchbar_btn").click(function(){
         return false;
     }return true
 })
-
 $(".review-button").click(function(){
     var msg = $("#review_message").val();
     if(msg == ""){
-        $("#review_message").css('border-color','red');
+        $("#review_message").css('border-color','#a94442');
         $("#rev-msg").html('Please Enter Message');
         $(".review-box").css('text-align','center');
         return false;
     }return true;
 })
+
+// mobile search
+$("#btnsearch").click(function(){
+    var searchmob= $(".search-key").val()
+    if(searchmob==""){
+        $(".search-key").css('border-color','#a94442');
+        $("#search-msg").html('Please Enter Keyword');
+        return false;
+    }return true
+})
+
+
 

@@ -55,8 +55,8 @@ html lang="en-us"
               #search_container.closed
                 i.ion-ios-search#btnsearch
                 form#myform action="/search" 
-                  input#search.search_input.form-control.search-box-input placeholder="search" type="search" value="" name="q" 
-
+                  input#search.search_input.form-control.search-box-input.search-key placeholder="search" type="search" value="" name="q"
+                  label#search-msg
               /a.navbar-brand href="#"  Brand
               .user-log.pull-right.text-center
                   i.ion-android-contact.icon 
@@ -209,6 +209,8 @@ html lang="en-us"
                 a href="#{ page_path('disclaimers') }" title="Disclaimer"  Disclaimers
               li
                 a href="#{ page_path('privacy-policy') }" title="Privacy Policy"  Privacy Policy
+              li
+                a href="#{ page_path('returns-alterations') }" title="Returns & Alterations"  Returns & Alterations
           .col-md-3.col-sm-6
             .footer-contact
               h5.contact-heading CONTACT
