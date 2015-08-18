@@ -2,7 +2,7 @@ class LikesController < ApplicationController
   before_action :authenticate_user!, except: :create
 
   def index
-    @likes = current_user.likes.order(id: :desc).page(params[:page]).per(2)
+    @likes = current_user.likes.order(id: :desc).page(params[:page]).per(3)
   end
 
   def create

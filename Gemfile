@@ -69,3 +69,4 @@ gem 'eu_central_bank'
 
 #search
 gem 'ransack'
+

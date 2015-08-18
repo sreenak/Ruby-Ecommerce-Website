@@ -25,8 +25,14 @@ $(document).ready(function () {
             });
         }
         else {
+
             var s =  $("#search").val();
-            window.location.href="/search?q="+s;
+            if(s==""){
+        $(".search-key").css('border-color','#a94442');
+        $("#search-msg").html('Please Enter Keyword');
+        return false;
+    }else{  window.location.href="/search?q="+s;}
+          
                    }
     });
     
@@ -57,7 +63,7 @@ $(document).ready(function () {
 
     
 });
-
+//search
 $(".home_searchbar_btn").click(function(){
     var search= $(".search-box-input").val()
     if(search==""){
@@ -66,6 +72,8 @@ $(".home_searchbar_btn").click(function(){
         return false;
     }return true
 })
+
+//shop reviews
 $(".review-button").click(function(){
     var msg = $("#review_message").val();
     if(msg == ""){
@@ -74,16 +82,6 @@ $(".review-button").click(function(){
         $(".review-box").css('text-align','center');
         return false;
     }return true;
-})
-
-// mobile search
-$("#btnsearch").click(function(){
-    var searchmob= $(".search-key").val()
-    if(searchmob==""){
-        $(".search-key").css('border-color','#a94442');
-        $("#search-msg").html('Please Enter Keyword');
-        return false;
-    }return true
 })
 
 

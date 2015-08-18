@@ -29,9 +29,8 @@ class CustomisedDressesController < ApplicationController
     @customised_dresses = CustomisedDress.where(user_id: current_user.id, id: params[:id]).first
     respond_to do |format|
       if @customised_dresses.present?
-        count = @customised_dress.total_count
         @customised_dresses.destroy
-        format.html { redirect_to :customisations_account(), notice: "Customised dress has been successfully destroyed" }
+        format.html { redirect_to :customisations_account, notice: "Customised dress has been successfully destroyed" }
       else
         format.html { redirect_to :customisations_account, notice: 'You have no customised item.' }
       end

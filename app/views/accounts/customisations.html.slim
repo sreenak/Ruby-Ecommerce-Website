@@ -20,7 +20,7 @@
                   = image_tag c.image_url(:preview)
                   .details
                     .action-row.top.clearfix.hover-content
-                      a href="#{customised_dress_path(:id => c.id)}" data-method ="delete" rel="nofollow"
+                      a href="#{customised_dress_path(:id => c.id,:customises => @customises)}" data-method ="delete" rel="nofollow"
                         i.icon.ion-trash-b
                         |Delete &nbsp;&nbsp;&nbsp;
                         i.icon.ion-wand
