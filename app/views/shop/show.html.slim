@@ -20,9 +20,10 @@
           .form-group
             label.inline Size
             - @standard_sizes.each do |s|
-              label.radio-inline
+              label.radio-inline#size
                 = radio_button_tag :standard_size_id, s.id
                 = s.name
+            #dis
           .form-inline
             .form-group
               label.inline for="quantity" Quantity
@@ -38,7 +39,7 @@
           h4.price
             span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
       .actions.text-center
-        button.info-row.text-uppercase.active type="submit"
+        button.info-row.text-uppercase.active.add-to-cart-size type="submit" 
           i.icon.ion-ios-cart
           span Add to cart
         - if !current_or_null_user.liked?(@product)

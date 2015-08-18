@@ -1,6 +1,9 @@
 .add-to-cart-block {
   margin-bottom: $line-height-computed;
 }
+#size-error{
+  color: #a94442;
+}
 
 .product-details {
   .price {
@@ -238,3 +241,4 @@ label.size {
    }
 
 }
+
