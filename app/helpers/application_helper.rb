@@ -50,7 +50,6 @@ module ApplicationHelper
   def dress_customisation_details(line_item)
     if line_item.dress_line_item_option.present?
       groups = JSON.parse(line_item.dress_line_item_option.details).map do |g|
-        Rails.logger.info 'Group: ' + g.inspect
         case g['clickedtype']
           when 'fabric'
             value = FabricColor.find(g['id']).label

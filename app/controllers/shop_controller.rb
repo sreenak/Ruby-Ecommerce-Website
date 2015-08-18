@@ -11,7 +11,7 @@ class ShopController < ApplicationController
     @product_colors = @product.colors.all
     @standard_sizes = @product.standard_sizes.all
     @review = Review.new
-    @reviews = Review.all
+    @reviews = @product.reviews.active
   end
 
   private
