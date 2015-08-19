@@ -1,8 +1,8 @@
 function getQueryParams(qs) {
     qs = qs.split('+').join(' ');
     var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
     while (tokens = re.exec(qs)) {
         params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
     }
@@ -10,10 +10,19 @@ function getQueryParams(qs) {
 }
 $(window).load(function () {
 
-    $("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true, loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'});
+    $("#zoom_03").elevateZoom({
+        gallery: 'gallery_01',
+        cursor: 'pointer',
+        galleryActiveClass: 'active',
+        imageCrossfade: true,
+        loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'
+    });
     //pass the images to Fancybox
-    $("#zoom_03").bind("click", function(e) { var ez = $('#zoom_03').data('elevateZoom');
-        $.fancybox(ez.getGalleryList()); return false; });
+    $("#zoom_03").bind("click", function (e) {
+        var ez = $('#zoom_03').data('elevateZoom');
+        $.fancybox(ez.getGalleryList());
+        return false;
+    });
 
 //    $('.sp-wrap').smoothproducts();
     /*===============massege box toggle ===========*/
@@ -21,39 +30,39 @@ $(window).load(function () {
         $('.send-gift-to').toggleClass('hidden');
     });
 
-/*=============== price slider =================*/
+    /*=============== price slider =================*/
     var price = getQueryParams(document.location.search).price;
     $("#price-range").slider({from: 0, to: 100000, heterogeneity: ['10/1000'], step: 100, dimension: '&nbsp;'});
-    if(price){
+    if (price) {
         var priceComponents = price.split(';');
         var from = priceComponents[0];
         var to = priceComponents[1];
         $("#price-range").slider('value', from, to)
     }
 
-/*=============== sortby ============*/
+    /*=============== sortby ============*/
     $(".user-log").click(function () {
         $('.sort-by-list').toggleClass('hidden');
     });
 
-/*============= Clear Filters ===========*/
+    /*============= Clear Filters ===========*/
 
-    $(".clear-filters").click(function(){
+    $(".clear-filters").click(function () {
         var clear_filter = $(this).parent().next('ul');
         $(clear_filter).children('li').children('label').children('input').prop('checked', false)
     });
 
-    $('.add-to-cart-size').click(function(){
-    var size=$('input[name=standard_size_id]').val();
-    //alert(size);
-    //alert($('input[name=standard_size_id]:checked').length);
-    if(size!=undefined){
-    if ($('input[name=standard_size_id]:checked').length == 0){
-    $('#dis').slideDown().html('<span id="size-error">Please choose Size</span>');
-    return false;
-    }
-    }
-    return true;
+    $('.add-to-cart-size').click(function () {
+        var size = $('input[name=standard_size_id]').val();
+        //alert(size);
+        //alert($('input[name=standard_size_id]:checked').length);
+        if (size != undefined) {
+            if ($('input[name=standard_size_id]:checked').length == 0) {
+                $('#dis').slideDown().html('<span id="size-error">Please choose Size</span>');
+                return false;
+            }
+        }
+        return true;
     });
 
 //on click search
@@ -66,8 +75,6 @@ $(window).load(function () {
 //    $(".product-price-flt").click(function(){
 //        $("#product_search").submit();
 //    });
-
-
 
 
 });

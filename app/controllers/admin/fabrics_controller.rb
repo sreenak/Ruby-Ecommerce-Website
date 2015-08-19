@@ -54,6 +54,6 @@ class Admin::FabricsController < AdminController
 
   # Only allow a trusted parameter "white list" through.
   def fabric_params
-    params[:fabric].permit(:name, fabric_colors_attributes: [:name, :swatch, :swatch, :swatch_cache, :remove_swatch, :id, :_destroy])
+    params.require(:fabric).permit(:name, fabric_colors_attributes: [:name, :swatch, :swatch_cache, :remove_swatch, :id, :_destroy])
   end
 end
