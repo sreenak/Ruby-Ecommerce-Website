@@ -20,7 +20,7 @@ $(document).ready(function () {
                         left: '-200px',
                     }, 200);
                     
-                    $('#hint').html('');
+                    $('#search-msg').html('');
                 });   
             });
         }
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     
 });
-//search
+//search-large devises
 $(".home_searchbar_btn").click(function(){
     var search= $(".search-box-input").val()
     if(search==""){
