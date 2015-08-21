@@ -92,3 +92,72 @@
 	   }
 	}
 }
+
+
+@media (max-width:1210px)
+{
+	  .mail-us-wrap, .call-us-wrap
+	  {
+	     p{
+         
+         padding: 0px 10px !important;
+    	       }
+	  }
+}
+
+@media (max-width:767px)
+{    
+ 	.contact-us-on-wrap
+    {
+      
+       
+       display:block !important;
+       >div 
+       {
+       	 display:block !important;
+       	 >div
+       	 {
+       	     display:block !important;
+       	        	 
+       	 }
+       }
+      
+      
+    }
+	  .alter-mail-us, .alter-call-us
+	{
+	
+	 width: 100% !important;
+
+	 
+	 }
+  .mail-us-wrap, .call-us-wrap
+	  {
+	     p{
+         
+        width:100%;
+    	       }
+	  }
+
+}
+
+@media (max-width:400px)
+{ 
+ .mail-us-wrap, .call-us-wrap
+	 {
+	   text-align:center;
+	   display:block !important;
+       img
+       {
+        
+         display:inline !important;
+         margin-bottom:15px;
+        margin-right:0px;
+       }
+       p{
+         display:block !important;
+         padding:0px !important;
+         
+       }
+	 }
+}
