@@ -1,0 +1,94 @@
+.alteration-wrap
+{
+	margin-top:30px;
+	width:100%;
+	float:left;
+	.alter-header
+	{
+	   border-bottom:1px solid #909090;
+	   padding-bottom:10px;
+	   position: relative;
+       margin-right: 26px;
+	   &:after
+	   {
+		    content:" ";
+		    background-image:image-url('ion-scissors.png');
+		    width: 56px;
+		    height: 30px;
+		    position: absolute;
+		    background-repeat: no-repeat;
+		    right: -30px;
+		    bottom: -5px;
+	   }
+	}
+    .contact-us-on-wrap
+    {
+      
+       margin-top:25px;
+       margin-left: 15px;
+       margin-right: 15px;
+       display:table;
+       >div 
+       {
+       	 display:table-row;
+       	 >div
+       	 {
+       	     display:table-cell;
+       	     float:none;
+       	     vertical-align:middle;       	 }
+       }
+      
+      
+    }
+	.alter-mail-us, .alter-call-us
+	{
+	 border:1px solid #4b4b4c;
+	 padding:15px;
+	 width: 45.8%;
+	 display:table;
+	 .mail-us-wrap, .call-us-wrap
+	 {
+	   display:table-row;
+       img
+       {
+         padding:15px;
+         border:1px solid #4b4b4c;
+         display:table-cell;
+         min-width:69px;
+         margin-right:15px;
+       }
+       p{
+         display:table-cell;
+         vertical-align:middle;
+         text-align:center;
+         padding: 0px 45px;
+    	line-height: 1.8;
+       }
+	 }
+	
+	}
+}
+
+.returns-wrap
+{
+	 margin-top:50px;
+	 float: left;
+     width: 100%;
+	 .return-header
+	{
+	   border-bottom:1px solid #909090;
+	   padding-bottom:10px;
+	   position: relative;
+       &:after
+	   {
+		    content:" ";
+		    background-image:image-url('delivery-truck.png');
+		    width: 56px;
+		    height: 35px;
+		    position: absolute;
+		    background-repeat: no-repeat;
+		    right:0px;
+		   bottom: 0px;
+	   }
+	}
+}
