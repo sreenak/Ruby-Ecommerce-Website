@@ -55,6 +55,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
 gem 'ckeditor', git: 'https://github.com/galetahub/ckeditor.git'
 gem 'country_select'
+gem 'bootstrap-datepicker-rails'
 
 # Authentication & authorization
 gem 'devise'
