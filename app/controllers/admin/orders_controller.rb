@@ -4,7 +4,9 @@ class Admin::OrdersController < AdminController
 
   # GET /admin/orders
   def index
-    @orders = Order.valid_orders.order(created_at: :desc).page params[:page]
+    @order_search = Order.ransack(search_params)
+    @orders = @order_search.result(distinct: true).valid_orders.order(created_at: :desc).page params[:page]
+
   end
 
   # GET /admin/orders/1
@@ -35,6 +37,14 @@ class Admin::OrdersController < AdminController
     def set_order
       @order = Order.find(params[:id])
     end
+
+  def search_params
+    if params[:created_at].present?
+      params[:q] = {} unless params[:q].present?
+      params[:q][:created_at_gt], params[:q][:created_at_lt] = params[:created_at]
+    end
+    params[:q]
+  end
 
     # Only allow a trusted parameter "white list" through.
     def order_params

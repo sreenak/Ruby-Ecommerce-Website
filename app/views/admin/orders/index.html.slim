@@ -3,7 +3,19 @@
 - content_for :title do
   | Orders
 - content_for :panel_heading do
-
+= search_form_for @order_search, url: admin_orders_path do |f|
+  .row
+    .col-md-6
+      = f.label :created_at_gt
+      = f.search_field :created_at_cont, :class => "datepicker1 form-control"
+      = f.label :status_eq
+      = f.select :status_eq, Hash[(0...Order::STATUSES.size).zip Order::STATUSES].invert, :class => "form-control"
+    .col-md-6
+      = f.label :created_at_lt
+      = f.search_field :created_at_end, :class => "datepicker2 form-control"
+      = f.label :user_id_eq
+      = f.search_field :user_id_eq, :label => 'Customer Name', :class => 'form-control'
+  = f.submit 'Filter', class: 'btn btn-primary'
 table.table.table-responsive.table-striped
   thead
     tr
