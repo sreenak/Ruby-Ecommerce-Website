@@ -1121,19 +1121,19 @@ $(window).load(function() {
 
         function addcart(selectedsize) {
             var frontviewbase64 = add_to_cart_svgbase64('frontview');
-            var rightviewbase64 = add_to_cart_svgbase64('rightview');
-            var backviewbase64 = add_to_cart_svgbase64('backview');
-            var leftviewbase64 = add_to_cart_svgbase64('leftview');
+            //var rightviewbase64 = add_to_cart_svgbase64('rightview');
+            //var backviewbase64 = add_to_cart_svgbase64('backview');
+            //var leftviewbase64 = add_to_cart_svgbase64('leftview');
 
             // var selectedDressDetails = JSON.stringify(add_to_cart_Obj);
-            console.log('f =' + frontviewbase64);
-            console.log('r =' + rightviewbase64);
-            console.log('b =' + backviewbase64);
-            console.log('l =' + leftviewbase64);
-
-            console.log(JSON.stringify(add_to_cart_Obj));
-            console.log('sel size ' + selectedsize);
-            console.log('price is ' + totalprice);
+            //console.log('f =' + frontviewbase64);
+            //console.log('r =' + rightviewbase64);
+            //console.log('b =' + backviewbase64);
+            //console.log('l =' + leftviewbase64);
+            //
+            //console.log(JSON.stringify(add_to_cart_Obj));
+            //console.log('sel size ' + selectedsize);
+            //console.log('price is ' + totalprice);
             $.ajax({
                 url: '/cart/add-dress',
                 type: 'POST',
@@ -1143,9 +1143,9 @@ $(window).load(function() {
                     total_price: totalprice,
                     details: JSON.stringify(add_to_cart_Obj),
                     angle_0_data_uri: frontviewbase64,
-                    angle_90_data_uri: rightviewbase64,
-                    angle_180_data_uri: backviewbase64,
-                    angle_270_data_uri: leftviewbase64
+                    //angle_90_data_uri: rightviewbase64,
+                    //angle_180_data_uri: backviewbase64,
+                    //angle_270_data_uri: leftviewbase64
                 },
                 dataType: 'json',
                 error: function() {
