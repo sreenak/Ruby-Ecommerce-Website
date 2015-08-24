@@ -21,9 +21,10 @@ margin-top:14px;
 .hero-section {
 position: relative;
 color: #ffffff;
+//background:image-url('big-banner.jpg');
 .content {
 position: absolute;
-top: 20%;
+top: 25%;
 left: 0;
 width: 100%;
 }
@@ -192,7 +193,51 @@ margin-bottom:10px;
 margin-bottom: 15px;
   overflow:scroll;
 }
+
+
 } 
+
+@media (max-width:992px)
+{
+  #page-header
+{
+  //border-bottom: 2px solid #000;
+}
+}
+
+@media (max-width:767px)
+{
+  
+ 
+  .footer.page-footer
+  {
+    text-align:center;
+  }
+  .news-letter
+  {
+    float:none !important;
+  }
+  #gift-shippig-info
+  {
+     padding-right:15px !important;
+  }
+  .gift_card_ordered_for
+  {
+    width:100%;
+    float:left;
+  }
+}
+
+@media (max-width:500px)
+{
+  .hero-section
+  {
+    img
+    {
+      min-height:250px;
+    }
+  }
+}
 
 
 .hero-section >img{

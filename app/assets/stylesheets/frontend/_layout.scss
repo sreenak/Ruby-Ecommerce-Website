@@ -138,6 +138,7 @@ padding-right:15px !important;
 {
 border:0px;
 padding: 4px 10px;
+z-index:1;
 }
 .navbar-toggle:hover,.navbar-toggle:focus
 {
@@ -169,19 +170,44 @@ top:0;
 input[type=submit]:hover{background:rgb(224, 145, 0)}
 
 input[type=search]{
-width:148px;
+width:0;
 position:absolute;
 z-index:1;
-left:-200px;
+
 top:0;
+border:0px;
+outline:0;
 }
 
 #search_container {
-width:170px;
+width:100%;
 margin-top:9px;
-position:relative;
+position:absolute;
 overflow:hidden;
+left:calc(60px - 100%);
 float:left;
+input:focus{
+    border:0px;
+
+}
+
+.ion-ios-search
+{
+    float:right;
+     height:34px;
+}
+}
+
+#search_container.active
+{
+
+    .ion-ios-search
+    {
+      background:#fff;
+      color:gray;
+     
+      float:right;
+    }
 }
 
 #hint {margin-top:50px;font-family:arial;font-size:15px;color:#444}

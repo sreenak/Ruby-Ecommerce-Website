@@ -1,13 +1,19 @@
 $(document).ready(function () {
+    var ww = $(window).width()-25;
+    var lefw = $(window).width()-65;
     $("#btnsearch").on('click',function(e){
+      
         e.preventDefault();
         e.stopPropagation();
         /* Check if field is already displayed, if not, displays it, else, submit */
         if($('#search_container').hasClass('closed')){
             $('#search_container').toggleClass('closed');
+            $('#search_container').toggleClass('active');
+             $('#search_container i').css('padding-right','5px'); 
+             $('#search_container input').css('width',ww)
             $('#hint').html('');
-            $('#search').animate({
-                left: '20px',
+            $('#search_container').animate({
+                left: '0',
             }, 200, function(){
                 
                 /* 
@@ -16,11 +22,18 @@ $(document).ready(function () {
                  */
                 $(document).one('click', function(){
                     $('#search_container').toggleClass('closed');
-                    $('#search').animate({
-                        left: '-200px',
-                    }, 200);
-                    
+                    $('#search_container').toggleClass('active');
+
+                    $('#search_container').animate({
+                        left: '-'+lefw,
+                    }, 200,function(){
+
+                    $('#search_container i').css('border',0);
+                    $('#search_container input').css({'border':0 ,'width':0})
                     $('#search-msg').html('');
+                    });
+                    
+
                 });   
             });
         }
@@ -28,7 +41,9 @@ $(document).ready(function () {
 
             var s =  $("#search").val();
             if(s==""){
-        $(".search-key").css('border-color','#a94442');
+        $(".search-key").css({'border':'1px solid #a94442','border-right':0});
+      
+        $('#search_container i').css({'border':'1px solid #a94442','border-left':0})
         $("#search-msg").html('Please Enter Keyword');
         return false;
     }else{  window.location.href="/search?q="+s;}
@@ -61,16 +76,20 @@ $(document).ready(function () {
         }
     })
 
+
     
 });
 //search-large devises
 $(".home_searchbar_btn").click(function(){
     var search= $(".search-box-input").val()
-    if(search==""){
+    if(search == ""){
+    
         $(".search-box-input").css('border-color','red');
         $("#msg").html('Please Enter Keyword');
         return false;
-    }return true
+    }
+
+    return true
 })
 
 //shop reviews
@@ -83,6 +102,21 @@ $(".review-button").click(function(){
         return false;
     }return true;
 })
+
+$(window).load(function(){
+    alert($('.zoomWrapper')
+    if($(window).width() >= 992)
+    {
+       $('.zoomWrapper').each(function(){
+            $(this).removeAttr('class')
+        });
+
+    }
+
+})
+
+
+
 
 
 

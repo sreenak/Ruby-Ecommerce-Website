@@ -1,5 +1,11 @@
+
+
 .featured-trends {
   margin-bottom: $line-height-computed;
+  >div 
+  {
+     margin-bottom:30px;
+  }
 }
 
 .trend-preview {
@@ -17,6 +23,7 @@
     position: absolute;
     bottom: 0;
     padding: 1em 2em;
+    width:100%;
   }
 }
 
@@ -30,4 +37,37 @@
 
 .trend .trend-image {
   margin-bottom: $line-height-computed;
+}
+
+.trend
+{
+h1
+{
+  font-size:34px;
+}
+
+ .meta
+
+{
+   color:#9c9c9c;
+   text-align:right;
+}
+}
+.trend-content
+{
+
+   p
+   {
+      text-align:justify;
+      line-height:1.8em;
+   }
+}
+
+
+@media (max-width:992px)
+{
+  .trend h1
+  {
+     text-align:center;
+  }
 }
