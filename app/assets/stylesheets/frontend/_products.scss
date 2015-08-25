@@ -242,4 +242,34 @@ label.size {
 
 }
 
+.jslider-pointer
+{
+    width: 14px !important;
+    height: 14px !important;
+    background-color: #39b54a !important;
+    border-radius: 50%;
+    border: none !important;
+    cursor: pointer !important;
+    top: 50% !important;
+    margin-top: -7px !important;
+    background-image:none !important;
+    margin-left:0px !important;
+}
 
+.jslider
+{
+       background-color: #b2b2b2;
+       height: 2px !important;
+       width:95% !important;
+}
+
+.jslider .jslider-bg .v
+{
+   background-color: #39b54a !important;
+    height: 2px !important;
+}
+
+.jslider .jslider-value
+{
+      top: -22px !important;
+}
