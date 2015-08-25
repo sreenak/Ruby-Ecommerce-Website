@@ -1901,7 +1901,7 @@ input[type='radio'] {
 }
 
 /* loader*/
-.savingJsonLoader {
+.savingJsonLoader,.mask-layer {
 
   width: 100%;
   height: 100%;
@@ -2423,3 +2423,18 @@ input#zipcode, .state-city > label:last-child {
     .designinput{
         display:none;
     }
+.adding-to-cart{
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid green;
+    z-index: 9999;
+    top: 0px;
+    text-align: center;
+    padding-top: 11px;
+
+}
+.description p strong,.description p span,.product-content-tabs>div>p>strong,.product-content-tabs>div>p>span{
+  font-size:13px !important;
+}
