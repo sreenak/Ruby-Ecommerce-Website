@@ -65,6 +65,11 @@ class CheckoutController < ApplicationController
       if @order.total == 0
         return redirect_to checkout_thank_you_path
       end
+      if params['payment']=='paypal'
+        return redirect_to 'https://www.sandbox.paypal.com/home'
+      else
+        return redirect_to 'https://www.payumoney.com/'
+      end
       require 'hdfc'
       gateway = Hdfc.new '9002033', 'password1', checkout_thank_you_url, checkout_thank_you_url
       gateway.prepare @order.total, @order.id

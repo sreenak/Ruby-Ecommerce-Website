@@ -10,7 +10,7 @@ class LikesController < ApplicationController
       @like = Like.where(user_id: current_user.id, product_id: params[:id]).first_or_create
       redirect_to :back, notice: "You liked #{@like.product.name}"
     else
-      redirect_to :back, alert: 'You need to be logged in to like product!'
+      redirect_to new_user_session_path, alert: 'You need to be logged in or signed in to like product!'
     end
   end
 

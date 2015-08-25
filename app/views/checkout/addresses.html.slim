@@ -28,4 +28,8 @@ h1.page-title
         = s.input :city, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct City"}
         = s.input :country, :input_html => {:"data-validation" => "required", :"data-validation-error-msg" => "You have not given correct Country"}
         = s.input :postal_code
+      label.inline Paypal
+      = radio_button_tag 'payment', 'paypal'
+      label.inline PayU
+      = radio_button_tag 'payment', 'payu'
       = f.submit 'Confirm Order', class: 'btn btn-primary pull-right'
