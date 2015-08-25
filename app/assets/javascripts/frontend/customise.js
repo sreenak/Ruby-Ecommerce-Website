@@ -10,6 +10,15 @@ $(document).ready(function() {
         'left': w + 'px',
         'display': 'block'
     });
+    $(".savingJsonLoader .loader").css({
+        'left': ($(window).width() / 2 - 64),
+        'top': ($(window).height() / 2 - 10)
+    });
+    $('.adding-to-cart').css({
+        'left': ($(window).width() / 2 - 125),
+        'top': ($(window).height() / 2 - 25)
+    });
+
 });
 $(window).load(function() {
 
@@ -47,6 +56,9 @@ $(window).load(function() {
 
         updateprice();
         //loading first svg
+
+
+
         function loadSvg1(data1) {
             s.append(data1);
             Snap.load(data.angle_90, loadSvg2);
@@ -1087,6 +1099,9 @@ $(window).load(function() {
                 alert('Please select any size');
                 return;
             } else {
+
+                $('.mask-layer').css('display', 'block');
+                $('.adding-to-cart').css('display', 'block');
                 selectedsize = $('#sizing input[type=radio]:checked').val();
             }
             updateprice()
@@ -1121,6 +1136,7 @@ $(window).load(function() {
 
         function addcart(selectedsize) {
             var frontviewbase64 = add_to_cart_svgbase64('frontview');
+
             //var rightviewbase64 = add_to_cart_svgbase64('rightview');
             //var backviewbase64 = add_to_cart_svgbase64('backview');
             //var leftviewbase64 = add_to_cart_svgbase64('leftview');
@@ -1134,6 +1150,11 @@ $(window).load(function() {
             //console.log(JSON.stringify(add_to_cart_Obj));
             //console.log('sel size ' + selectedsize);
             //console.log('price is ' + totalprice);
+
+
+
+
+
             $.ajax({
                 url: '/cart/add-dress',
                 type: 'POST',
@@ -1152,7 +1173,8 @@ $(window).load(function() {
                     alert('error');
                 },
                 success: function(result) {
-                    alert('successfully added to your cart');
+                    $('.mask-layer').css('display', 'none');
+                    $('.adding-to-cart').css('display', 'none');
                     window.location.replace("/cart");
 
                 }
@@ -1165,10 +1187,7 @@ $(window).load(function() {
 
             $(this).attr('disabled', 'disabled');
             $(".savingJsonLoader").css('display', 'block')
-            $(".savingJsonLoader .loader").css({
-                'left': ($(window).width() / 2 - 64),
-                'top': ($(window).height() / 2 - 10)
-            });
+
 
             //to findout what are the clicked parts and applied pattern based on that get base 64
             $('.main_parts,.group').find('path').each(function(index) {
