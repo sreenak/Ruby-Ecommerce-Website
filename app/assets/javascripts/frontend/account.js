@@ -103,17 +103,17 @@ $(".review-button").click(function(){
     }return true;
 })
 
-$(window).load(function(){
-    alert($('.zoomWrapper')
-    if($(window).width() >= 992)
-    {
-       $('.zoomWrapper').each(function(){
-            $(this).removeAttr('class')
-        });
+// $(window).load(function(){
+   
+//     if($(window).width() >= 992)
+//     {
+//        $('.zoomWrapper').each(function(){
+//             $(this).removeAttr('class')
+//         });
 
-    }
+//     }
 
-})
+// })
 
 
 
