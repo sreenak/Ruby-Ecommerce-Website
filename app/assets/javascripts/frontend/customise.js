@@ -1326,11 +1326,13 @@ $(window).load(function() {
 
         });
         //loading previousely saved items while page loading
+        var retrievedData;
+
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
                 $('.prev-carousel ul').html('');
 
-
+                retrievedData = data;
                 $.each(data, function(index, el) {
                     var template = "<li data-details=" + el.details + "><img style='height:195px' src='" + el.image + "'/></li>";
                     $('.prev-carousel ul').append(template);
@@ -1344,6 +1346,12 @@ $(window).load(function() {
                     // var slider = $("#slider1").data("plugin_tinycarousel");
                     // slider.update();
                 }, 1000);
+
+                console.log(retrievedData);
+                var gettingUrlFromTab = window.location.href;
+                if (gettingUrlFromTab.indexOf('customisation_id') > -1) {
+                    alert('yes');
+                }
 
 
             });
