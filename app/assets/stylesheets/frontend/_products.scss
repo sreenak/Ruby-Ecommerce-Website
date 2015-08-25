@@ -147,7 +147,7 @@ label.size {
 }
 
 #gallery_01 img{border:2px solid white;}
-.active img{border:2px solid #333 !important;}
+//.active img{border:2px solid #333 !important;}
 
 .product-tabs
 {
@@ -186,7 +186,7 @@ label.size {
 
    .top-review-list
    {
-     padding:30px 30px 50px 30px;
+     padding:20px 30px 20px 30px;
      margin-bottom:30px;
      border-bottom:1px dotted #ddd;
      .media
@@ -235,10 +235,28 @@ label.size {
    {
      #rev-msg{
        color: #a94442;
-       text-align:center;
+       font-weight:normal;
      }
 
    }
 
 }
 
+.jslider-pointer
+{
+    width: 15px !important;
+    height: 15px !important;
+    background-color: #38b11f !important;
+    border-radius: 50%;
+    border: none !important;
+    cursor: pointer !important;
+    top: 50% !important;
+    margin-top: -10px !important;
+    background-image:none !important;
+}
+
+.jslider
+{
+       background-color: red;
+           height: 5px !important;
+}

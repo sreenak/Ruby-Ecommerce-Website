@@ -98,7 +98,7 @@ $(".review-button").click(function(){
     if(msg == ""){
         $("#review_message").css('border-color','#a94442');
         $("#rev-msg").html('Please Enter Message');
-        $(".review-box").css('text-align','center');
+        //$(".review-box").css('text-align','center');
         return false;
     }return true;
 })
