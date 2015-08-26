@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @order, @status], wrapper: :vertical_form do |f|
+  .row
+    .col-md-6= f.input :date, :label => "Date"
+    .col-md-6= f.input :status_type, collection: OrderStatus::STATUSES
+  = f.submit 'Save', class: 'btn btn-primary'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806060653) do
+ActiveRecord::Schema.define(version: 20150826164009) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -145,13 +145,13 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   create_table "dress_line_item_options", force: :cascade do |t|
     t.integer  "line_item_id",     limit: 4
     t.integer  "standard_size_id", limit: 4
-    t.string   "details",          limit: 255
-    t.string   "angle_0",          limit: 255, default: "", null: false
+    t.text     "details",          limit: 65535
+    t.string   "angle_0",          limit: 255,   default: "", null: false
     t.string   "angle_90",         limit: 255
     t.string   "angle_180",        limit: 255
     t.string   "angle_270",        limit: 255
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   add_index "dress_line_item_options", ["line_item_id"], name: "index_dress_line_item_options_on_line_item_id", using: :btree
@@ -294,6 +294,16 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   add_index "line_items", ["line_itemable_type", "line_itemable_id"], name: "index_line_items_on_line_itemable_type_and_line_itemable_id", using: :btree
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
 
+  create_table "order_statuses", force: :cascade do |t|
+    t.integer  "order_id",    limit: 4
+    t.string   "status_type", limit: 10
+    t.date     "date"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "order_statuses", ["order_id"], name: "index_order_statuses_on_order_id", using: :btree
+
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.integer  "status",       limit: 2,   default: 0,     null: false
@@ -323,7 +333,7 @@ ActiveRecord::Schema.define(version: 20150806060653) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "parts", ["parts_group_id"], name: "index_parts_on_part_group_id", using: :btree
+  add_index "parts", ["parts_group_id"], name: "index_parts_on_parts_group_id", using: :btree
 
   create_table "parts_groups", force: :cascade do |t|
     t.string   "name",         limit: 255, default: "", null: false
@@ -405,9 +415,9 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "product_id", limit: 4
     t.integer  "user_id",    limit: 4
-    t.string   "message",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.text     "message",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.boolean  "active",     limit: 1
   end
 
@@ -428,11 +438,11 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id", using: :btree
 
   create_table "shipments", force: :cascade do |t|
-    t.integer  "order_id",     limit: 4
-    t.string   "tracking_url", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "status",       limit: 2
+    t.integer  "order_id",    limit: 4
+    t.string   "tracking_id", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "status",      limit: 2
   end
 
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
@@ -466,7 +476,7 @@ ActiveRecord::Schema.define(version: 20150806060653) do
     t.string   "image",                  limit: 255
     t.string   "mobile",                 limit: 255
     t.date     "date_of_birth"
-    t.integer  "gender",                 limit: 1
+    t.integer  "gender",                 limit: 2
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
@@ -484,6 +494,9 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "auth_identities", "users"
+  add_foreign_key "brocade_parts", "brocades"
+  add_foreign_key "brocade_parts", "parts"
   add_foreign_key "customised_dresses", "dresses"
   add_foreign_key "customised_dresses", "users"
   add_foreign_key "dress_line_item_options", "line_items"
@@ -496,6 +509,7 @@ ActiveRecord::Schema.define(version: 20150806060653) do
   add_foreign_key "likes", "products", on_delete: :cascade
   add_foreign_key "likes", "users", on_delete: :cascade
   add_foreign_key "line_items", "orders"
+  add_foreign_key "order_statuses", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "parts", "parts_groups"
   add_foreign_key "parts_groups", "dresses"

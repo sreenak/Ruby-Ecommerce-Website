@@ -17,7 +17,7 @@
         - @shipments.each do |s|
           tr
             td= s.id
-            td= s.tracking_url
+            td= s.tracking_id
             td= s.status
             td= link_to 'Edit', edit_admin_order_shipment_path(s.order, s)
             td= link_to 'Delete', admin_order_shipment_path(s.order, s), method: :delete, data: {confirm: 'Are you sure?'}

@@ -1,0 +1,23 @@
+- content_for :heading do
+  |  Listing Statuses
+- content_for :title do
+  |  Listing Statuses
+.panel.panel-default
+  .panel-heading
+    = link_to 'Add Status', new_admin_order_order_status_path(@order), class: 'btn btn-success btn-sm'
+  .panel-body
+    table.table.table-striped.no-margn
+      thead
+        tr
+          th #
+          th Date
+          th Status
+          th colspan="2" Actions
+      tbody
+        - @statuses.each do |s|
+          tr
+            td= s.id
+            td= s.date
+            td= s.status_type
+            td= link_to 'Edit', edit_admin_order_order_status_path(s.order, s)
+            td= link_to 'Delete', admin_order_order_status_path(s.order, s), method: :delete, data: {confirm: 'Are you sure?'}

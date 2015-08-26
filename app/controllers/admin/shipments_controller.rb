@@ -56,6 +56,6 @@ class Admin::ShipmentsController < AdminController
 
   # Only allow a trusted parameter "white list" through.
   def shipment_params
-    params[:shipment].permit :status ,:tracking_url
+    params[:shipment].permit :status ,:tracking_id
   end
 end

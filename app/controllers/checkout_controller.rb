@@ -66,6 +66,7 @@ class CheckoutController < ApplicationController
         return redirect_to checkout_thank_you_path
       end
       if params['payment']=='paypal'
+        @order.order_statuses.create(status_type: 1)
         return redirect_to 'https://www.sandbox.paypal.com/home'
       else
         return redirect_to 'https://www.payumoney.com/'
@@ -87,6 +88,7 @@ class CheckoutController < ApplicationController
     @order.status = 'Paid'
     @order.created_at = Time.now # This will behave as paid time from now on
     @order.save
+    @order.order_statuses.create(status_type: 1)
     @order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
     session.delete :order_id
     @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart

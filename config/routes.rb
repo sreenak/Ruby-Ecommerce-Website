@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     resources :discount_coupons
     resources :orders do
       resources :shipments
+      resources :order_statuses
     end
   end
 end

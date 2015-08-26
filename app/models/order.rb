@@ -4,7 +4,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_one :shipping_address, as: :addressable, dependent: :destroy
-  has_many :line_items, dependent: :destroy
+  has_many :line_items
+  has_many :order_statuses
   has_many :dress_items, -> { where line_itemable_type: 'Dress' }, class_name: 'LineItem'
   has_many :gift_card_items, -> { where line_itemable_type: 'GiftCard' }, class_name: 'LineItem'
   has_many :product_items, -> { where line_itemable_type: %w(Dress GiftCard Product) }, class_name: 'LineItem'
