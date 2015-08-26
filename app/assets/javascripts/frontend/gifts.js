@@ -1,9 +1,6 @@
 $(document).ready(function () {
 
-    $.validate({
-
-         modules : 'security'
-    })
+    $.validate({})
 
     $('.gift_card_card_type input').attr('value', 'E-GIFT CERTIFICATE');
 

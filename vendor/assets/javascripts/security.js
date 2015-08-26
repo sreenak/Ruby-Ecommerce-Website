@@ -502,5 +502,4 @@
         return this;
     };
 
- 
 })(jQuery, window);

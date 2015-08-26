@@ -15,7 +15,6 @@
 //= require jshashtable-2.1_src
 //= require jquery.numberformatter-1.2.3
 //= require tmpl
-//= require security
 //= require jquery.dependClass-0.1.js
 //= require draggable-0.1.js
 //= require jquery.slider.js
