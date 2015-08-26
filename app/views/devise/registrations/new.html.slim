@@ -3,7 +3,7 @@
 
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), wrapper: :vertical_form, html: {class: ''}) do |f|
   = f.error_notification
-  == render 'shared/form_errors', object: f.object
+  /== render 'shared/form_errors', object: f.object
   .form-inputs
     = f.input :name, :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Enter Name'}
     = f.input :email, as: :email, :input_html=>{:'data-validation' => 'email', :'data-validation-error-msg' => 'Given Email-Id Is Not Valid'}

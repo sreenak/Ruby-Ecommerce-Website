@@ -7,14 +7,14 @@
   .row
     .col-md-12#dategtlt
     .col-md-6
-      = f.label :created_at_gt
+      = f.label :from_date
       = f.search_field :created_at_gt, :class => "datepicker1 form-control"
-      = f.label :status_eq
+      = f.label :status
       = f.select :status_eq, Hash[(0...Order::STATUSES.size).zip Order::STATUSES].invert, {},{:class => "form-control"}
     .col-md-6
-      = f.label :created_at_lt
+      = f.label :to_date
       = f.search_field :created_at_lt, :class => "datepicker2 form-control"
-      = f.label :user_id_eq
+      = f.label :user_id
       = f.search_field :user_id_eq, :label => 'Customer Name', :class => 'form-control'
   = f.submit 'Filter', class: 'btn btn-primary filter'
 table.table.table-responsive.table-striped
@@ -28,6 +28,10 @@ table.table.table-responsive.table-striped
         | Total
       th
         | Status
+      th
+        | Created At
+      th
+        | Updated At
       th[colspan="3"]
         | Action
   tbody
@@ -42,6 +46,10 @@ table.table.table-responsive.table-striped
           = humanized_money_with_symbol order.total_paisas
         td
           = order.status
+        td
+          = order.created_at
+        td
+          = order.updated_at
         td
           = link_to 'Shiping Status', admin_order_shipments_path(order)
         td
