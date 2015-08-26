@@ -95,7 +95,14 @@ html lang="en-us"
                         a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
 
         
-                li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+                /li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+                li.dropdown
+                  a.dropdown-toggle href="#{deep_active_class(page_path('help'))}"
+                    | Help
+                    span.caret
+                  ul.dropdown-menu
+                      li
+                        a href="#{ page_path('alterations-returns') }"= link_to 'Returns & Alterations', page_path('alterations-returns')
         .sort-by-list.hidden
         
           ul
@@ -188,8 +195,14 @@ html lang="en-us"
                     li
                       a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
 
-              li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
-
+              /li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
+              li.dropdown
+                a.dropdown-toggle href="#{deep_active_class(page_path('help'))}"
+                  | Help
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a href="#{ page_path('alterations-returns') }"= link_to 'Returns & Alterations', page_path('alterations-returns')
     .container.content-area
       .row
         .col-md-6.col-md-offset-3
@@ -221,6 +234,8 @@ html lang="en-us"
                 a href="#{ page_path('disclaimers') }" title="Disclaimer"  Disclaimers
               li
                 a href="#{ page_path('privacy-policy') }" title="Privacy Policy"  Privacy Policy
+              li
+                a href="#{ page_path('alterations-returns') }" title="Returns & Alterations"  Returns & Alterations
           .col-md-3.col-sm-6
             .footer-contact
               h5.contact-heading CONTACT
