@@ -5,10 +5,10 @@
   = f.error_notification
   == render 'shared/form_errors', object: f.object
   .form-inputs
-    = f.input :name
-    = f.input :email
-    = f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
-    = f.input :password_confirmation
+    = f.input :name, :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Enter Name'}
+    = f.input :email, as: :email, :input_html=>{:'data-validation' => 'email', :'data-validation-error-msg' => 'Given Email-Id Is Not Valid'}
+    = f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @validatable), :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Enter Password'}
+    = f.input :password_confirmation, :input_html=>{:'data-validation' => 'confirmation', :'data-validation-confirm' => 'user[password]', :'data-validation-error-msg' => 'Password Not Matched'}
     = f.input :mobile
     = recaptcha_tags
     = f.input :tos, label: 'I agree to the terms of service', as: :boolean, :input_html => {:"data-validation" => "required"}
