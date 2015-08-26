@@ -5,10 +5,10 @@
   .col-md-5
     .product-images
       a href="#{@product.image_url}"
-        = image_tag @product.image_url(:preview), :id=>"zoom_03", 'data-zoom-image'=>@product.image_url(:big)
+        = image_tag @product.image_url(:medium), :id=>"zoom_03", 'data-zoom-image'=>@product.image_url(:big)
       div#gallery_01
         - @product.product_images.each do |image|
-          a href="#{image.image_url}" data-image=image.image_url(:preview) data-zoom-image=image.image_url(:big)
+          a href="#{image.image_url}" data-image=image.image_url(:medium) data-zoom-image=image.image_url(:big)
             = image_tag image.image_url(:thumbnail)
 
   .col-md-7.product-details
