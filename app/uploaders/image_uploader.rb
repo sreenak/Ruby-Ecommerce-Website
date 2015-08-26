@@ -45,7 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :preview do
-    process :resize_and_pad => [400, 300, :transparent, 'Center']
+    process :resize_to_fit => [300, 400]
   end
 
   version :big do
