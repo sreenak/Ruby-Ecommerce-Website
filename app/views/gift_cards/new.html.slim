@@ -2,7 +2,7 @@
   |  Gift 
 .container-gift
   .col-sm-12
-    h1.gift-title.text-center.page-title Gift Card
+    h1.gift-title.text-center.page-title Gift Certificate
     h3.gift-subtitle.text-center The perfect present for that special someone
   #gift-card.col-sm-5
     = image_tag 'gift-card.png',class:'img-responsive'
@@ -11,12 +11,12 @@
       .col-sm-6
         .tab.gift-certificate.active[data-url='e-gift']
           span.tick-icon &#10004
-          | E-GIFT CERTIFICATE
+          | E-GIFT CARD
           i.icon.ion-ios-information
       .col-sm-6
         .tab.gift-certificate[data-url='normal-gift']
           span.tick-icon &#10004
-          | GIFT CERTIFICATE
+          | GIFT CARD
           i.icon.ion-ios-information
     = simple_form_for @gift, url: :gift_cards, wrapper: :vertical_form do |f|
       /= render 'shared/form_errors', object: f.object

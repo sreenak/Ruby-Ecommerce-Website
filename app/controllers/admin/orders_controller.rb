@@ -5,7 +5,7 @@ class Admin::OrdersController < AdminController
   # GET /admin/orders
   def index
     @order_search = Order.ransack(search_params)
-    @orders = @order_search.result(distinct: true).valid_orders.order(created_at: :desc).page params[:page]
+    @orders = @order_search.result(distinct: true).order(created_at: :desc).page params[:page]
 
   end
 
