@@ -53,7 +53,7 @@ $(window).load(function() {
 
         var present_Id_ofClickedElem;
         var present_Group_ClickedElem;
-
+        var retrievedData = []; //this one holds the data when the page has customisedId
         updateprice();
         //loading first svg
 
@@ -1208,8 +1208,11 @@ $(window).load(function() {
                     saveObj.hei = 50;
                 }
                 saveObj.patternUrl = filledPattern;
+                saveObj.appliedgroups = add_to_cart_Obj;
                 savingObject.push(saveObj);
             });
+
+            console.log(savingObject);
             hiding_Unused_embellishment_Groups(savingObject);
 
 
@@ -1229,7 +1232,7 @@ $(window).load(function() {
 
 
 
-
+            console.log(JSON.stringify(savingObject));
             img.onload = function() {
                 ctx.drawImage(img, 0, 0);
                 var frontViewData = canvas.toDataURL("image/png");
@@ -1320,19 +1323,19 @@ $(window).load(function() {
                 object.price = totalprice;
                 eachclickDetails.push(object);
             });
-            $('.price').html(undoredototalprice + ' INR');
             historyObj.presentindex = 0;
             updateUndoredo();
 
         });
         //loading previousely saved items while page loading
-        var retrievedData;
+
 
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
                 $('.prev-carousel ul').html('');
 
                 retrievedData = data;
+                console.log(retrievedData);
                 $.each(data, function(index, el) {
                     var template = "<li data-details=" + el.details + "><img style='height:195px' src='" + el.image + "'/></li>";
                     $('.prev-carousel ul').append(template);
@@ -1347,10 +1350,13 @@ $(window).load(function() {
                     // slider.update();
                 }, 1000);
 
-                console.log(retrievedData);
+
                 var gettingUrlFromTab = window.location.href;
+                var recustomisationId = gettingUrlFromTab.split('=');
+                recustomisationId = recustomisationId[1];
+                console.log(recustomisationId);
                 if (gettingUrlFromTab.indexOf('customisation_id') > -1) {
-                    alert('yes');
+
                 }
 
 
