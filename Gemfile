@@ -71,3 +71,6 @@ gem 'eu_central_bank'
 #search
 gem 'ransack'
 
+#shippment
+gem "aftership", "~> 4.1.0"
+

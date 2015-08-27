@@ -65,6 +65,9 @@ class CheckoutController < ApplicationController
       if @order.total == 0
         return redirect_to checkout_thank_you_path
       end
+      if !params['payment'].present?
+        return redirect_to :back, notice: 'Select Payment Gateway!'
+      end
       if params['payment']=='paypal'
         @order.order_statuses.create(status_type: 1)
         return redirect_to 'https://www.sandbox.paypal.com/home'
