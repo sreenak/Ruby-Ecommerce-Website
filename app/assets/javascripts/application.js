@@ -20,6 +20,7 @@
 //= require jquery.slider.js
 //= require jquery.elevatezoom.js
 //= require jquery.form-validator.min
+//= require owl.js
 //= require frontend/account
 //= require frontend/checkout
 //= require frontend/gifts

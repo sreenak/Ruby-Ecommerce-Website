@@ -17,7 +17,7 @@
             - row.each do |c|
               .col-md-4.col-sm-4.text-center
                 .product-preview.hover-container
-                  = image_tag c.image_url(:preview)
+                  = image_tag c.image_url(:medium)
                   .details
                     .action-row.top.clearfix.hover-content
                       a href="#{customised_dress_path(:id => c.id)}" data-method ="delete" rel="nofollow"

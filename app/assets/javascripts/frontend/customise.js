@@ -18,8 +18,27 @@ $(document).ready(function() {
         'left': ($(window).width() / 2 - 125),
         'top': ($(window).height() / 2 - 25)
     });
-
 });
+
+$(document).ready(function() {
+    /*var savedImagesSlider = $("#owl-demo1");
+    savedImagesSlider.owlCarousel({
+        items: 4,
+        itemsDesktop: [1199, 3],
+        itemsDesktopSmall: [979, 3],
+        slideSpeed: 600
+    });
+
+    $("#saved_img_right_arrow").click(function() {
+
+        savedImagesSlider.trigger('owl.next');
+    });
+
+    $("#saved_img_left_arrow").click(function() {
+        savedImagesSlider.trigger('owl.prev');
+    });*/
+});
+
 $(window).load(function() {
 
     $.getJSON(dress_detail_url, function(data) {
@@ -57,6 +76,7 @@ $(window).load(function() {
         updateprice();
         //loading first svg
 
+        $('#svg_wrapper').attr('data-customise', 'false');
 
 
         function loadSvg1(data1) {
@@ -383,7 +403,7 @@ $(window).load(function() {
             var thisId = $(this).find('img').attr('data-id');
 
             var gettingCategory = $(this).attr('data-category');
-            var gettingOriginalId = $(this).attr('data-originalid');
+            var gettingOriginalId = parseInt($(this).attr('data-originalid'));
 
             var gettinggroup = $(this).attr('data-group');
 
@@ -443,7 +463,7 @@ $(window).load(function() {
                     for (var i = 0; i < data.fabric_groups.length; i++) {
                         for (var j = 0; j < data.fabric_groups[i].parts.length; j++) {
                             if ((data.fabric_groups[i].parts[j].name == pathClass) && (data.fabric_groups[i].name == gettinggroup)) {
-                                var clickedtype = 'fabric';
+                                var clickedtype = 'fabrics';
                                 updateGroupDetails(clickedtype, gettinggroup, gettingOriginalId);
                                 for (var q = 0; q < data.fabric_groups[i].parts.length; q++) {
                                     applicableParts.push(data.fabric_groups[i].parts[q].name);
@@ -481,11 +501,13 @@ $(window).load(function() {
             pricing_object.parent_group = parentgroup;
             pricing_object.clicked_id = clicked_id;
             var currentPrice = 0;
+            var thiscate;
             //  console.log('category ==  ' + category);
             if (category == 'fabrics') {
                 for (var i = 0; i < allfabricgroupsDetails.length; i++) {
                     if ((allfabricgroupsDetails[i].group == parentgroup) && (allfabricgroupsDetails[i].id == clicked_id)) {
                         currentPrice = allfabricgroupsDetails[i].price;
+                        thiscate = 'fabrics';
                     }
                 };
             }
@@ -495,6 +517,7 @@ $(window).load(function() {
                     if ((brocadeDetails[j].group == parentgroup) && (brocadeDetails[j].brocade_id == clicked_id)) {
                         currentPrice += brocadeDetails[j].price;
                         // console.log('price is ' + currentPrice);
+                        thiscate = 'brocades';
                     }
                 };
             }
@@ -502,11 +525,13 @@ $(window).load(function() {
                 for (var k = 0; k < embDetails.length; k++) {
                     if ((embDetails[k].group == parentgroup) && (embDetails[k].embid == clicked_id)) {
                         currentPrice += embDetails[k].price;
+                        thiscate = 'embellishments';
                     }
                 };
             }
 
             pricing_object.price = currentPrice;
+            pricing_object.category = thiscate;
             //find current index for update the value
             var checking_Group_inArray = _.where(costingObj, {
                 parent_group: parentgroup
@@ -523,10 +548,10 @@ $(window).load(function() {
                         currentIndex = j;
                     }
                 };
-                //  console.log('index is ' + currentIndex);
+
                 costingObj.splice(currentIndex, 1);
                 costingObj.push(pricing_object);
-                // console.log(costingObj);
+
             }
         }
 
@@ -554,12 +579,14 @@ $(window).load(function() {
                 add_to_cart_Obj.splice(checkingindex, 1);
                 add_to_cart_Obj.push(obj);
             }
-            var details = JSON.stringify(add_to_cart_Obj);
-            //  console.log(details);
+
+
 
         }
 
         function updateUndoredo() {
+
+
             var totallength = historyObj.eachclick.length;
             var currentIndex = historyObj.presentindex;
             if (totallength > currentIndex + 1) {
@@ -568,9 +595,10 @@ $(window).load(function() {
             }
 
             eachclickDetails = [];
+
+
             updateprice();
-            /* console.log('--costingObj--');
-            console.log(costingObj);*/
+
             $('.main_parts,.group').find('path').each(function(index) {
                 var object = {};
                 object.partname = $(this).attr('class');
@@ -584,8 +612,7 @@ $(window).load(function() {
                 object.undoredoprice = JSON.stringify(costingObj);
                 eachclickDetails.push(object);
             });
-            /*console.log('each click details');
-            console.log(eachclickDetails);*/
+
             if (historyObj.eachclick.length > 0) {
                 var gettinglength = historyObj.eachclick.length;
                 var getlastIndex = historyObj.eachclick.length - 1;
@@ -604,34 +631,44 @@ $(window).load(function() {
                 historyObj.presentindex = historyObj.eachclick.length - 1;
             }
 
-            /* console.log('history object');
-            console.log(historyObj.eachclick);*/
+
         }
         $('.undo').click(function() {
-            $('.main_parts,.group').find('path').each(function(index) {
-                $(this).attr('fill', '#FFFFFF');
-            });
-            $('.group').hide();
+
+
             var undoindex = historyObj.presentindex;
+            var customisation = $('#svg_wrapper').attr('data-customise');
+            if ((undoindex == 0) && (customisation == 'true')) {
+                console.log('no');
+                console.log(historyObj.eachclick);
+                updateprice();
+                return;
+            } else {
+                $('.main_parts,.group').find('path').each(function(index) {
+                    $(this).attr('fill', '#FFFFFF');
+                });
+            }
+
+            $('.group').hide();
+
             if (undoindex == 0 || undoindex < 0) {
-                // totalprice = data.basePrice;
                 costingObj = [];
                 totalprice = 0;
                 $('.price').html(data.base_price + ' INR');
                 historyObj.presentindex = -1;
+                console.log('yes');
                 return;
             }
             undoindex = undoindex - 1;
             historyObj.presentindex = undoindex;
-            /*console.log('before is ');
-            console.log(costingObj);*/
+
             for (var i = 0; i < historyObj.eachclick[undoindex].length; i++) {
 
                 var partname = historyObj.eachclick[undoindex][i].partname;
                 var pattern = historyObj.eachclick[undoindex][i].pattern;
                 var totalpriceis = historyObj.eachclick[undoindex][i].price;
                 costingObj = $.parseJSON(historyObj.eachclick[undoindex][i].undoredoprice);
-                //   console.log(costingObj);
+
                 totalpriceis = parseInt(totalpriceis);
                 undoredoprice(totalpriceis);
 
@@ -650,8 +687,7 @@ $(window).load(function() {
                     $('.' + partname).attr('fill', 'url(#' + pattern + ')');
                 }
             }
-            /*console.log('after is ');
-            console.log(costingObj);*/
+
         });
 
         $('.redo').click(function() {
@@ -774,7 +810,7 @@ $(window).load(function() {
                             }
                         });
                     };
-                    var clickedtype = 'embellishment';
+                    var clickedtype = 'embellishments';
                     updateGroupDetails(clickedtype, group, gid);
                     caluculating_price(gettinggroup, embid, gettingCategory);
                     setTimeout(function() {
@@ -811,7 +847,7 @@ $(window).load(function() {
                         }
                     });
                 };
-                var clickedtype = 'embellishment';
+                var clickedtype = 'embellishments';
                 updateGroupDetails(clickedtype, embGroupname, embappliedid);
                 caluculating_price(gettinggroup, embid, gettingCategory);
                 setTimeout(function() {
@@ -932,7 +968,7 @@ $(window).load(function() {
                             }
                         });
                     };
-                    var clickedtype = 'brocade';
+                    var clickedtype = 'brocades';
                     updateGroupDetails(clickedtype, brocadeGroup, appliedbrocadeid);
                     caluculating_price(gettinggroup, brocadeId, gettingCategory);
                     setTimeout(function() {
@@ -962,7 +998,7 @@ $(window).load(function() {
                         });
                     }
                 };
-                var clickedtype = 'brocade';
+                var clickedtype = 'brocades';
                 updateGroupDetails(clickedtype, bgroup, bid);
                 caluculating_price(gettinggroup, brocadeId, gettingCategory);
                 setTimeout(function() {
@@ -1208,11 +1244,12 @@ $(window).load(function() {
                     saveObj.hei = 50;
                 }
                 saveObj.patternUrl = filledPattern;
-                saveObj.appliedgroups = add_to_cart_Obj;
+                saveObj.appliedgroups = costingObj;
                 savingObject.push(saveObj);
             });
 
-            console.log(savingObject);
+
+
             hiding_Unused_embellishment_Groups(savingObject);
 
 
@@ -1231,8 +1268,6 @@ $(window).load(function() {
             img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
 
 
-
-            console.log(JSON.stringify(savingObject));
             img.onload = function() {
                 ctx.drawImage(img, 0, 0);
                 var frontViewData = canvas.toDataURL("image/png");
@@ -1253,7 +1288,7 @@ $(window).load(function() {
                         hiding_Unused_embellishment_Groups(savingObject);
                         alert("Design Saved Successfully!");
                         $(".save").removeAttr('disabled');
-                        $('.prev-carousel ul').html('');
+                        $('#owl-demo1').html('');
                         $(".savingJsonLoader").css('display', 'none');
                         loadSavedDresses(data);
                     }
@@ -1273,90 +1308,155 @@ $(window).load(function() {
             };
         }
 
-        $(document).on('click', '.overview li', function() {
-            var emb_groups_enabled = [];
-            $('.savedImgClass').remove();
-            var retrievedImageDetails = $(this).attr('data-details');
-            var savedJson = $.parseJSON(retrievedImageDetails);
-            var applyPatterns = [];
-            var temp = '';
-
-            for (var i = 0; i < savedJson.length; i++) {
-                //here we have to create pattern based on the saved images clicked clicked 
-                temp += "<svg class='savedImgClass'><pattern id='savedimgPattern" + i + "' patternUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + savedJson[i].patternUrl + " width='1' height='1' /></pattern></svg>";
-                var finalObj = {};
-                finalObj.classNames = savedJson[i].partClass;
-                if (savedJson[i].patternUrl == '#FFFFFF') {
-                    finalObj.patternUrl = '#FFFFFF';
-                } else {
-                    finalObj.patternUrl = 'savedimgPattern' + i;
-                }
-                applyPatterns.push(finalObj);
-            };
-            $('.defsclass').append(temp);
-            $('.main_parts,.group').find('path').each(function(index) {
-                var thisClass = $(this).attr('class');
-                $.each(applyPatterns, function(index1, val) {
-                    if (thisClass == val.classNames) {
-                        if (val.patternUrl.length > 10) {
-                            $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
-                        } else {
-                            $('.' + val.classNames).attr('fill', '#FFFFFF');
-                        }
-                    }
-                });
-
-            });
-
-            $('.group').show();
-            hiding_Unused_embellishment_Groups(savedJson);
-            eachclickDetails = [];
-            $('.main_parts,.group').find('path').each(function(index) {
-                var object = {};
-                object.partname = $(this).attr('class');
-                object.pattern = $(this).attr('fill');
-
-                if (object.pattern.indexOf('url') > -1) {
-                    object.pattern = object.pattern.replace('url(#', '');
-                    object.pattern = object.pattern.replace(')', '');
-                }
-                object.price = totalprice;
-                eachclickDetails.push(object);
-            });
-            historyObj.presentindex = 0;
-            updateUndoredo();
-
+        $(document).on('click', '.saved_images img', function() {
+            var liId = parseInt($(this).attr('data-details'));
+            retrieveSavedImages(liId);
         });
         //loading previousely saved items while page loading
 
+        function retrieveSavedImages(liId) {
+
+            var emb_groups_enabled = [];
+            $('.savedImgClass').remove();
+
+            var thisIdDetails = _.where(retrievedData, {
+                id: liId
+            });
+
+            if (thisIdDetails.length == 1) {
+
+                $('#svg_wrapper').attr('data-customise', 'true');
+                var localCostingObj = [];
+                var savedJson = JSON.parse(thisIdDetails[0].details);
+                var applyPatterns = [];
+                var temp = '';
+                for (var i = 0; i < savedJson.length; i++) {
+                    //here we have to create pattern based on the saved images clicked clicked 
+                    temp += "<svg class='savedImgClass'><pattern id='savedimgPattern" + i + "' patternUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + savedJson[i].patternUrl + " width='1' height='1' /></pattern></svg>";
+                    var finalObj = {};
+                    finalObj.classNames = savedJson[i].partClass;
+                    if (savedJson[i].patternUrl == '#FFFFFF') {
+                        finalObj.patternUrl = '#FFFFFF';
+                    } else {
+                        finalObj.patternUrl = 'savedimgPattern' + i;
+                    }
+                    applyPatterns.push(finalObj);
+                    localCostingObj = savedJson[i].appliedgroups;
+                };
+
+
+
+                $('.defsclass').append(temp);
+                $('.main_parts,.group').find('path').each(function(index) {
+                    var thisClass = $(this).attr('class');
+                    $.each(applyPatterns, function(index1, val) {
+                        if (thisClass == val.classNames) {
+                            if (val.patternUrl.length > 10) {
+                                $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
+                            } else {
+                                $('.' + val.classNames).attr('fill', '#FFFFFF');
+                            }
+                        }
+                    });
+
+                });
+
+                $('.group').show();
+                hiding_Unused_embellishment_Groups(savedJson);
+                // eachclickDetails = [];
+                /*$('.main_parts,.group').find('path').each(function(index) {
+                    var object = {};
+                    object.partname = $(this).attr('class');
+                    object.pattern = $(this).attr('fill');
+
+                    if (object.pattern.indexOf('url') > -1) {
+                        object.pattern = object.pattern.replace('url(#', '');
+                        object.pattern = object.pattern.replace(')', '');
+                    }
+                    object.price = totalprice;
+                    object.undoredoprice = JSON.stringify(localCostingObj);
+                    eachclickDetails.push(object);
+                });*/
+
+                costingObj = localCostingObj;
+
+                historyObj.presentindex = -1;
+                updateUndoredo();
+
+                console.log('localCostingObj');
+                console.log(localCostingObj);
+
+
+                console.log('eachclickDetails');
+                console.log(eachclickDetails);
+
+                var local_add_to_cart_obj = [];
+                for (var i = 0; i < localCostingObj.length; i++) {
+                    var parentgroup = localCostingObj[i].parent_group;
+                    var clicked_id = localCostingObj[i].clicked_id;
+                    var category = localCostingObj[i].category;
+                    caluculating_price(parentgroup, clicked_id, category);
+
+                    var obj = {};
+                    obj.parentgroup = localCostingObj[i].parent_group;
+                    obj.clickedtype = localCostingObj[i].category;
+                    obj.id = localCostingObj[i].clicked_id;
+                    local_add_to_cart_obj.push(obj);
+                };
+                updateprice();
+                add_to_cart_Obj = local_add_to_cart_obj;
+            }
+
+
+        }
 
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
-                $('.prev-carousel ul').html('');
+                $('#owl-demo1').html();
 
                 retrievedData = data;
-                console.log(retrievedData);
+
+
+                var savedImagesSlider = $("#owl-demo1");
+                savedImagesSlider.owlCarousel({
+                    items: 5,
+                    itemsDesktop: [1199, 3],
+                    itemsDesktopSmall: [979, 3],
+                    slideSpeed: 500
+                });
+
+                $("#saved_img_right_arrow").click(function() {
+
+                    savedImagesSlider.trigger('owl.next');
+                });
+
+                $("#saved_img_left_arrow").click(function() {
+                    savedImagesSlider.trigger('owl.prev');
+                });
+
+
                 $.each(data, function(index, el) {
-                    var template = "<li data-details=" + el.details + "><img style='height:195px' src='" + el.image + "'/></li>";
-                    $('.prev-carousel ul').append(template);
+
+                    var aa = JSON.parse(el.details);
+
+                    // var template = "<li data-details=" + el.id + "><img style='height:195px' src='" + el.image + "'/></li>";
+                    var template = "<div class='saved_images' ><img data-details=" + el.id + " src='" + el.image + "'/></div>";
+                    // $('#owl-demo1').append(template);
+                    savedImagesSlider.data('owlCarousel').addItem(template);
 
                 });
-                setTimeout(function() {
-                    $('#slider1').tinycarousel({
-                        animationTime: 300
-                    });
-                    $('#slider1').tinycarousel();
-                    // var slider = $("#slider1").data("plugin_tinycarousel");
-                    // slider.update();
-                }, 1000);
+
+
+
 
 
                 var gettingUrlFromTab = window.location.href;
                 var recustomisationId = gettingUrlFromTab.split('=');
                 recustomisationId = recustomisationId[1];
-                console.log(recustomisationId);
-                if (gettingUrlFromTab.indexOf('customisation_id') > -1) {
 
+                if (gettingUrlFromTab.indexOf('customisation_id') > -1) {
+                    recustomisationId = parseInt(recustomisationId);
+                    retrieveSavedImages(recustomisationId);
                 }
 
 

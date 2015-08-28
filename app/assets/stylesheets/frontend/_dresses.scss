@@ -2441,3 +2441,56 @@ input#zipcode, .state-city > label:last-child {
 .nav-tabs{
   border-bottom:none;
 }
+
+
+
+
+/*=======================owl carosel css starts here===================*/
+#owl-demo1 .item{
+        margin: 3px;
+}
+#owl-demo1 .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+#saved_img_left_arrow{
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    top: 109px;
+    left:10px;
+    cursor:pointer;
+    background-image:url('left-arrow.png');
+    background-color:black;
+    border-radius:20px;
+    opacity:0.6;
+    background-position: -3px -1px;
+}
+#saved_img_right_arrow{
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    top: 109px;
+    right:10px;
+    cursor:pointer;
+    background-image:url('right-arrow.png');
+    background-color:black;
+    border-radius:20px;
+    opacity:0.6;
+    background-position: 2px 0px;
+
+}
+.owl-item img{
+    height: 230px;
+    width: 115px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.saved_images{
+  cursor:pointer;
+}
+/*=====================owl carosel css ends here==============================*/

@@ -170,18 +170,10 @@ script
         a.btnPrevious.hidden-xs[href="javascript:void(0);"]
           = image_tag 'left-arrow.png'
         .prev-carousel
-          #slider1
-            a.buttons.prev href="#" 
-               = image_tag 'left-arrow.png'
-            .viewport
-              ul.overview
-            a.buttons.next href="#"  
-               = image_tag 'right-arrow.png'
-
-        a.btnPrevious.visible-xs[href="javascript:void(0);"]
-          = image_tag 'left-arrow.png'
-        a.btnNext[href="javascript:void(0);"]
-          = image_tag 'right-arrow.png'
+          #owl-demo1.owl-carousel
+            
+          #saved_img_left_arrow
+          #saved_img_right_arrow
       .clearfix
       .col-md-4.text-center.visible-xs.md-product-btn
         input.btn.btn-primary.col-md-12[type="button" value="CUSTOMISE"]
