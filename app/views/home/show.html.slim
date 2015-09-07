@@ -31,21 +31,21 @@
 
 #promos.carousel.slide data-ride="carousel"
   ol.carousel-indicators
-    li.active data-slide-to="0" data-target="#promos" 
-    li data-slide-to="1" data-target="#promos" 
+    /li.active data-slide-to="0" data-target="#promos"
+    /li data-slide-to="1" data-target="#promos" 
   .carousel-inner role="listbox" 
     .item.active
       a href=""
         = image_tag 'collection-banner.jpg'
-    .item
-      a href=""
-        = image_tag 'discount-banner.jpg'
-  a.left.carousel-control data-slide="prev" href="#promos" role="button" 
-    span.glyphicon.glyphicon-chevron-left aria-hidden="true" 
-    span.sr-only Previous
-  a.right.carousel-control data-slide="next" href="#promos" role="button" 
-    span.glyphicon.glyphicon-chevron-right aria-hidden="true" 
-    span.sr-only Next
+    /.item
+    /  a href=""
+    /    = image_tag 'discount-banner.jpg'
+  /a.left.carousel-control data-slide="prev" href="#promos" role="button"
+  /  span.glyphicon.glyphicon-chevron-left aria-hidden="true"
+  /  span.sr-only Previous
+  /a.right.carousel-control data-slide="next" href="#promos" role="button"
+  /  span.glyphicon.glyphicon-chevron-right aria-hidden="true"
+  /  span.sr-only Next
 
 h4.floral-text.page-title.text-center
   span Selected Styles
@@ -62,9 +62,14 @@ h4.floral-text.page-title.text-center
               .action-row.top.clearfix.hover-content
                 .pull-left
                   - if !current_or_null_user.liked? product
-                    a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
-                      i.icon.ion-ios-heart-outline
-                      |Like
+                    -if !user_signed_in?
+                      a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                        i.icon.ion-ios-heart-outline
+                        |Like
+                    -else
+                      a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                        i.icon.ion-ios-heart-outline
+                        |Like
                   - else
                     a href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
                       i.icon.ion-ios-heart

@@ -12,6 +12,9 @@ class Cart
     else
       @order = Order.new currency: currency
     end
+
+
+
     if @order.total.currency != currency
       convert currency
     end

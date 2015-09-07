@@ -19,9 +19,9 @@ class LikesController < ApplicationController
     respond_to do |format|
       if @like.present?
         @like.destroy
-        format.html { redirect_to :likes, notice: "You unliked #{@like.product.name}." }
+        format.html { redirect_to :back, notice: "You unliked #{@like.product.name}." }
       else
-        format.html { redirect_to :likes, notice: 'You have no liked item.' }
+        format.html { redirect_to :back, notice: 'You have no liked item.' }
       end
     end
   end

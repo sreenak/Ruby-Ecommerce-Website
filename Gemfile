@@ -74,3 +74,4 @@ gem 'ransack'
 #shippment
 gem "aftership", "~> 4.1.0"
 
+gem 'geo_ip', '~> 0.5.0'

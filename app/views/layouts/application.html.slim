@@ -32,7 +32,7 @@ html lang="en-us"
     = stylesheet_link_tag 'application'
     = csrf_meta_tags
     = yield :head
-    
+
   body
     .loadingcustomizepage
     .loading
@@ -51,9 +51,8 @@ html lang="en-us"
                 span.icon-bar
 
 
-              
               #search_container.closed
-           
+
                 form#myform action="/search" 
                   input#search.search_input.form-control.search-key placeholder="search" type="search" value="" name="q"
                   i.ion-ios-search#btnsearch
@@ -61,9 +60,9 @@ html lang="en-us"
 
               /a.navbar-brand href="#"  Brand
               .user-log.pull-right.text-center
-                  i.ion-android-contact.icon 
-               
-              
+                i.ion-android-contact.icon
+
+
               .cart-details.pull-right.text-center
                 a href="/cart" 
                   i.ion-android-cart.icon &nbsp;
@@ -72,20 +71,24 @@ html lang="en-us"
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
                 li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
-                li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
-                li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
-                li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
-                li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
-                li.dropdown
-                  a href="#{shop_index_path}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  
-                    | Shop  
-                    span.caret 
-                  ul.dropdown-menu
-                    - @category.each do |cat|
-                      li
-                        a.mob-drop href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name.capitalize
+                - @category.each do |cat|
+                  li class="#{deep_active_class(customise_index_url)}"
+                    a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
 
-        
+                li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR OWN', :customise_index
+
+                li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
+                li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+                /li.dropdown
+                /  a href="#{shop_index_path}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                /    | Shop
+                /    span.caret
+                /  ul.dropdown-menu
+                /    - @category.each do |cat|
+                /      li
+                /        a.mob-drop href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name.capitalize
+
+
                 /li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
                 li.dropdown
                   a.dropdown-toggle href="#{deep_active_class(page_path('help'))}"
@@ -94,16 +97,19 @@ html lang="en-us"
                   ul.dropdown-menu
                     li
                       a href="#{ page_path('alterations-returns') }"= link_to 'Returns & Alterations', page_path('alterations-returns')
+                    li
+                      a href="#{ page_path('how-it-works') }"= link_to 'How it works', page_path('how-it-works')
         .sort-by-list.hidden
-        
+
+
           ul
-              - if user_signed_in?
-                li= link_to "Welcome #{current_user.name}!", account_path
-                li= link_to 'Logout', destroy_user_session_path, :method => :delete
-              - else
-                li= link_to 'Login', new_user_session_path
-                li= link_to 'Register', new_user_registration_path
-  
+            - if user_signed_in?
+              li= link_to "Welcome #{current_user.name}!", account_path
+              li= link_to 'Logout', destroy_user_session_path, :method => :delete
+            - else
+              li= link_to 'Login', new_user_session_path
+              li= link_to 'Register', new_user_registration_path
+
         .price-conversion
           form.navbar-form.navbar-left.clearfix action="/currencies/switch"
             .input-append
@@ -174,18 +180,21 @@ html lang="en-us"
           #main-menu.collapse.navbar-collapse
             ul.navbar-nav.nav
               li class="#{deep_active_class(root_url)}" = link_to 'Home', :root
-              li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR CLOTHES', :customise_index
-              li class="#{deep_active_class(page_url('how-it-works'))}"= link_to 'How it works', page_path('how-it-works')
-              li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+              - @category.each do |cat|
+                li class="#{deep_active_class(customise_index_url)}"
+                  a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+              li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR OWN', :customise_index
               li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
-              li.dropdown
-                a.dropdown-toggle  href="#{shop_index_path}"  
-                  | Shop  
-                  span.caret 
-                ul.dropdown-menu
-                  - @category.each do |cat|
-                    li
-                      a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+              li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
+
+              /li.dropdown
+              /  a.dropdown-toggle href="#{shop_index_path}"
+              /    | Shop
+              /    span.caret
+              /  ul.dropdown-menu
+              /    - @category.each do |cat|
+              /      li
+              /        a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
 
               /li class="#{deep_active_class(page_path('help'))}"= link_to 'Help', page_path('help')
               li.dropdown
@@ -195,6 +204,8 @@ html lang="en-us"
                 ul.dropdown-menu
                   li
                     a href="#{ page_path('alterations-returns') }"= link_to 'Returns & Alterations', page_path('alterations-returns')
+                  li
+                    a href="#{ page_path('how-it-works') }"= link_to 'How it works', page_path('how-it-works')
 
     .container.content-area
       = flash_messages
@@ -244,6 +255,22 @@ html lang="en-us"
                   i.icon.ion-social-google
                 a href="https://www.youtube.com/"
                   i.icon.ion-social-youtube
-
+    #login-modal.modal.fade role="dialog"
+      .modal-dialog
+        /! Modal content
+        .modal-content
+          .modal-header
+            button.close data-dismiss="modal" type="button"  &times;
+            h4.modal-title Login | Kaapad
+          .modal-body
+            = simple_form_for(resource, as: resource_name, wrapper: :vertical_form, url: session_path(resource_name)) do |f|
+              .form-inputs
+                = f.input :email, required: false, autofocus: true
+                = f.input :password, required: false
+                = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+              .form-actions
+                = f.button :submit, "Log in"
+          .modal-footer
+            button.btn.btn-default data-dismiss="modal" type="button"  Close
     = javascript_include_tag 'application'
     = yield :foot
