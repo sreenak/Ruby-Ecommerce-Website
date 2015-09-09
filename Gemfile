@@ -8,7 +8,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 # Database
 gem 'sqlite3', group: [:test]
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.0'
 gem 'friendly_id'
 gem 'faker'
 
@@ -73,7 +73,5 @@ gem 'ransack'
 
 #shippment
 gem 'aftership', '~> 4.1.0'
-
 gem 'geo_ip', '~> 0.5.0'
-
 gem 'activemerchant'
