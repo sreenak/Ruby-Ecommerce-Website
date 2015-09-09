@@ -82,7 +82,7 @@ class CheckoutController < ApplicationController
           :items => item_details,
           :order_id => @cart.id,
           :notify_url => checkout_paypal_ipn_url,
-          :return_url => checkout_paypal_ipn_url,
+          :return_url => checkout_thank_you_url,
           :cancel_return_url => cart_url
         )
         logger.info response.inspect
