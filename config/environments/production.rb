@@ -79,7 +79,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {host: 'kaapad.langoorqa.net'}
 
   config.after_initialize do
-    ActiveMerchant::Billing::Base.mode = :production
+    ActiveMerchant::Billing::Base.mode = :test
     paypal_options = {
         :login => "prabhakar-facilitator_api1.langoor.com",
         :password => "KB2HK8354CF5DNW3",
