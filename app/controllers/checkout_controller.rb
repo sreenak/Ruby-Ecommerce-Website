@@ -81,7 +81,6 @@ class CheckoutController < ApplicationController
                                                   :currency => @cart.currency,
                                                   :items => item_details,
                                                   :order_id => @cart.id,
-                                                  :notify_url => checkout_paypal_ipn_url,
                                                   :return_url => checkout_thank_you_url,
                                                   :cancel_return_url => cart_url
         )
@@ -97,25 +96,46 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def paypal_ipn
-    logger.info request.raw_post
-    notify = Paypal::Notification.new(request.raw_post)
-    logger.info notify.inspect
-    if notify.acknowledge
-      order = Order.find(notify.order_id)
-      if notify.complete? and order.total == notify.amount
-        order.status = 'Paid'
-        order.created_at = Time.now # This will behave as paid time from now on
-        order.save
-        order.order_statuses.create(status_type: 1)
-        order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
-      end
-    end
-    render :nothing
-  end
+  # def paypal_ipn
+  #   logger.info request.raw_post
+  #   notify = Paypal::Notification.new(request.raw_post)
+  #   logger.info notify.inspect
+  #   if notify.acknowledge
+  #     order = Order.find(notify.order_id)
+  #     if notify.complete? and order.total == notify.amount
+  #       order.status = 'Paid'
+  #       order.created_at = Time.now # This will behave as paid time from now on
+  #       order.save
+  #       order.order_statuses.create(status_type: 1)
+  #       order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
+  #     end
+  #   end
+  #   render :nothing
+  # end
 
   def thank_you
-    session.delete :order_id
+    details = EXPRESS_GATEWAY.details_for(params[:token])
+    response = EXPRESS_GATEWAY.purchase(@cart.total.fractional, {
+        ip: request.remote_ip,
+        token: params[:token],
+        payer_id: details.payer_id,
+        items: @order.line_items.map{|l| {name: l.title, quantity: l.quantity, amount: l.amount.fractional}}
+    })
+    if response.success?
+      # logger.info payment_params.inspect
+      payment_params = {gateway: 'PayPal Express Checkout', transaction_id: response.params['token'], ip: request.remote_ip, amount: response.params['gross_amount']}
+
+      # @order.payments.create payment_params
+      @cart.order.created_at = DateTime.now
+      @cart.order.status = 'Paid'
+      @cart.order.save
+      session.delete :order_id
+      # OrderMailer.order_confirmation(@order).deliver
+      # OrderMailer.admin_receipt(@order).deliver
+    else
+      redirect_to :cart_checkout, alert: 'Something went wrong. Please try again. If the problem persists, please contact us.'
+    end
+
     @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
   end
 
