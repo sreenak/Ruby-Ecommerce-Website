@@ -1,6 +1,4 @@
 class CheckoutController < ApplicationController
-  include ActiveMerchant::Billing::Integrations
-
   before_action :set_order, except: :ipn
   before_action :authenticate_user!, only: [:addresses, :pay]
 
