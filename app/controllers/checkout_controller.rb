@@ -1,4 +1,6 @@
 class CheckoutController < ApplicationController
+  include ActiveMerchant::Billing::Integrations
+
   before_action :set_order, except: :ipn
   before_action :authenticate_user!, only: [:addresses, :pay]
 
@@ -77,25 +79,20 @@ class CheckoutController < ApplicationController
         end
         logger.info item_details.inspect
         response = EXPRESS_GATEWAY.setup_purchase(@cart.total.fractional,
-          :ip => request.remote_ip,
-          :currency => @cart.currency,
-          :items => item_details,
-          :order_id => @cart.id,
-          :notify_url => checkout_paypal_ipn_url,
-          :return_url => checkout_thank_you_url,
-          :cancel_return_url => cart_url
+                                                  :ip => request.remote_ip,
+                                                  :currency => @cart.currency,
+                                                  :items => item_details,
+                                                  :order_id => @cart.id,
+                                                  :notify_url => checkout_paypal_ipn_url,
+                                                  :return_url => checkout_thank_you_url,
+                                                  :cancel_return_url => cart_url
         )
         logger.info response.inspect
 
         return redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
-        # return redirect_to 'https://www.sandbox.paypal.com/home'
       else
         return redirect_to 'https://www.payumoney.com/'
       end
-      require 'hdfc'
-      gateway = Hdfc.new '9002033', 'password1', checkout_thank_you_url, checkout_thank_you_url
-      gateway.prepare @order.total, @order.id
-      redirect_to gateway.payment_page
     else
       flash[:alert] = 'Billing and shipping address fields are required!'
       render :addresses
@@ -103,12 +100,20 @@ class CheckoutController < ApplicationController
   end
 
   def paypal_ipn
-    @order.status = 'Paid'
-    @order.created_at = Time.now # This will behave as paid time from now on
-    @order.save
-    @order.order_statuses.create(status_type: 1)
-    @order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
-
+    logger.info request.raw_post
+    notify = Paypal::Notification.new(request.raw_post)
+    logger.info notify.inspect
+    if notify.acknowledge
+      order = Order.find(notify.order_id)
+      if notify.complete? and order.total == notify.amount
+        order.status = 'Paid'
+        order.created_at = Time.now # This will behave as paid time from now on
+        order.save
+        order.order_statuses.create(status_type: 1)
+        order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
+      end
+    end
+    render :nothing
   end
 
   def thank_you
