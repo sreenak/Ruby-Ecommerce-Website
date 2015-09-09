@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   patch 'checkout/process_user', path: 'checkout/process-user'
   get 'checkout/addresses'
   patch 'checkout/pay'
-  get 'checkout/ipn'
+  get 'checkout/paypal_ipn'
   match 'checkout/thank_you', via: [:get, :post], path: 'checkout/thank-you'
 
   namespace :admin do

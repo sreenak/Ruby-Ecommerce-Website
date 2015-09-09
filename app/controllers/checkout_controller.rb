@@ -69,8 +69,26 @@ class CheckoutController < ApplicationController
         return redirect_to :back, notice: 'Select Payment Gateway!'
       end
       if params['payment']=='paypal'
-        @order.order_statuses.create(status_type: 1)
-        return redirect_to 'https://www.sandbox.paypal.com/home'
+        # @order.order_statuses.create(status_type: 1)
+        item_details=[]
+        @order.line_items.each do |item|
+          item_details << {:name => item.title, :quantity => item.quantity, :amount => item.amount.fractional}
+
+        end
+        logger.info item_details.inspect
+        response = EXPRESS_GATEWAY.setup_purchase(@cart.total.fractional,
+          :ip => request.remote_ip,
+          :currency => @cart.currency,
+          :items => item_details,
+          :order_id => @cart.id,
+          :notify_url => checkout_paypal_ipn_url,
+          :return_url => checkout_paypal_ipn_url,
+          :cancel_return_url => cart_url
+        )
+        logger.info response.inspect
+
+        return redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+        # return redirect_to 'https://www.sandbox.paypal.com/home'
       else
         return redirect_to 'https://www.payumoney.com/'
       end
@@ -84,15 +102,16 @@ class CheckoutController < ApplicationController
     end
   end
 
-  def ipn
-  end
-
-  def thank_you
+  def paypal_ipn
     @order.status = 'Paid'
     @order.created_at = Time.now # This will behave as paid time from now on
     @order.save
     @order.order_statuses.create(status_type: 1)
     @order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
+
+  end
+
+  def thank_you
     session.delete :order_id
     @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
   end

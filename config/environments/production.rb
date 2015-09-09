@@ -77,4 +77,16 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = {host: 'kaapad.langoorqa.net'}
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :production
+    paypal_options = {
+        :login => "prabhakar-facilitator_api1.langoor.com",
+        :password => "KB2HK8354CF5DNW3",
+        :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31A8TS8m-WgSFHyIRhquVJ05O.rSqV"
+    }
+    ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
+
 end

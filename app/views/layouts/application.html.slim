@@ -270,6 +270,7 @@ html lang="en-us"
                 = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
               .form-actions
                 = f.button :submit, "Log in"
+                li= link_to 'Register', new_user_registration_path
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
     = javascript_include_tag 'application'
