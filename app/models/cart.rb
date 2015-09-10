@@ -13,8 +13,6 @@ class Cart
       @order = Order.new currency: currency
     end
 
-
-
     if @order.total.currency != currency
       convert currency
     end
@@ -23,7 +21,7 @@ class Cart
 
   def add_item(item, price, title, quantity = 1)
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable: item, amount: price.to_money(@currency), title: title, quantity: quantity)
+    line_item = @order.line_items.create(line_itemable: item, amount: price.to_money(@currency), original_amount: price.to_money(@currency).exchange_to('INR'), title: title, quantity: quantity)
     calculate
     line_item
   end
@@ -87,7 +85,7 @@ class Cart
 
   def convert(to = 'USD')
     line_items.each do |item|
-      price = item.amount.exchange_to(to)
+      price = item.original_amount.to_money('INR').exchange_to(to)
       item.update amount: price
     end
     calculate

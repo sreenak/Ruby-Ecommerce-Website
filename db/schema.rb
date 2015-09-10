@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909134506) do
+ActiveRecord::Schema.define(version: 20150910103150) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(version: 20150909134506) do
     t.string   "currency",           limit: 255, default: "INR", null: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.integer  "original_amount",    limit: 4
   end
 
   add_index "line_items", ["line_itemable_type", "line_itemable_id"], name: "index_line_items_on_line_itemable_type_and_line_itemable_id", using: :btree
