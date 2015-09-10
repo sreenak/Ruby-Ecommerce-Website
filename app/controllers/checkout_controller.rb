@@ -51,6 +51,8 @@ class CheckoutController < ApplicationController
         @order.build_shipping_address
       end
     end
+    @currency=session[:currency]
+    logger.info @currency.inspect
   end
 
   def pay
