@@ -30,23 +30,23 @@ class CartController < ApplicationController
     # if params[:standard_size_id].blank?
     #   redirect_to :back, alert: 'Please select Size'
     # else
-      quantity = params[:quantity] ? params[:quantity] : 1
-      product = Product.find params[:product_id]
-      line_item = @cart.add_item product, product.price.to_f, product.name, quantity
-      respond_to do |format|
-        if line_item
-          standard_size_id = params[:standard_size_id] ? params[:standard_size_id] : StandardSize.first.id
-          line_item.build_product_line_item_option params.permit(:is_gift, :message)
-          line_item.product_line_item_option.standard_size_id=standard_size_id
-          line_item.product_line_item_option.save
-          session[:order_id] = @cart.id # Save order id to session since it's saved now
-          format.html { redirect_to :cart, notice: 'Product added to cart.' }
-          format.json { head :no_content }
-        else
-          format.html { redirect_to :back, alert: 'Something happened!' }
-          format.json { render json: {error: 'Something happened!'} }
-        end
+    quantity = params[:quantity] ? params[:quantity] : 1
+    product = Product.find params[:product_id]
+    line_item = @cart.add_item product, product.price.exchange_to(@currency).to_f, product.name, quantity
+    respond_to do |format|
+      if line_item
+        standard_size_id = params[:standard_size_id] ? params[:standard_size_id] : StandardSize.first.id
+        line_item.build_product_line_item_option params.permit(:is_gift, :message)
+        line_item.product_line_item_option.standard_size_id=standard_size_id
+        line_item.product_line_item_option.save
+        session[:order_id] = @cart.id # Save order id to session since it's saved now
+        format.html { redirect_to :cart, notice: 'Product added to cart.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, alert: 'Something happened!' }
+        format.json { render json: {error: 'Something happened!'} }
       end
+    end
   end
 
   def apply_discount

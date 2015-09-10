@@ -21,7 +21,12 @@ class Cart
 
   def add_item(item, price, title, quantity = 1)
     @order.save # Save self before adding the dress
-    line_item = @order.line_items.create(line_itemable: item, amount: price.to_money(@currency), original_amount: price.to_money(@currency).exchange_to('INR'), title: title, quantity: quantity)
+    Rails.logger.info price
+    amount = price.to_money(@currency)
+    original_amount = price.to_money(@currency).exchange_to('INR').fractional
+    Rails.logger.info amount
+    Rails.logger.info original_amount
+    line_item = @order.line_items.create(line_itemable: item, amount: amount, original_amount: original_amount, title: title, quantity: quantity)
     calculate
     line_item
   end
