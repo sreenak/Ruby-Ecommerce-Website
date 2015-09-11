@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $('.loadingcustomizepage').show();
     var w = $(window).width() / 2;
     var h = $(window).height() / 2;
@@ -268,7 +267,7 @@ $(window).load(function() {
 
                     }
                 };
-                $('.loadingcustomizepage,.loading').hide();
+                // $('.loadingcustomizepage,.loading').hide();
             }, 1000);
         }
 
@@ -639,8 +638,7 @@ $(window).load(function() {
             var undoindex = historyObj.presentindex;
             var customisation = $('#svg_wrapper').attr('data-customise');
             if ((undoindex == 0) && (customisation == 'true')) {
-                console.log('no');
-                console.log(historyObj.eachclick);
+                
                 updateprice();
                 return;
             } else {
@@ -656,7 +654,7 @@ $(window).load(function() {
                 totalprice = 0;
                 $('.price').html(data.base_price + ' INR');
                 historyObj.presentindex = -1;
-                console.log('yes');
+                
                 return;
             }
             undoindex = undoindex - 1;
@@ -1311,6 +1309,7 @@ $(window).load(function() {
         $(document).on('click', '.saved_images img', function() {
             var liId = parseInt($(this).attr('data-details'));
             retrieveSavedImages(liId);
+
         });
         //loading previousely saved items while page loading
 
@@ -1318,13 +1317,10 @@ $(window).load(function() {
 
             var emb_groups_enabled = [];
             $('.savedImgClass').remove();
-
             var thisIdDetails = _.where(retrievedData, {
                 id: liId
             });
-
             if (thisIdDetails.length == 1) {
-
                 $('#svg_wrapper').attr('data-customise', 'true');
                 var localCostingObj = [];
                 var savedJson = JSON.parse(thisIdDetails[0].details);
@@ -1343,9 +1339,6 @@ $(window).load(function() {
                     applyPatterns.push(finalObj);
                     localCostingObj = savedJson[i].appliedgroups;
                 };
-
-
-
                 $('.defsclass').append(temp);
                 $('.main_parts,.group').find('path').each(function(index) {
                     var thisClass = $(this).attr('class');
@@ -1363,33 +1356,9 @@ $(window).load(function() {
 
                 $('.group').show();
                 hiding_Unused_embellishment_Groups(savedJson);
-                // eachclickDetails = [];
-                /*$('.main_parts,.group').find('path').each(function(index) {
-                    var object = {};
-                    object.partname = $(this).attr('class');
-                    object.pattern = $(this).attr('fill');
-
-                    if (object.pattern.indexOf('url') > -1) {
-                        object.pattern = object.pattern.replace('url(#', '');
-                        object.pattern = object.pattern.replace(')', '');
-                    }
-                    object.price = totalprice;
-                    object.undoredoprice = JSON.stringify(localCostingObj);
-                    eachclickDetails.push(object);
-                });*/
-
                 costingObj = localCostingObj;
-
                 historyObj.presentindex = -1;
                 updateUndoredo();
-
-                console.log('localCostingObj');
-                console.log(localCostingObj);
-
-
-                console.log('eachclickDetails');
-                console.log(eachclickDetails);
-
                 var local_add_to_cart_obj = [];
                 for (var i = 0; i < localCostingObj.length; i++) {
                     var parentgroup = localCostingObj[i].parent_group;
@@ -1405,6 +1374,8 @@ $(window).load(function() {
                 };
                 updateprice();
                 add_to_cart_Obj = local_add_to_cart_obj;
+
+               
             }
 
 
@@ -1415,6 +1386,7 @@ $(window).load(function() {
                 $('#owl-demo1').html();
 
                 retrievedData = data;
+
 
 
                 var savedImagesSlider = $("#owl-demo1");
@@ -1456,7 +1428,14 @@ $(window).load(function() {
 
                 if (gettingUrlFromTab.indexOf('customisation_id') > -1) {
                     recustomisationId = parseInt(recustomisationId);
-                    retrieveSavedImages(recustomisationId);
+
+                    setTimeout(function() {
+                        retrieveSavedImages(recustomisationId);
+                        $('.loadingcustomizepage,.loading').hide();
+
+                    }, 3000);
+                } else {
+                    $('.loadingcustomizepage,.loading').hide();
                 }
 
 
