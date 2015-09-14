@@ -638,7 +638,7 @@ $(window).load(function() {
             var undoindex = historyObj.presentindex;
             var customisation = $('#svg_wrapper').attr('data-customise');
             if ((undoindex == 0) && (customisation == 'true')) {
-                
+
                 updateprice();
                 return;
             } else {
@@ -654,7 +654,7 @@ $(window).load(function() {
                 totalprice = 0;
                 $('.price').html(data.base_price + ' INR');
                 historyObj.presentindex = -1;
-                
+
                 return;
             }
             undoindex = undoindex - 1;
@@ -1375,7 +1375,7 @@ $(window).load(function() {
                 updateprice();
                 add_to_cart_Obj = local_add_to_cart_obj;
 
-               
+
             }
 
 
@@ -1384,11 +1384,7 @@ $(window).load(function() {
         function loadSavedDresses(data) {
             $.getJSON('/customised_dresses.json?id=' + data.id + '', function(data) {
                 $('#owl-demo1').html();
-
                 retrievedData = data;
-
-
-
                 var savedImagesSlider = $("#owl-demo1");
                 savedImagesSlider.owlCarousel({
                     items: 5,
@@ -1396,17 +1392,13 @@ $(window).load(function() {
                     itemsDesktopSmall: [979, 3],
                     slideSpeed: 500
                 });
-
                 $("#saved_img_right_arrow").click(function() {
-
                     savedImagesSlider.trigger('owl.next');
                 });
 
                 $("#saved_img_left_arrow").click(function() {
                     savedImagesSlider.trigger('owl.prev');
                 });
-
-
                 $.each(data, function(index, el) {
 
                     var aa = JSON.parse(el.details);
@@ -1417,11 +1409,6 @@ $(window).load(function() {
                     savedImagesSlider.data('owlCarousel').addItem(template);
 
                 });
-
-
-
-
-
                 var gettingUrlFromTab = window.location.href;
                 var recustomisationId = gettingUrlFromTab.split('=');
                 recustomisationId = recustomisationId[1];
@@ -1437,9 +1424,11 @@ $(window).load(function() {
                 } else {
                     $('.loadingcustomizepage,.loading').hide();
                 }
-
-
-            });
+            }).error(function() {
+                setTimeout(function() {
+                    $('.loadingcustomizepage,.loading').hide();
+                }, 1000);
+            })
         }
 
 
