@@ -32,7 +32,7 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  #gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -65,7 +65,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 
 # Cart
-gem 'money-rails'
+gem 'money-rails', '~> 1.4.1'
 gem 'eu_central_bank'
 gem 'geo_ip', '~> 0.5.0'
 gem 'activemerchant'

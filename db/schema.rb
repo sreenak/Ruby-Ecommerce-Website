@@ -416,9 +416,9 @@ ActiveRecord::Schema.define(version: 20150910103150) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "product_id", limit: 4
     t.integer  "user_id",    limit: 4
-    t.string   "message",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.text     "message",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.boolean  "active",     limit: 1
   end
 

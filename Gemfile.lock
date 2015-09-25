@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/galetahub/ckeditor.git
-  revision: 4a5941691db3b5cf56db40167892b0c4eeb57a22
+  revision: 9a2d8c22b0e8acf1f0aa3b1a67df2a3efcc82270
   specs:
     ckeditor (4.1.3)
       cocaine
@@ -58,7 +58,7 @@ GEM
     authority (3.1.0)
       activesupport (>= 3.0.0)
       rake (>= 0.8.7)
-    autoprefixer-rails (6.0.2)
+    autoprefixer-rails (6.0.3)
       execjs
       json
     bcrypt (3.1.10)
@@ -71,7 +71,6 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
     builder (3.2.2)
-    byebug (6.0.2)
     canonical-rails (0.0.11)
       rails (>= 3.1, < 5.0)
     capistrano (3.2.1)
@@ -98,11 +97,11 @@ GEM
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     colorize (0.7.7)
-    countries (1.0.0)
+    countries (1.1.0)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
-    country_select (2.3.0)
-      countries (~> 1.0.0)
+    country_select (2.4.0)
+      countries (~> 1.1.0)
       sort_alphabetical (~> 1.0)
     crummy (1.8.0)
     currencies (0.4.2)
@@ -258,7 +257,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    simple_form (3.1.1)
+    simple_form (3.2.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slim (3.0.6)
@@ -314,7 +313,6 @@ DEPENDENCIES
   authority
   bootstrap-datepicker-rails
   bootstrap-sass
-  byebug
   canonical-rails
   capistrano (~> 3.2.1)
   capistrano-bundler (~> 1.1.2)
@@ -336,7 +334,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mini_magick
-  money-rails
+  money-rails (~> 1.4.1)
   mysql2 (~> 0.3.0)
   nested_form
   offsite_payments

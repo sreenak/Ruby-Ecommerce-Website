@@ -95,8 +95,9 @@ h4.floral-text
           a href="#{trend_path(t)}"
             .row
               .col-sm-6= image_tag t.image_url(:medium)
-              .col-sm-6
+              .col-sm-6.text-left
                 h4= t.title
+                p= truncate(strip_tags(t.body), :length => 200)
   .col-md-5
     .pull-right.news-letter
       h4 NEWS LETTER

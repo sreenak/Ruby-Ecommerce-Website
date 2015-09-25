@@ -86,9 +86,9 @@ html lang="en-us"
                 li class="#{deep_active_class(trends_url)}"= link_to 'Trends', :trends
                 li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card
                 li.dropdown
-                  a.dropdown-toggle href="#{shop_index_path}" 
-                    | Shop  
-                    span.caret 
+                  a.dropdown-toggle href="#{shop_index_path}"
+                    | Shop
+                    span.caret
                   ul.dropdown-menu
                     - @category.each do |cat|
                       li

@@ -8,8 +8,8 @@ function getQueryParams(qs) {
     }
     return params;
 }
-$(window).load(function () {
 
+$(window).load(function () {
     $("#zoom_03").elevateZoom({
         gallery: 'gallery_01',
         cursor: 'pointer',
@@ -31,13 +31,21 @@ $(window).load(function () {
     });
 
     /*=============== price slider =================*/
-    var price = getQueryParams(document.location.search).price;
-    $("#price-range").slider({from: 0, to: 100000, heterogeneity: ['10/1000'], step: 100, dimension: '&nbsp;'});
-    if (price) {
-        var priceComponents = price.split(';');
-        var from = priceComponents[0];
-        var to = priceComponents[1];
-        $("#price-range").slider('value', from, to)
+    if (typeof max_price != 'undefined') {
+        var price = getQueryParams(document.location.search).price;
+        $("#price-range").slider({
+            from: 0,
+            to: max_price,
+            heterogeneity: ['10/1000'],
+            step: max_price / 10,
+            dimension: '&nbsp;'
+        });
+        if (price) {
+            var priceComponents = price.split(';');
+            var from = priceComponents[0];
+            var to = priceComponents[1];
+            $("#price-range").slider('value', from, to)
+        }
     }
 
     /*=============== sortby ============*/

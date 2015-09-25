@@ -3,6 +3,8 @@ class ShopController < ApplicationController
     @product_search = Product.ransack(search_params)
     @products = @product_search.result(distinct: true).order(id: :desc).page(params[:page]).per(9)
     @product_search.build_sort if @product_search.sorts.empty?
+    first = Product.unscoped.order(price_paisas: :desc).first
+    @max_price = first.price.exchange_to(@currency).to_f.ceil
   end
 
   def show

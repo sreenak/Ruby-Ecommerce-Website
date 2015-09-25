@@ -45,10 +45,10 @@ class GiftCardsController < ApplicationController
 
   private
   def e_gift_card_params
-    params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount_paisas, :currency)
+    params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount, :currency)
   end
 
   def p_gift_card_params
-    params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount_paisas, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :id, :_destroy, :city, :country, :postal_code])
+    params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :id, :_destroy, :city, :country, :postal_code])
   end
 end

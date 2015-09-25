@@ -652,7 +652,7 @@ $(window).load(function() {
             if (undoindex == 0 || undoindex < 0) {
                 costingObj = [];
                 totalprice = 0;
-                $('.price').html(data.base_price + ' INR');
+                $('.price').html(data.base_price + currency);
                 historyObj.presentindex = -1;
 
                 return;

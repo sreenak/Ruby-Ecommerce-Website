@@ -24,9 +24,9 @@
         h4 Send a gift certificate to your loved one.
         .row
           .col-sm-4.col-xs-6
-            = f.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
-          .col-sm-4.col-xs-6
-            = f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
+            = f.input :amount, label: 'Amount', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
+          /.col-sm-4.col-xs-6
+          /  = #f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
             .form-group.string.required.gift_card_ordered_for.pull-left
               label.string.required.control-label[for='gift_card_ordered_for']
@@ -48,9 +48,9 @@
         .row
           .col-sm-4.col-xs-6
             /= p.input :type, as: :hidden, value: 'P-GIFT CERTIFICATE'
-            = p.input :amount_paisas, collection: GiftCard::AMOUNTS, label: 'Amount',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Amount'}
-          .col-sm-4.col-xs-6
-            = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Currency'}
+            = p.input :amount, label: 'Amount',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Amount'}
+          /.col-sm-4.col-xs-6
+          /  = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
             .form-group.string.required.gift_card_ordered_for
               label.string.required.control-label[for='gift_card_ordered_for']

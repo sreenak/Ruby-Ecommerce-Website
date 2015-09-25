@@ -1,6 +1,7 @@
 class CustomiseController < ApplicationController
   def index
-    @dresses = Dress.page params[:page]
+    @salwars = Dress.where("category_id = 2").page params[:page]
+    @pants = Dress.where("category_id = 3").page params[:page]
   end
 
   def show

@@ -1,6 +1,7 @@
 /  = sort_link @product_search, :price_paisas, "Price in acen & decn "
- 
-        
+javascript:
+  var max_price = #{@max_price.to_s};
+
 - content_for :title do
   |Shop
 
@@ -43,7 +44,7 @@ h1.page-title.text-center.text-uppercase Shop
         .product-box
           h4 Price (in #{@currency})
           .product-price-flt
-            input#price-range.hidden type="slider" value="0;100000" name="price"
+            input#price-range.hidden type="slider" value="0;#{@max_price}" name="price"
 
         .product-box
           h4

@@ -81,7 +81,7 @@ end
 
 # # Categories
 
-%w(Sarees Salwars).each { |c| Category.where(name: c).first_or_create }
+%w(Sarees Salwars Pants).each { |c| Category.where(name: c).first_or_create }
 
 fabrics_dir = Rails.root.join('seeds', 'fabrics')
 Dir.foreach(fabrics_dir) do |item|

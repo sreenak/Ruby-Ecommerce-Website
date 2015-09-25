@@ -3,9 +3,18 @@
 
 h4.floral-text.text-uppercase.text-center.page-title.choose-head
   span CHOOSE YOUR STYLE
+  br
+  span Salwars
 .row.dresses
-  - @dresses.each do |d|
+  - @salwars.each do |d|
     .col-md-4.text-center.dress-preview
       a href="#{customise_path(d)}"
         = image_tag d.sketch_url(:medium)
+h4.floral-text.text-uppercase.text-center.page-title.choose-head
+  span Pants
+.row.dresses
+  - @pants.each do |p|
+    .col-md-4.text-center.dress-preview
+      a href="#{customise_path(p)}"
+        = image_tag p.sketch_url(:medium)
 
