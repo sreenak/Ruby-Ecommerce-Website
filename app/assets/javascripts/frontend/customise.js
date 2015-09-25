@@ -99,7 +99,7 @@ $(window).load(function() {
             setTimeout(function() {
 
                 var continueLoopCount = 0; //to display the patterns in serialwise 
-                $('.price').html(totalprice + ' INR');
+                $('.price').html(totalprice + currency);
                 for (var allparts = 0; allparts < data.fabric_groups.length; allparts++) {
                     for (var chekparts = 0; chekparts < data.fabric_groups[allparts].parts.length; chekparts++) {
                         allDressParts.push(data.fabric_groups[allparts].parts[chekparts].name)
@@ -1434,7 +1434,7 @@ $(window).load(function() {
 
         function undoredoprice(undoredototalprice) {
             totalprice = undoredototalprice;
-            $('.price').html(undoredototalprice + ' INR');
+            $('.price').html(undoredototalprice + currency);
         }
 
         function updateprice() {
@@ -1448,7 +1448,7 @@ $(window).load(function() {
 
             totalprice = data.base_price + price;
 
-            $('.price').html(totalprice + ' INR');
+            $('.price').html(totalprice + currency);
         }
         //undo redo functionality starts here ====================================
 
