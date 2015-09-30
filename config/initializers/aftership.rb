@@ -1,2 +1,2 @@
 # require('aftership')
-AfterShip.api_key = '7c4566aa-a61b-4e54-813e-aa139ef6efcf'
+AfterShip.api_key = 'db01e4b4-2921-495b-a2c5-7773384d5cbd'
