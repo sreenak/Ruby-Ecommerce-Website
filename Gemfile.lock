@@ -1,4 +1,51 @@
 GIT
+  remote: git://github.com/rspec/rspec-core.git
+  revision: 052cc3d3ad28c7848d28225884febdf506463686
+  branch: master
+  specs:
+    rspec-core (3.4.0.pre)
+      rspec-support (= 3.4.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-expectations.git
+  revision: 62794bfe5e7a082a1ea2eaba25067e39d358d9e3
+  branch: master
+  specs:
+    rspec-expectations (3.4.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.4.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-mocks.git
+  revision: a2aadda61e46e918a006609a06958d0f5bfddd27
+  branch: master
+  specs:
+    rspec-mocks (3.4.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.4.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: f9e8709212e02a657dc639e2bc556e1d193c4b9b
+  branch: master
+  specs:
+    rspec-rails (3.4.0.pre)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (= 3.4.0.pre)
+      rspec-expectations (= 3.4.0.pre)
+      rspec-mocks (= 3.4.0.pre)
+      rspec-support (= 3.4.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-support.git
+  revision: cda4cd3459bb3fce06889dfb7ae1a6edfcac5493
+  branch: master
+  specs:
+    rspec-support (3.4.0.pre)
+
+GIT
   remote: https://github.com/galetahub/ckeditor.git
   revision: cf7483fe9d202613e5702fc4ffe894c94d50a6ee
   specs:
@@ -34,7 +81,7 @@ GEM
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)
-    activemerchant (1.53.0)
+    activemerchant (1.54.0)
       activesupport (>= 3.2.14, < 5.0.0)
       builder (>= 2.1.2, < 4.0.0)
       i18n (>= 0.6.9)
@@ -113,6 +160,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -123,6 +171,11 @@ GEM
       money (~> 6.5.0)
       nokogiri (~> 1.6.3)
     execjs (2.6.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
     faraday (0.9.1)
@@ -138,7 +191,7 @@ GEM
     httpclient (2.5.3.3)
     i18n (0.7.0)
     i18n_data (0.7.0)
-    jbuilder (2.3.1)
+    jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (4.0.5)
@@ -155,7 +208,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (1.25.1)
-    mini_magick (4.3.3)
+    mini_magick (4.3.5)
     mini_portile (0.6.2)
     minitest (5.8.1)
     monetize (1.1.0)
@@ -175,7 +228,7 @@ GEM
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.2)
+    net-ssh (3.0.1)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nokogiri (1.6.6.2-x86-mingw32)
@@ -271,8 +324,8 @@ GEM
       slim (~> 3.0)
     sort_alphabetical (1.0.2)
       unicode_utils (>= 1.2.2)
-    sprockets (3.3.4)
-      rack (~> 1.0)
+    sprockets (3.4.0)
+      rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -289,7 +342,7 @@ GEM
     tilt (2.0.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2015.6)
+    tzinfo-data (1.2015.7)
       tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
@@ -327,6 +380,7 @@ DEPENDENCIES
   dotenv-rails
   dynamic_sitemaps
   eu_central_bank
+  factory_girl_rails
   faker
   friendly_id
   geo_ip (~> 0.5.0)
@@ -344,6 +398,11 @@ DEPENDENCIES
   rails (= 4.2.1)
   ransack
   recaptcha
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-rails!
+  rspec-support!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form

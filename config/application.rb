@@ -10,7 +10,8 @@ module Kaapad
   class Application < Rails::Application
     config.generators do |g|
       g.orm :active_record
-      g.test_framework false
+      g.test_framework :rspec
+      g.fixture_replacement :factory_girl
       g.stylesheets false
       g.javascripts false
       g.helper false

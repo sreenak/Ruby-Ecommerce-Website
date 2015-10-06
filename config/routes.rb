@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :widgets
   get 'shipments/show'
 
   root to: 'home#show'
