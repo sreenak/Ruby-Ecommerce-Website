@@ -14,6 +14,7 @@ class GiftCardsController < ApplicationController
   def create
     params[:quantity].to_i.times {
       @gift = EGiftCard.new e_gift_card_params
+      @gift.currency = @cart.currency
       if @gift.save
         @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
         session[:order_id] = @cart.id
@@ -45,10 +46,10 @@ class GiftCardsController < ApplicationController
 
   private
   def e_gift_card_params
-    params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount, :currency)
+    params[:e_gift_card].permit(:ordered_by, :email, :ordered_for, :deliver_to, :message, :amount)
   end
 
   def p_gift_card_params
-    params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount, :currency, shipping_address_attributes: [:name, :address_1, :address_2, :id, :_destroy, :city, :country, :postal_code])
+    params[:p_gift_card].permit(:ordered_by, :ordered_for, :deliver_to, :message, :amount, shipping_address_attributes: [:name, :address_1, :address_2, :id, :_destroy, :city, :country, :postal_code])
   end
 end
