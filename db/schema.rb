@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005065200) do
+ActiveRecord::Schema.define(version: 20151008104135) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -104,14 +104,6 @@ ActiveRecord::Schema.define(version: 20151005065200) do
     t.integer "color_id",   limit: 4, null: false
   end
 
-  create_table "custom_sizes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "size",       limit: 255
-    t.string   "unit",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "custom_sizes_dresses", id: false, force: :cascade do |t|
     t.integer "dress_id",       limit: 4, null: false
     t.integer "custom_size_id", limit: 4, null: false
@@ -140,6 +132,18 @@ ActiveRecord::Schema.define(version: 20151005065200) do
     t.datetime "updated_at",                                                                     null: false
     t.string   "currency",                   limit: 255,                         default: "INR", null: false
     t.integer  "usage_count",                limit: 4,                           default: 0,     null: false
+  end
+
+  create_table "dress_custom_sizes", force: :cascade do |t|
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "chest",        limit: 4
+    t.integer  "waist",        limit: 4
+    t.integer  "length",       limit: 4
+    t.integer  "shoulder",     limit: 4
+    t.integer  "arm_hole",     limit: 4
+    t.integer  "neck",         limit: 4
+    t.integer  "line_item_id", limit: 4
   end
 
   create_table "dress_line_item_options", force: :cascade do |t|

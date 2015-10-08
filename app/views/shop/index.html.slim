@@ -88,9 +88,14 @@ h1.page-title.text-center.text-uppercase Shop
                     .action-row.top.clearfix.hover-content
                       .pull-left
                         - if !current_or_null_user.liked? product
-                          a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
-                            i.icon.ion-ios-heart-outline
-                            |Like
+                          -if !user_signed_in?
+                            a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                              i.icon.ion-ios-heart-outline
+                              |Like
+                          -else
+                            a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                              i.icon.ion-ios-heart-outline
+                              |Like
                         - else
                           a href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
                             i.icon.ion-ios-heart
