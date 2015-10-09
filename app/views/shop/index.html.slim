@@ -107,7 +107,7 @@ h1.page-title.text-center.text-uppercase Shop
                           |Add to cart
                     h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
                     h4.text-center
-                      = link_to product.name, shop_path(product)
+                      = link_to product.name.camelize, shop_path(product)
 
       = paginate @products
     - else

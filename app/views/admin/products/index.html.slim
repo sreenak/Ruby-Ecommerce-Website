@@ -8,6 +8,7 @@
 table.table.table-responsive.table-striped
   thead
     tr
+      th ID
       th Image
       th Name
       th Price
@@ -15,6 +16,7 @@ table.table.table-responsive.table-striped
   tbody
     - @products.each do |product|
       tr
+        td= product.id
         td= image_tag product.image_url(:thumbnail)
         td= product.name
         td= humanized_money_with_symbol product.price

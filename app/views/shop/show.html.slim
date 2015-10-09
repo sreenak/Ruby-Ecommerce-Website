@@ -12,7 +12,7 @@
             = image_tag image.image_url(:thumbnail)
 
   .col-md-7.product-details
-    h2.page-title= @product.name
+    h2.page-title= @product.name.camelize
     = form_tag cart_add_product_path
       = hidden_field_tag :product_id, @product.id
       .add-to-cart-block.row
