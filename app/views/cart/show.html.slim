@@ -1,90 +1,123 @@
 - content_for :title do
   | Cart 
-/- if @cart.product_items.length == 0
-  /.alert.alert-warning
-    /.likeempty.text-center
-      /h4.text-center Your cart is empty!
-      /= link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
-/- else
-  /= link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
-  = form_tag cart_update_path, method: 'patch' do
-    /.scrollWrapper
-      /table.shop_table.cart.table.table-bordered
-        /thead
-          /tr
-            /th.product-remove.text-center
-              /| Remove
-            /th.product-name.text-center
-              /| Product
-            /th.text-center
-              /| Price
-            /th.product-quantity.text-center
-              /| Quantity
-            /th.product-subtotal.text-center
-              /| Total
-        /tbody
-          /- @cart.product_items.each do |i|
-            /tr.cart_item
-              /td.product-remove.text-center
-                /|  <a href="
-                /= cart_delete_path id: i.id
-                /| " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">×
-              /td.product-name.text-center
-                /= i.title
-              /td.text-center
-                /span
-                  /= humanized_money_with_symbol i.amount
-              /td.product-quantity.text-center
-                /.quantity.buttons_added
-                  /- if i.line_itemable_type == 'GiftCard'
-                    /= hidden_field_tag "quantities[#{i.id}]", 1
-                  /- else
-                    /|  <input type="number" step="1" min="1" name="quantities[
-                    /= i.id
-                    /| ]" value="
-                    /= i.quantity
-                    /| " class="input-text qty text" size="4">
-              /td.product-subtotal.text-center
-                /span.amount
-                  /= humanized_money_with_symbol i.subtotal
-          /- @cart.discount_items.each do |d|
-            /tr
-              /th.text-center
-                /|  <a href="
-                /= cart_delete_path id: d.id
-                /| " class="remove" title="Remove this discounts" data-method="delete" data-confirm="Are you sure?">×
-              /th.text-right[colspan="3"]
-                /= d.title
-              /td.text-center
-                /span.amount
-                  /b
-                    /= humanized_money_with_symbol d.subtotal
-          /- @cart.gift_card_usage_items.each do |g|
-            /tr
-              /th.text-center
-                /|  <a href="
-                /= cart_delete_path id: g.id
-                /| " class="remove" title="Remove this gift card" data-method="delete" data-confirm="Are you sure?">×
-              /th.text-right[colspan="3"]
-                = g.title
-              /th.text-center
-                /= humanized_money_with_symbol g.subtotal
-          /tr
-            /th.text-right[colspan="4"]
-              /| Total
-            /th.text-center
-              /= humanized_money_with_symbol @cart.total
-        /tfoot
-          /tr
-            /td.actions.text-right[colspan="6"]
-              /input.btn.btn-default[type="submit" name="update_cart" value="Update /Cart" onclick="this.disabled = true;this.form.submit();"]
-              /|  <a href="
-              /= user_signed_in? ? checkout_addresses_path : checkout_user_path
-              /| " class="checkout-button btn btn-primary alt wc-forward">Continue
-  .row
-    .col-sm-8
-      = form_tag cart_discount_path, method: 'patch', class: 'form-inline' do
-        .coupon
-          input#coupon_code.form-control[type="text" name="coupon_code" placeholder="Discount or Gift code"]
-          input#validateForm.btn.btn-primary[type="submit" name="apply_coupon" value="Apply Coupon"]
-          #coupon_code_err_message
+.row.product-wrap
+  .col-md-8
+    
+      h4 My Cart
+      .product-block-wrap
+
+        .product-block
+          .product-img-block
+            a href="javascript:void(0)"
+              =image_tag "avatar.png" ,class: 'img-responsive'
+          .product-info-block
+            .col-md-12.product-inner-block
+              .col-md-9.no-left-padding
+                .col-md-12.no-paddin
+                  h5.product-name
+                    a href="" 
+                      |dress title
+                  .product-other-details.cleasfix
+                    span.choosen-size
+                      label Size
+                      .input-append
+                        select
+                          option M
+                    span.choosen-qty
+                      label qty
+                      .input-append
+                        input type="number" step='1' value="1"        
+                  .add-remove
+                    ul 
+                      li
+                        a Remove
+                      li
+                        a Move to wishlist
+
+              .col-md-3.no-right-padding.text-right
+                .actual-price
+                  span &#x20B9;
+                  |1799
+                .after-discount
+                  span &#x20B9;
+                  |1799
+
+        .product-block
+          .product-img-block
+            a href="javascript:void(0)"
+              =image_tag "avatar.png" ,class: 'img-responsive'
+          .product-info-block
+            .col-md-12.product-inner-block
+              .col-md-9.no-left-padding
+                .col-md-12.no-paddin
+                  h5.product-name
+                    a href="" 
+                      |dress title
+                  .product-other-details.cleasfix
+                    span.choosen-size
+                      label Size
+                      .input-append
+                        select
+                          option M
+                    span.choosen-qty
+                      label qty
+                      .input-append
+                        input type="number" step='1' value="1"        
+                  .add-remove
+                    ul 
+                      li
+                        a Remove
+                      li
+                        a Move to wishlist
+
+              .col-md-3.no-right-padding.text-right
+                .actual-price
+                  span &#x20B9;
+                  |1799
+                .after-discount
+                  span &#x20B9;
+                  |1799
+
+
+  .col-md-3.pull-right
+    h4 Order Summary
+    .amount-calculation
+      p
+        | SUB TOTAL:
+        span
+          span.indian-rupee &#x20B9
+          | 1234
+      p
+        | DISCUNT:
+        span
+          span.indian-rupee &#x20B9
+          | 1234
+
+      p
+        | DISCOUNT CODE:
+        span
+          span.indian-rupee &#x20B9
+          | 1234
+      p
+        | VAT*:
+        span
+          span.indian-rupee &#x20B9
+          | 1234
+      #total-amount.total-amount
+        | TOTAL PAYABLE AMOUNT:
+        span
+          span.indian-rupee> ₹
+          | 1299
+    = link_to 'checkout', :shop_index, class: 'btn btn-primary continue-shop'
+    = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
+
+
+.row
+  .col-sm-8
+    .col-sm-12.no-right-padding.update-wrap
+      input.pull-right.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]
+    = form_tag cart_discount_path, method: 'patch', class: 'form-inline' do
+      .coupon
+        input#coupon_code.form-control[type="text" name="coupon_code" placeholder="Discount or Gift code"]
+        input#validateForm.btn.btn-primary[type="submit" name="apply_coupon" value="Apply Coupon"]
+        #coupon_code_err_message
