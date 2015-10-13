@@ -206,7 +206,7 @@ html lang="en-us"
     .container.content-area
       .row
         .col-md-12
-          h1.page-title
+          h1.page-title.hidden= yield :title
           = flash_messages
           = yield
 

@@ -1,7 +1,8 @@
 - content_for :title do
   |Log in
-div.col-md-9 
-	div.col-md-6
+div.col-md-9.login-reg-wrap
+	div.col-md-6.login-wrap
+	    h4 Login
 		= simple_form_for(resource, as: resource_name, wrapper: :vertical_form, url: session_path(resource_name)) do |f|
 		  .form-inputs
 		    = f.input :email, required: false, autofocus: true
@@ -10,7 +11,12 @@ div.col-md-9
 		  .form-actions
 		    = f.button :submit, "Log in"
 		/= render "devise/shared/links"
-	div.col-md-6
+	div.col-md-1.vertic-line-wrap
+		div.vertic-line
+			div.verticel-line-or or
+			/div.verticel-line
+	div.col-md-6.reg-wrap.pull-right
+		h4 Registration
 		= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), wrapper: :vertical_form, html: {class: ''}) do |f|
   			= f.error_notification
   			/== render 'shared/form_errors', object: f.object

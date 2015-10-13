@@ -311,3 +311,48 @@ font-size:24px;
 .mob-drop{
 text-transform:uppercase;
 }
+
+
+.login-wrap,.reg-wrap
+{
+  width:48% !important;
+}
+
+.vertic-line
+{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+.verticel-line{
+  position:absolute;
+  width:2px;
+  border-left:1px solid;
+  height:100%;
+
+
+}
+
+.verticel-line-or
+{
+      background: #fff;
+    border: 1px solid;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vertic-line-wrap
+{
+      display: flex;
+}
+
+.login-reg-wrap
+{
+   display: flex;
+}
