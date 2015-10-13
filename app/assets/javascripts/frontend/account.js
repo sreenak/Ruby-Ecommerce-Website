@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     var ww = $(window).width()-25;
     var lefw = $(window).width()-65;
@@ -75,6 +76,17 @@ $(document).ready(function () {
             $('#user_shipping_address_attributes_name, #user_shipping_address_attributes_address_1,#user_shipping_address_attributes_address_2, #user_shipping_address_attributes_country, #user_shipping_address_attributes_city, #user_shipping_address_attributes_state, #user_shipping_address_attributes_postal_code').val('')
         }
     })
+
+
+$(document).scroll(function(e){
+    var scrollTop = $(document).scrollTop();
+    if(scrollTop > 200){
+        console.log(scrollTop);
+        $('.navbar-fixed-top').css('display','block');
+    } else {
+        $('.navbar-fixed-top').css('display','none');
+    }
+});
 
 
     

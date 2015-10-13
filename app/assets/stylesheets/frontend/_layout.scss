@@ -75,6 +75,11 @@ a
 margin-bottom: $line-height-computed * 2;
 }
 
+.page-title.product-name
+{
+  margin-bottom:15px !important;
+}
+
 .page-footer {
 border-top: 3px solid $brand-primary;
 font-size: $font-size-small;

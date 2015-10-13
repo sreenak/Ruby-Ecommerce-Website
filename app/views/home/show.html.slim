@@ -14,29 +14,31 @@
       | to the smallest details.
     a.text-uppercase href="#{customise_index_path}"
       span.btn.btn-lg Start Designing
+    a.text-uppercase.browse-collection-btn href="#{customise_index_path}"
+      span.btn.btn-lg browse collection
 
 .icon-blocks-container.text-center.row
   .icon-block.col-md-4
     .icon= image_tag 'how-it-works.png'
-    h4.text-uppercase How it works
-    p.small Our Customisation Process
+    h4.text-uppercase Made for All Size
+    
   .icon-block.col-md-4
     .icon= image_tag 'worldwide-shipping.png'
     h4.text-uppercase Worldwide Shipping
-    p.small On Orders Above $150
+ 
   .icon-block.col-md-4
     .icon= image_tag 'free-returns.png'
-    h4.text-uppercase Free returns
-    p.small 90 day return policy
+    h4.text-uppercase 30 day return policy
+   
 
-#promos.carousel.slide data-ride="carousel"
-  ol.carousel-indicators
+/#promos.carousel.slide data-ride="carousel"
+  /ol.carousel-indicators
     /li.active data-slide-to="0" data-target="#promos"
     /li data-slide-to="1" data-target="#promos" 
-  .carousel-inner role="listbox" 
-    .item.active
-      a href=""
-        = image_tag 'collection-banner.jpg'
+  /.carousel-inner role="listbox" 
+    /.item.active
+      /a href=""
+        /= image_tag 'collection-banner.jpg'
     /.item
     /  a href=""
     /    = image_tag 'discount-banner.jpg'
@@ -47,10 +49,14 @@
   /  span.glyphicon.glyphicon-chevron-right aria-hidden="true"
   /  span.sr-only Next
 
-h4.floral-text.page-title.text-center
-  span Selected Styles
+h3.floral-text.page-title.home-text.text-center
+  |Selected Styles
+div.choosen-customiz.text-center 
+  |View selected styles or 
+  a.text-uppercase.choose-customiz-btn href="#{customise_index_path}"
+    span.btn.btn-lg Start customizing
 
-.products
+.products.home-product
   - @products.each_slice(3) do |row|
     .row
       - row.each do |product|
@@ -59,29 +65,55 @@ h4.floral-text.page-title.text-center
             a href="#{shop_path(product)}"
               = image_tag product.image_url(:medium)
             .details
+              /.action-row.top.clearfix.hover-content
+                /.pull-left
+                  /- if !current_or_null_user.liked? product
+                    /-if !user_signed_in?
+                      /a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                        /i.icon.ion-ios-heart-outline
+                        /|Like
+                    /-else
+                      /a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                        /i.icon.ion-ios-heart-outline
+                        /|Like
+                  /- else
+                    /a href="#{like_path(:id => product.id)}" data-method="delete" /rel="nofollow"
+                      /i.icon.ion-ios-heart
+                      /|Unlike
+
+                /.pull-right.text-right
+                  /a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
+                    /i.icon.ion-ios-cart
+                    /|Add to cart
+              h4.text-center.product-name
+                = link_to truncate(product.name.camelize, :length => 20), shop_path(product)
+
+              h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+
               .action-row.top.clearfix.hover-content
-                .pull-left
+                .pull-right.col-md-6.product-wishliat.text-center
                   - if !current_or_null_user.liked? product
                     -if !user_signed_in?
-                      a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                      a.text-center href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
                         i.icon.ion-ios-heart-outline
                         |Like
                     -else
-                      a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                      a.text-center href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
                         i.icon.ion-ios-heart-outline
                         |Like
                   - else
-                    a href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
+                    a.text-center href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
                       i.icon.ion-ios-heart
                       |Unlike
 
-                .pull-right.text-right
-                  a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
+                .pull-left.text-center.col-md-6.product-addto
+                  a.text-center href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
                     i.icon.ion-ios-cart
                     |Add to cart
-              h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
-              h4.text-center
-                = link_to product.name.camelize, shop_path(product)
+                .col-md-12.product-size.text-center
+                  |S, M, L, XL
+
+              
 
 hr
 h4.floral-text

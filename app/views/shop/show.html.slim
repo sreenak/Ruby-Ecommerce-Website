@@ -2,7 +2,7 @@
   = @product.name.camelize
 
 .row.product
-  .col-md-5
+  .col-md-6.text-center
     .product-images
       a href="#{@product.image_url}"
         = image_tag @product.image_url(:medium), :id=>"zoom_03", 'data-zoom-image'=>@product.image_url(:big)
@@ -11,33 +11,46 @@
           a href="#{image.image_url}" data-image=image.image_url(:medium) data-zoom-image=image.image_url(:big)
             = image_tag image.image_url(:thumbnail)
 
-  .col-md-7.product-details
-    h2.page-title= @product.name.camelize
+  .col-md-4.product-details
+    h2.page-title.product-name= @product.name.camelize
+    h4.price
+      span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
+
     = form_tag cart_add_product_path
       = hidden_field_tag :product_id, @product.id
       .add-to-cart-block.row
-        .col-md-6
+        .col-md-12.size-wrap
           .form-group
-            label.inline Size
-            - @standard_sizes.each do |s|
-              label.radio-inline#size
-                = radio_button_tag :standard_size_id, s.id
-                = s.name
+            /label.inline Size
+            /- @standard_sizes.each do |s|
+              /label.radio-inline#size
+                /= radio_button_tag :standard_size_id, s.id
+                /= s.name
+            .input-append.select-size
+              = select_tag "Size", 
+
+              options_from_collection_for_select(@standard_sizes, "id", "name"), include_blank: true, class: 'form-control'
+            
             #dis
-          .form-inline
-            .form-group
-              label.inline for="quantity" Quantity
-              input#quantity.form-control name="quantity" type="number" min="1" value="1"
-          .checkbox
-            label for="gift"
-              input#gift name="is_gift" type="checkbox" value="1"
-              |Gift
-          .form-group
-            .send-gift-to.hidden
-              label for="message" Message
-              input#message.form-control name="message" type="text"
-          h4.price
-            span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
+            .size-guide
+              a SIZE GUIDE
+        .product-desc-wrap.col-md-12
+          h4 PRODUCT DESCRIPTION
+          .description
+            == @product.description
+          /.form-inline
+            /.form-group
+              /label.inline for="quantity" Quantity
+              /input#quantity.form-control name="quantity" type="number" min="1" value="1"
+          /.checkbox
+            /label for="gift"
+              /input#gift name="is_gift" type="checkbox" value="1"
+              /|Gift
+          /.form-group
+            /.send-gift-to.hidden
+              /label for="message" Message
+              /input#message.form-control name="message" type="text"
+        
       .actions.text-center
         button.info-row.text-uppercase.active.add-to-cart-size type="submit" 
           i.icon.ion-ios-cart
@@ -52,17 +65,15 @@
             a href="#{like_path(id: @product.id)}" data-method="delete"
               i.icon.ion-ios-heart
               span Remove from favorites
-
-    /.description
-    /  == @product.description
-  .col-md-12
-    .product-tabs
-      div#produc-desc-tabs
+    
+  /.col-md-12
+    /.product-tabs
+      /div#produc-desc-tabs
         /! Nav tabs
-        ul.nav.nav-tabs role="tablist" 
-          li.active
-            a aria-controls="descpts" data-toggle="tab" href="#descpts" role="tab"
-              |Product Info
+        /ul.nav.nav-tabs role="tablist" 
+          /li.active
+            /a aria-controls="descpts" data-toggle="tab" href="#descpts" role="tab"
+              /|Product Info
           /li
           /  a aria-controls="material" data-toggle="tab" href="#material" role="tab"
           /    |Materials
@@ -72,44 +83,44 @@
 
 
         /! Tab panes
-        .tab-content.product-content-tabs
-          #descpts.tab-pane.active role="tabpanel"  
-            == @product.description
-            == @product.material
+        /.tab-content.product-content-tabs
+          /#descpts.tab-pane.active role="tabpanel"  
+            /== @product.description
+            /== @product.material
 
           /#material.tab-pane role="tabpanel"
           /  == @product.material
 
-          #reviews.tab-pane role="tabpanel"
-            .review-wrap
-              h4 REVIEWS
-              .top-review-list
-                - @reviews.each do |r|
-                  .media
-                    .media-left
-                      a href="#"
-                        = user_avatar r.user
-                    .media-body
-                      .comment-writer-info
-                        strong
-                          = r.user.name
-                          br
-                        span= time_ago_in_words r.created_at
+          /#reviews.tab-pane role="tabpanel"
+            /.review-wrap
+              /h4 REVIEWS
+              /.top-review-list
+                /- @reviews.each do |r|
+                  /.media
+                    /.media-left
+                      /a href="#"
+                        /= user_avatar r.user
+                    /.media-body
+                      /.comment-writer-info
+                        /strong
+                          /= r.user.name
+                          /br
+                        /span= time_ago_in_words r.created_at
 
-                        | &nbsp; ago
-                      p== simple_format r.message
+                        /| &nbsp; ago
+                      /p== simple_format r.message
 
-            - if user_signed_in?
-              .write-reviews
-                h4 WRITE A REVIEW
-                = simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
-                  .form-inputs.row
-                    .col-md-6.review-box
-                      = p.input :message, class: 'review-message'
-                      label#rev-msg
-                    .col-md-6
-                      = p.button :submit,"SUBMIT REVIEW", class: 'review-button'
+            /- if user_signed_in?
+              /.write-reviews
+                /h4 WRITE A REVIEW
+                /= simple_form_for @review, url: shop_reviews_path(@product.id), wrapper: :horizontal_small_form do |p|
+                  /.form-inputs.row
+                    /.col-md-6.review-box
+                      /= p.input :message, class: 'review-message'
+                      /label#rev-msg
+                    /.col-md-6
+                      /= p.button :submit,"SUBMIT REVIEW", class: 'review-button'
 
-            - else
-              |Login to Review this product
+            /- else
+              /|Login to Review this product
 

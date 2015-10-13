@@ -53,6 +53,135 @@ padding: $line-height-computed/2 $grid-gutter-width/2;
 }
 }
 
+.browse-collection-btn
+{
+  margin-left:15px;
+}
+
+.home-text
+{
+  text-transform:uppercase;
+  letter-spacing:1px;
+      margin-bottom: 20px;
+}
+
+.choosen-customiz
+{
+  font-size:18px;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+}
+
+.choose-customiz-btn
+{
+  border:0px;
+  background:#252525;
+  color:#fff;
+  font-size:16px;
+  display: inline-block;
+  span{
+    font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+    letter-spacing: 3px;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+.choose-customiz-btn .btn:hover,  .choose-customiz-btn .btn:focus, .choose-customiz-btn .btn.focus
+{
+   color:#fff;
+}
+
+.home-product
+{
+  border-top:0px !important;
+  padding-top: 50px !important;
+  .product-preview .details .action-row{
+  position:relative !important;
+  top:0px !important;
+  border:0px;
+  }
+  .product-name
+  {
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .product-addto a,.product-wishliat a
+  {
+    
+    border: 1px solid #000000;
+    padding: 8px 10px;
+    width: 100%;
+    display: inline-block;
+  }
+
+   .product-addto
+   {
+    padding-left:0px;
+    padding-right:5px;
+   }
+   .product-wishliat
+   {
+   padding-right:0px;
+   padding-left:5px;
+   }
+   .product-size
+   {
+      margin-top:15px;
+      font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+   }
+   .price
+   {
+    margin-bottom:10px;
+   }
+
+}
+
+.navbar-fixed-top
+{
+  background:#fff;
+  font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+  box-shadow: -2px 5px 12px #000;
+  display:none;
+  >div
+  {
+      display: flex;
+    align-items: center;
+  }
+  .fixed-logo
+  {
+  margin-left:15px;
+  margin-right:15px;
+  }
+  .navbar-nav
+  {
+    margin-left:15px;
+    margin-right:15px;
+  }
+  .price-conversion select
+  {
+     border:0px;
+  }
+  #search,.search-append
+  {
+    width:125px;
+  }
+  .navbar-right
+  {
+    text-transform: capitalize;
+  }
+}
+
+.navbar-fixed-top.main-menu .navbar-nav
+{
+  width:auto !important;
+
+ }
+
+.details h4 a
+{
+      line-height: 1.4em;
+}
+
 @media screen and (max-width: $screen-sm-max) {
 .hero-section {
 h1 {

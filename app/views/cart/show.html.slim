@@ -1,86 +1,86 @@
 - content_for :title do
   | Cart 
-- if @cart.product_items.length == 0
-  .alert.alert-warning
-    .likeempty.text-center
-      h4.text-center Your cart is empty!
-      = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
-- else
-  = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
+/- if @cart.product_items.length == 0
+  /.alert.alert-warning
+    /.likeempty.text-center
+      /h4.text-center Your cart is empty!
+      /= link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
+/- else
+  /= link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
   = form_tag cart_update_path, method: 'patch' do
-    .scrollWrapper
-      table.shop_table.cart.table.table-bordered
-        thead
-          tr
-            th.product-remove.text-center
-              | Remove
-            th.product-name.text-center
-              | Product
-            th.text-center
-              | Price
-            th.product-quantity.text-center
-              | Quantity
-            th.product-subtotal.text-center
-              | Total
-        tbody
-          - @cart.product_items.each do |i|
-            tr.cart_item
-              td.product-remove.text-center
-                |  <a href="
-                = cart_delete_path id: i.id
-                | " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">×
-              td.product-name.text-center
-                = i.title
-              td.text-center
-                span
-                  = humanized_money_with_symbol i.amount
-              td.product-quantity.text-center
-                .quantity.buttons_added
-                  - if i.line_itemable_type == 'GiftCard'
-                    = hidden_field_tag "quantities[#{i.id}]", 1
-                  - else
-                    |  <input type="number" step="1" min="1" name="quantities[
-                    = i.id
-                    | ]" value="
-                    = i.quantity
-                    | " class="input-text qty text" size="4">
-              td.product-subtotal.text-center
-                span.amount
-                  = humanized_money_with_symbol i.subtotal
-          - @cart.discount_items.each do |d|
-            tr
-              th.text-center
-                |  <a href="
-                = cart_delete_path id: d.id
-                | " class="remove" title="Remove this discounts" data-method="delete" data-confirm="Are you sure?">×
-              th.text-right[colspan="3"]
-                = d.title
-              td.text-center
-                span.amount
-                  b
-                    = humanized_money_with_symbol d.subtotal
-          - @cart.gift_card_usage_items.each do |g|
-            tr
-              th.text-center
-                |  <a href="
-                = cart_delete_path id: g.id
-                | " class="remove" title="Remove this gift card" data-method="delete" data-confirm="Are you sure?">×
-              th.text-right[colspan="3"]
+    /.scrollWrapper
+      /table.shop_table.cart.table.table-bordered
+        /thead
+          /tr
+            /th.product-remove.text-center
+              /| Remove
+            /th.product-name.text-center
+              /| Product
+            /th.text-center
+              /| Price
+            /th.product-quantity.text-center
+              /| Quantity
+            /th.product-subtotal.text-center
+              /| Total
+        /tbody
+          /- @cart.product_items.each do |i|
+            /tr.cart_item
+              /td.product-remove.text-center
+                /|  <a href="
+                /= cart_delete_path id: i.id
+                /| " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">×
+              /td.product-name.text-center
+                /= i.title
+              /td.text-center
+                /span
+                  /= humanized_money_with_symbol i.amount
+              /td.product-quantity.text-center
+                /.quantity.buttons_added
+                  /- if i.line_itemable_type == 'GiftCard'
+                    /= hidden_field_tag "quantities[#{i.id}]", 1
+                  /- else
+                    /|  <input type="number" step="1" min="1" name="quantities[
+                    /= i.id
+                    /| ]" value="
+                    /= i.quantity
+                    /| " class="input-text qty text" size="4">
+              /td.product-subtotal.text-center
+                /span.amount
+                  /= humanized_money_with_symbol i.subtotal
+          /- @cart.discount_items.each do |d|
+            /tr
+              /th.text-center
+                /|  <a href="
+                /= cart_delete_path id: d.id
+                /| " class="remove" title="Remove this discounts" data-method="delete" data-confirm="Are you sure?">×
+              /th.text-right[colspan="3"]
+                /= d.title
+              /td.text-center
+                /span.amount
+                  /b
+                    /= humanized_money_with_symbol d.subtotal
+          /- @cart.gift_card_usage_items.each do |g|
+            /tr
+              /th.text-center
+                /|  <a href="
+                /= cart_delete_path id: g.id
+                /| " class="remove" title="Remove this gift card" data-method="delete" data-confirm="Are you sure?">×
+              /th.text-right[colspan="3"]
                 = g.title
-              th.text-center
-                = humanized_money_with_symbol g.subtotal
-          tr
-            th.text-right[colspan="4"]
-              | Total
-            th.text-center
-              = humanized_money_with_symbol @cart.total
-        tfoot
-          tr
-            td.actions.text-right[colspan="6"]
-              input.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]
-              |  <a href="
-              = user_signed_in? ? checkout_addresses_path : checkout_user_path
-              | " class="checkout-button btn btn-primary alt wc-forward">Continue
+              /th.text-center
+                /= humanized_money_with_symbol g.subtotal
+          /tr
+            /th.text-right[colspan="4"]
+              /| Total
+            /th.text-center
+              /= humanized_money_with_symbol @cart.total
+        /tfoot
+          /tr
+            /td.actions.text-right[colspan="6"]
+              /input.btn.btn-default[type="submit" name="update_cart" value="Update /Cart" onclick="this.disabled = true;this.form.submit();"]
+              /|  <a href="
+              /= user_signed_in? ? checkout_addresses_path : checkout_user_path
+              /| " class="checkout-button btn btn-primary alt wc-forward">Continue
   .row
     .col-sm-8
       = form_tag cart_discount_path, method: 'patch', class: 'form-inline' do

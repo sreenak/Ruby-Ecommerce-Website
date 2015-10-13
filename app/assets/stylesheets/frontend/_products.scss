@@ -281,3 +281,42 @@ label.size {
 .hover-content{
   display: block !important;
 }
+
+.add-to-cart-block
+{
+  .select-size
+  {
+    width:80px;
+    float: left;
+    margin-right:8px;
+  }
+  .size-guide
+  {
+  font-size:11px;
+  }
+  .size-wrap
+  {
+    >div
+    {
+      width: 100%;
+     display: flex;
+    }
+     .size-guide
+     {
+       align-self: flex-end;
+       a{
+        text-decoration:underline;
+       }
+     }
+  }
+}
+
+.product-desc-wrap
+{
+  margin-top:30px;
+  margin-bottom:30px;
+  h4
+  {
+    font-size:14px;
+  }
+}
