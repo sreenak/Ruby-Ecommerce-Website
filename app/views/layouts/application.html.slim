@@ -107,8 +107,8 @@ html lang="en-us"
               li= link_to "Welcome #{current_user.name}!", account_path
               li= link_to 'Logout', destroy_user_session_path, :method => :delete
             - else
-              li= link_to 'Login', new_user_session_path
-              li= link_to 'Register', new_user_registration_path
+              li= link_to 'Login/Register', new_user_session_path
+              /li= link_to 'Register', new_user_registration_path
 
         .price-conversion
           form.navbar-form.navbar-left.clearfix action="/currencies/switch"
@@ -228,8 +228,8 @@ html lang="en-us"
                 li= link_to "Welcome #{current_user.name}!", account_path
                 li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else
-                li= link_to 'Login', new_user_session_path
-                li= link_to 'Register', new_user_registration_path
+                li= link_to 'Login/Register', new_user_session_path
+                /li= link_to 'Register', new_user_registration_path
       .container.text-center.logo
         a href="/" = image_tag 'logo.png'
       .container
