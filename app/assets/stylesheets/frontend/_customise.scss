@@ -1,0 +1,84 @@
+.horizental-line-or{
+    font-size: 20px;
+    position:relative;
+    width:100%;
+    span
+    {
+    background:#fff;
+    padding-left:10px;
+    padding-right:10px;
+    z-index:1;
+    }
+
+   .horizental-line
+   {
+    width: 90%;
+    position: absolute;
+    border-bottom: 1px solid;
+    top: 50%;
+    float: left;
+    height: 1px;
+    z-index: -1;
+   }
+}
+.customize-size-wrap
+{
+	h4
+	{
+	font-size: 14px;
+    float: left;
+    margin-right: 10px;
+	}
+	.measure-link 
+	{
+		font-size: 11px;
+    margin-top: 12px;
+    float: left;
+    a{
+    text-decoration: underline;
+    /* padding-bottom: 5px; */
+    display: block;
+    float: left
+    }
+	}
+.customize-size-inner-wrap
+{
+	p{
+	    font-size: 12px;
+	}
+
+	label
+	{
+	      font-size: 10px;
+    min-height: 23px;
+    font-weight:normal;
+
+	}
+	.input-append
+	{
+	margin-top:0px;
+	position:relative;
+	margin-bottom:15px;
+	
+	}
+	input
+	{
+		height:25px;
+	}
+
+	.inches
+	{
+	  width:12px;
+	  position: absolute;
+	  top: 0px;
+	  right: 0px;
+	      font-size: 11px;
+    border-left: 0px
+
+	}
+	input:focus
+	{
+	  border-color:#bbb
+	}
+}
+}

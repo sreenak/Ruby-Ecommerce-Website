@@ -69,6 +69,15 @@ class Cart
     calculate
   end
 
+  def update_size(items)
+    items.each do |(item_id, standard_size_id)|
+    item = line_items.find item_id
+    next unless item.product_line_item_option.present?
+    item.product_line_item_option.update standard_size_id: standard_size_id.to_i
+    end
+    calculate
+  end
+
   def remove_item id
     item = LineItem.find id
     if @order.line_items.include? item
