@@ -204,7 +204,7 @@ $(window).load(function() {
 
                 //appending sizes to sizing wrapper
                 for (var s = 0; s < data.sizes.length; s++) {
-                    $('#sizing').append('<p><input type="radio" name="size" value=' + data.sizes[s].id + ' /> ' + data.sizes[s].name + '</p>')
+                    $('#standard-size-wrap').append('<p><input type="radio" name="size" value=' + data.sizes[s].id + ' /> ' + data.sizes[s].name + '</p>')
                 }
 
 

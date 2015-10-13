@@ -176,7 +176,7 @@ html lang="en-us"
               li = image_tag 'sticky-header-wishlist.png'
               li = image_tag 'sticky-header-cart.png'
               - if user_signed_in?
-                li= link_to "Welcome #{current_user.name}!", account_path
+                /li= link_to "Welcome #{current_user.name}!", account_path
                 li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else
                 li= link_to 'Login', new_user_session_path
