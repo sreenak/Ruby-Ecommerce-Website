@@ -356,3 +356,14 @@ text-transform:uppercase;
 {
    display: flex;
 }
+
+#standard-size-wrap p {
+    width: auto;
+    float: left;
+    margin-right: 18px;
+}
+#standard-size-wrap p input[type="radio"] {
+    margin-top: 2px;
+    float: left;
+    margin-right: 10px;
+}
