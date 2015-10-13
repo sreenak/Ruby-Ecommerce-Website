@@ -31,6 +31,7 @@
                     ul 
                       li
                         a Remove
+                      li.line |
                       li
                         a Move to wishlist
 
@@ -67,6 +68,7 @@
                     ul 
                       li
                         a Remove
+                      li.line |
                       li
                         a Move to wishlist
 
@@ -119,5 +121,5 @@
     = form_tag cart_discount_path, method: 'patch', class: 'form-inline' do
       .coupon
         input#coupon_code.form-control[type="text" name="coupon_code" placeholder="Discount or Gift code"]
-        input#validateForm.btn.btn-primary[type="submit" name="apply_coupon" value="Apply Coupon"]
+        input#validateForm.apply-coupon.btn.btn-primary[type="submit" name="apply_coupon" value="Apply Coupon"]
         #coupon_code_err_message
