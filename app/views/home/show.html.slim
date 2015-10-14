@@ -14,13 +14,13 @@
       | to the smallest details.
     a.text-uppercase href="#{customise_index_path}"
       span.btn.btn-lg Start Designing
-    a.text-uppercase.browse-collection-btn href="#{customise_index_path}"
+    a.text-uppercase.browse-collection-btn href="#{shop_index_path}"
       span.btn.btn-lg browse collection
 
 .icon-blocks-container.text-center.row
   .icon-block.col-md-4
     .icon= image_tag 'how-it-works.png'
-    h4.text-uppercase Made for All Size
+    h4.text-uppercase Made for All Sizes
     
   .icon-block.col-md-4
     .icon= image_tag 'worldwide-shipping.png'
@@ -51,10 +51,7 @@
 
 h3.floral-text.page-title.home-text.text-center
   |Selected Styles
-div.choosen-customiz.text-center 
-  |View selected styles or 
-  a.text-uppercase.choose-customiz-btn href="#{customise_index_path}"
-    span.btn.btn-lg Start customizing
+
 
 .products.home-product
   - @products.each_slice(3) do |row|
@@ -132,7 +129,7 @@ h4.floral-text
                 p= truncate(strip_tags(t.body), :length => 200)
   .col-md-5
     .pull-right.news-letter
-      h4 NEWS LETTER
+      h4 NEWSLETTER
       p Please Subscribe to our newsletter for more information
       form#mc-embedded-subscribe-form.validate.has-validation-callback action="//langoor.us10.list-manage.com/subscribe/post?u=69b9be0741cb48e6377aa4119&amp;id=ebf8af59c2" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"
         input#mce-EMAIL.required.email data-validation="email" data-validation-error-msg-container="#email-error-dialog" name="EMAIL" type="email" value=""

@@ -95,6 +95,7 @@ $(window).load(function() {
         }
 
         function loadSvg4(data4) {
+            var select_wrap='<select class="form-control">';
             s.append(data4);
             setTimeout(function() {
 
@@ -204,17 +205,19 @@ $(window).load(function() {
 
                 //appending sizes to sizing wrapper
                 for (var s = 0; s < data.sizes.length; s++) {
-                    $('#standard-size-wrap').append('<p><input type="radio" name="size" value=' + data.sizes[s].id + ' /> ' + data.sizes[s].name + '</p>')
+                    //$('#standard-size-wrap').append('<p><input type="radio" name="size" value=' + data.sizes[s].id + ' /> ' + data.sizes[s].name + '</p>')
+                    select_wrap += '<option value='+data.sizes[s].id+'>'+data.sizes[s].name+'</option>';
                 }
-
-
+                var custom_id = data.sizes.length+1;
+                select_wrap +='<option value='+custom_id+'>Custome size</option></select>'
+                $('#standard-size-wrap').html(select_wrap)
 
                 fabricId = _.uniq(fabricId);
                 fabricNames = _.uniq(fabricNames);
 
                 brocadeId = _.uniq(brocadeId);
 
-                brocadeName = _.uniq(brocadeName);
+                brocadeName = _.uniq(brocadeName +);
 
                 //displaying all fabrics intially without repeating
 

@@ -107,7 +107,7 @@ html lang="en-us"
               li= link_to "Welcome #{current_user.name}!", account_path
               li= link_to 'Logout', destroy_user_session_path, :method => :delete
             - else
-              li= link_to 'Login/Register', new_user_session_path
+              li= link_to 'Login | Register', new_user_session_path
               /li= link_to 'Register', new_user_registration_path
 
         .price-conversion
@@ -127,7 +127,7 @@ html lang="en-us"
                 .input-append.search-append
                   input#search.form-control.search-box-input autocomplete="off" name="q" placeholder="Search"
                   .input-group-btn
-                    button.btn.btn-default.home_searchbar_btn type="submit"
+                    button.btn.btn-default.home_searchbar_btn  type="submit"
                       span.fa.fa-search
                   /label#msg
 
@@ -228,7 +228,7 @@ html lang="en-us"
                 li= link_to "Welcome #{current_user.name}!", account_path
                 li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else
-                li= link_to 'Login/Register', new_user_session_path
+                li= link_to 'Login | Register', new_user_session_path
                 /li= link_to 'Register', new_user_registration_path
       .container.text-center.logo
         a href="/" = image_tag 'logo.png'
@@ -302,7 +302,7 @@ html lang="en-us"
           .col-md-3.col-sm-6
             .footer-contact
               h5.contact-heading CONTACT
-              p.contact-address Milaunee Panjabi
+              /p.contact-address Milaunee Panjabi
               p.contact-address-desc
                 | Kaapad
                 br
@@ -313,7 +313,7 @@ html lang="en-us"
                 | 9824200859
               .follow-us
                 h5 FOLLOW US ON SOCIAL
-                a href="https://www.facebook.com/"
+                a href="https://www.facebook.com/kaapad"
                   i.first.icon.ion-social-facebook
                 /a href="https://www.twitter.com/"
                 /  i.icon.ion-social-twitter

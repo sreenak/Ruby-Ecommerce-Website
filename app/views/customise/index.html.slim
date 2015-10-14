@@ -1,17 +1,14 @@
 - content_for :title do
   |Choose Your Style
 
-h4.floral-text.text-uppercase.text-center.page-title.choose-head
-  span CHOOSE YOUR STYLE
-  br
-  span Salwars
+h1.page-title.text-center.text-uppercase Choose Your Style
+h2.page-title.text-center.text-uppercase Salwars
 .row.dresses
   - @salwars.each do |d|
     .col-md-4.text-center.dress-preview
       a href="#{customise_path(d)}"
         = image_tag d.sketch_url(:medium)
-h4.floral-text.text-uppercase.text-center.page-title.choose-head
-  span Pants
+h2.page-title.text-center.text-uppercase Pants
 .row.dresses
   - @pants.each do |p|
     .col-md-4.text-center.dress-preview

@@ -93,11 +93,13 @@ $(document).scroll(function(e){
 });
 //search-large devises
 $(".home_searchbar_btn").click(function(){
-    var search= $(".search-box-input").val()
+    var parent = $(this).closest('.input-append')
+
+    var search= parent.find('input').val()
     if(search == ""){
     
-        $(".search-box-input").css('border-color','red');
-        $("#msg").html('Please Enter Keyword');
+        parent.find('input').css('border-color','red');
+        parent.find('label').html('Please Enter Keyword');
         return false;
     }
 

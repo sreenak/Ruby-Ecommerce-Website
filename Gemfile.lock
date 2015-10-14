@@ -1,51 +1,4 @@
 GIT
-  remote: git://github.com/rspec/rspec-core.git
-  revision: 90fca7e07cb015ca2114c0a1e28bef3596c79d94
-  branch: master
-  specs:
-    rspec-core (3.4.0.pre)
-      rspec-support (= 3.4.0.pre)
-
-GIT
-  remote: git://github.com/rspec/rspec-expectations.git
-  revision: 6934e6a3a13eb17736f2315715ecfb6ee243902d
-  branch: master
-  specs:
-    rspec-expectations (3.4.0.pre)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.4.0.pre)
-
-GIT
-  remote: git://github.com/rspec/rspec-mocks.git
-  revision: 7ebaf18c8fa36587b8d8781c1814c89b1b12ece2
-  branch: master
-  specs:
-    rspec-mocks (3.4.0.pre)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (= 3.4.0.pre)
-
-GIT
-  remote: git://github.com/rspec/rspec-rails.git
-  revision: 078b29fefb129b7942ba512cc0173b0c6d20c582
-  branch: master
-  specs:
-    rspec-rails (3.4.0.pre)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (= 3.4.0.pre)
-      rspec-expectations (= 3.4.0.pre)
-      rspec-mocks (= 3.4.0.pre)
-      rspec-support (= 3.4.0.pre)
-
-GIT
-  remote: git://github.com/rspec/rspec-support.git
-  revision: 9bdb4ab7dc2fd61054fe3e9fe192c6bbdf7a2f57
-  branch: master
-  specs:
-    rspec-support (3.4.0.pre)
-
-GIT
   remote: https://github.com/galetahub/ckeditor.git
   revision: 948fd4ef73d7623467b879c258b7aac39012767a
   specs:
@@ -160,7 +113,6 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    diff-lcs (1.2.5)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
       dotenv (= 2.0.2)
@@ -398,11 +350,6 @@ DEPENDENCIES
   rails (= 4.2.1)
   ransack
   recaptcha
-  rspec-core!
-  rspec-expectations!
-  rspec-mocks!
-  rspec-rails!
-  rspec-support!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
