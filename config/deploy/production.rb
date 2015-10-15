@@ -15,7 +15,7 @@
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'kaapad.langoorqa.net', user: 'kaapad', roles: %w{web app db}, port: 32457
+server 'kaapad.langoorqa.net', user: 'deployer', roles: %w{web app db}, port: 32457
 
 
 # Custom SSH Options
