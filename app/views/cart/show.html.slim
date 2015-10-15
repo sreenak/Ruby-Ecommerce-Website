@@ -1,112 +1,118 @@
 - content_for :title do
-  | Cart 
-= form_tag cart_update_path, method: 'patch' do
-  .row.product-wrap
-    .col-md-8
-      
-      h4 My Cart
-      .product-block-wrap
-        - @cart.product_items.each do |i|
-          .product-block
-            .product-img-block
-              a href="javascript:void(0)"
-                /=image_tag i.line_itemable.image_url(:thumbnail),class: 'img-responsive'
-                - if i.line_itemable_type == 'Product'
-                  = image_tag i.line_itemable.image_url(:thumbnail),class: 'img-responsive'
-                 
-                - if i.line_itemable_type == 'Dress'
-                  = image_tag i.dress_line_item_option.angle_0_url(:thumbnail)
-                - if i.line_itemable_type == 'GiftCard'
-                  = image_tag 'gift-card.png', size: "80x80"
+  | Cart
+- if @cart.product_items.length == 0
+  .alert.alert-warning
+    .likeempty.text-center
+      h4.text-center Your cart is empty!
+      = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary'
+- else
+  = form_tag cart_update_path, method: 'patch' do
+    .row.product-wrap
+      .col-md-8
 
-            .product-info-block
-              .col-md-12.product-inner-block
-                .col-md-9.no-left-padding
-                  .col-md-12.no-paddin
-                    h5.product-name
-                      a href="" 
-                        = i.title.camelize
-                    .product-other-details.cleasfix
-                      span.choosen-size
-                        label Size
-                        .input-append
-                          - if i.line_itemable_type == 'Product'
-                            = select_tag "standard_size_id[#{i.id}]", options_from_collection_for_select(i.line_itemable.standard_sizes, "id", "name", i.product_line_item_option.standard_size_id), class: 'form_input'
-                          - else
-                            = ''  
-                      span.choosen-qty
-                        label qty
-                        .input-append
-                          - if i.line_itemable_type == 'GiftCard'
-                            = hidden_field_tag "quantities[#{i.id}]", 1
-                          - else
-                            |  <input type="number" step="1" min="1" name="quantities[
-                            = i.id
-                            | ]" value="
-                            = i.quantity
-                            | " class="input-text qty text" size="4">      
-                    .add-remove
-                      ul 
-                        li
-                          |  <a href="
-                          = cart_delete_path id: i.id
-                          | " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">Remove
-                        
-                        - if i.line_itemable_type == 'Product'
-                          li.line |
+        h4 My Cart
+        .product-block-wrap
+          - @cart.product_items.each do |i|
+            .product-block
+              .product-img-block
+                a href="javascript:void(0)"
+                  /=image_tag i.line_itemable.image_url(:thumbnail),class: 'img-responsive'
+                  - if i.line_itemable_type == 'Product'
+                    = image_tag i.line_itemable.image_url(:thumbnail),class: 'img-responsive'
+
+                  - if i.line_itemable_type == 'Dress'
+                    = image_tag i.dress_line_item_option.angle_0_url(:thumbnail)
+                  - if i.line_itemable_type == 'GiftCard'
+                    = image_tag 'gift-card.png', size: "80x80"
+
+              .product-info-block
+                .col-md-12.product-inner-block
+                  .col-md-9.no-left-padding
+                    .col-md-12.no-paddin
+                      h5.product-name
+                        a href=""
+                          = i.title.camelize
+                      .product-other-details.cleasfix
+                        span.choosen-size
+                          label Size
+                          .input-append
+                            - if i.line_itemable_type == 'Product'
+                              = select_tag "standard_size_id[#{i.id}]", options_from_collection_for_select(i.line_itemable.standard_sizes, "id", "name", i.product_line_item_option.standard_size_id), class: 'form_input'
+                            - else
+                              = ''
+                        span.choosen-qty
+                          label qty
+                          .input-append
+                            - if i.line_itemable_type == 'GiftCard'
+                              = hidden_field_tag "quantities[#{i.id}]", 1
+                            - else
+                              |  <input type="number" step="1" min="1" name="quantities[
+                              = i.id
+                              | ]" value="
+                              = i.quantity
+                              | " class="input-text qty text" size="4">
+                      .add-remove
+                        ul
                           li
-                            a Move to wishlist
+                            |  <a href="
+                            = cart_delete_path id: i.id
+                            | " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">Remove
 
-                .col-md-3.no-right-padding.text-right
-                  /.actual-price
-                    /span &#x20B9;
-                    /|1799
-                  .after-discount
-                    /span &#x20B9;
-                    = humanized_money_with_symbol i.subtotal
+                          - if i.line_itemable_type == 'Product'
+                            li.line |
+                            li
+                              a Move to wishlist
 
-      .col-sm-12.no-right-padding.update-wrap
-        input.pull-right.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]
+                  .col-md-3.no-right-padding.text-right
+                    /.actual-price
+                      /span &#x20B9;
+                      /|1799
+                    .after-discount
+                      /span &#x20B9;
+                      = humanized_money_with_symbol i.subtotal
+
+        .col-sm-12.no-right-padding.update-wrap
+          input.pull-right.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]
 
 
-    .col-md-3.pull-right
-      h4 Order Summary
-      .amount-calculation
-        p
-          | SUB TOTAL:
-          span
-            /span.indian-rupee &#x20B9
-            = humanized_money_with_symbol @cart.total
-        - @cart.gift_card_usage_items.each do |g|
+      .col-md-3.pull-right
+        h4 Order Summary
+        .amount-calculation
           p
-            | DISCOUNT:
+            | SUB TOTAL:
             span
               /span.indian-rupee &#x20B9
-              - if !g.subtotal.empty?
-                = humanized_money_with_symbol g.subtotal
-              - else
-                = 0  
+              = humanized_money_with_symbol @cart.total
+          - @cart.gift_card_usage_items.each do |g|
+            p
+              | DISCOUNT:
+              span
+                span.indian-rupee &#x20B9
+                - if !g.subtotal.empty?
+                  = humanized_money_with_symbol g.subtotal
+                - else
+                  = 0
 
+            p
+              | DISCOUNT CODE:
+              span
+                /span.indian-rupee &#x20B9
+                - if !g.subtotal.empty?
+                  = g.title
           p
-            | DISCOUNT CODE:
+            | VAT*:
             span
-              /span.indian-rupee &#x20B9
-              - if !g.subtotal.empty?
-                = g.title
-        p
-          | VAT*:
-          span
-            span.indian-rupee &#x20B9
-            | 0
-        #total-amount.total-amount
-          | TOTAL PAYABLE AMOUNT:
-          span
-            /span.indian-rupee> ₹
-            = humanized_money_with_symbol @cart.total
-      |  <a href="
-      = user_signed_in? ? checkout_addresses_path : checkout_user_path
-      | " class="checkout-button btn btn-primary alt wc-forward continue-shop">Checkout
-      = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
+              span.indian-rupee &#x20B9
+              | 0
+          #total-amount.total-amount
+            | TOTAL PAYABLE AMOUNT:
+            span
+              /span.indian-rupee> ₹
+              = humanized_money_with_symbol @cart.total
+        |  <a href="
+        = user_signed_in? ? checkout_addresses_path : checkout_user_path
+        | " class="checkout-button btn btn-primary alt wc-forward continue-shop">Checkout
+        = link_to 'Continue Shopping', :shop_index, class: 'btn btn-primary continue-shop'
 
 
 .row

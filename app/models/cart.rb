@@ -17,6 +17,7 @@ class Cart
       convert currency
     end
     @currency = currency
+
   end
 
   def add_item(item, price, title, quantity = 1)
@@ -107,6 +108,8 @@ class Cart
 
   def calculate
     # First, let's calculate all the discounts
+    # Rails.logger.info 'test' + @currency.to_s
+    # exit
     discount_items.each do |d|
       discount = d.line_itemable
       unless discount.present?
@@ -117,7 +120,7 @@ class Cart
       if discount.applies_as == 'Percent'
         amount = discount.amount/100 * total
       else
-        amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency)
+        amount = discount.amount.to_money('INR') > total ? total : discount.amount.to_money('INR').exchange_to(@currency.to_s)
       end
       # Let's not keep 0 discounts
       if amount <= 0
