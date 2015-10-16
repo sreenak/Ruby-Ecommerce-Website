@@ -175,8 +175,8 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.20)
-    mysql2 (0.3.20-x86-mingw32)
+    mysql2 (0.4.1)
+    mysql2 (0.4.1-x86-mingw32)
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -341,7 +341,7 @@ DEPENDENCIES
   kaminari
   mini_magick
   money-rails (~> 1.4.1)
-  mysql2 (~> 0.3.0)
+  mysql2
   nested_form
   offsite_payments
   omniauth
