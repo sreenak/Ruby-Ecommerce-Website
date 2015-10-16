@@ -10,7 +10,7 @@ div.col-md-9.login-reg-wrap
 		    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 		  .form-actions
 		    = f.button :submit, "Log in"
-		/= render "devise/shared/links"
+		= render "devise/shared/links"
 	div.col-md-1.vertic-line-wrap
 		div.vertic-line
 			div.verticel-line-or or

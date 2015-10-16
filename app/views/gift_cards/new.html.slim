@@ -24,7 +24,9 @@
         h4 Send a gift certificate to your loved one.
         .row
           .col-sm-4.col-xs-6
-            = f.input :amount, label: 'Amount', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
+            h4
+            = f.input :amount, label: 'Amount'+'('+@cart.currency+')', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
+
           /.col-sm-4.col-xs-6
           /  = #f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
