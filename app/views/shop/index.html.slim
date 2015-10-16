@@ -105,7 +105,11 @@ h1.page-title.text-center.text-uppercase Shop
                         a href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
                           i.icon.ion-ios-cart
                           |Add to cart
-                    h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+                    h4.price.text-center
+                      -if @cart.currency=="USD"
+                        = '$'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
+                      -else @cart.currency=="INR"
+                        = '₹'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
                     h4.text-center
                       = link_to product.name.camelize, shop_path(product)
 
