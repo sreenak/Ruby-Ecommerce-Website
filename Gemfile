@@ -8,7 +8,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 # Database
 gem 'sqlite3', group: [:test]
-# gem 'mysql2', '~> 0.3.0'
+gem 'mysql2', '~> 0.3.0'
 gem 'friendly_id'
 gem 'faker'
 
