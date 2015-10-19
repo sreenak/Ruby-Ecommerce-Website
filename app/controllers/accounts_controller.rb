@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   end
 
   def customisations
-    @customises = @user.customised_dresses.all.order(id: :desc).page(params[:page]).per(3)
+    @customises = @user.customised_dresses.all.order(id: :desc).page(params[:page]).per(9)
   end
 
   private

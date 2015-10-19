@@ -14,6 +14,7 @@ h1.page-title.text-center.text-uppercase Shop
           h4 Sort By:
           ul
             li= sort_link(@product_search, :price_paisas, 'Price')
+            li= sort_link(@product_search, :featured, 'Latest Released', featured: :true)
         /.sort-by-product
         /  a href="javascript:void(0)"
         /    span.sort_box Sort By:
