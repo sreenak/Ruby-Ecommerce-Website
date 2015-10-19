@@ -5,6 +5,7 @@ gem 'rails', '4.2.1'
 gem 'dynamic_sitemaps'
 gem 'dotenv-rails'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+gem 'nokogiri'
 
 # Database
 gem 'sqlite3', group: [:test]
