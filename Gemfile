@@ -9,7 +9,7 @@ gem 'nokogiri'
 
 # Database
 gem 'sqlite3', group: [:test]
-gem 'mysql2'
+gem 'mysql2', '~>0.3.18'
 gem 'friendly_id'
 gem 'faker'
 
