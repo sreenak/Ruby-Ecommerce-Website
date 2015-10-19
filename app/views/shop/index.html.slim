@@ -109,7 +109,7 @@ h1.page-title.text-center.text-uppercase Shop
                       -if @cart.currency=="USD"
                         = '$'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
                       -else @cart.currency=="INR"
-                        = '₹'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
+                        = '₹'+ (product.price.exchange_to(@cart.currency).to_i).to_s
                     h4.text-center
                       = link_to product.name.camelize, shop_path(product)
 

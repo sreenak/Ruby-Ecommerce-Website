@@ -14,7 +14,11 @@
   .col-md-4.product-details
     h2.page-title.product-name= @product.name.camelize
     h4.price
-      span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
+      /span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
+      -if @cart.currency=="USD"
+        span= '$'+ (@product.price.exchange_to(@cart.currency).to_i+1).to_s
+      -else @cart.currency=="INR"
+        span= '₹'+ (@product.price.exchange_to(@cart.currency).to_i).to_s
 
     = form_tag cart_add_product_path
       = hidden_field_tag :product_id, @product.id

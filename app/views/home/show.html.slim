@@ -85,7 +85,11 @@ h3.floral-text.page-title.home-text.text-center
               h4.text-center.product-name
                 = link_to truncate(product.name.camelize, :length => 20), shop_path(product)
 
-              h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+              /h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
+              -if @cart.currency=="USD"
+                h4.price.text-center= '$'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
+              -else @cart.currency=="INR"
+                h4.price.text-center= '₹'+ (product.price.exchange_to(@cart.currency).to_i).to_s
 
               .action-row.top.clearfix.hover-content
                 .pull-right.col-md-6.product-wishliat.text-center
@@ -108,7 +112,10 @@ h3.floral-text.page-title.home-text.text-center
                     i.icon.ion-ios-cart
                     |Add to cart
                 .col-md-12.product-size.text-center
-                  |S, M, L, XL
+                  /|S, M, L, XL
+                  -if !product.standard_sizes.empty?
+                    - product.standard_sizes.each do |s|
+                      = standard_size = s.name
 
               
 

@@ -61,7 +61,16 @@
                           - if i.line_itemable_type == 'Product'
                             li.line |
                             li
-                              a Move to wishlist
+                            - if !current_or_null_user.liked? i
+                              -if !user_signed_in?
+                                a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                                  i.icon.ion-ios-heart-outline
+                                  |Move to wishlist
+                              -else
+                                a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                                  i.icon.ion-ios-heart-outline
+                                  |Move to wishlist
+                              /a Move to wishlist
 
                   .col-md-3.no-right-padding.text-right
                     /.actual-price
@@ -69,7 +78,11 @@
                       /|1799
                     .after-discount
                       /span &#x20B9;
-                      = humanized_money_with_symbol i.subtotal
+                      /= humanized_money_with_symbol i.subtotal.to_i+1
+                      -if @cart.currency=="USD"
+                        = '$'+ (i.subtotal.to_i+1).to_s
+                      -else @cart.currency=="INR"
+                        = '₹'+ (i.subtotal.to_i).to_s
 
         .col-sm-12.no-right-padding.update-wrap
           input.pull-right.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]

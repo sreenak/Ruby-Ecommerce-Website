@@ -183,9 +183,14 @@ html lang="en-us"
                   | > Rupees ₹
           
           ul.navbar-nav.nav.navbar-right.pull-right
-              li = image_tag 'sticky-header-wishlist.png'
-              li = image_tag 'sticky-header-cart.png'
+
+              li
+                a href="/cart"
+                  = image_tag 'sticky-header-cart.png'
               - if user_signed_in?
+                li
+                  a href="/likes"
+                    = image_tag 'sticky-header-wishlist.png'
                 /li= link_to "Welcome #{current_user.name}!", account_path
                 li= link_to 'Logout', destroy_user_session_path, :method => :delete
               - else
