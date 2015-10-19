@@ -217,7 +217,7 @@ $(window).load(function() {
 
                 brocadeId = _.uniq(brocadeId);
 
-                brocadeName = _.uniq(brocadeName +);
+                brocadeName = _.uniq(brocadeName);
 
                 //displaying all fabrics intially without repeating
 
