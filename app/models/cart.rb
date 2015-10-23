@@ -12,11 +12,10 @@ class Cart
     else
       @order = Order.new currency: currency
     end
-
+    @currency = currency
     if @order.total.currency != currency
       convert currency
     end
-    @currency = currency
   end
 
   def add_item(item, price, title, quantity = 1)
