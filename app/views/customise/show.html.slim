@@ -80,10 +80,10 @@ javascript:
             h5.text-center.patternHeader
               |  Available sizes
             div#standard-size-wrap
-            div.horizental-line-or.text-center.col-md-12
+            div.horizental-line-or.text-center.col-md-12.sizing_main_wrapper
               span or
               div.horizental-line
-            div.customize-size-wrap.col-md-12
+            div.customize-size-wrap.col-md-12.sizing_main_wrapper
               .col-md-12.no-padding
                 h4 CUSTOMIZE 
                 span.measure-link 
@@ -91,54 +91,53 @@ javascript:
               .col-md-12.no-padding.customize-size-inner-wrap
                 p Edit from pre-defined or enter your own (in inches)
 
-                .row
-                  .col-md-4
-                    label BUST/CHEST 
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  
-                  .col-md-4
-                    label WAIST 
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label WAIST TO ANKLE
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label HIPS
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label SHOULDER
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label SHOULDER TO NECK
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label AROUND ARMPIT 
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label AROUND NECK
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in'
-                  .col-md-4
-                    label SLEEVE LENGTH
-                    div.input-append
-                      input.form-control type='text' id='bust'
-                      input.inches type='text' readonly='readonly' value='in' 
-
+                .row.custom_measurements
+                    .col-md-4
+                      label BUST/CHEST 
+                      div.input-append
+                        input.form-control type='text' id='bust_chest' name='bust_chest' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    
+                    .col-md-4
+                      label WAIST 
+                      div.input-append
+                        input.form-control type='text' id='waist' name='waist' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4
+                      label WAIST TO ANKLE
+                      div.input-append
+                        input.form-control type='text' id='waist_to_ankle' name='waist_to_ankle' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4.clearboth
+                      label HIPS
+                      div.input-append
+                        input.form-control type='text' id='hips' name='hips' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4
+                      label SHOULDER
+                      div.input-append
+                        input.form-control type='text' id='shoulder' name='shoulder' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4
+                      label SHOULDER TO NECK
+                      div.input-append
+                        input.form-control type='text' id='shoulder_to_neck' maxlength="3"name='shoulder_to_neck'
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4.clearboth
+                      label AROUND ARMPIT 
+                      div.input-append
+                        input.form-control type='text' id='around_armpit' name='around_armpit' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4
+                      label AROUND NECK
+                      div.input-append
+                        input.form-control type='text' id='around_neck' name='around_neck' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in'
+                    .col-md-4
+                      label SLEEVE LENGTH
+                      div.input-append
+                        input.form-control type='text' id='sleev_length' name='sleev_length' maxlength="3"
+                        input.inches type='text' readonly='readonly' value='in' 
 
 
         #labels.tab-pane.clearfix

@@ -33,13 +33,13 @@
                         a href=""
                           = i.title.camelize
                       .product-other-details.cleasfix
-                        span.choosen-size
-                          label Size
-                          .input-append
-                            - if i.line_itemable_type == 'Product'
-                              = select_tag "standard_size_id[#{i.id}]", options_from_collection_for_select(i.line_itemable.standard_sizes, "id", "name", i.product_line_item_option.standard_size_id), class: 'form_input'
-                            - else
-                              = ''
+                        /span.choosen-size
+                          /label Size
+                          /.input-append
+                            /- if i.line_itemable_type == 'Product'
+                             / = select_tag "standard_size_id[#{i.id}]", /options_from_collection_for_select(i.line_itemable./standard_sizes, "id", "name", i.product_line_item_option./standard_size_id), class: 'form_input'
+                            /- else
+                             / = ''
                         span.choosen-qty
                           label qty
                           .input-append
@@ -67,7 +67,7 @@
                                   i.icon.ion-ios-heart-outline
                                   |Move to wishlist
                               -else
-                                a href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                                a href="#{likes_path(:id => i.id)}" data-method="post" rel="nofollow"
                                   i.icon.ion-ios-heart-outline
                                   |Move to wishlist
                               /a Move to wishlist

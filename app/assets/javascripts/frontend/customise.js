@@ -36,7 +36,13 @@ $(document).ready(function() {
     $("#saved_img_left_arrow").click(function() {
         savedImagesSlider.trigger('owl.prev');
     });*/
+    
+
+
+
+
 });
+    
 
 $(window).load(function() {
 
@@ -95,7 +101,7 @@ $(window).load(function() {
         }
 
         function loadSvg4(data4) {
-            var select_wrap='<select class="form-control">';
+            var select_wrap='<select class="form-control" id="dress_size_selection"><option disabled selected value="">Select size</option>';
             s.append(data4);
             setTimeout(function() {
 
@@ -209,7 +215,7 @@ $(window).load(function() {
                     select_wrap += '<option value='+data.sizes[s].id+'>'+data.sizes[s].name+'</option>';
                 }
                 var custom_id = data.sizes.length+1;
-                select_wrap +='<option value='+custom_id+'>Custome size</option></select>'
+                select_wrap +='<option value="10">Custome size</option></select>'
                 $('#standard-size-wrap').html(select_wrap)
 
                 fabricId = _.uniq(fabricId);
@@ -1130,17 +1136,60 @@ $(window).load(function() {
         }
         //after concerting 
 
+
+
         $('.add-cart').click(function(event) {
-            var selectedsize;
-            if ($('#sizing input[type=radio]:checked').size() < 1) {
+          //  var selectedsize;
+            
+
+            /*if ($('#sizing input[type=radio]:checked').size() < 1) {
                 alert('Please select any size');
                 return;
             } else {
-
                 $('.mask-layer').css('display', 'block');
                 $('.adding-to-cart').css('display', 'block');
                 selectedsize = $('#sizing input[type=radio]:checked').val();
+            }*/
+
+            var selectedsize=$('#dress_size_selection option:selected').val();
+            if(selectedsize=='' || typeof selectedsize==undefined || selectedsize=='undefined'){
+                alert('Please select any size');
+                return;
+            }else{
+                
+                if(selectedsize=='10'){
+                   // var emptyFieldLength=$('.custom_measurements input.form-control').val('').length();
+                   
+                    var emptyInput=[];
+                    $('.custom_measurements input.form-control').each(function(i, obj) {
+                        
+                        if($(this).val().trim()==''){
+                            emptyInput.push('yes');
+                        }
+
+                    });
+                    if(emptyInput.length>0){
+                        alert('Please fill all the custom sizes fields ');
+                        return;
+                    }
+                    var obj={};
+                    obj.bust_chest=$('#bust_chest').val();
+                    obj.waist=$('#waist').val();
+                    obj.waist_to_ankle=$('#waist_to_ankle').val();
+                    obj.hips=$('#hips').val();
+                    obj.shoulder=$('#shoulder').val();
+                    obj.shoulder_to_neck=$('#shoulder_to_neck').val();
+                    obj.around_armpit=$('#around_armpit').val();
+                    obj.around_neck=$('#around_neck').val();
+                    obj.sleev_length=$('#sleev_length').val();
+                    selectedsize=obj;
+                }else{
+                    selectedsize=$('#dress_size_selection option:selected').val()
+                }
             }
+
+            
+
             updateprice()
             var a = [];
             var b = [];
@@ -1150,7 +1199,6 @@ $(window).load(function() {
                     a.push(thisclass);
                 }
             });
-
             for (var i = 0; i < a.length; i++) {
                 for (var j = 0; j < allDressParts.length; j++) {
                     if (allDressParts[j] == a[i]) {
@@ -1159,17 +1207,38 @@ $(window).load(function() {
                 };
             };
             a = _.uniq(a); //a arry represent all the pathclass with attribute #FFFFF classes
-            b = _.uniq(b); //b array represents how many parts are empty inthe sence not applied any pattern
+            b = _.uniq(b); //b array represents how many parts are empty in the sence not applied any pattern
             if (b.length == 0) {
                 convertingAllViews_tobase64(selectedsize);
+                $('.mask-layer').css('display', 'block');
+                $('.adding-to-cart').css('display', 'block');
 
             } else {
                 alert('Please complete the customisation of your dress');
                 return;
             }
 
-        });
 
+
+        });
+        //to allow only numbers in the customise sizes 
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        $( ".custom_measurements input.form-control" ).keypress(function(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        });
 
         function addcart(selectedsize) {
             var frontviewbase64 = add_to_cart_svgbase64('frontview');
@@ -1189,8 +1258,8 @@ $(window).load(function() {
             //console.log('price is ' + totalprice);
 
 
-
-
+           // console.log('selectedsize');
+           // console.log(selectedsize);
 
             $.ajax({
                 url: '/cart/add-dress',
@@ -1433,6 +1502,15 @@ $(window).load(function() {
                 }, 1000);
             })
         }
+        $(document).on('change','#standard-size-wrap select',function()
+            {
+            var optionValue = $(this).find('option:selected').val();
+            if(optionValue=='10'){
+                $('.sizing_main_wrapper').show();
+            }else{
+                $('.sizing_main_wrapper').hide();
+            }
+        });
 
 
         function undoredoprice(undoredototalprice) {
@@ -1453,15 +1531,9 @@ $(window).load(function() {
 
             $('.price').html(totalprice + currency);
         }
-        //undo redo functionality starts here ====================================
-
-
-
-        //getting what are the filled patterns accoring to the body parts
-
-
-
-        // ==================================== undo redo functionality ends here
+        
+        
+        
 
     }); //get json end
 
@@ -1485,4 +1557,13 @@ $(window).load(function() {
         }
     });
 
+    /*$('#standard-size-wrap select').change(function(){
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        alert(valueSelected);
+    });*/
+    
+
 }); //onload end
+
+

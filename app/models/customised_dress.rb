@@ -4,5 +4,5 @@ class CustomisedDress < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
-  validates_presence_of :user_id, :dress_id
+  validates_presence_of  :dress_id
 end

@@ -40,7 +40,7 @@
         = f.input :ordered_for, label: "Recipient's Name", :input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'You have not given  correct Recipient Name'}
         = f.input :email, label: "Recipient's Email", :input_html=>{:'data-validation' => 'email',:'data-validation-error-msg' => 'You have not given  correct Recipient Email'}
          
-        = f.input :message
+        = f.input :message,:input_html => { :rows => 10 }
         input.buynow.btn.btn-default[type='submit' value='BUY NOW']
         
     /---- Gift certificates ------    

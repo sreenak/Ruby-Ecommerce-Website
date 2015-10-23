@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008104135) do
+ActiveRecord::Schema.define(version: 20151021115223) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -110,12 +110,13 @@ ActiveRecord::Schema.define(version: 20151008104135) do
   end
 
   create_table "customised_dresses", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
     t.integer  "dress_id",   limit: 4
     t.text     "details",    limit: 4294967295
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "image",      limit: 255
+    t.integer  "user_id",    limit: 4
+    t.integer  "session_id", limit: 4
   end
 
   add_index "customised_dresses", ["dress_id"], name: "index_customised_dresses_on_dress_id", using: :btree
@@ -135,27 +136,30 @@ ActiveRecord::Schema.define(version: 20151008104135) do
   end
 
   create_table "dress_custom_sizes", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "chest",        limit: 4
-    t.integer  "waist",        limit: 4
-    t.integer  "length",       limit: 4
-    t.integer  "shoulder",     limit: 4
-    t.integer  "arm_hole",     limit: 4
-    t.integer  "neck",         limit: 4
-    t.integer  "line_item_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "bust_chest",       limit: 4
+    t.integer  "waist",            limit: 4
+    t.integer  "waist_to_ankle",   limit: 4
+    t.integer  "hips",             limit: 4
+    t.integer  "shoulder",         limit: 4
+    t.integer  "shoulder_to_neck", limit: 4
+    t.integer  "around_armpit",    limit: 4
+    t.integer  "around_neck",      limit: 4
+    t.integer  "sleev_length",     limit: 4
+    t.integer  "line_item_id",     limit: 4
   end
 
   create_table "dress_line_item_options", force: :cascade do |t|
     t.integer  "line_item_id",     limit: 4
     t.integer  "standard_size_id", limit: 4
-    t.text     "details",          limit: 65535
-    t.string   "angle_0",          limit: 255,   default: "", null: false
+    t.string   "details",          limit: 255
+    t.string   "angle_0",          limit: 255, default: "", null: false
     t.string   "angle_90",         limit: 255
     t.string   "angle_180",        limit: 255
     t.string   "angle_270",        limit: 255
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "dress_line_item_options", ["line_item_id"], name: "index_dress_line_item_options_on_line_item_id", using: :btree
@@ -420,9 +424,9 @@ ActiveRecord::Schema.define(version: 20151008104135) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "product_id", limit: 4
     t.integer  "user_id",    limit: 4
-    t.text     "message",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "message",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.boolean  "active",     limit: 1
   end
 
@@ -498,12 +502,6 @@ ActiveRecord::Schema.define(version: 20151008104135) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
 
   add_foreign_key "auth_identities", "users"
   add_foreign_key "brocade_parts", "brocades"

@@ -73,6 +73,17 @@ $(window).load(function () {
         return true;
     });
 
+    $('#Size').append('<option value="10">Custom size</option>');
+
+    $(document).on('change','#Size',function(){
+            var optionValue = $(this).find('option:selected').val();
+            if(optionValue=='10'){
+                $('.shop_selection_size').show();
+            }else{
+                $('.shop_selection_size').hide();
+            }
+    });
+
 //on click search
 //    $(".product-categories input[type=checkbox]").click(function(){
 //        this.form.submit();
