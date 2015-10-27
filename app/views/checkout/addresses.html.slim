@@ -37,8 +37,16 @@ h1.page-title
       /label.inline PayU
       /= radio_button_tag 'payment', 'payu'
       
-    .col-md-12.confirm-order-wrap
-      = f.submit 'Confirm Order', class: 'btn btn-primary pull-right'
-      = f.submit 'payu', class: 'btn btn-primary pull-right'
-      = f.submit 'Paypal', class: 'btn btn-primary pull-right'
+    /.col-md-12.confirm-order-wrap
+      /= f.submit 'Confirm Order', class: 'btn btn-primary pull-right payment-methods'
+      /= f.submit 'payu', class: 'btn btn-primary pull-right payment-methods'
+      /= f.submit 'Paypal', class: 'btn btn-primary pull-right payment-methods'
+    .col-md-12.confirm-order-wrap.payment.radio-toolbar.pull-right
+      .payment_main_wrapper.payu_method
+        input#payu name="paymathods" type="radio" value="" /
+        label for="payu"  payu
+      .payment_main_wrapper
+        input#Paypal name="paymathods" type="radio" value="" /
+        label for="Paypal"  paypal
+
 

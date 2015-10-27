@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 });
     
-
+$(".savingJsonLoader").show();
 $(window).load(function() {
 
     $.getJSON(dress_detail_url, function(data) {
@@ -82,6 +82,7 @@ $(window).load(function() {
         //loading first svg
 
         $('#svg_wrapper').attr('data-customise', 'false');
+
 
 
         function loadSvg1(data1) {
@@ -277,6 +278,9 @@ $(window).load(function() {
                     }
                 };
                 // $('.loadingcustomizepage,.loading').hide();
+                setTimeout(function(){
+                    $(".savingJsonLoader").hide();
+                },1000);
             }, 1000);
         }
 

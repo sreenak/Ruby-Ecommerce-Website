@@ -91,3 +91,27 @@
 .shop_selection_size{
 	display:none;
 }
+.payment_main_wrapper{
+	float:right;
+}
+
+.radio-toolbar input[type="radio"] {
+    display:none; 
+}
+
+.radio-toolbar label {
+    display:inline-block;
+    background-color: #000;
+    padding:6px 12px;
+    font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+
+}
+.payu_method{
+	margin-left:30px;
+}
+.radio-toolbar input[type="radio"]:checked + label { 
+    background-color:#bbb;
+}

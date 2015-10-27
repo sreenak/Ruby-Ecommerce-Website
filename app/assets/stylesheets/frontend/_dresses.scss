@@ -1204,7 +1204,6 @@ img {
 
 .customisation-tab ul li a.customize-nav-tab:hover, .customisation-tab ul li.active a.customize-nav-tab {
 
-  background: #404041;
   margin: 0px;
   border-left: 0px;
   border-radius: 0px;
@@ -2203,7 +2202,6 @@ input#zipcode, .state-city > label:last-child {
 
 .customisation-tab ul li a.customize-nav-tab:hover, .customisation-tab ul li.active a.customize-nav-tab {
 
-  background: #404041;
   margin: 0px;
   border-left: 0px;
   border-radius: 0px;
@@ -2492,5 +2490,8 @@ input#zipcode, .state-city > label:last-child {
 }
 .saved_images{
   cursor:pointer;
+}
+.nav > li > a{
+  padding:10px 12px !important;
 }
 /*=====================owl carosel css ends here==============================*/
