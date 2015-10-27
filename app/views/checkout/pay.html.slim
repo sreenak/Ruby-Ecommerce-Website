@@ -1,0 +1,15 @@
+form.top-padding.bottom-padding#payu_payment_form action="#{@payment_url}" method="post"
+  input name="key" type="hidden" value="ku0BPZ" /
+  input name="hash" type="hidden" value="#{@hash}"
+  input name="txnid" type="hidden" value="#{@transaction_id}" /
+  input name="amount" type="hidden" value="#{@cart.total}" /
+  input name="firstname" type="hidden" value="#{current_user.name}" /
+  input name="email" type="hidden" value="#{current_user.email}" /
+  input name="phone" type="hidden" value="#{current_user.mobile}" /
+  input name="productinfo" type="hidden" value="DirkDaDhobi Services" /
+  input name="surl" type="hidden" value="#{checkout_thank_you_url}" /
+  input name="furl" type="hidden" value="#{cart_url}" /
+  input name="curl" type="hidden" value="#{cart_url}" /
+  input name="udf1" type="hidden" value="#{@cart.id}" /
+  input name="service_provider" type="hidden" value="payu_paisa" /
+  input.btn.btn-primary type="submit" value="Click Here if you are not automatically redirected" /

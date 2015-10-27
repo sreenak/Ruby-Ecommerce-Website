@@ -1,3 +1,5 @@
+document.getElementById('payu_payment_form').submit();
+
 $(document).ready(function () {
     var copyField = function (from, to) {
         $(to).val($(from).val())

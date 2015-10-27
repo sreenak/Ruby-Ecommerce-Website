@@ -38,22 +38,7 @@
             #dis
             .size-guide
               a SIZE GUIDE
-        .product-desc-wrap.col-md-12
-          h4 PRODUCT DESCRIPTION
-          .description
-            == @product.description
-          /.form-inline
-            /.form-group
-              /label.inline for="quantity" Quantity
-              /input#quantity.form-control name="quantity" type="number" min="1" value="1"
-          /.checkbox
-            /label for="gift"
-              /input#gift name="is_gift" type="checkbox" value="1"
-              /|Gift
-          /.form-group
-            /.send-gift-to.hidden
-              /label for="message" Message
-              /input#message.form-control name="message" type="text"
+        
       div.horizental-line-or.text-center.col-md-12.shop_selection_size
         span or
         div.horizental-line
@@ -112,6 +97,22 @@
               div.input-append
                 input.form-control type='text' id='sleev_length' name='sleev_length'
                 input.inches type='text' readonly='readonly' value='in' 
+      .product-desc-wrap.col-md-12
+          h4 PRODUCT DESCRIPTION
+          .description
+            == @product.description
+          /.form-inline
+            /.form-group
+              /label.inline for="quantity" Quantity
+              /input#quantity.form-control name="quantity" type="number" min="1" value="1"
+          /.checkbox
+            /label for="gift"
+              /input#gift name="is_gift" type="checkbox" value="1"
+              /|Gift
+          /.form-group
+            /.send-gift-to.hidden
+              /label for="message" Message
+              /input#message.form-control name="message" type="text"          
       .actions.text-center
         button.info-row.text-uppercase.active.add-to-cart-size type="submit" 
           i.icon.ion-ios-cart
