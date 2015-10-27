@@ -54,23 +54,9 @@
                       .add-remove
                         ul
                           li
-                            |  <a href="
-                            = cart_delete_path id: i.id
-                            | " class="remove" title="Remove this item" data-method="delete" data-confirm="Are you sure?">Remove
+                            a href="#{cart_delete_path(:id => i.id)}" data-method="delete" data-confirm="Are you sure?",class="remove" title="Remove this item"
+                              |Remove
 
-                          - if i.line_itemable_type == 'Product'
-                            li.line |
-                            li
-                            - if !current_or_null_user.liked? i
-                              -if !user_signed_in?
-                                a href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
-                                  i.icon.ion-ios-heart-outline
-                                  |Move to wishlist
-                              -else
-                                a href="#{likes_path(:id => i.id)}" data-method="post" rel="nofollow"
-                                  i.icon.ion-ios-heart-outline
-                                  |Move to wishlist
-                              /a Move to wishlist
 
                   .col-md-3.no-right-padding.text-right
                     /.actual-price

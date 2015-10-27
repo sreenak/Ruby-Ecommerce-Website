@@ -97,7 +97,8 @@
               div.input-append
                 input.form-control type='text' id='sleev_length' name='sleev_length'
                 input.inches type='text' readonly='readonly' value='in' 
-      .product-desc-wrap.col-md-12
+      - if @product.description?
+        .product-desc-wrap.col-md-12
           h4 PRODUCT DESCRIPTION
           .description
             == @product.description

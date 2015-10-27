@@ -41,12 +41,31 @@ h1.page-title
       /= f.submit 'Confirm Order', class: 'btn btn-primary pull-right payment-methods'
       /= f.submit 'payu', class: 'btn btn-primary pull-right payment-methods'
       /= f.submit 'Paypal', class: 'btn btn-primary pull-right payment-methods'
-    .col-md-12.confirm-order-wrap.payment.radio-toolbar.pull-right
-      .payment_main_wrapper.payu_method
-        input#payu name="paymathods" type="radio" value="" /
-        label for="payu"  payu
-      .payment_main_wrapper
-        input#Paypal name="paymathods" type="radio" value="" /
-        label for="Paypal"  paypal
 
 
+.col-md-12.confirm-order-wrap.payment.radio-toolbar.pull-right
+  form.top-padding.bottom-padding#payu_payment_form action="#{checkout_payupayment_path}" method="post"
+    input name="key" type="hidden" value="ku0BPZ" /
+    input name="hash" type="hidden" value="#{@hash}"
+    input name="txnid" type="hidden" value="#{@transaction_id}" /
+    input name="amount" type="hidden" value="#{@cart.total}" /
+    input name="firstname" type="hidden" value="#{current_user.name}" /
+    input name="email" type="hidden" value="#{current_user.email}" /
+    input name="phone" type="hidden" value="#{current_user.mobile}" /
+    input name="productinfo" type="hidden" value="DirkDaDhobi Services" /
+    input name="surl" type="hidden" value="#{checkout_thank_you_url}" /
+    input name="furl" type="hidden" value="#{cart_url}" /
+    input name="curl" type="hidden" value="#{cart_url}" /
+    input name="udf1" type="hidden" value="#{@cart.id}" /
+    input name="service_provider" type="hidden" value="payu_paisa" /
+    .payment_main_wrapper.payu_method
+    input#payu name="paymathods" type="radio" value="" /
+    label for="payu"  payu
+    .payment_main_wrapper
+    input#Paypal name="paymathods" type="radio" value="" /
+    label for="Paypal"  paypal
+    /input.btn.btn-primary type="submit" value="Click Here if you are not automatically redirected" /
+
+    
+
+       

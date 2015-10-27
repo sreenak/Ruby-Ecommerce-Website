@@ -1,5 +1,7 @@
-document.getElementById('payu_payment_form').submit();
 
+$('input[type=radio]').on('change', function() {
+    console.log($(this).closest("#payu_payment_form")) 
+    $(this).closest("#payu_payment_form").submit(); })
 $(document).ready(function () {
     var copyField = function (from, to) {
         $(to).val($(from).val())

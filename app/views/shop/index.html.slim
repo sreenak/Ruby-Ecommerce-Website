@@ -30,17 +30,17 @@ h1.page-title.text-center.text-uppercase Shop
         /      li
         /        a href=""
         /          |Price: High - Low
-        .product-box
-          h4
-            |Categories
-            span.clear-filters.pull-right Clear
+        /.product-box
+        /  h4
+         /   |Categories
+         /   span.clear-filters.pull-right Clear
 
-          ul.product-categories
-            - Category.all.each do |c|
-              li.checkbox.category-lists
-                label
-                  = f.check_box :category_id_in, {multiple: true}, c.id, nil
-                  = c.name
+          /ul.product-categories
+           / - Category.all.each do |c|
+             / li.checkbox.category-lists
+              /  label
+                /  = f.check_box :category_id_in, {multiple: true}, c.id, nil
+               /   = c.name
 
         .product-box
           h4 Price (in #{@currency})
