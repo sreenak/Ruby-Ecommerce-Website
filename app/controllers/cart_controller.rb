@@ -1,5 +1,6 @@
 class CartController < ApplicationController
   def show
+    @cart_product_items=@cart.product_items.order(id: :desc)
   end
 
   def add_dress

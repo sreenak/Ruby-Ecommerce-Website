@@ -49,7 +49,6 @@ Rails.application.routes.draw do
   # patch 'checkout/payupayment'
   get 'checkout/paypal_ipn'
   match 'checkout/thank_you', via: [:get, :post], path: 'checkout/thank-you'
-  match 'checkout/payupayment', via: [:get, :post], path: 'checkout/payupayment'
   match 'checkout/payu', via: [:get, :post], path: 'checkout/payu'
 
   namespace :admin do

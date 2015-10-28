@@ -16,31 +16,40 @@
         h2 No products found.
       - else
         - @products.each_slice(3) do |row|
-          .row
+          .row.home-product
             - row.each do |product|
               .col-md-4.col-sm-4
                 .product-preview.hover-container
                   a href="#{shop_path(product)}"
                     = image_tag product.image_url(:medium)
                   .details
-                    .action-row.top.clearfix.hover-content
-                      .pull-left
+                    h4.text-center
+                      = link_to truncate(product.name.camelize, :length => 20), shop_path(product)
+                    h4.price.text-center
+                      -if @cart.currency=="USD"
+                        = '$'+ (product.price.exchange_to(@cart.currency).to_i+1).to_s
+                      -else @cart.currency=="INR"
+                        = '₹'+ (product.price.exchange_to(@cart.currency).to_i).to_s  
+                    action-row.top.clearfix.hover-content
+                      .pull-right.col-md-6.product-wishliat.text-center
                         - if !current_or_null_user.liked? product
-                          i.icon.ion-ios-heart-outline
-                          = link_to 'Like', likes_path(:id => product.id), method: :post
+                          -if !user_signed_in?
+                            a.text-center href="#" rel="nofollow" data-toggle="modal" data-target="#login-modal"
+                              i.icon.ion-ios-heart-outline
+                              |Like
+                          -else
+                            a.text-center href="#{likes_path(:id => product.id)}" data-method="post" rel="nofollow"
+                              i.icon.ion-ios-heart-outline
+                              |Like
                         - else
-                          i.icon.ion-ios-heart
-                          = link_to 'Unlike', like_path(:id => product.id), method: :delete
+                          a.text-center href="#{like_path(:id => product.id)}" data-method="delete" rel="nofollow"
+                            i.icon.ion-ios-heart
+                            |Unlike
 
-                      .pull-right.text-right
-                        i.icon.ion-ios-cart
-                        = link_to 'Add to cart', cart_add_product_path(:product_id => product.id), method: :post
-                    h4.price.text-center= humanized_money_with_symbol product.price.exchange_to(@cart.currency)
-                    h4.text-center.productheader
-                      = link_to product.name, shop_path(product)
-                    .action-row.text-center.bottom.hover-content
-                      i.icon.ion-wand
-                      |Customise
+                      .pull-left.text-center.col-md-6.product-addto
+                        a.text-center href="#{cart_add_product_path(:product_id => product.id)}" data-method="post" rel="nofollow"
+                          i.icon.ion-ios-cart
+                          |Add to cart
   = paginate @products
 
   .blog-result

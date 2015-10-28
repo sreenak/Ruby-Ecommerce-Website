@@ -144,13 +144,14 @@ class CheckoutController < ApplicationController
     @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
   end
 
-
-def payupayment
+ def payu
       @transaction_id = @cart.id
       @payment_url = ENV['PAYU_MODE'] == 'test' ? 'https://test.payu.in/_payment' : 'https://secure.payu.in/_payment'
-      string = "#{ENV['PAYU_KEY']}|#{@transaction_id}|#{@cart.total}|Kaapad|#{current_user.name}|#{current_user.email}|#{@cart.id}||||||||||#{ENV['PAYU_SALT']}"
+      string = string = string = "#{ENV['PAYU_KEY']}|#{@transaction_id}|#{@cart.total}|Kaapad|#{current_user.name}|#{current_user.email}|#{@cart.id}||||||||||#{ENV['PAYU_SALT']}"
       @hash = Digest::SHA512.hexdigest(string)
-end
+ end
+
+      
 
 
   private

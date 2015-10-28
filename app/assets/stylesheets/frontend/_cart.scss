@@ -1,4 +1,6 @@
-
+.radio-right{
+	    text-align: right;
+}
 .product-wrap
 {
 	margin-bottom:50px;
@@ -17,9 +19,7 @@
 	    border: 1px solid #fafafa;
 		}
 
-		.product-img-block img {
-	      width: 100%;
-	   }
+		
 		.product-info-block {
 		    width: calc(100% - 115px);
 		    float: left;
