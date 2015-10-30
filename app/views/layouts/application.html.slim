@@ -242,7 +242,6 @@ html lang="en-us"
                   -else @cart.currency=="INR"
                    = '₹'+ (@cart.total.to_i).to_s 
                 /#{humanized_money_with_symbol @cart.total}
-
             ul.navbar-nav.nav.navbar-right
               - if user_signed_in?
                 li= link_to "Welcome #{current_user.name}!", account_path
