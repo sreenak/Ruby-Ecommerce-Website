@@ -99,7 +99,7 @@ class Cart
   def convert(to = 'USD')
     line_items.each do |item|
       price = Money.new(item.original_amount, 'INR').exchange_to(to)
-      item.update amount: price_to_i+1
+      item.update amount: price
     end
     calculate
   end
