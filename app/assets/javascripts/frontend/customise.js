@@ -1293,6 +1293,7 @@ $(window).load(function() {
 
 
         $(document).on('click', '.save', function(e) {
+            
             savingObject = [];
 
             $(this).attr('disabled', 'disabled');

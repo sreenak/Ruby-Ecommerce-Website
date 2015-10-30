@@ -1,3 +1,5 @@
+
+
 function getQueryParams(qs) {
     qs = qs.split('+').join(' ');
     var params = {},
@@ -60,18 +62,24 @@ $(window).load(function () {
         $(clear_filter).children('li').children('label').children('input').prop('checked', false)
     });
 
-    $('.add-to-cart-size').click(function () {
-        var size = $('input[name=standard_size_id]').val();
-        //alert(size);
-        //alert($('input[name=standard_size_id]:checked').length);
-        if (size != undefined) {
-            if ($('input[name=standard_size_id]:checked').length == 0) {
-                $('#dis').slideDown().html('<span id="size-error">Please choose Size</span>');
+     $('.add-to-cart-size').on('click',function () {
+        var size = $('#standard_size_id').val();
+        if(size=='') {
+
+                $('#dis').slideDown().html('<span id="size-error">Please Choose Your Size</span>');
+                $('#standard_size_id').css('border-color','red');
                 return false;
-            }
+          
         }
         return true;
     });
+/*
+
+
+     $('.add-to-cart-size').on('click',function(){
+         var size = $('standard_size_id').val();
+        console.log(size); 
+     })*/
 
     $('#standard_size_id').append('<option value="10">Custom size</option>');
 

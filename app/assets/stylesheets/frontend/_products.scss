@@ -1,7 +1,11 @@
+.select-width{
+  width:auto !important;
+}
 .add-to-cart-block {
   margin-bottom: $line-height-computed;
 }
 #size-error{
+padding-top:5px;
   color: #a94442;
 }
 
@@ -11,7 +15,6 @@
     font-family: $font-family-serif;
     margin-bottom: $line-height-computed;
   }
-
 }
 
 .product-preview {

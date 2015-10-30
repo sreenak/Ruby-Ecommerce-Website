@@ -30,15 +30,11 @@
               /label.radio-inline#size
                 /= radio_button_tag :standard_size_id, s.id
                 /= s.name
-            .input-append.select-size
-              = select_tag "standard_size_id", 
-
-              options_from_collection_for_select(@standard_sizes, "id", "name"), include_blank: true, class: 'form-control'
-            
-            #dis
+            .input-append.select-size.select-width
+             = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
             .size-guide
               a SIZE GUIDE
-        
+          #dis
       div.horizental-line-or.text-center.col-md-12.shop_selection_size
         span or
         div.horizental-line
