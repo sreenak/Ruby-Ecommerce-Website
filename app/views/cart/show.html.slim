@@ -81,7 +81,11 @@
             | SUB TOTAL:
             span
               /span.indian-rupee &#x20B9
-              = humanized_money_with_symbol @cart.total
+              /= humanized_money_with_symbol @cart.total
+              -if @cart.currency=="USD"
+                 = '$'+ (@cart.total.to_i+1).to_s
+              -else @cart.currency=="INR"
+                 = '₹'+ (@cart.total.to_i).to_s 
           - @cart.gift_card_usage_items.each do |g|
             p
               | DISCOUNT:
@@ -107,7 +111,11 @@
             | TOTAL PAYABLE AMOUNT:
             span
               /span.indian-rupee> ₹
-              = humanized_money_with_symbol @cart.total
+              /= humanized_money_with_symbol @cart.total
+              -if @cart.currency=="USD"
+                 = '$'+ (@cart.total.to_i+1).to_s
+              -else @cart.currency=="INR"
+                 = '₹'+ (@cart.total.to_i).to_s 
         |  <a href="
         = user_signed_in? ? checkout_addresses_path : checkout_user_path
         | " class="checkout-button btn btn-primary alt wc-forward continue-shop">Checkout

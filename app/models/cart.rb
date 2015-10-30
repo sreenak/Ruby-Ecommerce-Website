@@ -99,12 +99,13 @@ class Cart
   def convert(to = 'USD')
     line_items.each do |item|
       price = Money.new(item.original_amount, 'INR').exchange_to(to)
-      item.update amount: price
+      item.update amount: price_to_i+1
     end
     calculate
   end
 
   def calculate
+     # Rails.logger.info total.inspect
     # First, let's calculate all the discounts
     # Rails.logger.info 'test' + @currency.to_s
     # exit
@@ -134,7 +135,7 @@ class Cart
         gu.destroy # Remove gift cards which are not present anymore
         next
       end
-      total = product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
+      total = product_items.reduce(0) { |sum, p| sum + p.subtotal} # Only take products into account
       if gu.amount > @order.total # You can only use upto order limit
         gift.update(remaining: gift.remaining + (gu.amount - @order.total)) # Transfer the balance back
         gu.update(amount: @order.total)

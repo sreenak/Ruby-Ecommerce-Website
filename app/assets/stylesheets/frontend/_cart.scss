@@ -1,3 +1,7 @@
+.payu-right{
+	float:right;
+}
+
 .radio-right{
 	    text-align: right;
 }
@@ -155,5 +159,8 @@ a
 
 .confirm-order-wrap input 
 {
-	margin-left:10px;
+	    position: absolute;
+    /* margin-right: 23%; */
+    margin-left: 48%;
+    margin-top: 1px;
 }

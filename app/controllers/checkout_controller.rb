@@ -55,8 +55,9 @@ class CheckoutController < ApplicationController
     logger.info @currency.inspect
   end
 
-  def pay
+   def pay
     if @order.update order_params
+       @order.update_attributes(:invoice_id => rand.to_s[2..11])
       if current_user.billing_address.blank?
         current_user.create_billing_address(@order.billing_address.dup.attributes)
       end
@@ -67,11 +68,11 @@ class CheckoutController < ApplicationController
       if @order.total == 0
         return redirect_to checkout_thank_you_path
       end
-      if !params['payment'].present?
-        return redirect_to :back, notice: 'Select Payment Gateway!'
-      end
-      if params['payment']=='paypal'
-        # @order.order_statuses.create(status_type: 1)
+      # if !params['payment'].present?
+      #   return redirect_to :back, notice: 'Select Payment Gateway!'
+      # end
+      # if params['payment']=='paypal'
+        @order.order_statuses.create(status_type: 1)
         item_details=[]
         @order.line_items.each do |item|
           item_details << {:name => item.title, :quantity => item.quantity, :amount => item.amount.fractional}
@@ -80,18 +81,18 @@ class CheckoutController < ApplicationController
         logger.info item_details.inspect
         response = EXPRESS_GATEWAY.setup_purchase(@cart.total.fractional,
                                                   :ip => request.remote_ip,
-                                                  :currency => @cart.currency,
+                                                  :currency =>"USD",
                                                   :items => item_details,
-                                                  :order_id => @cart.id,
+                                                  :order_id => @order.invoice_id,
                                                   :return_url => checkout_thank_you_url,
                                                   :cancel_return_url => cart_url
         )
         logger.info response.inspect
 
         return redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
-      else
-        return redirect_to 'https://www.payumoney.com/'
-      end
+      # else
+      #   return redirect_to 'https://www.payumoney.com/'
+      # end
     else
       flash[:alert] = 'Billing and shipping address fields are required!'
       render :addresses
@@ -117,7 +118,7 @@ class CheckoutController < ApplicationController
 
   def thank_you
 
-  @order = Order.find params[:txnid]
+  @order = Order.find(session[:order_id])
 
     details = EXPRESS_GATEWAY.details_for(params[:token])
     response = EXPRESS_GATEWAY.purchase(@cart.total.fractional, {
@@ -149,10 +150,7 @@ class CheckoutController < ApplicationController
       @payment_url = ENV['PAYU_MODE'] == 'test' ? 'https://test.payu.in/_payment' : 'https://secure.payu.in/_payment'
       string = string = string = "#{ENV['PAYU_KEY']}|#{@transaction_id}|#{@cart.total}|Kaapad|#{current_user.name}|#{current_user.email}|#{@cart.id}||||||||||#{ENV['PAYU_SALT']}"
       @hash = Digest::SHA512.hexdigest(string)
- end
-
-      
-
+ end   
 
   private
   def set_order

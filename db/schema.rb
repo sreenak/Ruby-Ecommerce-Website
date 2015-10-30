@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021115223) do
+ActiveRecord::Schema.define(version: 20151030063425) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "type",             limit: 255, default: "", null: false
@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(version: 20151021115223) do
     t.string   "currency",     limit: 255, default: "INR", null: false
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "invoice_id",   limit: 255
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree

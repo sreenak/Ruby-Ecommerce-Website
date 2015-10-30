@@ -73,9 +73,9 @@ $(window).load(function () {
         return true;
     });
 
-    $('#Size').append('<option value="10">Custom size</option>');
+    $('#standard_size_id').append('<option value="10">Custom size</option>');
 
-    $(document).on('change','#Size',function(){
+    $(document).on('change','#standard_size_id',function(){
             var optionValue = $(this).find('option:selected').val();
             if(optionValue=='10'){
                 $('.shop_selection_size').show();

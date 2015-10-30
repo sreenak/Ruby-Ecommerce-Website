@@ -10,7 +10,8 @@ class CartController < ApplicationController
       if line_item
         # line_item.create_customised_dress_order_item details: params[:details]
         line_item.create_dress_line_item_option params.permit(:standard_size_id, :angle_0_data_uri, :angle_90_data_uri, :angle_180_data_uri, :angle_270_data_uri, :details)
-        line_item.create_dress_custom_size params.permit(:bust_chest, :waist, :waist_to_ankle, :hips,:shoulder,:shoulder_to_neck, :around_armpit, :around_neck,:sleev_length)
+         line_item.create_dress_custom_size params.permit(:bust_chest, :waist, :waist_to_ankle, :hips,:shoulder,:shoulder_to_neck, :around_armpit, :around_neck,:sleev_length)
+        # line_item.build_dress_custom_size params.permit(:bust_chest, :waist, :waist_to_ankle, :hips,:shoulder,:shoulder_to_neck, :around_armpit, :around_neck,:sleev_length)
         # line_item.dress_line_item_option.standard_size_id=params[:standard_size_id]
         # line_item.dress_line_item_option.angle_0=params[:standard_size_id]
         # line_item.dress_line_item_option.angle_90=params[:standard_size_id]
@@ -18,6 +19,7 @@ class CartController < ApplicationController
         # line_item.dress_line_item_option.angle_270=params[:standard_size_id]
         # line_item.dress_line_item_option.details=params[:standard_size_id]
         # line_item.dress_line_item_option.save
+        # line_item.dress_custom_size.save
         session[:order_id] = @cart.id # Save order id to session since it's saved now
         format.html { redirect_to :cart, notice: 'Dress added to cart.' }
         format.json { head :no_content }

@@ -31,7 +31,7 @@
                 /= radio_button_tag :standard_size_id, s.id
                 /= s.name
             .input-append.select-size
-              = select_tag "Size", 
+              = select_tag "standard_size_id", 
 
               options_from_collection_for_select(@standard_sizes, "id", "name"), include_blank: true, class: 'form-control'
             

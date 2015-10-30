@@ -45,11 +45,10 @@ Rails.application.routes.draw do
   patch 'checkout/process_user', path: 'checkout/process-user'
   get 'checkout/addresses'
   patch 'checkout/pay'
-  # post 'checkout/payu'
-  # patch 'checkout/payupayment'
+  patch 'checkout/payu'
   get 'checkout/paypal_ipn'
   match 'checkout/thank_you', via: [:get, :post], path: 'checkout/thank-you'
-  match 'checkout/payu', via: [:get, :post], path: 'checkout/payu'
+  # match 'checkout/payu', via: [:get, :post], path: 'checkout/payu'
 
   namespace :admin do
     root to: 'dashboard#show'
