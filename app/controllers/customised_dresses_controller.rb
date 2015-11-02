@@ -1,23 +1,17 @@
 class CustomisedDressesController < ApplicationController
-  # before_filter :authenticate_user!
+   before_filter :authenticate_user!
 
   # /GET customised_dresses
-  def index
-    @customised_dresses = current_user.customised_dresses.where dress_id: params[:id]
+    def index
+    @customised_dresses = current_or_null_user.customised_dresses.where dress_id: params[:id]
     respond_to do |format|
       format.json
     end
   end
 
 # /POST customised_dresses
-  def create
-    if current_user.present?
-      @customised_dress =CustomisedDress.new(customised_dress_params)
-      @customised_dress.user_id = current_user.id
-    else
-      @customised_dress =CustomisedDress.new(customised_dress_params)
-    end
-    @customised_dress.session_id = session[:session_id]
+    def create
+    @customised_dress = current_or_null_user.customised_dresses.new(customised_dress_params)
     respond_to do |format|
       if @customised_dress.save
         format.html { redirect_to :back, notice: 'Customised dress has been successfully saved.' }
@@ -28,6 +22,25 @@ class CustomisedDressesController < ApplicationController
       end
     end
   end
+
+  # def create
+  #   if current_user.present?
+  #     @customised_dress =CustomisedDress.new(customised_dress_params)
+  #     @customised_dress.user_id = current_user.id
+  #   else
+  #     @customised_dress =CustomisedDress.new(customised_dress_params)
+  #   end
+  #   @customised_dress.session_id = session[:session_id]
+  #   respond_to do |format|
+  #     if @customised_dress.save
+  #       format.html { redirect_to :back, notice: 'Customised dress has been successfully saved.' }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { redirect_to :back, alert: 'Customised dress was not saved.' }
+  #       format.json { render json: {error: @customised_dress.errors}, status: 422 }
+  #     end
+  #   end
+  # end
 
   # /GET customised_dresses/delete
 
