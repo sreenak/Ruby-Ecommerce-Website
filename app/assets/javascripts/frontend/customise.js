@@ -80,6 +80,7 @@ $(window).load(function() {
         var retrievedData = []; //this one holds the data when the page has customisedId
         updateprice();
         //loading first svg
+        var customiseSizesDetails={};
 
         $('#svg_wrapper').attr('data-customise', 'false');
 
@@ -420,7 +421,6 @@ $(window).load(function() {
             var gettinggroup = $(this).attr('data-group');
 
             var gettingCost;
-
 
             // gettingCost = parseInt(gettingCost);
 
@@ -1172,23 +1172,35 @@ $(window).load(function() {
                         }
 
                     });
+
+
                     if(emptyInput.length>0){
                         alert('Please fill all the custom sizes fields ');
                         return;
                     }
-                    var obj={};
-                    obj.bust_chest=$('#bust_chest').val();
-                    obj.waist=$('#waist').val();
-                    obj.waist_to_ankle=$('#waist_to_ankle').val();
-                    obj.hips=$('#hips').val();
-                    obj.shoulder=$('#shoulder').val();
-                    obj.shoulder_to_neck=$('#shoulder_to_neck').val();
-                    obj.around_armpit=$('#around_armpit').val();
-                    obj.around_neck=$('#around_neck').val();
-                    obj.sleev_length=$('#sleev_length').val();
-                    selectedsize=obj;
+
+                    
+                    customiseSizesDetails.bust_chest=$('#bust_chest').val();
+                    customiseSizesDetails.waist=$('#waist').val();
+                    customiseSizesDetails.waist_to_ankle=$('#waist_to_ankle').val();
+                    customiseSizesDetails.hips=$('#hips').val();
+                    customiseSizesDetails.shoulder=$('#shoulder').val();
+                    customiseSizesDetails.shoulder_to_neck=$('#shoulder_to_neck').val();
+                    customiseSizesDetails.around_armpit=$('#around_armpit').val();
+                    customiseSizesDetails.around_neck=$('#around_neck').val();
+                    customiseSizesDetails.sleev_length=$('#sleev_length').val();
+                    selectedsize='10';
                 }else{
-                    selectedsize=$('#dress_size_selection option:selected').val()
+                    selectedsize=$('#dress_size_selection option:selected').val();
+                    customiseSizesDetails.bust_chest='';
+                    customiseSizesDetails.waist='';
+                    customiseSizesDetails.waist_to_ankle='';
+                    customiseSizesDetails.hips='';
+                    customiseSizesDetails.shoulder='';
+                    customiseSizesDetails.shoulder_to_neck='';
+                    customiseSizesDetails.around_armpit='';
+                    customiseSizesDetails.around_neck='';
+                    customiseSizesDetails.sleev_length='';
                 }
             }
 
@@ -1247,33 +1259,26 @@ $(window).load(function() {
         function addcart(selectedsize) {
             var frontviewbase64 = add_to_cart_svgbase64('frontview');
 
-            //var rightviewbase64 = add_to_cart_svgbase64('rightview');
-            //var backviewbase64 = add_to_cart_svgbase64('backview');
-            //var leftviewbase64 = add_to_cart_svgbase64('leftview');
-
-            // var selectedDressDetails = JSON.stringify(add_to_cart_Obj);
-            //console.log('f =' + frontviewbase64);
-            //console.log('r =' + rightviewbase64);
-            //console.log('b =' + backviewbase64);
-            //console.log('l =' + leftviewbase64);
-            //
-            //console.log(JSON.stringify(add_to_cart_Obj));
-            //console.log('sel size ' + selectedsize);
-            //console.log('price is ' + totalprice);
-
-
-           // console.log('selectedsize');
-           // console.log(selectedsize);
-
-            $.ajax({
+             $.ajax({
                 url: '/cart/add-dress',
                 type: 'POST',
                 data: {
                     id: data.id,
                     standard_size_id: selectedsize,
+                    bust_chest:customiseSizesDetails.bust_chest,
+                    waist:customiseSizesDetails.waist,
+                    waist_to_ankle:customiseSizesDetails.waist_to_ankle,
+                    hips:customiseSizesDetails.hips,
+                    shoulder:customiseSizesDetails.shoulder,
+                    shoulder_to_neck:customiseSizesDetails.shoulder_to_neck,
+                    around_armpit:customiseSizesDetails.around_armpit,
+                    around_neck:customiseSizesDetails.around_neck,
+                    sleev_length:customiseSizesDetails.sleev_length,
+
                     total_price: totalprice,
                     details: JSON.stringify(add_to_cart_Obj),
-                    angle_0_data_uri: frontviewbase64,
+                    angle_0_data_uri: frontviewbase64
+
                     //angle_90_data_uri: rightviewbase64,
                     //angle_180_data_uri: backviewbase64,
                     //angle_270_data_uri: leftviewbase64
@@ -1292,14 +1297,12 @@ $(window).load(function() {
         }
 
 
+
         $(document).on('click', '.save', function(e) {
             
             savingObject = [];
-
             $(this).attr('disabled', 'disabled');
-            $(".savingJsonLoader").css('display', 'block')
-
-
+            $(".savingJsonLoader").css('display', 'block');
             //to findout what are the clicked parts and applied pattern based on that get base 64
             $('.main_parts,.group').find('path').each(function(index) {
                 var filledPattern = $(this).attr('fill');
@@ -1322,9 +1325,7 @@ $(window).load(function() {
                 saveObj.appliedgroups = costingObj;
                 savingObject.push(saveObj);
             });
-
-
-
+            
             hiding_Unused_embellishment_Groups(savingObject);
 
 
@@ -1341,8 +1342,6 @@ $(window).load(function() {
             var img = document.createElement("img");
 
             img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
-
-
             img.onload = function() {
                 ctx.drawImage(img, 0, 0);
                 var frontViewData = canvas.toDataURL("image/png");
@@ -1356,7 +1355,8 @@ $(window).load(function() {
                     },
                     error: function() {
                         $(".savingJsonLoader").css('display', 'none');
-                        alert("Could not save design, are you logged in?");
+                        $('a.text-center.loginpopup').trigger('click');
+                       // alert("Could not save design, are you logged in?");
                         //needs to display the login popup
                     },
                     success: function(result) {
@@ -1452,8 +1452,6 @@ $(window).load(function() {
                 };
                 updateprice();
                 add_to_cart_Obj = local_add_to_cart_obj;
-
-
             }
 
 

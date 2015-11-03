@@ -5,6 +5,37 @@ script
   == "var dress_detail_url = '" + @dress_details_url + "'"
 javascript:
   var currency = '#{@currency}';
+a.text-center.loginpopup data-target="#login-modal" data-toggle="modal" href="#" rel="" 
+#login-modal.modal.fade.in role="dialog" 
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  ×
+        h4.modal-title To add this product to your favourite, please sign up or login
+      .modal-body
+        form#new_user.simple_form.new_user.has-validation-callback accept-charset="UTF-8" action="/users/sign-in" method="post" novalidate="novalidate" 
+          input name="utf8" type="hidden" value="✓" /
+          input name="authenticity_token" type="hidden" value="zMbY/A4KR8WOHDX83CthoNxKGqWOkpjjkjYRFh84+V8rSEhvtCO/anLZPutsv/EISH3Oaz+H2TvsSLKyFKm++g==" /
+          .form-inputs
+            .form-group.email.optional.user_email
+              label.email.optional.control-label for="user_email"  Email
+              input#user_email.string.email.optional.form-control autofocus="autofocus" name="user[email]" type="email" value="" /
+            .form-group.password.optional.user_password
+              label.password.optional.control-label for="user_password"  Password
+              input#user_password.password.optional.form-control name="user[password]" type="password" /
+            .form-group.boolean.optional.user_remember_me
+              .checkbox
+                input name="user[remember_me]" type="hidden" value="0" /
+                label.boolean.optional for="user_remember_me" 
+                  input#user_remember_me.boolean.optional name="user[remember_me]" type="checkbox" value="1"/
+                  | Remember me
+          .form-actions
+            input.btn.btn-success name="commit" type="submit" value=("Log in") /
+            li
+              a href="/users/sign_up"  Register
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
 
 .row.customisation
   .col-md-4
