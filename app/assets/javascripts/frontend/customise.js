@@ -1357,6 +1357,7 @@ $(window).load(function() {
                     error: function() {
                         $(".savingJsonLoader").css('display', 'none');
                         alert("Could not save design, are you logged in?");
+                        //needs to display the login popup
                     },
                     success: function(result) {
                         $('.group').show();
