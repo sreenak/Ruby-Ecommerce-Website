@@ -5,7 +5,7 @@
   .col-md-6.text-center
     .product-images
       a href="#{@product.image_url}"
-        = image_tag @product.image_url(:medium), :id=>"zoom_03", 'data-zoom-image'=>@product.image_url(:big)
+        = image_tag @product.image_url(:medium), :id => "zoom_03", 'data-zoom-image' => @product.image_url(:big)
       div#gallery_01
         - @product.product_images.each do |image|
           a href="#{image.image_url}" data-image=image.image_url(:medium) data-zoom-image=image.image_url(:big)
@@ -15,10 +15,6 @@
     h2.page-title.product-name= @product.name.camelize
     h4.price
       span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
-      /-if @cart.currency=="USD"
-        /span= '$'+ (@product.price.exchange_to(@cart.currency).to_i+1).to_s
-      /-else @cart.currency=="INR"
-        /span= '₹'+ (@product.price.exchange_to(@cart.currency).to_i).to_s
 
     = form_tag cart_add_product_path
       = hidden_field_tag :product_id, @product.id
@@ -31,7 +27,7 @@
                 /= radio_button_tag :standard_size_id, s.id
                 /= s.name
             .input-append.select-size.select-width
-             = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
+              = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
             .size-guide
               a SIZE GUIDE
           #dis
@@ -41,7 +37,7 @@
       div.customize-size-wrap.col-md-12.shop_selection_size
         .col-md-12.no-padding
           h4 CUSTOMIZE 
-          span.measure-link 
+          span.measure-link
             a HOW TO MEASURE
         .col-md-12.no-padding.customize-size-inner-wrap
           p Edit from pre-defined or enter your own (in inches)
@@ -52,7 +48,7 @@
               div.input-append
                 input.form-control type='text' id='bust_chest' name='bust_chest'
                 input.inches type='text' readonly='readonly' value='in'
-            
+
             .col-md-4
               label WAIST 
               div.input-append
@@ -98,15 +94,15 @@
           h4 PRODUCT DESCRIPTION
           .description
             == @product.description
-          /.form-inline
+      /.form-inline
             /.form-group
               /label.inline for="quantity" Quantity
               /input#quantity.form-control name="quantity" type="number" min="1" value="1"
-          /.checkbox
+      /.checkbox
             /label for="gift"
               /input#gift name="is_gift" type="checkbox" value="1"
               /|Gift
-          /.form-group
+      /.form-group
             /.send-gift-to.hidden
               /label for="message" Message
               /input#message.form-control name="message" type="text"          
@@ -124,8 +120,8 @@
             a href="#{like_path(id: @product.id)}" data-method="delete"
               i.icon.ion-ios-heart
               span Remove from favorites
-    
-  /.col-md-12
+
+                /.col-md-12
     /.product-tabs
       /div#produc-desc-tabs
         /! Nav tabs

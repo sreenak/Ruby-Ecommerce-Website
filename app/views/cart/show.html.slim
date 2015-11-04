@@ -65,10 +65,6 @@
                     .after-discount
                       /span &#x20B9;
                       = humanized_money_with_symbol i.subtotal
-                      /-if @cart.currency=="USD"
-                        /= '$'+ (i.subtotal.to_i+1).to_s
-                      /-else @cart.currency=="INR"
-                        /= '₹'+ (i.subtotal.to_i).to_s
 
         .col-sm-12.no-right-padding.update-wrap
           input.pull-right.btn.btn-default[type="submit" name="update_cart" value="Update Cart" onclick="this.disabled = true;this.form.submit();"]
@@ -82,10 +78,6 @@
             span
               /span.indian-rupee &#x20B9
               = humanized_money_with_symbol @cart.total
-              /-if @cart.currency=="USD"
-                / = '$'+ (@cart.total.to_i+1).to_s
-              /-else @cart.currency=="INR"
-                 /= '₹'+ (@cart.total.to_i).to_s 
           - @cart.gift_card_usage_items.each do |g|
             p
               | DISCOUNT:
@@ -112,10 +104,6 @@
             span
               /span.indian-rupee> ₹
               = humanized_money_with_symbol @cart.total
-              /-if @cart.currency=="USD"
-                 /= '$'+ (@cart.total.to_i+1).to_s
-              /-else @cart.currency=="INR"
-                 /= '₹'+ (@cart.total.to_i).to_s 
         |  <a href="
         = user_signed_in? ? checkout_addresses_path : checkout_user_path
         | " class="checkout-button btn btn-primary alt wc-forward continue-shop">Checkout
