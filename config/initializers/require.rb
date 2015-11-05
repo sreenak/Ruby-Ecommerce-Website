@@ -1,1 +1,1 @@
-require "#{Rails.root}/lib/money"
+require "#{Rails.root}/lib/eu_central_bank"
