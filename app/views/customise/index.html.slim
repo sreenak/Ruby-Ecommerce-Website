@@ -2,16 +2,18 @@
   |Choose Your Style
 
 h1.page-title.text-center.text-uppercase Choose Your Style
-h2.page-title.text-center.text-uppercase Salwars
-.row.dresses
-  - @salwars.each do |d|
-    .col-md-4.text-center.dress-preview
-      a href="#{customise_path(d)}"
-        = image_tag d.sketch_url(:medium)
-h2.page-title.text-center.text-uppercase Pants
-.row.dresses
-  - @pants.each do |p|
-    .col-md-4.text-center.dress-preview
-      a href="#{customise_path(p)}"
-        = image_tag p.sketch_url(:medium)
+-if @salwars.present? 
+	h2.page-title.text-center.text-uppercase Salwars
+	.row.dresses
+	  - @salwars.each do |d|
+	    .col-md-4.text-center.dress-preview
+	      a href="#{customise_path(d)}"
+	        = image_tag d.sketch_url(:medium)
+-if @pants.present?        
+	h2.page-title.text-center.text-uppercase Pants
+	.row.dresses
+	  - @pants.each do |p|
+	    .col-md-4.text-center.dress-preview
+	      a href="#{customise_path(p)}"
+	        = image_tag p.sketch_url(:medium)
 

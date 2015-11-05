@@ -236,11 +236,11 @@ html lang="en-us"
                   |&nbsp;
                 span.cart-contents
                   strong Cart:
-                  |&nbsp;#{@cart.line_items.count} Items - 
-                  -if @cart.currency=="USD"
-                   = '$'+ (@cart.total.to_i).to_s
-                  -else @cart.currency=="INR"
-                   = '₹'+ (@cart.total.to_i).to_s 
+                  |&nbsp;#{@cart.line_items.count} Items - #{humanized_money_with_symbol @cart.total}
+                  /-if @cart.currency=="USD"
+                  / = '$'+ (@cart.total.to_i).to_s
+                  /-else @cart.currency=="INR"
+                   /= '₹'+ (@cart.total.to_i).to_s 
                 /#{humanized_money_with_symbol @cart.total}
             ul.navbar-nav.nav.navbar-right
               - if user_signed_in?

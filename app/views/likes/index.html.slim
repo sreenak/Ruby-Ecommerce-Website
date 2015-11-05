@@ -23,10 +23,7 @@
                       h4.text-center
                         = link_to truncate(like.product.name.camelize, :length => 20), shop_path(like.product)
                       h4.price.text-center
-                        -if @cart.currency=="USD"
-                          = '$'+ (like.product.price.exchange_to(@cart.currency).to_i+1).to_s
-                        -else @cart.currency=="INR"
-                          = '₹'+ (like.product.price.exchange_to(@cart.currency).to_i).to_s  
+                       span= humanized_money_with_symbol like.product.price.exchange_to(@cart.currency)
                       action-row.top.clearfix.hover-content
                         .pull-right.col-md-6.product-wishliat.text-center
                           - if !current_or_null_user.liked? like.product

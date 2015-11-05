@@ -20,13 +20,14 @@ class Cart
 
   def add_item(item, price, title, quantity = 1)
     @order.save # Save self before adding the dress
-    Rails.logger.info price
+    Rails.logger.info 'price' +price.to_s
+    # exit
     amount = price.to_money(@currency)
     # Ugly hack to protect currency on conversion
-    if ['Dress', 'GiftCard'].include? item.class.name
+    if ['Dress', 'GiftCard','EGiftCard','PGiftCard'].include? item.class.name
       original_amount = price.to_money(@currency).exchange_to('INR').fractional
     else
-      original_amount = item.price * 100
+      original_amount = item.price.to_s * 100
     end
 
     Rails.logger.info amount
