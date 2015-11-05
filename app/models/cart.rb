@@ -22,7 +22,13 @@ class Cart
     @order.save # Save self before adding the dress
     Rails.logger.info price
     amount = price.to_money(@currency)
-    original_amount = price.to_money(@currency).exchange_to('INR').fractional
+    # Ugly hack to protect currency on conversion
+    if ['Dress', 'GiftCard'].include? item.class.name
+      original_amount = price.to_money(@currency).exchange_to('INR').fractional
+    else
+      original_amount = item.price * 100
+    end
+
     Rails.logger.info amount
     Rails.logger.info original_amount
     line_item = @order.line_items.create(line_itemable: item, amount: amount, original_amount: original_amount, title: title, quantity: quantity)
@@ -70,9 +76,9 @@ class Cart
 
   def update_size(items)
     items.each do |(item_id, standard_size_id)|
-    item = line_items.find item_id
-    next unless item.product_line_item_option.present?
-    item.product_line_item_option.update standard_size_id: standard_size_id.to_i
+      item = line_items.find item_id
+      next unless item.product_line_item_option.present?
+      item.product_line_item_option.update standard_size_id: standard_size_id.to_i
     end
     calculate
   end
@@ -105,7 +111,7 @@ class Cart
   end
 
   def calculate
-     # Rails.logger.info total.inspect
+    # Rails.logger.info total.inspect
     # First, let's calculate all the discounts
     # Rails.logger.info 'test' + @currency.to_s
     # exit
@@ -135,7 +141,7 @@ class Cart
         gu.destroy # Remove gift cards which are not present anymore
         next
       end
-      total = product_items.reduce(0) { |sum, p| sum + p.subtotal} # Only take products into account
+      total = product_items.reduce(0) { |sum, p| sum + p.subtotal } # Only take products into account
       if gu.amount > @order.total # You can only use upto order limit
         gift.update(remaining: gift.remaining + (gu.amount - @order.total)) # Transfer the balance back
         gu.update(amount: @order.total)
