@@ -5,6 +5,20 @@ script
   == "var dress_detail_url = '" + @dress_details_url + "'"
 javascript:
   var currency = '#{@currency}';
+a#alertpopups data-target="#alertpopup" data-toggle="modal" 
+/! Modal
+#alertpopup.modal.fade role="dialog" 
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header#popup_model_error_header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title hello
+      .modal-body#popup_model_error_text
+        p sadfasjdasd
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+
 a.text-center.loginpopup data-target="#login-modal" data-toggle="modal" href="#" rel="" 
 #login-modal.modal.fade.in role="dialog" 
   .modal-dialog

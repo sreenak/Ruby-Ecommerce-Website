@@ -92,6 +92,40 @@ $(window).load(function () {
             }
     });
 
+    $(document).on('click','#shop_form_submit',function(){
+
+        var optionValue = $('#standard_size_id').find('option:selected').val();
+        console.log(typeof optionValue,optionValue)
+        if(optionValue=='10'){
+
+            var emptyInput=[];
+            $('#shop_fields input.form-control').each(function(i, obj) {
+                if($(this).val().trim()==''){
+                    emptyInput.push('yes');
+                }
+            });
+            console.log(emptyInput);
+            if(emptyInput.length>0){
+               // alert('Please fill all the custom sizes fields ');
+                generalErrorpopup('Custom sizing Error','Please fill all the custom size fields');
+                return;
+            }else{
+                $('#shop_form').submit();
+            }
+        }else{
+            $('#shop_form').submit();
+        }
+    });
+    $( "#shop_fields input.form-control" ).keypress(function(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    });
+   // $('#shop_form').submit();
+
 //on click search
 //    $(".product-categories input[type=checkbox]").click(function(){
 //        this.form.submit();
@@ -102,6 +136,11 @@ $(window).load(function () {
 //    $(".product-price-flt").click(function(){
 //        $("#product_search").submit();
 //    });
+    function generalErrorpopup(headertext,bodytext){
+       $('#popup_model_error_header h4').text(headertext);
+       $('#popup_model_error_text p').text(bodytext);
+       $('#alertpopups').trigger('click');
+    }
 
 
 });

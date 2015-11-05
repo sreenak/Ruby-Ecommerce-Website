@@ -1,6 +1,19 @@
 - content_for :title
   = @product.name.camelize
 
+a#alertpopups data-target="#alertpopup" data-toggle="modal" 
+/! Modal
+#alertpopup.modal.fade role="dialog" 
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header#popup_model_error_header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title hello
+      .modal-body#popup_model_error_text
+        p sadfasjdasd
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
 .row.product
   .col-md-6.text-center
     .product-images
@@ -16,7 +29,7 @@
     h4.price
       span= humanized_money_with_symbol @product.price.exchange_to(@cart.currency)
 
-    = form_tag cart_add_product_path
+    = form_tag cart_add_product_path, :id => 'shop_form'
       = hidden_field_tag :product_id, @product.id
       .add-to-cart-block.row
         .col-md-12.size-wrap
@@ -27,7 +40,7 @@
                 /= radio_button_tag :standard_size_id, s.id
                 /= s.name
             .input-append.select-size.select-width
-              = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
+             = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
             .size-guide
               a SIZE GUIDE
           #dis
@@ -37,77 +50,77 @@
       div.customize-size-wrap.col-md-12.shop_selection_size
         .col-md-12.no-padding
           h4 CUSTOMIZE 
-          span.measure-link
+          span.measure-link 
             a HOW TO MEASURE
         .col-md-12.no-padding.customize-size-inner-wrap
           p Edit from pre-defined or enter your own (in inches)
 
-          .row
+          .row#shop_fields
             .col-md-4
               label BUST/CHEST 
               div.input-append
-                input.form-control type='text' id='bust_chest' name='bust_chest'
+                input.form-control type='text' id='bust_chest' name='bust_chest' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
-
+            
             .col-md-4
               label WAIST 
               div.input-append
-                input.form-control type='text' id='waist' name='waist'
+                input.form-control type='text' id='waist' name='waist' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label WAIST TO ANKLE
               div.input-append
-                input.form-control type='text' id='waist_to_ankle' name='waist_to_ankle'
+                input.form-control type='text' id='waist_to_ankle' name='waist_to_ankle' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label HIPS
               div.input-append
-                input.form-control type='text' id='hips' name='hips'
+                input.form-control type='text' id='hips' name='hips' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label SHOULDER
               div.input-append
-                input.form-control type='text' id='shoulder' name='shoulder'
+                input.form-control type='text' id='shoulder' name='shoulder' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label SHOULDER TO NECK
               div.input-append
-                input.form-control type='text' id='shoulder_to_neck' name='shoulder_to_neck'
+                input.form-control type='text' id='shoulder_to_neck' maxlength="3" name='shoulder_to_neck'
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4.clearboth
               label AROUND ARMPIT 
               div.input-append
-                input.form-control type='text' id='around_armpit' name='around_armpit'
+                input.form-control type='text' id='around_armpit' name='around_armpit' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label AROUND NECK
               div.input-append
-                input.form-control type='text' id='around_neck' name='around_neck'
+                input.form-control type='text' id='around_neck' name='around_neck' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in'
             .col-md-4
               label SLEEVE LENGTH
               div.input-append
-                input.form-control type='text' id='sleev_length' name='sleev_length'
+                input.form-control type='text' id='sleev_length' name='sleev_length' maxlength="3"
                 input.inches type='text' readonly='readonly' value='in' 
       - if @product.description?
         .product-desc-wrap.col-md-12
           h4 PRODUCT DESCRIPTION
           .description
             == @product.description
-      /.form-inline
+          /.form-inline
             /.form-group
               /label.inline for="quantity" Quantity
               /input#quantity.form-control name="quantity" type="number" min="1" value="1"
-      /.checkbox
+          /.checkbox
             /label for="gift"
               /input#gift name="is_gift" type="checkbox" value="1"
               /|Gift
-      /.form-group
+          /.form-group
             /.send-gift-to.hidden
               /label for="message" Message
               /input#message.form-control name="message" type="text"          
       .actions.text-center
-        button.info-row.text-uppercase.active.add-to-cart-size type="submit" 
+        button#shop_form_submit.info-row.text-uppercase.active.add-to-cart-size type="button" 
           i.icon.ion-ios-cart
           span Add to cart
         - if !current_or_null_user.liked?(@product)
@@ -120,8 +133,6 @@
             a href="#{like_path(id: @product.id)}" data-method="delete"
               i.icon.ion-ios-heart
               span Remove from favorites
-
-                /.col-md-12
     /.product-tabs
       /div#produc-desc-tabs
         /! Nav tabs

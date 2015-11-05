@@ -36,13 +36,8 @@ $(document).ready(function() {
     $("#saved_img_left_arrow").click(function() {
         savedImagesSlider.trigger('owl.prev');
     });*/
-    
-
-
-
-
 });
-    
+
 $(".savingJsonLoader").show();
 $(window).load(function() {
 
@@ -78,9 +73,12 @@ $(window).load(function() {
         var present_Id_ofClickedElem;
         var present_Group_ClickedElem;
         var retrievedData = []; //this one holds the data when the page has customisedId
+        var shouldCreateFromCache=true; //this one tells if its true it wont call creatcache function when page is loading
         updateprice();
         //loading first svg
-        var customiseSizesDetails={};
+        var customiseSizesDetails = {};
+
+        
 
         $('#svg_wrapper').attr('data-customise', 'false');
 
@@ -103,7 +101,7 @@ $(window).load(function() {
         }
 
         function loadSvg4(data4) {
-            var select_wrap='<select class="form-control" id="dress_size_selection"><option disabled selected value="">Select size</option>';
+            var select_wrap = '<select class="form-control" id="dress_size_selection"><option disabled selected value="">Select size</option>';
             s.append(data4);
             setTimeout(function() {
 
@@ -214,10 +212,10 @@ $(window).load(function() {
                 //appending sizes to sizing wrapper
                 for (var s = 0; s < data.sizes.length; s++) {
                     //$('#standard-size-wrap').append('<p><input type="radio" name="size" value=' + data.sizes[s].id + ' /> ' + data.sizes[s].name + '</p>')
-                    select_wrap += '<option value='+data.sizes[s].id+'>'+data.sizes[s].name+'</option>';
+                    select_wrap += '<option value=' + data.sizes[s].id + '>' + data.sizes[s].name + '</option>';
                 }
-                var custom_id = data.sizes.length+1;
-                select_wrap +='<option value="10">Custom size</option></select>'
+                var custom_id = data.sizes.length + 1;
+                select_wrap += '<option value="10">Custom size</option></select>'
                 $('#standard-size-wrap').html(select_wrap)
 
                 fabricId = _.uniq(fabricId);
@@ -279,9 +277,9 @@ $(window).load(function() {
                     }
                 };
                 // $('.loadingcustomizepage,.loading').hide();
-                setTimeout(function(){
-                    $(".savingJsonLoader").hide();
-                },1000);
+                setTimeout(function() {
+                    //$(".savingJsonLoader").hide();
+                }, 1000);
             }, 1000);
         }
 
@@ -406,6 +404,9 @@ $(window).load(function() {
         var alreadyPatternAppened = [];
 
         $(document).on('click', '.pattern_div', function() {
+
+            shouldCreateFromCache=false;
+
             var applicableParts = [];
             var thisPattern = $(this).find('img').attr('data-pid');
 
@@ -631,7 +632,8 @@ $(window).load(function() {
                 var historystring = JSON.stringify(historyObj.eachclick[getlastIndex]) || JSON.stringify(historyObj.eachclick[currentIndex]);
                 var presentstring = JSON.stringify(eachclickDetails);
                 if (historystring === presentstring) {
-                    alert('This pattern is already applied');
+                    //alert('This pattern is already applied');
+                    generalErrorpopup('Design Error','This pattern is already applied');
                     return;
                 } else {
                     historyObj.eachclick.push(eachclickDetails);
@@ -644,6 +646,11 @@ $(window).load(function() {
             }
 
 
+        }
+        function generalErrorpopup(headertext,bodytext){
+           $('#popup_model_error_header h4').text(headertext);
+           $('#popup_model_error_text p').text(bodytext);
+           $('#alertpopups').trigger('click');
         }
         $('.undo').click(function() {
 
@@ -1143,8 +1150,8 @@ $(window).load(function() {
 
 
         $('.add-cart').click(function(event) {
-          //  var selectedsize;
-            
+            //  var selectedsize;
+
 
             /*if ($('#sizing input[type=radio]:checked').size() < 1) {
                 alert('Please select any size');
@@ -1155,56 +1162,58 @@ $(window).load(function() {
                 selectedsize = $('#sizing input[type=radio]:checked').val();
             }*/
 
-            var selectedsize=$('#dress_size_selection option:selected').val();
-            if(selectedsize=='' || typeof selectedsize==undefined || selectedsize=='undefined'){
-                alert('Please select any size');
+            var selectedsize = $('#dress_size_selection option:selected').val();
+            if (selectedsize == '' || typeof selectedsize == undefined || selectedsize == 'undefined') {
+               // alert('Please select any size');
+               generalErrorpopup('Sizing Error','Please select any size');
                 return;
-            }else{
-                
-                if(selectedsize=='10'){
-                   // var emptyFieldLength=$('.custom_measurements input.form-control').val('').length();
-                   
-                    var emptyInput=[];
+            } else {
+
+                if (selectedsize == '10') {
+                    // var emptyFieldLength=$('.custom_measurements input.form-control').val('').length();
+
+                    var emptyInput = [];
                     $('.custom_measurements input.form-control').each(function(i, obj) {
-                        
-                        if($(this).val().trim()==''){
+
+                        if ($(this).val().trim() == '') {
                             emptyInput.push('yes');
                         }
 
                     });
 
 
-                    if(emptyInput.length>0){
-                        alert('Please fill all the custom sizes fields ');
+                    if (emptyInput.length > 0) {
+                       // alert('Please fill all the custom sizes fields ');
+                        generalErrorpopup('Custom Sizing Error','Please select any size');
                         return;
                     }
 
-                    
-                    customiseSizesDetails.bust_chest=$('#bust_chest').val();
-                    customiseSizesDetails.waist=$('#waist').val();
-                    customiseSizesDetails.waist_to_ankle=$('#waist_to_ankle').val();
-                    customiseSizesDetails.hips=$('#hips').val();
-                    customiseSizesDetails.shoulder=$('#shoulder').val();
-                    customiseSizesDetails.shoulder_to_neck=$('#shoulder_to_neck').val();
-                    customiseSizesDetails.around_armpit=$('#around_armpit').val();
-                    customiseSizesDetails.around_neck=$('#around_neck').val();
-                    customiseSizesDetails.sleev_length=$('#sleev_length').val();
-                    selectedsize='10';
-                }else{
-                    selectedsize=$('#dress_size_selection option:selected').val();
-                    customiseSizesDetails.bust_chest='';
-                    customiseSizesDetails.waist='';
-                    customiseSizesDetails.waist_to_ankle='';
-                    customiseSizesDetails.hips='';
-                    customiseSizesDetails.shoulder='';
-                    customiseSizesDetails.shoulder_to_neck='';
-                    customiseSizesDetails.around_armpit='';
-                    customiseSizesDetails.around_neck='';
-                    customiseSizesDetails.sleev_length='';
+
+                    customiseSizesDetails.bust_chest = $('#bust_chest').val();
+                    customiseSizesDetails.waist = $('#waist').val();
+                    customiseSizesDetails.waist_to_ankle = $('#waist_to_ankle').val();
+                    customiseSizesDetails.hips = $('#hips').val();
+                    customiseSizesDetails.shoulder = $('#shoulder').val();
+                    customiseSizesDetails.shoulder_to_neck = $('#shoulder_to_neck').val();
+                    customiseSizesDetails.around_armpit = $('#around_armpit').val();
+                    customiseSizesDetails.around_neck = $('#around_neck').val();
+                    customiseSizesDetails.sleev_length = $('#sleev_length').val();
+                    selectedsize = '10';
+                } else {
+                    selectedsize = $('#dress_size_selection option:selected').val();
+                    customiseSizesDetails.bust_chest = '';
+                    customiseSizesDetails.waist = '';
+                    customiseSizesDetails.waist_to_ankle = '';
+                    customiseSizesDetails.hips = '';
+                    customiseSizesDetails.shoulder = '';
+                    customiseSizesDetails.shoulder_to_neck = '';
+                    customiseSizesDetails.around_armpit = '';
+                    customiseSizesDetails.around_neck = '';
+                    customiseSizesDetails.sleev_length = '';
                 }
             }
 
-            
+
 
             updateprice()
             var a = [];
@@ -1230,7 +1239,8 @@ $(window).load(function() {
                 $('.adding-to-cart').css('display', 'block');
 
             } else {
-                alert('Please complete the customisation of your dress');
+               // alert('Please complete the customisation of your dress');
+                generalErrorpopup('Design Error','Please complete the customisation of your dress');
                 return;
             }
 
@@ -1247,7 +1257,7 @@ $(window).load(function() {
             return true;
         }
 
-        $( ".custom_measurements input.form-control" ).keypress(function(evt) {
+        $(".custom_measurements input.form-control").keypress(function(evt) {
             evt = (evt) ? evt : window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -1260,22 +1270,22 @@ $(window).load(function() {
             var frontviewbase64 = add_to_cart_svgbase64('frontview');
 
 
-             $.ajax({
+            $.ajax({
 
                 url: '/cart/add-dress',
                 type: 'POST',
                 data: {
                     id: data.id,
                     standard_size_id: selectedsize,
-                    bust_chest:customiseSizesDetails.bust_chest,
-                    waist:customiseSizesDetails.waist,
-                    waist_to_ankle:customiseSizesDetails.waist_to_ankle,
-                    hips:customiseSizesDetails.hips,
-                    shoulder:customiseSizesDetails.shoulder,
-                    shoulder_to_neck:customiseSizesDetails.shoulder_to_neck,
-                    around_armpit:customiseSizesDetails.around_armpit,
-                    around_neck:customiseSizesDetails.around_neck,
-                    sleev_length:customiseSizesDetails.sleev_length,
+                    bust_chest: customiseSizesDetails.bust_chest,
+                    waist: customiseSizesDetails.waist,
+                    waist_to_ankle: customiseSizesDetails.waist_to_ankle,
+                    hips: customiseSizesDetails.hips,
+                    shoulder: customiseSizesDetails.shoulder,
+                    shoulder_to_neck: customiseSizesDetails.shoulder_to_neck,
+                    around_armpit: customiseSizesDetails.around_armpit,
+                    around_neck: customiseSizesDetails.around_neck,
+                    sleev_length: customiseSizesDetails.sleev_length,
 
                     total_price: totalprice,
                     details: JSON.stringify(add_to_cart_Obj),
@@ -1287,7 +1297,8 @@ $(window).load(function() {
                 },
                 dataType: 'json',
                 error: function() {
-                    alert('error');
+                   // alert('error');
+                   generalErrorpopup('Error','Error');
                 },
                 success: function(result) {
                     $('.mask-layer').css('display', 'none');
@@ -1301,7 +1312,7 @@ $(window).load(function() {
 
 
         $(document).on('click', '.save', function(e) {
-            
+
             savingObject = [];
             $(this).attr('disabled', 'disabled');
             $(".savingJsonLoader").css('display', 'block');
@@ -1327,7 +1338,7 @@ $(window).load(function() {
                 saveObj.appliedgroups = costingObj;
                 savingObject.push(saveObj);
             });
-            
+
             hiding_Unused_embellishment_Groups(savingObject);
 
 
@@ -1341,6 +1352,7 @@ $(window).load(function() {
             canvas.height = svgSize.height;
             var ctx = canvas.getContext("2d");
 
+            console.log(savingObject);
             var img = document.createElement("img");
 
             img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
@@ -1358,13 +1370,14 @@ $(window).load(function() {
                     error: function() {
                         $(".savingJsonLoader").css('display', 'none');
                         $('a.text-center.loginpopup').trigger('click');
-                       // alert("Could not save design, are you logged in?");
+                        // alert("Could not save design, are you logged in?");
                         //needs to display the login popup
                     },
                     success: function(result) {
                         $('.group').show();
                         hiding_Unused_embellishment_Groups(savingObject);
-                        alert("Design Saved Successfully!");
+                       // alert("Design Saved Successfully!");
+                        generalErrorpopup('Design Status','Design Saved Successfully!');
                         $(".save").removeAttr('disabled');
                         $('#owl-demo1').html('');
                         $(".savingJsonLoader").css('display', 'none');
@@ -1394,7 +1407,7 @@ $(window).load(function() {
         //loading previousely saved items while page loading
 
         function retrieveSavedImages(liId) {
-
+            $(".savingJsonLoader").css('display', 'block');
             var emb_groups_enabled = [];
             $('.savedImgClass').remove();
             var thisIdDetails = _.where(retrievedData, {
@@ -1455,6 +1468,7 @@ $(window).load(function() {
                 updateprice();
                 add_to_cart_Obj = local_add_to_cart_obj;
             }
+            $(".savingJsonLoader").css('display', 'none');
 
 
         }
@@ -1496,7 +1510,7 @@ $(window).load(function() {
 
                     setTimeout(function() {
                         retrieveSavedImages(recustomisationId);
-                        $('.loadingcustomizepage,.loading').hide();
+                        
 
                     }, 3000);
                 } else {
@@ -1508,12 +1522,11 @@ $(window).load(function() {
                 }, 1000);
             })
         }
-        $(document).on('change','#standard-size-wrap select',function()
-            {
+        $(document).on('change', '#standard-size-wrap select', function() {
             var optionValue = $(this).find('option:selected').val();
-            if(optionValue=='10'){
+            if (optionValue == '10') {
                 $('.sizing_main_wrapper').show();
-            }else{
+            } else {
                 $('.sizing_main_wrapper').hide();
             }
         });
@@ -1527,19 +1540,132 @@ $(window).load(function() {
         function updateprice() {
 
             var price = 0;
-
             for (var i = 0; i < costingObj.length; i++) {
                 price += parseInt(costingObj[i].price);
             };
-
-
             totalprice = data.base_price + price;
-
             $('.price').html(totalprice + currency);
+
+            console.log(shouldCreateFromCache);
+
+            if(shouldCreateFromCache){
+
+            }else{
+                creatingDressCache(costingObj);
+                localStorage.setItem('KD',data.id);
+            }
+            
+        }
+
+        //cache storing 
+        function creatingDressCache(costingObj) {
+            var cachesavingObject = [];
+            $('.main_parts,.group').find('path').each(function(index) {
+                var filledPattern = $(this).attr('fill');
+                filledPattern = filledPattern.replace('url(#', '');
+                filledPattern = filledPattern.replace(')', '');
+                var saveObj = {};
+                saveObj.partClass = $(this).attr('class');
+                if (filledPattern.indexOf('img') > -1) {
+                    var imagePatternUrl = filledPattern;
+                    filledPattern = $('.defsclass svg #' + filledPattern + ' image').attr('xlink:href');
+                    saveObj.wid = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('width');
+                    saveObj.hei = $('.defsclass svg pattern#' + imagePatternUrl + '').attr('height');
+
+                } else {
+                    filledPattern = '#FFFFFF';
+                    saveObj.wid = 50;
+                    saveObj.hei = 50;
+                }
+                saveObj.patternUrl = filledPattern;
+                saveObj.appliedgroups = costingObj;
+                cachesavingObject.push(saveObj);
+            });
+            localStorage.setItem('KD',data.id);
+            localStorage.setItem('kaapadDress', JSON.stringify(cachesavingObject));
         }
         
         
+
+        var presentKDId=localStorage.getItem('KD');
+            presentKDId=JSON.parse(presentKDId);
+           
+
+        if(presentKDId==undefined || typeof presentKDId==undefined){
+
+        }else{
+            if(presentKDId==data.id){
+                 $(".savingJsonLoader").css('display', 'block');
+                setTimeout(function(){
+                    gettingDressFromCache();
+                },5000);
+            }
+        }
+
         
+
+        function gettingDressFromCache() {
+
+            $('#svg_wrapper').attr('data-customise', 'true');
+            var gettingKaapadDress = localStorage.getItem('kaapadDress');
+            gettingKaapadDress = JSON.parse(gettingKaapadDress);
+
+            var localCostingObj = [];
+            var savedJson = gettingKaapadDress
+            var applyPatterns = [];
+            var temp = '';
+            for (var i = 0; i < gettingKaapadDress.length; i++) {
+                //here we have to create pattern based on the saved images clicked clicked 
+                temp += "<svg class='savedImgClass'><pattern id='savedimgPattern" + i + "' patternUnits='objectBoundingBox' viewBox='0 0 1 1' width='100%' height='100%' preserveAspectRatio='xMidYMid slice'><image xlink:href=" + gettingKaapadDress[i].patternUrl + " width='1' height='1' /></pattern></svg>";
+                var finalObj = {};
+                finalObj.classNames = gettingKaapadDress[i].partClass;
+                if (gettingKaapadDress[i].patternUrl == '#FFFFFF') {
+                    finalObj.patternUrl = '#FFFFFF';
+                } else {
+                    finalObj.patternUrl = 'savedimgPattern' + i;
+                }
+                applyPatterns.push(finalObj);
+                localCostingObj = gettingKaapadDress[i].appliedgroups;
+            };
+            $('.defsclass').append(temp);
+
+            $('.main_parts,.group').find('path').each(function(index) {
+                var thisClass = $(this).attr('class');
+                $.each(applyPatterns, function(index1, val) {
+                    if (thisClass == val.classNames) {
+                        if (val.patternUrl.length > 10) {
+                            $('.' + val.classNames).attr('fill', 'url(#' + val.patternUrl + ')');
+                        } else {
+                            $('.' + val.classNames).attr('fill', '#FFFFFF');
+                        }
+                    }
+                });
+
+            });
+            $('.group').show();
+            hiding_Unused_embellishment_Groups(gettingKaapadDress);
+            costingObj = localCostingObj;
+            historyObj.presentindex = -1;
+            updateUndoredo();
+            var local_add_to_cart_obj = [];
+            for (var i = 0; i < localCostingObj.length; i++) {
+                var parentgroup = localCostingObj[i].parent_group;
+                var clicked_id = localCostingObj[i].clicked_id;
+                var category = localCostingObj[i].category;
+                caluculating_price(parentgroup, clicked_id, category);
+
+                var obj = {};
+                obj.parentgroup = localCostingObj[i].parent_group;
+                obj.clickedtype = localCostingObj[i].category;
+                obj.id = localCostingObj[i].clicked_id;
+                local_add_to_cart_obj.push(obj);
+            };
+            updateprice();
+            add_to_cart_Obj = local_add_to_cart_obj;
+             $(".savingJsonLoader").css('display', 'none');
+        }
+       
+
 
     }); //get json end
 
@@ -1568,8 +1694,8 @@ $(window).load(function() {
         var valueSelected = this.value;
         alert(valueSelected);
     });*/
-    
+
+
+
 
 }); //onload end
-
-
