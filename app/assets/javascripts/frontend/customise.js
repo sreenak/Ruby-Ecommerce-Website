@@ -77,7 +77,8 @@ $(window).load(function() {
         updateprice();
         //loading first svg
         var customiseSizesDetails = {};
-
+        var presentKDId=localStorage.getItem('KD');
+            presentKDId=JSON.parse(presentKDId);
         
 
         $('#svg_wrapper').attr('data-customise', 'false');
@@ -277,9 +278,19 @@ $(window).load(function() {
                     }
                 };
                 // $('.loadingcustomizepage,.loading').hide();
-                setTimeout(function() {
+                
+                
+                 if(presentKDId==undefined || typeof presentKDId==undefined){
+                    setTimeout(function(){
+                        $(".savingJsonLoader").hide();
+                    },2000);
+                 }else{
+                    setTimeout(function(){
+                        $(".savingJsonLoader").hide();
+                    },5000);
+                 }
                     //$(".savingJsonLoader").hide();
-                }, 1000);
+                
             }, 1000);
         }
 
@@ -1587,15 +1598,14 @@ $(window).load(function() {
         
         
 
-        var presentKDId=localStorage.getItem('KD');
-            presentKDId=JSON.parse(presentKDId);
+        
            
 
         if(presentKDId==undefined || typeof presentKDId==undefined){
 
         }else{
             if(presentKDId==data.id){
-                 $(".savingJsonLoader").css('display', 'block');
+                 
                 setTimeout(function(){
                     gettingDressFromCache();
                 },5000);
@@ -1662,7 +1672,9 @@ $(window).load(function() {
             };
             updateprice();
             add_to_cart_Obj = local_add_to_cart_obj;
-             $(".savingJsonLoader").css('display', 'none');
+            
+            $(".savingJsonLoader").css('display', 'none');
+
         }
        
 
