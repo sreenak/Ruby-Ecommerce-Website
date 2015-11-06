@@ -27,7 +27,7 @@ class Cart
     if ['Dress', 'GiftCard','EGiftCard','PGiftCard'].include? item.class.name
       original_amount = price.to_money(@currency).exchange_to('INR').fractional
     else
-      original_amount = item.price.to_s * 100
+      original_amount = item.price * 100
     end
 
     Rails.logger.info amount
