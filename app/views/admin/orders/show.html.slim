@@ -29,7 +29,7 @@ table.table.table-responsive.table-striped
           = item.quantity
         td
           = humanized_money_with_symbol item.amount_paisas
-        td
+        td.custom-size-list
           - if item.line_itemable_type == 'Product' && item.product_line_item_option.present?
             p
               strong Size:
@@ -41,12 +41,41 @@ table.table.table-responsive.table-striped
             p
               strong Size:
               = item.dress_line_item_option.standard_size.name
-            h5 Details:
-            ul.list-group
-              - dress_customisation_details(item).each do |group|
-                li.list-group-item-info.list-group-item
-                  strong
-                    = group[:name]
-                  - if group[:value].present?
-                    |:&nbsp;
-                    span= group[:value]
+            .row  
+              div.col-md-6
+                label.custom-size-label BUST/CHEST: 
+                = item.dress_custom_size.bust_chest
+              div.col-md-6
+                label.custom-size-label WAIST:
+                = item.dress_custom_size.waist
+              div.col-md-6
+                label.custom-size-label WAIST TO ANKLE:
+                = item.dress_custom_size.waist_to_ankle
+              div.col-md-6
+                label.custom-size-label HIPS:
+                = item.dress_custom_size.hips
+              div.col-md-6
+               label.custom-size-label SHOULDER:
+               = item.dress_custom_size.shoulder
+              div.col-md-6
+               label.custom-size-label SHOULDER TO NECK:
+               = item.dress_custom_size.shoulder_to_neck
+              div.col-md-6
+               label.custom-size-label AROUND ARMPIT:
+               = item.dress_custom_size.around_armpit
+              div.col-md-6
+               label.custom-size-label AROUND NECK:
+               = item.dress_custom_size.around_neck
+              div.col-md-6
+               label.custom-size-label SLEEVE LENGTH:
+               = item.dress_custom_size.sleev_length
+
+          h5.detailcolor Details:
+          ul.list-group
+            - dress_customisation_details(item).each do |group|
+              li.list-group-item-info.list-group-item
+                strong
+                  = group[:name]
+                - if group[:value].present?
+                  |:&nbsp;
+                  span= group[:value]

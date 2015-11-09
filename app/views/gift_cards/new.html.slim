@@ -25,7 +25,8 @@
         .row
           .col-sm-4.col-xs-6
            
-            = f.input :amount, label: 'Amount'+'('+@cart.currency+')', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Amount'}
+            = f.input :amount,label: 'Amount'+'('+@cart.currency+')',:input_html=>{value:'',:'data-validation' => 'required',placeholder:'eg:100,250,300 etc', class:'floatcheck', :'data-validation-error-msg' => 'Please Select Amount'}
+            .dis
 
           /.col-sm-4.col-xs-6
           /  = #f.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency', :input_html=>{:'data-validation' => 'required', :'data-validation-error-msg' => 'Please Select Currency'}
@@ -41,7 +42,7 @@
         = f.input :email, label: "Recipient's Email", :input_html=>{:'data-validation' => 'email',:'data-validation-error-msg' => 'You have not given  correct Recipient Email'}
          
         = f.input :message,:input_html => { :rows => 10 }
-        input.buynow.btn.btn-default[type='submit' value='BUY NOW']
+        input.decimalcheck.buynow.btn.btn-default[type='submit' value='BUY NOW']
         
     /---- Gift certificates ------    
     = simple_form_for @p_gift, url: :add_gift_cards , wrapper: :vertical_form do |p|
@@ -50,7 +51,8 @@
         .row
           .col-sm-4.col-xs-6
             /= p.input :type, as: :hidden, value: 'P-GIFT CERTIFICATE'
-            = p.input :amount, label: 'Amount',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Amount'}
+            = p.input :amount, label: 'Amount',:input_html=>{value: '',:'data-validation' => 'required', class:'floatcheck',placeholder:'eg:100,250,300 etc',:'data-validation-error-msg' => 'Please Select Amount'}
+            .dis
           /.col-sm-4.col-xs-6
           /  = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Currency'}
           .col-sm-4
@@ -74,7 +76,7 @@
               = a.input :country
               = a.input :postal_code
         = p.input :message, :input_html => { :rows => 10 }
-        input.buynow.btn.btn-default[type='submit' value='BUY NOW']
+        input.decimalcheck.buynow.btn.btn-default[type='submit' value='BUY NOW']
 
     .text-group
       h4 USE ACROSS MULTIPLE ORDERS
