@@ -101,7 +101,13 @@ $(document).ready(function () {
             //console.log(parent);
                var val =  parent.find('.floatcheck').val();
               // console.log(val);
-                if(val%1!=0)
+              if(val<1)
+              {
+                parent.find('.dis').html('<span id="size-error">Enter Amount Above 0</span>');
+                parent.find('.floatcheck').css('border-color','red');
+                return false;
+              }
+                else if(val%1!=0)
                 {
                 parent.find('.dis').html('<span id="size-error">Enter Whole Numbers eg:100,200,350 etc</span>');
                 parent.find('.floatcheck').css('border-color','red');

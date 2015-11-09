@@ -12,8 +12,8 @@ class GiftCard < ActiveRecord::Base
   enum status: STATUSES
 
   before_create :generate_code
-  validates_presence_of :amount_paisas, :ordered_by, :ordered_for, :currency
-
+  validates_presence_of  :ordered_by, :ordered_for, :currency
+  validates_numericality_of :amount_paisas, :greater_than_or_equal_to => 1
   monetize :amount_paisas, with_model_currency: :currency
   monetize :remaining_paisas, with_model_currency: :currency
 
