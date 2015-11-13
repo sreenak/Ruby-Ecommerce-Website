@@ -96,14 +96,10 @@ $(document).ready(function () {
 
         }
     });
-    $(".floatcheck").on("click", function(){
-   alert($(this).text());
-})​
+
         $('.decimalcheck').on('click',function () {
             var parent = $(this).closest('form')
-            //console.log(parent);
                var val =  parent.find('.floatcheck').val();
-              // console.log(val);
               if(val<1)
               {
                 parent.find('.dis').html('<span id="size-error">Enter Amount Above 0</span>');
