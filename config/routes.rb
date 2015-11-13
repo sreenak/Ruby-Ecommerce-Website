@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'shipments/show'
+ 
 
   root to: 'home#show'
   get 'currencies/switch'
@@ -12,10 +12,12 @@ Rails.application.routes.draw do
 
   resource :account, only: [:show, :edit, :update] do
     member do
-      resources :orders
+     resources :orders do
+        resources :shipments
+      end
       get 'customisations', to: 'accounts#customisations'
-    end
   end
+end
 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}, path: 'users', path_names: {sign_in: 'sign-in', sign_out: 'sign-out', confirmation: 'verification'}
 

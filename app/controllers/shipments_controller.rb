@@ -8,3 +8,4 @@ class ShipmentsController < ApplicationController
     @asd = AfterShip::V4::Tracking.get('ups', '1Z31Y1Y90490064644')
   end
 end
+

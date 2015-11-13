@@ -78,7 +78,7 @@ html lang="en-us"
                   ul.dropdown-menu
                     - @category.each do |cat|
                       li
-                        a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+                         a href="#{shop_index_path 'q[category_id_in][]' => cat.id }=cat.name
 
                 li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR OWN', :customise_index
 
@@ -145,7 +145,7 @@ html lang="en-us"
               ul.dropdown-menu
                 - @category.each do |cat|
                   li
-                    a href="#{shop_index_path 'q[category_id_in][]' => cat.id }"=cat.name
+                    =cat.name
             li class="#{deep_active_class(customise_index_url)}" = link_to 'DESIGN YOUR OWN', :customise_index
             li.fixed-logo = image_tag 'android-icon-48x48.png'
             li class="#{deep_active_class(gift_cards_url)}" = link_to 'GIFT', :new_gift_card

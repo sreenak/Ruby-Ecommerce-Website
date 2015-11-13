@@ -10,8 +10,7 @@
     .row
       p.col-sm-8 Placed on #{@order.created_at.strftime '%A, %B %d, %Y'} / #{pluralize(@order.product_items.count, 'item')}
       - if @order.shipments.present?
-        p.col-sm-4.text-right= link_to 'Track Shipping', @order.shipments.first.tracking_id, target: '_blank', class: 'btn btn-default'
-
+        p.col-sm-4.text-right= link_to 'Track Shipping', order_shipment_path(@order.id,@order.shipments.first.tracking_id), target: '_blank', class: 'btn btn-default'
     - @order.product_items.each_with_index do |p, i|
       h4.divided
         span Item ##{i+1}

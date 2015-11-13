@@ -85,8 +85,52 @@
             |TOTAL AMOUNT
             br
             span ₹ 1000
-      = @track_details.to_json
+      /= @track_details.to_json
       br
-      = @asd.to_json
-    			
+      /=@asd.to_json
+    - @asd['data']['tracking']['checkpoints'].each do |value| 
+        /label Location:
+        /= value['location']
+        /br
+        /label Country:
+        /= value['country_name']
+        /br
+        /label Created at:
+        /= value['created_at']
+        /br
+        /label Tag:
+        /= value['tag']
+        /br
+        /label Message:
+        -if (value['tag'])=='InfoReceived'
+          img src="/assets/icons-status-01.png"
+          =value['tag']
+        -elsif (value['tag'])=='InTransit'
+          img src="/assets/icons-status-02.png"
+          =value['tag']
+        -elsif (value['tag'])=='AttemptFail'
+          img src="/assets/icons-status-04.png"
+          =value['tag']
+        -elsif (value['tag'])=='Delivered'
+          img src="/assets/icons-status-05.png"
+          =value['tag']
+        -elsif (value['tag'])=='OutForDelivery'
+          img src="/assets/icons-status-03.png"
+          =value['tag']
+        -elsif (value['tag'])=='Exception'
+          img src="/assets/icons-status-00.png"
+          =value['tag']
+        -elsif (value['tag'])=='Expired'
+          img src="/assets/icons-status-00.png"
+          =value['tag']
+        -elsif (value['tag'])=='Pending'
+          img src="/assets/icons-status-00.png"
+          =value['tag']
+        -else
+          /img src="/assets/icons-status-00.png"
+        br
+        
+
+       
+       	
 

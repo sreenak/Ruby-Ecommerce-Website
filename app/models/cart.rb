@@ -24,7 +24,7 @@ class Cart
     # exit
     amount = price.to_money(@currency)
     # Ugly hack to protect currency on conversion
-    if ['Dress', 'GiftCard','EGiftCard','PGiftCard'].include? item.class.name
+    if ['Dress', 'GiftCard','EGiftCard','PGiftCard','DiscountCoupon'].include? item.class.name
       original_amount = price.to_money(@currency).exchange_to('INR').fractional
     else
       original_amount = item.price * 100

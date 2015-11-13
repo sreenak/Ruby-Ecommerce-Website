@@ -96,6 +96,9 @@ $(document).ready(function () {
 
         }
     });
+    $(".floatcheck").on("click", function(){
+   alert($(this).text());
+})​
         $('.decimalcheck').on('click',function () {
             var parent = $(this).closest('form')
             //console.log(parent);
@@ -109,7 +112,8 @@ $(document).ready(function () {
               }
                 else if(val%1!=0)
                 {
-                parent.find('.dis').html('<span id="size-error">Enter Whole Numbers eg:100,200,350 etc</span>');
+
+                parent.find('.dis').html('<span id="size-error">Enter Whole Numbers. eg:Rs.100,250 or $1,$2 etc</span>');
                 parent.find('.floatcheck').css('border-color','red');
                 return false;
                 }else
