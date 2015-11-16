@@ -109,7 +109,7 @@ $(document).ready(function () {
                 else if(val%1!=0)
                 {
 
-                parent.find('.dis').html('<span id="size-error">Enter Whole Numbers. eg:Rs.100,250 or $1,$2 etc</span>');
+                parent.find('.dis').html('<span id="size-error">Enter Whole Number Amount. eg:Rs.100,250 or $1,$20 etc</span>');
                 parent.find('.floatcheck').css('border-color','red');
                 return false;
                 }else
