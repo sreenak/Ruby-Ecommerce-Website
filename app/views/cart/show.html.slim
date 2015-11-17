@@ -41,16 +41,14 @@
                             /- else
                              / = ''
                         span.choosen-qty
-                          label qty
-                          .input-append
-                            - if i.line_itemable_type == 'GiftCard'
-                              = hidden_field_tag "quantities[#{i.id}]", 1
-                            - else
-                              |  <input type="number" step="1" min="1" name="quantities[
-                              = i.id
-                              | ]" value="
-                              = i.quantity
-                              | " class="input-text qty text" size="4">
+                          -if i.line_itemable_type != 'GiftCard'
+                            label qty
+                            .input-append
+                                |  <input type="number" step="1" min="1" name="quantities[
+                                = i.id
+                                | ]" value="
+                                = i.quantity
+                                | " class="input-text qty text" size="4">
                       .add-remove
                         ul
                           li
