@@ -8,7 +8,7 @@
         span.input-group-addon
           i.fa.fa-inr
         = f.input_field :price, class: "form-control"
-      = f.association :standard_sizes, as: :check_boxes
+      = f.association :standard_sizes, as: :check_boxes, collection: StandardSize.where("standard_sizes.name != 'Custom Size'")
     .col-md-6
       = f.input :featured
       = f.association :dress

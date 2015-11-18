@@ -115,11 +115,16 @@ class CheckoutController < ApplicationController
   #   end
   #   render :nothing
   # end
+  def thank_you_payu
+    @order = Order.find params[:txnid]
+    @cart.order.created_at = DateTime.now
+    @cart.order.status = 'Paid'
+    @cart.order.save
+    session.delete :order_id
+  end
 
   def thank_you
-
   @order = Order.find(session[:order_id])
-
     details = EXPRESS_GATEWAY.details_for(params[:token])
     response = EXPRESS_GATEWAY.purchase(@cart.total.fractional, {
         ip: request.remote_ip,
@@ -148,7 +153,8 @@ class CheckoutController < ApplicationController
  def payu
       @transaction_id = @cart.id
       @payment_url = ENV['PAYU_MODE'] == 'test' ? 'https://test.payu.in/_payment' : 'https://secure.payu.in/_payment'
-      string = string = string = "#{ENV['PAYU_KEY']}|#{@transaction_id}|#{@cart.total}|Kaapad|#{current_user.name}|#{current_user.email}|#{@cart.id}||||||||||#{ENV['PAYU_SALT']}"
+      string = "#{ENV['PAYU_KEY']}|#{@transaction_id}|#{@cart.total}|Kaapad|#{current_user.name}|#{current_user.email}|#{@cart.id}||||||||||#{ENV['PAYU_SALT']}"
+      logger.info 'string' +string
       @hash = Digest::SHA512.hexdigest(string)
  end   
 

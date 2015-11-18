@@ -4,7 +4,7 @@ roles.each { |r| Role.where(name: r).first_or_create }
 
 
 
-size_list = %w(S M L XL XXL)
+size_list = %w(S M L XL XXL XS Custom Size)
 
 size_list.each do |size|
   StandardSize.where(name: size).first_or_create

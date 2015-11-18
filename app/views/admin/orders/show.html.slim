@@ -34,35 +34,6 @@ table.table.table-responsive.table-striped
             p
               strong Size:
               = item.product_line_item_option.standard_size.name
-              -if (item.product_line_item_option.standard_size.name)=='Custom Size'
-                .row  
-                  div.col-md-6
-                    label.custom-size-label BUST/CHEST: 
-                    = item.dress_custom_size.bust_chest
-                  div.col-md-6
-                    label.custom-size-label WAIST:
-                    = item.dress_custom_size.waist
-                  div.col-md-6
-                    label.custom-size-label WAIST TO ANKLE:
-                    = item.dress_custom_size.waist_to_ankle
-                  div.col-md-6
-                    label.custom-size-label HIPS:
-                    = item.dress_custom_size.hips
-                  div.col-md-6
-                   label.custom-size-label SHOULDER:
-                   = item.dress_custom_size.shoulder
-                  div.col-md-6
-                   label.custom-size-label SHOULDER TO NECK:
-                   = item.dress_custom_size.shoulder_to_neck
-                  div.col-md-6
-                   label.custom-size-label AROUND ARMPIT:
-                   = item.dress_custom_size.around_armpit
-                  div.col-md-6
-                   label.custom-size-label AROUND NECK:
-                   = item.dress_custom_size.around_neck
-                  div.col-md-6
-                   label.custom-size-label SLEEVE LENGTH:
-                   = item.dress_custom_size.sleev_length
             /p
               /strong Is Gift:
               /= item.product_line_item_option.is_gift

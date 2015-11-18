@@ -52,7 +52,7 @@ h1.page-title.text-center.text-uppercase Shop
             |Size
             span.clear-filters.pull-right Clear
           ul.product-size
-            - StandardSize.all.each do |s|
+            - StandardSize.all[0..-2].each do |s|
               li.checkbox.size-list
                 label
                   = f.check_box :standard_sizes_id_in, {multiple: true}, s.id, nil

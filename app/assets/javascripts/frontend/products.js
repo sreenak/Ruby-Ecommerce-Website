@@ -81,7 +81,7 @@ $(window).load(function () {
         console.log(size); 
      })*/
 
-    $('#standard_size_id').append('<option value="10">Custom size</option>');
+    // $('#standard_size_id').append('<option value="10">Custom size</option>');
 
     $(document).on('change','#standard_size_id',function(){
             var optionValue = $(this).find('option:selected').val();
