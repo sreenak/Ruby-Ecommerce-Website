@@ -133,7 +133,7 @@ class CheckoutController < ApplicationController
       @hash = Digest::SHA512.hexdigest(string)
  end   
 
- def thank_you_payu
+  def thank_you_payu
       @order=Order.find params[:txnid]
       # logger.info @order.inspect
       @cart.order.created_at = DateTime.now

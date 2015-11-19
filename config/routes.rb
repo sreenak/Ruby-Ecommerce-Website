@@ -49,9 +49,9 @@ end
   patch 'checkout/pay'
   patch 'checkout/payu'
   get 'checkout/paypal_ipn'
-  match 'checkout/thank_you_payu', via: [:get, :post], path: 'checkout/thank-you'
+  match 'checkout/thank_you_payu', via: [:get, :post], path: 'checkout/thank-you-payu'
   match 'checkout/thank_you', via: [:get, :post], path: 'checkout/thank-you'
-   match 'checkout/payu', via: [:get, :post], path: 'checkout/payu'
+  match 'checkout/payu', via: [:get, :post], path: 'checkout/payu'
 
   namespace :admin do
     root to: 'dashboard#show'
