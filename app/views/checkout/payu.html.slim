@@ -3,7 +3,9 @@ form.top-padding.bottom-padding#payu_payment_form action="#{@payment_url}" metho
   input name="hash" type="hidden" value="#{@hash}"
   input name="txnid" type="hidden" value="#{@transaction_id}" /
   input name="amount" type="hidden" value="#{@cart.total}" /
+  input name="currency" type="hidden" value="#{@cart.currency}" /
   input name="firstname" type="hidden" value="#{current_user.name}" /
+  input name="user_id" type="hidden" value="#{current_user.id}" /
   input name="email" type="hidden" value="#{current_user.email}" /
   input name="phone" type="hidden" value="#{current_user.mobile}" /
   input name="productinfo" type="hidden" value="Kaapad" /

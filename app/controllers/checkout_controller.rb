@@ -99,32 +99,8 @@ class CheckoutController < ApplicationController
     end
   end
 
-  # def paypal_ipn
-  #   logger.info request.raw_post
-  #   notify = Paypal::Notification.new(request.raw_post)
-  #   logger.info notify.inspect
-  #   if notify.acknowledge
-  #     order = Order.find(notify.order_id)
-  #     if notify.complete? and order.total == notify.amount
-  #       order.status = 'Paid'
-  #       order.created_at = Time.now # This will behave as paid time from now on
-  #       order.save
-  #       order.order_statuses.create(status_type: 1)
-  #       order.gift_cards.each { |g| g.update status: 'Active' } # Set all gift items to be usable
-  #     end
-  #   end
-  #   render :nothing
-  # end
-  def thank_you_payu
-    @order = Order.find params[:txnid]
-    @cart.order.created_at = DateTime.now
-    @cart.order.status = 'Paid'
-    @cart.order.save
-    session.delete :order_id
-  end
-
   def thank_you
-  @order = Order.find(session[:order_id])
+    @order = Order.find(session[:order_id])
     details = EXPRESS_GATEWAY.details_for(params[:token])
     response = EXPRESS_GATEWAY.purchase(@cart.total.fractional, {
         ip: request.remote_ip,
@@ -146,8 +122,7 @@ class CheckoutController < ApplicationController
     else
       redirect_to :cart_checkout, alert: 'Something went wrong. Please try again. If the problem persists, please contact us.'
     end
-
-    @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
+      @cart = Cart.new current_or_null_user.id, session[:order_id], session[:currency] # Start a new cart
   end
 
  def payu
@@ -157,6 +132,18 @@ class CheckoutController < ApplicationController
       logger.info 'string' +string
       @hash = Digest::SHA512.hexdigest(string)
  end   
+
+ def thank_you_payu
+      @order=Order.find params[:txnid]
+      # logger.info @order.inspect
+      @cart.order.created_at = DateTime.now
+      @cart.order.status = 'Paid'
+      @cart.order.user_id= @order.user_id
+      @cart.order.currency= @order.currency
+      @cart.order.total_paisas= @order.total_paisas
+      @cart.order.invoice_id= @order.invoice_id
+      @cart.order.save
+  end
 
   private
   def set_order
