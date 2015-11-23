@@ -40,7 +40,7 @@ a#alertpopups data-target="#alertpopup" data-toggle="modal"
                 /= radio_button_tag :standard_size_id, s.id
                 /= s.name
             .input-append.select-size.select-width
-             = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control', prompt: 'Size'
+             = select_tag "standard_size_id", options_from_collection_for_select(@standard_sizes, "id", "name"), class: ' form-control'
             .size-guide
               a SIZE GUIDE
           #dis

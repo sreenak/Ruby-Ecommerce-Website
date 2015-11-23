@@ -216,7 +216,7 @@ $(window).load(function() {
                     select_wrap += '<option value=' + data.sizes[s].id + '>' + data.sizes[s].name + '</option>';
                 }
                 var custom_id = data.sizes.length + 1;
-                // select_wrap += '<option value="10">Custom size</option></select>'
+                select_wrap += '<option value="10">Custom size</option></select>'
                 $('#standard-size-wrap').html(select_wrap)
 
                 fabricId = _.uniq(fabricId);

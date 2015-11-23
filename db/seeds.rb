@@ -4,7 +4,7 @@ roles.each { |r| Role.where(name: r).first_or_create }
 
 
 
-size_list = %w(S M L XL XXL XS Custom Size)
+size_list = %w(S M L XL XXL)
 
 size_list.each do |size|
   StandardSize.where(name: size).first_or_create
@@ -81,7 +81,7 @@ end
 
 # # Categories
 
-%w(Sarees Salwars Pants).each { |c| Category.where(name: c).first_or_create }
+%w(Sarees Salwars Pants Dresses Gown).each { |c| Category.where(name: c).first_or_create }
 
 fabrics_dir = Rails.root.join('seeds', 'fabrics')
 Dir.foreach(fabrics_dir) do |item|
