@@ -1,0 +1,17 @@
+h2 Welcome to Kaapad!
+
+p Your payment is done successfully.
+
+p
+  strong Your Order id:
+  span= @order.id
+p
+  strong Your Email:
+  span= @user.email
+p
+strong Your Total:
+span
+	= @order.currency
+	= ':'
+	= @order.total_paisas/100
+

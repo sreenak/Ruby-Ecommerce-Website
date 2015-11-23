@@ -101,6 +101,8 @@ class CheckoutController < ApplicationController
 
   def thank_you
     @order = Order.find(session[:order_id])
+    logger.info @order.inspect
+    @user = current_user.email
     details = EXPRESS_GATEWAY.details_for(params[:token])
     response = EXPRESS_GATEWAY.purchase(@cart.total.fractional, {
         ip: request.remote_ip,
@@ -117,8 +119,8 @@ class CheckoutController < ApplicationController
       @cart.order.status = 'Paid'
       @cart.order.save
       session.delete :order_id
-      # OrderMailer.order_confirmation(@order).deliver
-      # OrderMailer.admin_receipt(@order).deliver
+      OrderMailer.order_confirmation(@order).deliver_later
+     # OrderMailer.admin_receipt(@order).deliver
     else
       redirect_to :cart_checkout, alert: 'Something went wrong. Please try again. If the problem persists, please contact us.'
     end
@@ -143,6 +145,7 @@ class CheckoutController < ApplicationController
       @cart.order.total_paisas= @order.total_paisas
       @cart.order.invoice_id= @order.invoice_id
       @cart.order.save
+      OrderMailer.order_confirmation(@order).deliver_later
   end
 
   private

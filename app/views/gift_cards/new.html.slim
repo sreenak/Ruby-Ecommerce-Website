@@ -51,7 +51,7 @@
         .row
           .col-sm-4.col-xs-6
             /= p.input :type, as: :hidden, value: 'P-GIFT CERTIFICATE'
-            = p.input :amount, label: 'Amount',:input_html=>{value: '',:'data-validation' => 'required', class:'floatcheck',placeholder:'0',:'data-validation-error-msg' => 'Please Select Amount'}
+            = p.input :amount,label: 'Amount'+'('+@cart.currency+')',:input_html=>{value: '',:'data-validation' => 'required', class:'floatcheck',placeholder:'0',:'data-validation-error-msg' => 'Please Select Amount'}
             .dis
           /.col-sm-4.col-xs-6
           /  = p.input :currency, collection: GiftCard::CURRENCIES, label: 'Currency',:input_html=>{:'data-validation' => 'required',:'data-validation-error-msg' => 'Please Select Currency'}
