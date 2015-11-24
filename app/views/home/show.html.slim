@@ -113,7 +113,7 @@ h4.floral-text
   .col-md-5
     .pull-right.news-letter
       h4 NEWSLETTER
-      p Please Subscribe to our newsletter for more information
+      p Please Subscribe to our Newsletter for more information
       = form_tag('/mcsubscribe/subscribe', method: "post", id: "mcsubscribe", remote: "true") do
         = email_field(:email, :address, {id: "email", placeholder: "Email address"})
         br

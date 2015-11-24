@@ -1,0 +1,20 @@
+h2 Welcome to Kaapad!
+
+p Your E-Gift Card order is done successfully.
+
+p
+  strong Ordered By:
+  span= @gift.ordered_by
+p
+  strong Ordered For:
+  span=@gift.ordered_for
+  span= @gift.email
+p
+  strong Message:
+  span=@gift.message.capitalize
+p
+strong Total Paid:
+span
+	="#{@gift.amount_paisas/100} #{@gift.currency}"
+	
+

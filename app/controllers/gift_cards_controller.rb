@@ -14,6 +14,7 @@ class GiftCardsController < ApplicationController
   def create
     params[:quantity].to_i.times {
       @gift = EGiftCard.new e_gift_card_params
+      logger.info @gift.inspect
       @gift.currency = @cart.currency
       if @gift.save
         @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
@@ -26,6 +27,7 @@ class GiftCardsController < ApplicationController
       end
     }
     redirect_to cart_path, notice: 'Added Gift Vouchers to cart'
+    # EGiftCardMailer.recepient_email(@gift).deliver_later
   end
 
   def add

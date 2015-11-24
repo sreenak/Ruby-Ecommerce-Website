@@ -50,29 +50,6 @@ $(document).ready(function(){
  
 });
 
-
-
-// function subscribe_email() {
-//             var email = $("#mce-EMAIL").val();
-//             //alert(email);
-//             var form=$('#mc-embedded-subscribe-form');
-//             form.serialize(),
-//             $.ajax({
-//                 type: 'POST',
-//                 contentType: 'application/json; charset=utf-8',
-//                 url: $('#mc-embedded-subscribe-form').attr('action'),
-                
-
-//                 dataType: 'json',
-//                 data: form.serialize(),
-//                 error: function() {
-//                    alert('error');
-//                 },
-//                 success: function(result) {
-//                     alert('success');
-//                 }
-//             })
-//         }
 $(document).ready(function () {
     var ww = $(window).width()-25;
     var lefw = $(window).width()-65;
