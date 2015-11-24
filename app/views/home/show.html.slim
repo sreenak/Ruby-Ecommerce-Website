@@ -114,8 +114,8 @@ h4.floral-text
     .pull-right.news-letter
       h4 NEWSLETTER
       p Please Subscribe to our newsletter for more information
-      form#mc-embedded-subscribe-form.validate.has-validation-callback action="//langoor.us10.list-manage.com/subscribe/post?u=69b9be0741cb48e6377aa4119&amp;id=ebf8af59c2" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"
-        input#mce-EMAIL.required.email data-validation="email" data-validation-error-msg-container="#email-error-dialog" name="EMAIL" type="email" value=""
+      = form_tag('/mcsubscribe/subscribe', method: "post", id: "mcsubscribe", remote: "true") do
+        = email_field(:email, :address, {id: "email", placeholder: "Email address"})
         br
-        input.btn.btn-success type="submit" value=("Subscribe →")
-        p#email-error-dialog
+        = submit_tag("Subscribe")
+      #response 

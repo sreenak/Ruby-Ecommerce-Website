@@ -1,5 +1,7 @@
+
 Rails.application.routes.draw do
- 
+
+
 
   root to: 'home#show'
   get 'currencies/switch'
@@ -8,6 +10,8 @@ Rails.application.routes.draw do
       post 'add'
     end
   end
+  post 'mcsubscribe/subscribe' => 'mcsubscribe#subscribe'
+  
   post 'gift_cards/new', to: 'gift_cards#new'
 
   resource :account, only: [:show, :edit, :update] do
