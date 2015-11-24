@@ -236,7 +236,7 @@ html lang="en-us"
                   |&nbsp;
                 span.cart-contents
                   strong Cart:
-                  |&nbsp;#{@cart.line_items.count} Items - #{humanized_money_with_symbol @cart.total}
+                  |&nbsp;#{@cart.line_item_count.count} Items - #{humanized_money_with_symbol @cart.total}
                   /-if @cart.currency=="USD"
                   / = '$'+ (@cart.total.to_i).to_s
                   /-else @cart.currency=="INR"

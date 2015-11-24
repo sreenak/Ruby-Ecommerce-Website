@@ -3,6 +3,10 @@ class Cart
   attr_accessor :currency
 
   delegate :id, :line_items, :product_items, :discount_items, :gift_card_usage_items, :total, to: :order
+ 
+  def line_item_count
+    @line_item_count = line_items-discount_items
+  end
 
   def initialize(user_id = nil, order_id = nil, currency = 'INR')
     if user_id.present?

@@ -83,3 +83,6 @@ gem 'aftership', '~> 4.1.0'
 
 #testing
 gem 'factory_girl_rails'
+
+#mailchimp
+gem "mailchimp-api", "~> 2.0.4"

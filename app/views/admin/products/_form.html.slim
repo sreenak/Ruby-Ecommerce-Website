@@ -11,8 +11,7 @@
       = f.association :standard_sizes, as: :check_boxes, collection: StandardSize.where("standard_sizes.name != 'Custom Size'")
     .col-md-6
       = f.input :featured
-      = f.association :dress
-      = f.association :category
+      = f.association :category, collection:Category.where('name=? or name=? or name=?' ,'Salwars','Dresses','Gown')
       = f.association :colors, as: :check_boxes
       = f.input :material
   = f.input :description, as: :ckeditor, wrapper: :vertical_form

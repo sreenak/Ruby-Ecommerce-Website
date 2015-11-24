@@ -3,7 +3,7 @@
   .form-inputs.row
     .col-md-6
       = f.input :name
-      = f.association :category
+      = f.association :category,collection:Category.where('name=? or name=?','Salwars','Pants')
       = f.input :sku
       = f.input :base_price, wrapper: :horizontal_input_group, hint: 'Other currencies will be calculated automatically' do
         span.input-group-addon
