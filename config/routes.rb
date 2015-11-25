@@ -2,8 +2,8 @@
 Rails.application.routes.draw do
 
 
-
   root to: 'home#show'
+  
   get 'currencies/switch'
   resources :gift_cards, only: [:index, :new, :create] do
     collection do

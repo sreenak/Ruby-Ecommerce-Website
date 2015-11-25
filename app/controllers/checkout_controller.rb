@@ -75,11 +75,11 @@ class CheckoutController < ApplicationController
         @order.order_statuses.create(status_type: 1)
         item_details=[]
         @order.line_items.each do |item|
-          item_details << {:name => item.title, :quantity => item.quantity, :amount => item.amount.fractional}
+          item_details << {:name => item.title, :quantity => item.quantity, :amount => item.amount.exchange_to('USD').fractional}
 
         end
         logger.info item_details.inspect
-        response = EXPRESS_GATEWAY.setup_purchase(@cart.total.fractional,
+        response = EXPRESS_GATEWAY.setup_purchase(@cart.total.exchange_to('USD').fractional,
                                                   :ip => request.remote_ip,
                                                   :currency =>"USD",
                                                   :items => item_details,

@@ -17,7 +17,9 @@ class GiftCardsController < ApplicationController
       logger.info @gift.inspect
       @gift.currency = @cart.currency
       if @gift.save
-        @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
+         @cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
+        # item=@cart.add_item @gift, @gift.amount.exchange_to(@currency).to_f, 'Gift Voucher'
+        # item.update original_amount: item.original_amount.to_money(@currency).exchange_to('INR').fractional
         session[:order_id] = @cart.id
       else
         @p_gift = PGiftCard.new

@@ -101,7 +101,7 @@ padding: $line-height-computed/4 0;
 
 .follow-us i {
 font-size: $font-size-large;
-border: 2px solid $brand-primary;
+border: 2px solid #000;
 width: 40px;
 padding: 0 4px;
 display: inline-block;
@@ -110,6 +110,28 @@ margin: 0 $grid-gutter-width/4;
 &.first {
 margin-left: 0;
 }
+}
+/*
+i.first.icon.ion-social-facebook {
+    background: #3b5997;
+    color: #fff;
+}
+i.icon.ion-social-twitter {
+    color: #fff;
+    background: #2bbaf2;
+}
+.follow-us i{
+  width:34px;
+      margin: 0 3.5px;
+}
+i.icon.ion-social-googleplus {
+    background: #d03e2f;
+    color: #fff;
+}
+*/
+.thankyou-message{
+  text-align:right;
+  font-size:21px;
 }
 
 /*ul.navdrop li {
