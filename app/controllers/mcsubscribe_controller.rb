@@ -10,7 +10,7 @@ class McsubscribeController < ApplicationController
     if !email.blank?
        
       begin
-       
+       logger.info @mc.inspect
         @mc.lists.subscribe(@list_id, {'email' => email})
          
         respond_to do |format|  
