@@ -16,6 +16,8 @@
 !/log/.keep
 /tmp
 .idea
-.env
 public/uploads
 vendor/currency_rates.xml
+.env
+.env.*
+!.env.example
