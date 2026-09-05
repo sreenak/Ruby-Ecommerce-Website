@@ -1,10 +1,10 @@
-Kaapad
+HappiFashions
 ======
-Kaapad is a dress customisation and purchase e-commerce website built on ruby.
+HappiFashions is a dress customisation and purchase e-commerce website built on ruby.
 
 Setup:
 -----
-* Git clone: git clone ```git@bitbucket.org:prabhakarbhat/kaapad.git```
+* Git clone: git clone ``````
 * Copy ```env-example.txt``` file to ```.env```
 * Edit ```.env``` file to include your own values
 * Run ```bundle install```
